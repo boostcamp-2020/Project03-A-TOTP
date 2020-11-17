@@ -2,7 +2,7 @@
 name: "[FE] Title"
 about: FE 이슈 템플릿
 title: ''
-labels: ''
+labels: FE
 assignees: ''
 
 ---

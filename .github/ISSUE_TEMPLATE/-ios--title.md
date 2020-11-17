@@ -2,7 +2,7 @@
 name: "[iOS] Title"
 about: iOS 이슈 템플릿
 title: ''
-labels: ''
+labels: iOS
 assignees: ''
 
 ---
