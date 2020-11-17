@@ -4,9 +4,10 @@
 
 #----------------------------------
 # Type can be
-#   iOS : iOS
-#   FE : Frontend
-#   BE : Backend
+#   iOS    : iOS
+#   FE     : Frontend
+#   BE     : Backend
+#   Common : Common
 #----------------------------------
 # Prefix can be
 #   add      : new feature 기능 완성 X  
