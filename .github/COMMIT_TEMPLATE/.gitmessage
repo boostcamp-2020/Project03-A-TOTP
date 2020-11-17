@@ -1,0 +1,18 @@
+# [TYPE] prefix: title
+
+# 내용 
+
+#----------------------------------
+# Type can be
+#   iOS : iOS
+#   FE : Frontend
+#   BE : Backend
+#----------------------------------
+# Prefix can be
+#   add      : new feature 기능 완성 X  
+#   feat     : new feature 기능 완성 O
+#   fix      : bug fix
+#   refactor : refactoring production code
+#   chore    : updating grunt tasks etc. no production code change
+#   docs     : changes to documentation
+#   test     : test code
