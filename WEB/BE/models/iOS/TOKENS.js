@@ -3,7 +3,10 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class TOKENS extends Model {
     static associate(models) {
-      this.hasMany(models.users, { foreignKey: 'user_idx', sourceKey: 'idx' });
+      this.belongsTo(models.users, {
+        foreignKey: 'user_idx',
+        targetKey: 'idx',
+      });
     }
   }
   TOKENS.init(
