@@ -3,7 +3,10 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class AUTHS extends Model {
     static associate(models) {
-      this.hasOne(models.users, { foreignKey: 'user_idx', sourceKey: 'idx' });
+      this.belongsTo(models.users, {
+        foreignKey: 'user_idx',
+        targetKey: 'idx',
+      });
     }
   }
   AUTHS.init(
