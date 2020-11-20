@@ -8,6 +8,7 @@
   
 ![](https://img.shields.io/badge/Swift-v5.3.1-%23e67e22?logo=Swift) ![](https://img.shields.io/badge/XCode-v12.2-%231575F9?logo=XCode)<br>
 ![](https://img.shields.io/badge/Node.js-v14.15.01-%23339933?logo=node.js) ![](https://img.shields.io/badge/React-Vanila-%2361DAFB?logo=React) ![](https://img.shields.io/badge/JavaScript-ES6-%23F7DF1E?logo=JavaScript) ![](https://img.shields.io/badge/Webpack-Node-%238DD6F9?logo=Webpack) ![](https://img.shields.io/badge/Babel-v7.10.5-%23F9DC3E?logo=Babel) ![](https://img.shields.io/badge/ESLint-v7.10.10-%234B32C3?logo=ESLint) ![](https://img.shields.io/badge/Nodemon-v2.0.4-%2376D04B?logo=Nodemon) ![](https://img.shields.io/badge/Prettier-v2.1.2-%23F7B93E?logo=Prettier) ![](https://img.shields.io/badge/Mysql-Database-%234479A1?logo=mysql)
+![](https://img.shields.io/badge/Typescript-1.0.0-blue?logo=Typescript)
 
 </div>
   
