@@ -1,8 +1,8 @@
-# WEB TOTP 앱 서비스
+# WEB TOTP 서비스
 
 ## 소개
 
-- 앱 소개
+- 웹 소개
 
 - 구성원
     - [J008 강진구](https://github.com/xortm854)
@@ -19,10 +19,13 @@
 저희는 개발 과정을 매일 적기로 했습니다. 개발일지에는 개인 회고도 포함되어 있습니다.
 
 
-- [Day1](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-01-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web) 
--  [Day2](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)  
--  [Day3](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)  
--  [Day4](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)
+| 월 | 화 | 수 | 목 | 금 | 토 | 일 | 주차 |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| [1](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-01-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web) | [2](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)  | [3](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)  | [4](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)  | [5](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-05-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-Web)  | 6  | 7  | `1주차` |
+| 8  | 9  | 10 | 11 | 12 | 13 | 14 | `2주차` |
+| 15 | 16 | 17 | 18 | 19 | 20 | 21 | `3주차` |
+| 22 | 23 | 24 | 25 | 26 | 27 | 28 | `4주차` |
+| 29 | 30 | 31 | 32 | 33 | 34 | 35 | `5주차` |
 
 ## 요구 사항
 
@@ -62,6 +65,15 @@
 - 내 개인정보 수정 => 비밀번호만 물어보고 유효하면 진입
 ```
 
+## 목표
+지난 프로젝트에서 아쉬웠던 점을 공유하고 이번 프로젝트에서 도전해 볼 사항들에 대해 이야기해 보았다.
+
+### 지난 프로젝트에서 아쉬웠던 점
+- 협업의 기회를 많이 살리지 못했다.
+- 테스트 코드를 사용하지 못했다.
+- 설계면에서 놓치고 가는 부분이 있었다.
+- 배포 자동화를 진행하지 않아서 불편했다.
+### 이번 프로젝트에서 도전!
 
 ## 관련 문서 정리
 - ### [백로그](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Backlog)
