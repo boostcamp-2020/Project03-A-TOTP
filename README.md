@@ -58,6 +58,8 @@ TOTP를 이해하기에 앞서 먼저 2FA에 대해 이해할 필요가 있습�
 
 ### TOTP (Time-based One-Time Password)
 
+![totp image](https://user-images.githubusercontent.com/44443949/99748228-7c0adf80-2b1f-11eb-9104-955deb91d76b.png)
+
 TOTP는 현재 시간과 Secret Key 값을 사용하여 생성한 임시 비밀번호를 의미합니다. 사용자와 웹사이트는 똑같은 Secret Key 값을 가지고 있고, 사용자와 웹사이트는 일정 시간마다 현재 시간을 사용하여 새로운 임시 비밀번호를 생성합니다. 사용자는 이 비밀번호를 입력했을 때 인증에 성공하게 됩니다. 
 
 이 때 사용자는 Secret Key 값을 저장해 놓을 수단이 필요합니다. 과거에는 OTP용 기기를 사용했지만 요즘 같은 시대에는 그럴 필요가 없습니다. 스마트폰이 있기 때문입니다. TOTP 앱에서는 Secret Key 값을 보관해주고 일정 시간마다 이 값과 현재 시간으로 비밀번호를 생성해줍니다.
