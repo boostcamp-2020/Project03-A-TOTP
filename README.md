@@ -1,22 +1,29 @@
+<h1 align="center">TOTP가 뭐 조?</h1>
 
-# TOTP가 뭐 조
-### 안녕하세요👨‍👨‍👦 TOTP가 무척 궁금한 'TOTP가 뭐 조' 입니다. 
+<h3 align="center">안녕하세요👨‍👨‍👦 TOTP가 무척 궁금한 'TOTP가 뭐 조' 입니다.</h3>
 
----
+<br>
 
-<div align="center">  
+<p align="center">  
+  <img src="https://img.shields.io/badge/Swift-v5.3.1-%23e67e22?logo=Swift" />
+  <img src="https://img.shields.io/badge/XCode-v12.2-%231575F9?logo=XCode" />
+  <img src="https://img.shields.io/badge/Node.js-v14.15.01-%23339933?logo=node.js" /> 
+  <img src="https://img.shields.io/badge/React-Vanila-%2361DAFB?logo=React" />
+  <img src="https://img.shields.io/badge/JavaScript-ES6-%23F7DF1E?logo=JavaScript" /> 
+  <img src="https://img.shields.io/badge/Webpack-Node-%238DD6F9?logo=Webpack" /> 
+  <img src="https://img.shields.io/badge/Babel-v7.10.5-%23F9DC3E?logo=Babel" /> 
+  <img src="https://img.shields.io/badge/ESLint-v7.10.10-%234B32C3?logo=ESLint" />
+  <img src="https://img.shields.io/badge/Nodemon-v2.0.4-%2376D04B?logo=Nodemon" /> 
+  <img src="https://img.shields.io/badge/Prettier-v2.1.2-%23F7B93E?logo=Prettier" /> 
+  <img src="https://img.shields.io/badge/Mysql-Database-%234479A1?logo=mysql" />
+  <img src="https://img.shields.io/badge/Typescript-1.0.0-blue?logo=Typescript" />
+</p>
   
-![](https://img.shields.io/badge/Swift-v5.3.1-%23e67e22?logo=Swift) ![](https://img.shields.io/badge/XCode-v12.2-%231575F9?logo=XCode)<br>
-![](https://img.shields.io/badge/Node.js-v14.15.01-%23339933?logo=node.js) ![](https://img.shields.io/badge/React-Vanila-%2361DAFB?logo=React) ![](https://img.shields.io/badge/JavaScript-ES6-%23F7DF1E?logo=JavaScript) ![](https://img.shields.io/badge/Webpack-Node-%238DD6F9?logo=Webpack) ![](https://img.shields.io/badge/Babel-v7.10.5-%23F9DC3E?logo=Babel) ![](https://img.shields.io/badge/ESLint-v7.10.10-%234B32C3?logo=ESLint) ![](https://img.shields.io/badge/Nodemon-v2.0.4-%2376D04B?logo=Nodemon) ![](https://img.shields.io/badge/Prettier-v2.1.2-%23F7B93E?logo=Prettier) ![](https://img.shields.io/badge/Mysql-Database-%234479A1?logo=mysql)
-![](https://img.shields.io/badge/Typescript-1.0.0-blue?logo=Typescript)
-
-</div>
-  
----
+<br>
 
 ## 바로가기
-저희 팀에 대해 알고싶으시다면 👉  [[ Home ]](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki)<br>
-저희 개발 과정이 궁금하시다면 👉  [[ Web 저장소 ]](https://github.com/boostcamp-2020/Project03-A-TOTP/tree/master/WEB), [[ iOS 저장소 ]](https://github.com/boostcamp-2020/Project03-A-TOTP/tree/master/iOS)
+저희 팀에 대해 알고싶으시다면? 👉  [[ Home ]](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki)<br>
+저희 개발 과정이 궁금하시다면? 👉  [[ Web 저장소 ]](https://github.com/boostcamp-2020/Project03-A-TOTP/tree/master/WEB), [[ iOS 저장소 ]](https://github.com/boostcamp-2020/Project03-A-TOTP/tree/master/iOS)
 
 <br>
 
