@@ -1,6 +1,5 @@
 # iOS TOTP 앱 서비스
 
-
 ## 소개
 
 - 앱 소개
@@ -22,3 +21,31 @@
 - [Day 02](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
 - [Day 03](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
 - [Day 04](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
+
+
+## 요구 사항
+
+- swift UI사용 IOS 14이상 프로젝트 세팅
+- 앱 기동시 face id, touch id등 바이오 인증 없을 경우 pincode입력
+- app인증은 http basic
+[RFC 7617 - The 'Basic' HTTP Authentication Scheme](https://tools.ietf.org/html/rfc7617)
+- AVFoundation -> qr code read
+- totp 정보의 서버 백업 가능하도록 필요 api 설계
+- totp 정보는 서버 또는 기타 어떠한 상황에서도 풀리지 않게 설계되어야 함
+- 앱의 상태 보존 및 처리는 아래 내용에 기반하여 작성
+[Apple Developer Documentation](https://developer.apple.com/documentation/swiftui/state-and-data-flow)
+
+## 목표
+지난 프로젝트에서 아쉬웠던 점을 공유하고 이번 프로젝트에서 도전해 볼 사항들에 대해 이야기해 보았다.
+
+### 지난 프로젝트에서 아쉬웠던 점
+- 백엔드와의 협업 아쉬웠다.
+- 리팩토링할 시간 부족했다.
+- 테스트 코드를 거의 작성하지 못했다.
+### 이번 프로젝트에서 도전!
+- Alamofire 없이 URLSession으로 네트워크 계층 설계(선택)
+- 유스 케이스를 바탕으로 테스트 케이스를 꼼꼼하게 작성하여 TDD 적용
+- Web 팀원들과 함께 작성하여 협력 관계 향상 도모
+- CI 적용 - 자동 빌드
+- 꼼꼼한 문서화
+
