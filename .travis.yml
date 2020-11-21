@@ -8,7 +8,7 @@ node_js:
 addons:
   ssh_known_hosts:
     - 115.85.182.98 # FE
-    - 101.101.167.165 # BE
+    - 101.101.167.165:5502 # BE
 
 jobs:
   include:
