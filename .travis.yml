@@ -19,9 +19,10 @@ jobs:
         - npm install
       script: npm run test
       before_deploy:
+        - cd ../
         # openssl 라이브러리를 사용해서 암호화된 rsa key를 복호화합니다
         - openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
-          -in ../../deploy_rsa.enc -out deploy_rsa -d
+          -in ../deploy_rsa.enc -out deploy_rsa -d
         # ssh-agent를 실행합니다
         - eval "$(ssh-agent -s)"
         # rsa key의 권한을 조절합니다
@@ -33,7 +34,9 @@ jobs:
       deploy:
         - provider: script
           skip_cleanup: true
-          script: 'echo "BE rsync SCRIPT"'
+          script:
+            - rsync -r --delete-after --quiet -e 'ssh -p 5502' ./BE/ j008@101.101.167.165:~/
+            - ls
           on:
             branch: release-BE
 
