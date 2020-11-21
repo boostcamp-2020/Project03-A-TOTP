@@ -1,0 +1,74 @@
+language: node_js
+
+os: linux
+
+node_js:
+  - lts/*
+
+addons:
+  ssh_known_hosts:
+    - 115.85.182.98 # FE
+    - 101.101.167.165 # BE
+
+jobs:
+  include:
+    # BE
+    - if: branch =~ /.*BE$/
+      before_script:
+        - cd ./WEB/BE
+        - npm install
+      script: npm run test
+      before_deploy:
+        # openssl 라이브러리를 사용해서 암호화된 rsa key를 복호화합니다
+        - openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
+          -in ../../deploy_rsa.enc -out deploy_rsa -d
+        # ssh-agent를 실행합니다
+        - eval "$(ssh-agent -s)"
+        # rsa key의 권한을 조절합니다
+        - chmod 600 ./deploy_rsa
+        # ssh-agent에 rsa key를 등록합니다
+        - ssh-add ./deploy_rsa
+        # ssh 연결을 하고 pwd 명령을 실행해봅니다
+        - ssh -i ./deploy_rsa j008@101.101.167.165 -p 5502 pwd
+      deploy:
+        - provider: script
+          skip_cleanup: true
+          script: 'echo "BE rsync SCRIPT"'
+          on:
+            branch: release-BE
+
+    # FE
+    - if: branch =~ /.*FE$/
+      before_script:
+        - cd ./WEB/FE
+        - npm install
+        - npm run build
+      script: npm run test
+      before_deploy:
+        # openssl 라이브러리를 사용해서 암호화된 rsa key를 복호화합니다
+        - openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
+          -in ../../deploy_rsa.enc -out deploy_rsa -d
+        # ssh-agent를 실행합니다
+        - eval "$(ssh-agent -s)"
+        # rsa key의 권한을 조절합니다
+        - chmod 600 ./deploy_rsa
+        # ssh-agent에 rsa key를 등록합니다
+        - ssh-add ./deploy_rsa
+        # ssh 연결을 하고 pwd 명령을 실행해봅니다
+        - ssh -i ./deploy_rsa boostcamp@115.85.182.98 pwd
+      deploy:
+        - provider: script
+          skip_cleanup: true
+          script: rsync -r --delete-after --quiet ./dist boostcamp@115.85.182.98:~/
+          on:
+            branch: release-FE
+
+    # iOS
+    - if: branch =~ /.*iOS$/
+      language: objective-c
+      os: osx
+      osx_image: xcode6.4
+      xcode_project: MovingHelper.xcodeproj
+      xcode_scheme: MovingHelper
+      xcode_sdk: iphonesimulator8.4
+      script: 'iOS TEST SCRIPT'
