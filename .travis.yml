@@ -79,3 +79,8 @@ jobs:
 notifications:
   slack:
     secure: 3p/2FMEZoP5ZeUNpSLu59h3fF9wxPe+a0kcFb1sskXC+xbJc0pAl2u95kN4hWRAqCZi659/KmDlUV3iYNw1GrT9G2hLhH4Mc9mO5RJTyHB2YxlSpKyy+9OL4DtU2uN7zMtkgdofurTy+Jd4bdGXOWIRq7yywDJlq5Jh1ft5NrjeNmbcepalWmTzAOBGYQnlArI6ORACYOkdl/onZwMQJWj68IYGfpAkmNM3Rjat35I2fE31+msiFyEhGWeJTwwaSyuM7ncRaM9L2gsF5LJc4BFWcaXRBPt+eX3THAbWwKs017Ztacy4hPQ+krQxyQqsNjD6IugDKJLhztz1UvR4EVm0nTM3z4pcwRvzjW2WIBCRFcQB8XPTRMQvRJ5jj1+TMEOprwBiSy30iuC8R9l9zMI3WNEnKA63tHWzoFHiyrbVQiZmau2WTvToLZBi+i3p1Yi4e70QSFRquN0EbeNv692UFjDETmiVuGidEigsk0olyYNlvoULBecTxYFROnEOQK3oeqXdzWcDPYHJwaoMSZk8O0XoaqhqZhoFEGUmsLP3g5vnR33ALKiNs6VJ9Q8Mtu3QyrcqaG6Ge49//ldaijTllx3bJa6I+bcS8bgVjvErwk0lRp9uIW4g7s03euiq5bYaBmE0SAE+5fgnkJuT1u9MBmsjYa/aKw4IZIUbqyoQ=
+  template:
+    - '%{repository_slug} (%{commit}) : %{message}'
+    - 'Build details: %{build_url}'
+  on_success: change
+  on_failure: always
