@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-const App = (): JSX.Element => {
+interface AppProps {}
+
+const App: React.FC<AppProps> = () => {
   return (
     <BrowserRouter>
       <Switch>
