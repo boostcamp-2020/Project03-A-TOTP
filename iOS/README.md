@@ -17,15 +17,14 @@
 
 저희는 개발 과정을 매일 적기로 했습니다. 개발일지에는 개인 회고도 포함되어 있습니다.
 
-- [Day 01](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-01-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80---iOS)
-- [Day 02](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
-- [Day 03](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
-- [Day 04](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
+||월|화|수|목|
+|---|---|---|---|---|
+|Week1|[Day 01](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-01-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80---iOS)|[Day 02](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 03](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 04](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|
+|Week2|[Day 08](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-08-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 09](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-09-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 10](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-10-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 11](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-11-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|
+|Week3|||||
+|Week4|||||
+|Week5|||||
 
-- [Day 08](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-08-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
-- [Day 09](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-09-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
-- [Day 10](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-10-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
-- [Day 11](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-11-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)
 
 
 ## 요구 사항
