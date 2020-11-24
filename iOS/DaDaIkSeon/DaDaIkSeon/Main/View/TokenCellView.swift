@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import CryptoKit
+
 
 struct TokenCellView: View {
+    
+    @Binding var token: TOTPToken
+    
     var body: some View {
         VStack {
             HStack {
@@ -25,9 +30,10 @@ struct TokenCellView: View {
             }
             .padding(.horizontal, 12)
             HStack {
-                Text("123 456")
+                // makePassword(key: token.key ?? "") ?? ""
+                Text(token.key ?? "")
                     .font(.system(size: 18))
-                Spacer()
+                Spacer()                
             }
             .padding(.horizontal, 12)
             Spacer()
@@ -35,10 +41,15 @@ struct TokenCellView: View {
         .background(Color.green)
         .cornerRadius(15)
     }
+    
+    
 }
 
-struct TokenCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        TokenCellView()
-    }
-}
+// struct TokenCellView_Previews: PreviewProvider {
+//
+//    static var token = TOTPToken(key: "6UAOpz+x3dsNrQ==")
+//
+//     static var previews: some View {
+//        TokenCellView(token: token)
+//     }
+// }
