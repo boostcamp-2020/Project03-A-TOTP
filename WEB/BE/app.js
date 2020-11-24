@@ -10,7 +10,7 @@ const debug = require('debug')('server:server');
 const http = require('http');
 const port = normalizePort(process.env.PORT || '3000');
 
-const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 const app = express();
 app.set('port', port);
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'html');
 
-app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
