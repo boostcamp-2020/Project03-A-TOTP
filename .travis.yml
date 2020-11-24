@@ -35,7 +35,7 @@ jobs:
         - provider: script
           skip_cleanup: true
           script:
-            - rsync -r --delete-after --quiet -e 'ssh -p 5502' ./BE/ j008@101.101.167.165:~/
+            - rsync -r --delete-after --quiet -e 'ssh -p 5502' ./BE/ j008@101.101.167.165:~/TOTP/
             - ssh -i ./deploy_rsa j008@101.101.167.165 -p 5502 pm2 restart app
           on:
             branch: release-BE
