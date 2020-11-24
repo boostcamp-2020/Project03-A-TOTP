@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'logs',
       timestamps: false,
-    }
+    },
   );
   return LOGS;
 };
