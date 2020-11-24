@@ -1,0 +1,19 @@
+disabled_rules:
+- leading_whitespace
+- trailing_whitespace
+
+opt_in_rules:
+
+included:
+
+line_length:
+  warning: 100
+  ignores_comments: true
+  ignores_urls: true
+  
+identifier_name:
+  excluded:
+    - id
+
+excluded:
+- Pods
