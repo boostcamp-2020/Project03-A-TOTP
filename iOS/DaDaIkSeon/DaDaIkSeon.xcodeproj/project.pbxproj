@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
-		7C661933256CCAED0028E7C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* ContentView.swift */; };
+		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
 		7C661938256CCAF10028E7C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */; };
 		7C661943256CCAF20028E7C6 /* DaDaIkSeonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661942256CCAF20028E7C6 /* DaDaIkSeonTests.swift */; };
@@ -42,7 +42,7 @@
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
-		7C661932256CCAED0028E7C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7C661934256CCAF10028E7C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7C661939256CCAF10028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,10 +115,8 @@
 		7C66192F256CCAED0028E7C6 /* DaDaIkSeon */ = {
 			isa = PBXGroup;
 			children = (
-				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
-				7C661932256CCAED0028E7C6 /* ContentView.swift */,
-				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
-				7C661939256CCAF10028E7C6 /* Info.plist */,
+				88937013256CFB3A00337E2C /* Main */,
+				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
 			path = DaDaIkSeon;
@@ -148,6 +146,24 @@
 				7C66194F256CCAF20028E7C6 /* Info.plist */,
 			);
 			path = DaDaIkSeonUITests;
+			sourceTree = "<group>";
+		};
+		88937013256CFB3A00337E2C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				7C661932256CCAED0028E7C6 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		88937017256CFB6500337E2C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
+				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
+				7C661939256CCAF10028E7C6 /* Info.plist */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		918DA9EA5A293782B2E04F6F /* Pods */ = {
@@ -393,7 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C661933256CCAED0028E7C6 /* ContentView.swift in Sources */,
+				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,7 +572,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DaDaIkSeon/Info.plist;
+				INFOPLIST_FILE = DaDaIkSeon/Common/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -579,7 +595,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DaDaIkSeon/Info.plist;
+				INFOPLIST_FILE = DaDaIkSeon/Common/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
