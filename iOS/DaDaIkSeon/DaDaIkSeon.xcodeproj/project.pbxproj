@@ -17,6 +17,7 @@
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
 		882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44AA256D0B9B001901F9 /* MainCellView.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
+		88C9D12A256D4347004956EB /* TOTPToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* TOTPToken.swift */; };
 		8B3BF03307497E82800CB6D1 /* Pods_DaDaIkSeonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */; };
 		8FB143B0B01FA7993CFEAC9C /* Pods_DaDaIkSeon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		882D44AA256D0B9B001901F9 /* MainCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellView.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
+		88C9D129256D4347004956EB /* TOTPToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPToken.swift; sourceTree = "<group>"; };
 		90688457817CB7719705FC9F /* Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7BCEA6C2EC7E8E6CF1AF83B /* Pods-DaDaIkSeon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		882D44A9256D0B7D001901F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88C9D129256D4347004956EB /* TOTPToken.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
+				88C9D12A256D4347004956EB /* TOTPToken.swift in Sources */,
 				882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
