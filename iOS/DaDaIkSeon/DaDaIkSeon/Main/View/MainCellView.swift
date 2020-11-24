@@ -40,19 +40,15 @@ struct MainCellView: View {
             VStack(spacing: 10) {
                 Spacer()
                     .frame(height: 30)
-                
                 Text("Token의 이름\n 2줄까지 가능합니다.")
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .frame(
                         width: 150,
                         alignment: .center)
-                    
                 Text("333 444")
-                
                 Text("15")
                     .padding(.top)
-                
                 Spacer()
                     .frame(height: 30)
             }

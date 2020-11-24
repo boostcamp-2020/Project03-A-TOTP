@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainView: View {
     
+    @State var tokens = TOTPToken.dummy()
+    
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -17,17 +19,15 @@ struct MainView: View {
     var body: some View {
         VStack(spacing: 12) {
             MainCellView()
-            LazyVGrid(columns: columns,
-                      spacing: 12) {
-                TokenCellView()
-                TokenCellView()
-                TokenCellView()
-                TokenCellView()
-                TokenCellView()
+            ScrollView {
+                LazyVGrid(columns: columns,
+                          spacing: 12) {
+                    ForEach(tokens.indices) { index in
+                        TokenCellView(token: $tokens[index])
+                    }
+                }
             }
-            Spacer()
         }
-        .padding(16)
     }
 }
 
