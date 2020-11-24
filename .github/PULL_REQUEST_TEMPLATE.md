@@ -1,9 +1,9 @@
 ---
-name: FE PR
-about: FE PR 템플릿
-title: '[FE] '
-labels: FE
-assignees: ''
+name: iOS PR
+about: iOS PR 템플릿
+title: '[iOS] '
+labels: iOS
+assignees: 'jjm159, eojine'
 ---
 
 ## :white_check_mark: 작업 내용
@@ -20,3 +20,4 @@ assignees: ''
 ## :lock: 관련 이슈(닫을 이슈)
 
 - close #issueNumber
+

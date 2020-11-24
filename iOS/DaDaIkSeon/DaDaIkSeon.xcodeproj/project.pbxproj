@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
-		7C661933256CCAED0028E7C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* ContentView.swift */; };
+		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
 		7C661938256CCAF10028E7C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */; };
 		7C661943256CCAF20028E7C6 /* DaDaIkSeonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661942256CCAF20028E7C6 /* DaDaIkSeonTests.swift */; };
 		7C66194E256CCAF20028E7C6 /* DaDaIkSeonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */; };
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
+		882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44AA256D0B9B001901F9 /* MainCellView.swift */; };
+		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
 		8B3BF03307497E82800CB6D1 /* Pods_DaDaIkSeonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */; };
 		8FB143B0B01FA7993CFEAC9C /* Pods_DaDaIkSeon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */; };
 /* End PBXBuildFile section */
@@ -42,7 +44,7 @@
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
-		7C661932256CCAED0028E7C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7C661934256CCAF10028E7C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7C661939256CCAF10028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +55,8 @@
 		7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonUITests.swift; sourceTree = "<group>"; };
 		7C66194F256CCAF20028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		882D44AA256D0B9B001901F9 /* MainCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellView.swift; sourceTree = "<group>"; };
+		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
 		90688457817CB7719705FC9F /* Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7BCEA6C2EC7E8E6CF1AF83B /* Pods-DaDaIkSeon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,10 +119,8 @@
 		7C66192F256CCAED0028E7C6 /* DaDaIkSeon */ = {
 			isa = PBXGroup;
 			children = (
-				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
-				7C661932256CCAED0028E7C6 /* ContentView.swift */,
-				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
-				7C661939256CCAF10028E7C6 /* Info.plist */,
+				88937013256CFB3A00337E2C /* Main */,
+				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
 			path = DaDaIkSeon;
@@ -148,6 +150,50 @@
 				7C66194F256CCAF20028E7C6 /* Info.plist */,
 			);
 			path = DaDaIkSeonUITests;
+			sourceTree = "<group>";
+		};
+		882D44A7256D0B72001901F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C661932256CCAED0028E7C6 /* MainView.swift */,
+				882D44AA256D0B9B001901F9 /* MainCellView.swift */,
+				882D44B2256D0BB6001901F9 /* TokenCellView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		882D44A8256D0B78001901F9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		882D44A9256D0B7D001901F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		88937013256CFB3A00337E2C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				882D44A9256D0B7D001901F9 /* Model */,
+				882D44A8256D0B78001901F9 /* ViewModel */,
+				882D44A7256D0B72001901F9 /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		88937017256CFB6500337E2C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
+				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
+				7C661939256CCAF10028E7C6 /* Info.plist */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		918DA9EA5A293782B2E04F6F /* Pods */ = {
@@ -393,7 +439,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C661933256CCAED0028E7C6 /* ContentView.swift in Sources */,
+				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
+				882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */,
+				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,7 +604,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DaDaIkSeon/Info.plist;
+				INFOPLIST_FILE = DaDaIkSeon/Common/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -579,7 +627,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = DaDaIkSeon/Info.plist;
+				INFOPLIST_FILE = DaDaIkSeon/Common/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
