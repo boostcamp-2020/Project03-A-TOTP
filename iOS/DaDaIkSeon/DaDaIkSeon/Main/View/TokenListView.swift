@@ -21,6 +21,7 @@ struct TokenListView: View {
             ForEach(tokens.indices) { index in
                 TokenCellView(token: $tokens[index])
             }
+            TokenAddCellView()
         }
     }
 }
