@@ -36,8 +36,8 @@ userController.signUp = async (req, res, next) => {
 };
 
 userController.check = async (req, res, next) => {
-  let { id, email } = req.body;
-  id = id ? encrypWithAES256({ Text: id }) : undefined;
+  let { email } = req.body;
+  const { id } = req.body;
   email = email ? encrypWithAES256({ Text: email }) : undefined;
   try {
     const result = id ? await authService.check({ id, next }) : await userService.check({ email, next });
