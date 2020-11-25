@@ -35,12 +35,10 @@ userController.signUp = async (req, res, next) => {
   }
 };
 
-userController.check = async (req, res, next) => {
-  let { email } = req.body;
-  const { id } = req.body;
-  email = email ? encrypWithAES256({ Text: email }) : undefined;
+userController.dupEmail = async (req, res, next) => {
+  const email = encrypWithAES256({ Text: req.body.email });
   try {
-    const result = id ? await authService.check({ id, next }) : await userService.check({ email, next });
+    const result = await userService.check({ email, next });
     res.json({ result });
   } catch (e) {
     next(e);
