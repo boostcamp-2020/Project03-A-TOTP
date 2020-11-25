@@ -10,7 +10,6 @@ import SwiftUI
 struct MainCellView: View {
     var body: some View {
         ZStack {
-            
             // 1
             VStack {
                 HStack {
@@ -40,7 +39,8 @@ struct MainCellView: View {
             VStack(spacing: 10) {
                 Spacer()
                     .frame(height: 30)
-                Text("Token의 이름\n 2줄까지 가능합니다.")
+                Text("토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄")
+                    .font(.system(size: 14))
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .frame(
