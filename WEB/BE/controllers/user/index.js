@@ -2,52 +2,52 @@ const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 const authService = require('@services/auth');
 const userService = require('@services/user');
-const { encrypWithAES256 } = require('@utils/crypto');
+const { encryptWithAES256 } = require('@utils/crypto');
 const { encryptedPassword } = require('@utils/bcrypt');
 
-function userController() {}
+const userController = {
+  async signUp(req, res, next) {
+    let userInfo = {
+      email: req.body.email,
+      name: req.body.name,
+      birth: req.body.birth,
+      phone: req.body.phone,
+    };
+    const { id, password } = req.body;
+    try {
+      userInfo = encrypUserInfo({ userInfo });
+      const secretKey = makeSecretKey();
+      const qrcode = await makeQRCode({ secretKey });
+      const encryptPassword = await encryptedPassword(password);
+      const insertResult = await userService.insert({ userInfo, next });
+      const result = await authService.insert({
+        idx: insertResult.dataValues.idx,
+        id,
+        password: encryptPassword,
+        state: '0',
+        secretKey: secretKey.base32,
+        next,
+      });
+      res.json({ result, qrcode });
+    } catch (e) {
+      next(e);
+    }
+  },
 
-userController.signUp = async (req, res, next) => {
-  let userInfo = {
-    email: req.body.email,
-    name: req.body.name,
-    birth: req.body.birth,
-    phone: req.body.phone,
-  };
-  const { id, password } = req.body;
-  try {
-    userInfo = encrypUserInfo({ userInfo });
-    const secretKey = makeSecretKey();
-    const qrcode = await makeQRCode({ secretKey });
-    const encryptPassword = await encryptedPassword(password);
-    const insertResult = await userService.insert({ userInfo, next });
-    const result = await authService.insert({
-      idx: insertResult.dataValues.idx,
-      id,
-      password: encryptPassword,
-      state: '0',
-      secretKey: secretKey.base32,
-      next,
-    });
-    res.json({ result, qrcode });
-  } catch (e) {
-    next(e);
-  }
-};
-
-userController.dupEmail = async (req, res, next) => {
-  const email = encrypWithAES256({ Text: req.body.email });
-  try {
-    const result = await userService.check({ email, next });
-    res.json({ result });
-  } catch (e) {
-    next(e);
-  }
+  async dupEmail(req, res, next) {
+    const email = encryptWithAES256({ Text: req.body.email });
+    try {
+      const result = await userService.check({ email, next });
+      res.json({ result });
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 const encrypUserInfo = ({ userInfo }) => {
   Object.keys(userInfo).forEach((key) => {
-    userInfo[key] = encrypWithAES256({ Text: userInfo[key] });
+    userInfo[key] = encryptWithAES256({ Text: userInfo[key] });
   });
   return userInfo;
 };
