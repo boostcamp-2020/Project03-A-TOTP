@@ -10,35 +10,85 @@ import CryptoKit
 
 struct TokenCellView: View {
     
+    // MARK: ViewModel
+    
     @Binding var token: TokenViewModel
+    
+    // MARK: Body
     
     var body: some View {
         VStack {
             HStack {
-                Image(systemName: "circle")
+                Image(systemName: "heart.circle")
+                    .foregroundColor(.white)
+                    .frame(width: 20, height: 20, alignment: .top)
+                
                 Spacer()
-                Image(systemName: "circle")
+                
+                Button(action: {
+                    // 큰 셀로 Data보내는 Action 추가하는 곳.
+                }, label: {
+                    Image(systemName: "ellipsis.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20, alignment: .top)
+                        .foregroundColor(.white)
+                })
             }
             .padding(.horizontal, 12)
             .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
+            
             Spacer()
+            
             HStack {
                 Text(token.tokenName)
-                    .font(.system(size: 14))
+                    .font(.system(size: 11))
+                    .foregroundColor(.white)
                     .lineLimit(2)
                 Spacer()
             }
             .padding(.horizontal, 12)
+            
             HStack {
                 Text(token.key)
                     .font(.system(size: 18))
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
                 Spacer()                
             }
-            .padding(.horizontal, 12)
-            
+            .padding([.horizontal, .bottom], 12)
+        }
+        .background(LinearGradient.salmon)
+        .cornerRadius(15)
+        .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
+    }
+}
+
+// MARK: TokenAddCellView
+
+struct TokenAddCellView: View {
+    
+    // MARK: Body
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Image(systemName: "plus.circle")
+                    .resizable()
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .foregroundColor(Color(.systemGray2))
+                
+                Spacer()
+            }
             Spacer()
         }
-        .background(Color.green)
-        .cornerRadius(15)
+        .padding(.horizontal, 12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5.0]))
+                .foregroundColor(Color(.systemGray2))
+        )
     }
+    
 }
