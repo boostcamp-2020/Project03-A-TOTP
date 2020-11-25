@@ -23,7 +23,17 @@ struct TokenListView: View {
             }
             TokenAddCellView()
                 .frame(minHeight: 100)
-                .padding(.bottom)
         }
+        .padding([.leading, .trailing, .bottom], 12)
+        .padding(.top, 6)
+    }
+}
+
+struct TokenListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let tokens = [
+            TokenViewModel.init(token: Token(id: UUID(), key: "333 333", tokenName: "token1", color: nil, icon: nil))]
+        
+        TokenListView(tokens: .constant(tokens))
     }
 }
