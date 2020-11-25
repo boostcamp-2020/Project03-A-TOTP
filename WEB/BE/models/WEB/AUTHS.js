@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       secret_key: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       state: {
         type: DataTypes.STRING,

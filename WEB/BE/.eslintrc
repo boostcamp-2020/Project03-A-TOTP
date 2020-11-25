@@ -3,9 +3,9 @@
     "prettier",
     "airbnb-base",
     "eslint:recommended",
-    "plugin:prettier/recommended"
   ],
   "parser": "babel-eslint",
+  "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 7,
     "sourceType": "script",
@@ -14,9 +14,7 @@
     "browser": true,
     "node": true 
   },
-  "ignorePatterns": [
-    "node_modules/"
-  ],
+  "ignorePatterns": ["node_modules/"],
 
   "rules": {
     "linebreak-style": 0,
@@ -34,6 +32,18 @@
       {
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "implicit-arrow-linebreak": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "warn",
+    "consistent-return": "off",
+    "no-alert": "off",
+    "no-return-assign": "off",
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off",
+    "no-shadow": "off",
+    "no-continue": "off",
+    "no-plusplus": "off",
+    "no-new": "off"
   }
 }
