@@ -1,7 +1,7 @@
 const Crypto = require('crypto');
 const secretKey = process.env.ENCRYPTIONKEY;
 
-const encrypWithAES256 = ({ Text }) => {
+const encryptWithAES256 = ({ Text }) => {
   const secretKeyToArray = Buffer.from(secretKey.slice(0, 32), 'utf8');
   const parameter = Buffer.from(secretKey.slice(0, 16));
   const cipher = Crypto.createCipheriv('aes-256-cbc', secretKeyToArray, parameter);
@@ -10,7 +10,7 @@ const encrypWithAES256 = ({ Text }) => {
   return encryptedValue;
 };
 
-const decrypWithAES256 = ({ encryptedText }) => {
+const decryptWithAES256 = ({ encryptedText }) => {
   const secretKeyToArray = Buffer.from(secretKey.slice(0, 32), 'utf8');
   const parameter = Buffer.from(secretKey.slice(0, 16));
   const cipher = Crypto.createDecipheriv('aes-256-cbc', secretKeyToArray, parameter);
@@ -19,4 +19,4 @@ const decrypWithAES256 = ({ encryptedText }) => {
   return decryptedValue;
 };
 
-module.exports = { encrypWithAES256, decrypWithAES256 };
+module.exports = { encryptWithAES256, decryptWithAES256 };
