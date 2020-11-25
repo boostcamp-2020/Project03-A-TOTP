@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct MainCellView: View {
+    
+    var mainCellVM: MainCellViewModel = MainCellViewModel()
+    
+    @State var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
+    @State var timeString = "15"
+    @State var timeAmount = 0.0
+    @State var password = "333 444"
+    
     var body: some View {
         ZStack {
             // 1
@@ -39,15 +47,15 @@ struct MainCellView: View {
             VStack(spacing: 10) {
                 Spacer()
                     .frame(height: 30)
-                Text("토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄")
+                Text(tokenName)
                     .font(.system(size: 14))
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .frame(
                         width: 150,
                         alignment: .center)
-                Text("333 444")
-                Text("15")
+                Text(password)
+                Text(timeString)
                     .padding(.top)
                 Spacer()
                     .frame(height: 30)
@@ -58,7 +66,19 @@ struct MainCellView: View {
 }
 
 struct MainCellView_Previews: PreviewProvider {
+    
     static var previews: some View {
+        //PreviewWrapper()
         MainCellView()
     }
+    
+//    struct PreviewWrapper: View {
+//
+//        @State var viewModel = MainCellViewModel()
+//
+//        var body: some View {
+//            MainCellView(mainCellVM: $vm)
+//        }
+//    }
+    
 }
