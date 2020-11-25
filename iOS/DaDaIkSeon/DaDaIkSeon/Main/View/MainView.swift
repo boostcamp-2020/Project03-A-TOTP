@@ -8,26 +8,19 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject private var viewModel = TokenListViewModel()
     
-    @State var tokens = TOTPToken.dummy()
-    
-    private var columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
-    ]
+    init() {
+        viewModel.fetchTokens()
+    }
     
     var body: some View {
         VStack(spacing: 12) {
             MainCellView()
             ScrollView {
-                LazyVGrid(columns: columns,
-                          spacing: 12) {
-                    ForEach(tokens.indices) { index in
-                        TokenCellView(token: $tokens[index])
-                    }
-                }
+                TokenListView(tokens: $viewModel.tokens)
             }
-        }
+        }.padding([.top, .leading, .trailing])
     }
 }
 
