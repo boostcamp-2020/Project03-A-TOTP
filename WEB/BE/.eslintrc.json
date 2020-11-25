@@ -15,7 +15,14 @@
   "ignorePatterns": ["node_modules/"],
 
   "rules": {
-    "no-console": "error",
+    "linebreak-style": 0,
+    "import/no-dynamic-require": 0,
+    "import/no-unresolved": 0,
+    "global-require": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+    "no-use-before-define": 0,
+    "no-console": 0,
     "camelcase": "error",
     "prettier/prettier": [
       "error",
