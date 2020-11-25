@@ -93,7 +93,9 @@ class MainCellViewModel: ObservableObject {
         let digits = 6
         
         // 키 값
-        let secret = Data(base64Encoded: key)!
+        guard let secret = Data(base64Encoded: key) else {
+            return "000000"
+        }
         
         // 현재 시간
         var counter = UInt64(Date().timeIntervalSince1970 / period).bigEndian
@@ -106,7 +108,8 @@ class MainCellViewModel: ObservableObject {
         // 추출
         var truncatedHash = hash.withUnsafeBytes { ptr -> UInt32 in
             let offset = ptr[hash.byteCount - 1] & 0x0f
-            let truncatedHashPtr = ptr.baseAddress! + Int(offset)
+            guard let baseAddress = ptr.baseAddress else { return 0 }
+            let truncatedHashPtr = baseAddress + Int(offset)
             return truncatedHashPtr.bindMemory(to: UInt32.self, capacity: 1).pointee
         }
         

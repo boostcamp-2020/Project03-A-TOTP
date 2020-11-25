@@ -17,6 +17,7 @@ struct MainCellView: View {
     
     // MARK: Body
     var body: some View {
+        
         ZStack {
             // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
@@ -28,7 +29,7 @@ struct MainCellView: View {
                     }, label: {
                         Image(systemName: "ellipsis.circle.fill")
                             .resizable()
-                            .frame(width:20, height: 20)
+                            .frame(width: 20, height: 20)
                             .foregroundColor(.white)
                     })
                 }
