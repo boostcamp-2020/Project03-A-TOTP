@@ -9,7 +9,12 @@ import SwiftUI
 import CryptoKit
 
 struct TokenCellView: View {
+    
+    // MARK: ViewModel
+    
     @Binding var token: TokenViewModel
+    
+    // MARK: Body
     
     var body: some View {
         VStack {
@@ -58,7 +63,12 @@ struct TokenCellView: View {
     }
 }
 
+// MARK: TokenAddCellView
+
 struct TokenAddCellView: View {
+    
+    // MARK: Body
+    
     var body: some View {
         VStack {
             Spacer()
@@ -80,4 +90,5 @@ struct TokenAddCellView: View {
                 .foregroundColor(Color(.systemGray2))
         )
     }
+    
 }

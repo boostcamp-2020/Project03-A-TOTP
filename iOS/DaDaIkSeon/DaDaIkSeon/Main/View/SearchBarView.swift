@@ -9,8 +9,12 @@ import SwiftUI
 
 struct SearchBarView: View {
     
+    // MARK: Property
+    
     @Binding var text: String
     @State private var isEditing = false
+    
+    // MARK: Body
     
     var body: some View {
         HStack {
@@ -64,10 +68,13 @@ struct SearchBarView: View {
             }
         }
     }
+    
 }
 
 struct SearchBarView_Previews: PreviewProvider {
+    
     static var previews: some View {
         SearchBarView(text: .constant(""))
     }
+    
 }

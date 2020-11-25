@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HeaderView: View {
+    
+    // MARK: Body
+    
     var body: some View {
         HStack {
             Button(action: {
@@ -31,10 +34,13 @@ struct HeaderView: View {
             })
         }.padding([.leading, .trailing], 16)
     }
+    
 }
 
 struct HeaderView_Previews: PreviewProvider {
+    
     static var previews: some View {
         HeaderView()
     }
+    
 }
