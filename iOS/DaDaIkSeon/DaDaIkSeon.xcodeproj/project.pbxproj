@@ -18,6 +18,7 @@
 		7C7DC50F256D75D10089CD68 /* TokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC50E256D75D10089CD68 /* TokenListView.swift */; };
 		7C7DC514256D75FE0089CD68 /* TokenListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* TokenListViewModel.swift */; };
 		7CCDD258256E12C600150565 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD257256E12C600150565 /* TokenViewModel.swift */; };
+		7CCDD28E256E45E000150565 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD28D256E45E000150565 /* Color+.swift */; };
 		882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44AA256D0B9B001901F9 /* MainCellView.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
@@ -62,6 +63,7 @@
 		7C7DC50E256D75D10089CD68 /* TokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListView.swift; sourceTree = "<group>"; };
 		7C7DC513256D75FE0089CD68 /* TokenListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenListViewModel.swift; path = DaDaIkSeon/Main/ViewModel/TokenListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		7CCDD257256E12C600150565 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
+		7CCDD28D256E45E000150565 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		882D44AA256D0B9B001901F9 /* MainCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellView.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				88937013256CFB3A00337E2C /* Main */,
+				7CCDD28C256E45D000150565 /* Extensions */,
 				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
@@ -167,6 +170,14 @@
 				7CCDD257256E12C600150565 /* TokenViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7CCDD28C256E45D000150565 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7CCDD28D256E45E000150565 /* Color+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		882D44A7256D0B72001901F9 /* View */ = {
@@ -452,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C7DC50F256D75D10089CD68 /* TokenListView.swift in Sources */,
+				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */,

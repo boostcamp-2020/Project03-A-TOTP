@@ -22,6 +22,8 @@ struct TokenListView: View {
                 TokenCellView(token: $tokens[index])
             }
             TokenAddCellView()
+                .frame(minHeight: 100)
+                .padding(.bottom)
         }
     }
 }
