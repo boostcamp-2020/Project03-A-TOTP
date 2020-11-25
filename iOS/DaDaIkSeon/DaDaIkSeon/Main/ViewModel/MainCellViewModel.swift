@@ -13,17 +13,20 @@ class MainCellViewModel: ObservableObject {
     
     // MARK: Model
     // 토큰 모델? -> 여기에 컬러, 아이콘, 키 값, 이름 정보가 있음.
+    // 토큰을 바인딩하고 있는 게 편할 것 같다. 여기서 수정해도 바로 원본이 수정되니까!
     
     // MARK: Property
     
+    // 토큰 모델에서 값 가져와야한다.
     let key = "6UAOpz+x3dsNrQ=="
     
     @Published var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
+    
     @Published var timeString = "15"
     @Published var timeAmount = 0.0
-    @Published var password = "333 444"
+    @Published var password = "333444"
     
-    let totalTime = 30.0
+    let totalTime = 5.0
     
     var subscriptions = Set<AnyCancellable>()
     
@@ -33,6 +36,9 @@ class MainCellViewModel: ObservableObject {
     let now = Date()
     
     init() {
+        
+        password = makePassword(key: key)
+        
         timer
             .map({ (output) in
                 return output.timeIntervalSince(self.now)
@@ -45,11 +51,12 @@ class MainCellViewModel: ObservableObject {
                 if weakSelf.timeAmount < weakSelf.totalTime {
                     weakSelf.timeAmount += 0.01
                 } else {
+                    weakSelf.password
+                        = weakSelf.makePassword(key: weakSelf.key)
                     weakSelf.timeAmount = 0
                 }
                 weakSelf.timeString
                     = "\(Int(seconds) % Int(weakSelf.totalTime) + 1)"
-                print(weakSelf.timeString)
             }
             .store(in: &subscriptions)
     }
@@ -59,9 +66,10 @@ class MainCellViewModel: ObservableObject {
     // 편집(...) 버튼
     // 복사 버튼
     
+    // MARK: Logic
     func makePassword(key: String) -> String {
         //let interval = 3
-        let period = TimeInterval(5)
+        let period = TimeInterval(totalTime)
         let digits = 6
         
         // 키 값
@@ -72,12 +80,12 @@ class MainCellViewModel: ObservableObject {
         let counterData = withUnsafeBytes(of: &counter) { Array($0) }
         
         // HMAC 알고리즘 연산
-        let hash = HMAC<Insecure.SHA1>.authenticationCode(for: counterData, using: SymmetricKey(data: secret))
+        let hash = HMAC<Insecure.SHA1>.authenticationCode(
+            for: counterData, using: SymmetricKey(data: secret))
         
         // 추출
         var truncatedHash = hash.withUnsafeBytes { ptr -> UInt32 in
             let offset = ptr[hash.byteCount - 1] & 0x0f
-            
             let truncatedHashPtr = ptr.baseAddress! + Int(offset)
             return truncatedHashPtr.bindMemory(to: UInt32.self, capacity: 1).pointee
         }
@@ -86,6 +94,17 @@ class MainCellViewModel: ObservableObject {
         truncatedHash = truncatedHash & 0x7FFF_FFFF
         truncatedHash = truncatedHash & UInt32(pow(10, Float(digits)))
         
+        printStartSeconds()
+        
         return "\(String(format: "%0*u", digits, truncatedHash))"
+    }
+    
+    func printStartSeconds() {
+        let dateFormmater = DateFormatter()
+        dateFormmater.locale = Locale(identifier: "ko_KR")
+        dateFormmater.dateFormat = "yyyy-MM-dd"
+        let today = dateFormmater.string(from: Date())
+        let startDate = dateFormmater.date(from: today)
+        print(-Int(startDate?.timeIntervalSinceNow ?? 0) % Int(totalTime) + 1)
     }
 }

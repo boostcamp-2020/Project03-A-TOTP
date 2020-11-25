@@ -11,9 +11,9 @@ struct MainCellView: View {
     
     // MARK: ViewModel
     @ObservedObject var mainCellVM: MainCellViewModel = MainCellViewModel()
-   
+    
     // MARK: Property
-    let zStackHeight = 200
+    let zStackHeight: CGFloat = 200.0
     
     // MARK: Body
     var body: some View {
@@ -43,30 +43,43 @@ struct MainCellView: View {
                 progressAmount: $mainCellVM.timeAmount,
                 totalTime: mainCellVM.totalTime)
                 .frame(height: 170)
-                  
+            
             // MARK: 이름, 비밀번호, 시간 텍스트 뷰
-            VStack(spacing: 10) {
+            VStack(spacing: 5) {
                 Spacer()
-                    .frame(height: 30)
+                    .frame(height: 50)
+                
                 Text(mainCellVM.tokenName)
-                    .font(.system(size: 14))
+                    .foregroundColor(.white)
+                    .font(.system(size: 11))
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .frame(
-                        width: 150,
+                        width: 90,
                         alignment: .center)
-                Text(mainCellVM.password)
+                
+                (Text(mainCellVM.password.prefix(3))
+                    + Text(" ")
+                    + Text(mainCellVM.password.suffix(3)))
+                    .foregroundColor(.white)
+                    .font(.system(size: 28))
+                    .fontWeight(.bold)
+                    .kerning(3)
+                
                 Text(mainCellVM.timeString)
-                    .padding(.top)
-                    .font(.system(size: 20))
-                    // TODO: 글씨 색 넣기
-
+                    .font(.system(size: 15))
+                    .fontWeight(.bold)
+                    .padding(.top, 10)
+                    .foregroundColor(.white)
+                    
+                
+                
                 Spacer()
                     .frame(height: 30)
             }
             
         }
-        .frame(height: CGFloat(zStackHeight))
+        .frame(height: zStackHeight)
     }
 }
 
