@@ -22,41 +22,58 @@ class MainCellViewModel: ObservableObject {
     
     @Published var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
     
-    @Published var timeString = "15"
+    @Published var timeString = "1"
     @Published var timeAmount = 0.0
-    @Published var password = "333444"
+    @Published var password = ""
     
-    let totalTime = 5.0
+    let totalTime = 3.0
+    let timerInterval = 0.01
     
     var subscriptions = Set<AnyCancellable>()
     
-    let timer = Timer.publish(every: 0.01, on: .main, in: .common)
-        .autoconnect()
+    let timer: Publishers.Autoconnect<Timer.TimerPublisher>
     
-    let now = Date()
+    var lastSecond: Int = 1
+    
+    let todaySartTime = { () -> Date? in
+        let dateFormmater = DateFormatter()
+        dateFormmater.locale = Locale(identifier: "ko_KR")
+        dateFormmater.dateFormat = "yyyy-MM-dd"
+        let today = dateFormmater.string(from: Date())
+        return dateFormmater.date(from: today)
+    }()
     
     init() {
-        
+        timer = Timer.publish(every: timerInterval, on: .main, in: .common)
+            .autoconnect()
         password = makePassword(key: key)
+        
+        timeAmount
+            = -Double(todaySartTime?.timeIntervalSinceNow ?? 0)
+            .truncatingRemainder(dividingBy: totalTime) + 1
         
         timer
             .map({ (output) in
-                return output.timeIntervalSince(self.now)
+                return output.timeIntervalSince(self.todaySartTime ?? Date())
             })
             .map({ (timeInterval) in
-                return Int(timeInterval)
+                return Int(timeInterval) % Int(self.totalTime)
             })
             .sink { [weak self] (seconds) in
                 guard let weakSelf = self else { return }
-                if weakSelf.timeAmount < weakSelf.totalTime {
-                    weakSelf.timeAmount += 0.01
-                } else {
-                    weakSelf.password
-                        = weakSelf.makePassword(key: weakSelf.key)
-                    weakSelf.timeAmount = 0
+                if weakSelf.lastSecond != seconds {
+                    weakSelf.timeString = "\(seconds + 1)"
+                    
+                    print(weakSelf.timeString)
+                    
+                    if seconds == 0 {
+                        weakSelf.password
+                            = weakSelf.makePassword(key: weakSelf.key)
+                        weakSelf.timeAmount = 0
+                    }
+                    weakSelf.lastSecond = seconds
                 }
-                weakSelf.timeString
-                    = "\(Int(seconds) % Int(weakSelf.totalTime) + 1)"
+                weakSelf.timeAmount += weakSelf.timerInterval
             }
             .store(in: &subscriptions)
     }
@@ -67,8 +84,9 @@ class MainCellViewModel: ObservableObject {
     // 복사 버튼
     
     // MARK: Logic
+    
     func makePassword(key: String) -> String {
-        //let interval = 3
+        
         let period = TimeInterval(totalTime)
         let digits = 6
         
@@ -94,17 +112,7 @@ class MainCellViewModel: ObservableObject {
         truncatedHash = truncatedHash & 0x7FFF_FFFF
         truncatedHash = truncatedHash & UInt32(pow(10, Float(digits)))
         
-        printStartSeconds()
-        
         return "\(String(format: "%0*u", digits, truncatedHash))"
     }
     
-    func printStartSeconds() {
-        let dateFormmater = DateFormatter()
-        dateFormmater.locale = Locale(identifier: "ko_KR")
-        dateFormmater.dateFormat = "yyyy-MM-dd"
-        let today = dateFormmater.string(from: Date())
-        let startDate = dateFormmater.date(from: today)
-        print(-Int(startDate?.timeIntervalSinceNow ?? 0) % Int(totalTime) + 1)
-    }
 }
