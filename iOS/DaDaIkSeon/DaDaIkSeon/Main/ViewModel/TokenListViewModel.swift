@@ -16,12 +16,18 @@ final class TokenListViewModel: ObservableObject {
     
     /// 토큰 배열을 리턴
     func fetchTokens() {
-        tokens = [TokenViewModel.init(token: Token(id: UUID(), key: "hizhizhi", tokenName: "byebye", color: nil, icon: nil)),
-                  TokenViewModel.init(token: Token(id: UUID(), key: "s", tokenName: "byebye", color: nil, icon: nil)),
-                  TokenViewModel.init(token: Token(id: UUID(), key: "hizhizdfhi", tokenName: "byebye", color: nil, icon: nil)),
-                  TokenViewModel.init(token: Token(id: UUID(), key: "hizhifzhi", tokenName: "byebye", color: nil, icon: nil)),
-                  TokenViewModel.init(token: Token(id: UUID(), key: "hizhidgzhi", tokenName: "byebye", color: nil, icon: nil)),
-                  TokenViewModel.init(token: Token(id: UUID(), key: "hizhidszhi", tokenName: "byebye", color: nil, icon: nil))]
+        tokens = [TokenViewModel(token:
+                                    Token(id: UUID(), key: "hizhizhi", tokenName: "byebye", color: nil, icon: nil)),
+                  TokenViewModel(token:
+                                    Token(id: UUID(), key: "s", tokenName: "byebye", color: nil, icon: nil)),
+                  TokenViewModel(token:
+                                    Token(id: UUID(), key: "hizhizdfhi", tokenName: "byebye", color: nil, icon: nil)),
+                  TokenViewModel(token:
+                                    Token(id: UUID(), key: "hizhifzhi", tokenName: "byebye", color: nil, icon: nil)),
+                  TokenViewModel(token:
+                                    Token(id: UUID(), key: "hizhidgzhi", tokenName: "byebye", color: nil, icon: nil)),
+                  TokenViewModel(token:
+                                    Token(id: UUID(), key: "hizhidszhi", tokenName: "byebye", color: nil, icon: nil))]
     }
     
 }
