@@ -9,6 +9,7 @@
   },
   "_moduleAliases": {
     "@": "./",
+    "@utils": "utils",
     "@controllers": "controllers",
     "@models": "models",
     "@routes": "routes",
@@ -17,7 +18,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
+    "crypto": "^1.0.1",
     "debug": "^4.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "express": "^4.17.1",
@@ -27,7 +30,9 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "path": "^0.12.7",
-    "sequelize": "^6.3.5"
+    "qrcode": "^1.4.4",
+    "sequelize": "^6.3.5",
+    "speakeasy": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
