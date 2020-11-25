@@ -11,10 +11,14 @@ struct MainCellView: View {
     
     var mainCellVM: MainCellViewModel = MainCellViewModel()
     
-    @State var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
-    @State var timeString = "15"
-    @State var timeAmount = 0.0
-    @State var password = "333 444"
+    @State private var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
+    @State private var timeString = "15"
+    @State private var timeAmount = 0.0
+    @State private var password = "333 444"
+    
+    let totalTime = 30.0
+    
+    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     var body: some View {
         ZStack {
@@ -39,10 +43,16 @@ struct MainCellView: View {
             .cornerRadius(15)
             
             // 2
-            Circle()
-                .strokeBorder(Color.white, lineWidth: 15)
-                .frame(height: 176)
-            
+            CircularProgressBar(progressAmount: $timeAmount, totalTime: totalTime)
+                .frame(height: 170)
+                .onReceive(timer, perform: { _ in
+                    if timeAmount < totalTime - 0.01 {
+                        timeAmount += 0.01
+                    } else {
+                        timeAmount = 0.0
+                    }
+                })
+                  
             // 3
             VStack(spacing: 10) {
                 Spacer()
@@ -57,12 +67,46 @@ struct MainCellView: View {
                 Text(password)
                 Text(timeString)
                     .padding(.top)
+                    .font(.system(size: 20))
+                    
+                    .onReceive(timer, perform: { _ in
+                        timeString = "\(Int(timeAmount) + 1)"
+                    })
                 Spacer()
                     .frame(height: 30)
             }
+            
         }
         .frame(height: 200)
     }
+}
+
+struct CircularProgressBar: View {
+    
+    @Binding var progressAmount: Double
+    var totalTime: Double
+    let strokeWidth = 10.0
+    
+    var body: some View {
+        ZStack {
+            
+            Circle()
+                .stroke(lineWidth: CGFloat(strokeWidth))
+                .opacity(0.3)
+                .foregroundColor(Color.white)
+            
+            Circle()
+                .trim(from: 0.0, to: CGFloat(progressAmount / totalTime))
+                .stroke(style: StrokeStyle(
+                            lineWidth: CGFloat(strokeWidth),
+                            lineCap: .round,
+                            lineJoin: .round))
+                .foregroundColor(Color.white)
+                .rotationEffect(Angle(degrees: 270.0))
+                .animation(.linear)
+        }
+    }
+    
 }
 
 struct MainCellView_Previews: PreviewProvider {
@@ -72,13 +116,13 @@ struct MainCellView_Previews: PreviewProvider {
         MainCellView()
     }
     
-//    struct PreviewWrapper: View {
-//
-//        @State var viewModel = MainCellViewModel()
-//
-//        var body: some View {
-//            MainCellView(mainCellVM: $vm)
-//        }
-//    }
+    //    struct PreviewWrapper: View {
+    //
+    //        @State var viewModel = MainCellViewModel()
+    //
+    //        var body: some View {
+    //            MainCellView(mainCellVM: $vm)
+    //        }
+    //    }
     
 }
