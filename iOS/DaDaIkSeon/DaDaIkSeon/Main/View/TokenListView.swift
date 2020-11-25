@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TokenListView: View {
-    @Binding var tokens: [TOTPToken]
+    @Binding var tokens: [TokenViewModel]
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),

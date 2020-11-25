@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject private var viewModel = MainViewModel()
+    @ObservedObject private var viewModel = TokenListViewModel()
+    
+    init() {
+        viewModel.fetchTokens()
+    }
     
     var body: some View {
         VStack(spacing: 12) {
