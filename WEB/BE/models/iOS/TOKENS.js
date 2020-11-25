@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'tokens',
       timestamps: false,
-    }
+    },
   );
   return TOKENS;
 };
