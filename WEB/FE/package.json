@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/styled-components": "^5.1.4",
     "core-js": "^3.7.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
