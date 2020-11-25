@@ -11,6 +11,7 @@ const http = require('http');
 const port = normalizePort(process.env.PORT || '3000');
 
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 const app = express();
 app.set('port', port);
@@ -24,7 +25,8 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'html');
 
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
