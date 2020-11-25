@@ -9,20 +9,16 @@ import SwiftUI
 
 struct MainCellView: View {
     
-    var mainCellVM: MainCellViewModel = MainCellViewModel()
+    // MARK: ViewModel
+    @ObservedObject var mainCellVM: MainCellViewModel = MainCellViewModel()
+   
+    // MARK: Property
+    let zStackHeight = 200
     
-    @State private var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
-    @State private var timeString = "15"
-    @State private var timeAmount = 0.0
-    @State private var password = "333 444"
-    
-    let totalTime = 30.0
-    
-    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
-    
+    // MARK: Body
     var body: some View {
         ZStack {
-            // 1
+            // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
                 HStack {
                     Image(systemName: "circle")
@@ -42,42 +38,35 @@ struct MainCellView: View {
             .background(Color.green)
             .cornerRadius(15)
             
-            // 2
-            CircularProgressBar(progressAmount: $timeAmount, totalTime: totalTime)
+            // MARK: 프로그레스 바
+            CircularProgressBar(
+                progressAmount: $mainCellVM.timeAmount,
+                totalTime: mainCellVM.totalTime)
                 .frame(height: 170)
-                .onReceive(timer, perform: { _ in
-                    if timeAmount < totalTime - 0.01 {
-                        timeAmount += 0.01
-                    } else {
-                        timeAmount = 0.0
-                    }
-                })
                   
-            // 3
+            // MARK: 이름, 비밀번호, 시간 텍스트 뷰
             VStack(spacing: 10) {
                 Spacer()
                     .frame(height: 30)
-                Text(tokenName)
+                Text(mainCellVM.tokenName)
                     .font(.system(size: 14))
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .frame(
                         width: 150,
                         alignment: .center)
-                Text(password)
-                Text(timeString)
+                Text(mainCellVM.password)
+                Text(mainCellVM.timeString)
                     .padding(.top)
                     .font(.system(size: 20))
-                    
-                    .onReceive(timer, perform: { _ in
-                        timeString = "\(Int(timeAmount) + 1)"
-                    })
+                    // TODO: 글씨 색 넣기
+
                 Spacer()
                     .frame(height: 30)
             }
             
         }
-        .frame(height: 200)
+        .frame(height: CGFloat(zStackHeight))
     }
 }
 
@@ -102,6 +91,7 @@ struct CircularProgressBar: View {
                             lineCap: .round,
                             lineJoin: .round))
                 .foregroundColor(Color.white)
+                // TODO: 색을 채워나가는 게 아니라 지워가는 걸로 바꾸는 법 고민 중
                 .rotationEffect(Angle(degrees: 270.0))
                 .animation(.linear)
         }
