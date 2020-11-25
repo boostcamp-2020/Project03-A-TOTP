@@ -23,14 +23,32 @@ struct MainCellView: View {
                 HStack {
                     Image(systemName: "circle")
                     Spacer()
-                    Image(systemName: "circle")
+                    Button(action: {
+                        mainCellVM.editButtonDidTab()
+                    }, label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .resizable()
+                            .frame(width:20, height: 20)
+                            .foregroundColor(.white)
+                    })
                 }
                 .padding(.horizontal, 12)
                 .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
                 Spacer()
                 HStack {
                     Spacer()
-                    Image(systemName: "circle")
+                    Button(action: {
+                        mainCellVM.copyButtonDidTab()
+                    }, label: {
+                        Image(systemName: "doc.on.doc")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.black)
+                            .background(Color.white)
+                        // 배경색이랑 같게
+                    })
+                    //.background(Color.white)
+                    
                 }
                 .padding(.horizontal, 12)
                 .frame(height: 50, alignment: .center)
@@ -48,7 +66,6 @@ struct MainCellView: View {
             VStack(spacing: 5) {
                 Spacer()
                     .frame(height: 50)
-                
                 Text(mainCellVM.tokenName)
                     .foregroundColor(.white)
                     .font(.system(size: 11))
@@ -57,7 +74,6 @@ struct MainCellView: View {
                     .frame(
                         width: 90,
                         alignment: .center)
-                
                 (Text(mainCellVM.password.prefix(3))
                     + Text(" ")
                     + Text(mainCellVM.password.suffix(3)))
@@ -71,15 +87,14 @@ struct MainCellView: View {
                     .fontWeight(.bold)
                     .padding(.top, 10)
                     .foregroundColor(.white)
-                    
-                
-                
                 Spacer()
                     .frame(height: 30)
             }
             
         }
         .frame(height: zStackHeight)
+        .padding(.horizontal, 12)
+        //.shadow(color: Color.shadow, radius: 6, x: 0, y: 3)
     }
 }
 

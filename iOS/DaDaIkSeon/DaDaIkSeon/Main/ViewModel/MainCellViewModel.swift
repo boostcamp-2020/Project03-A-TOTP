@@ -63,9 +63,6 @@ class MainCellViewModel: ObservableObject {
                 guard let weakSelf = self else { return }
                 if weakSelf.lastSecond != seconds {
                     weakSelf.timeString = "\(seconds + 1)"
-                    
-                    print(weakSelf.timeString)
-                    
                     if seconds == 0 {
                         weakSelf.password
                             = weakSelf.makePassword(key: weakSelf.key)
@@ -80,8 +77,13 @@ class MainCellViewModel: ObservableObject {
     
     // MARK: Action
     
-    // 편집(...) 버튼
-    // 복사 버튼
+    func editButtonDidTab() {
+        print("EditButtonDidTab")
+    }
+    
+    func copyButtonDidTab() {
+        print("CopyButtonDidTab")
+    }
     
     // MARK: Logic
     
