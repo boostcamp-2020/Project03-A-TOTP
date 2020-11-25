@@ -9,6 +9,7 @@ import SwiftUI
 import CryptoKit
 
 struct TokenCellView: View {
+    
     @Binding var token: TokenViewModel
     
     var body: some View {

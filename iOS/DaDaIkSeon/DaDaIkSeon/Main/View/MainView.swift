@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @ObservedObject private var viewModel = TokenListViewModel()
     
     init() {
