@@ -5,6 +5,7 @@ const saltRounds = Number(process.env.SALTROUNDS);
 const encryptedPassword = (password) => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) reject(err);
       resolve(hash);
     });
   });
@@ -13,6 +14,7 @@ const encryptedPassword = (password) => {
 const comparePassword = (password, DBpw) => {
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, DBpw, (err, result) => {
+      if (err) reject(err);
       resolve(result);
     });
   });
