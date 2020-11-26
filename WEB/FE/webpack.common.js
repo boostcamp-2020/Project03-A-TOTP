@@ -13,6 +13,18 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+      '@api': path.resolve(__dirname, 'src/api/'),
+      '@hooks': path.resolve(__dirname, 'src/hooks/'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@styles': path.resolve(__dirname, '/src/styles'),
+      '@static': path.resolve(__dirname, '/src/static'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@types': path.resolve(__dirname, 'src/types/'),
+      '@types': path.resolve(__dirname, 'src/layouts/'),
+      '@types': path.resolve(__dirname, 'src/pages/'),
+    },
   },
   module: {
     rules: [
