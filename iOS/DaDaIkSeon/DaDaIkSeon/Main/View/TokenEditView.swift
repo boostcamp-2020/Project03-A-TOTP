@@ -9,6 +9,9 @@ import SwiftUI
 
 struct TokenEditView: View {
     
+    @State var isEditing = false
+    @State var text = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -20,6 +23,23 @@ struct TokenEditView: View {
                     .background(LinearGradient.mint)
                     .foregroundColor(.white)
                     .cornerRadius(15)
+                
+                TextField("토큰 이름을 입력하세요", text: $text)
+                    .padding(7)
+                    .padding(.horizontal, 25)
+                    .cornerRadius(8)
+                    .overlay(
+                        HStack {
+                            Image(systemName: "pencil.and.outline")
+                                .foregroundColor(.gray)
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 8)
+                        }
+                    )
+                    .padding(.top, 20)
+                    .padding(.bottom, -8)
+                    .animation(.default)
+                
             }
             .padding(.horizontal, 60)
         }
