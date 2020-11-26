@@ -1,4 +1,5 @@
 const Crypto = require('crypto');
+
 const secretKey = process.env.ENCRYPTIONKEY;
 
 const encryptWithAES256 = ({ Text }) => {

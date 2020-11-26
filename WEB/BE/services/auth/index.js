@@ -1,4 +1,5 @@
 const authsModel = require('@models/sequelizeWEB.js').auths;
+
 const authService = {
   async check({ id, next }) {
     const query = {};
@@ -19,7 +20,6 @@ const authService = {
       next(e);
     }
   },
-
 
   async update({ info, next }) {
     const query = {

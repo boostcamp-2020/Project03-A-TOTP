@@ -5,10 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const debug = require('debug')('server:server');
-const sequelizeWEB = require('./models/sequelizeIOS').sequelize;
-const sequelizeIOS = require('./models/sequelizeWEB').sequelize;
 const authRouter = require('@routes/auth');
 const userRouter = require('@routes/user');
+const sequelizeWEB = require('./models/sequelizeIOS').sequelize;
+const sequelizeIOS = require('./models/sequelizeWEB').sequelize;
 
 require('dotenv').config();
 

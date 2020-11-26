@@ -11,8 +11,8 @@ client.on('error', (error) => {
   console.log(error);
 });
 
-client.get('test', function (err, reply) {
-  console.log(reply);
-});
+// client.get('test', function (err, reply) {
+//   console.log(reply);
+// });
 
 // session 작업 이후에 고려
