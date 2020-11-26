@@ -72,7 +72,7 @@ struct TokenAddCellView: View {
     var body: some View {
         
         NavigationLink(
-            destination: Text("이동"),
+            destination: QRGuideView(),
             label: {
                 VStack {
                     Spacer()
@@ -94,7 +94,6 @@ struct TokenAddCellView: View {
                         .foregroundColor(Color(.systemGray2))
                 )
             })
-        
     }
-    
 }
+
