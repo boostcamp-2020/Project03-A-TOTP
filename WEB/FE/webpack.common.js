@@ -12,12 +12,6 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src/'),
-      '@components': path.resolve(__dirname, 'src/components/'),
-      '@styles': path.resolve(__dirname, 'src/styles/'),
-      '@pages': path.resolve(__dirname, 'src/pages/'),
-    },
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@': path.resolve(__dirname, 'src/'),
@@ -28,8 +22,8 @@ module.exports = {
       '@static': path.resolve(__dirname, '/src/static'),
       '@utils': path.resolve(__dirname, 'src/utils/'),
       '@types': path.resolve(__dirname, 'src/types/'),
-      '@types': path.resolve(__dirname, 'src/layouts/'),
-      '@types': path.resolve(__dirname, 'src/pages/'),
+      '@layouts': path.resolve(__dirname, 'src/layouts/'),
+      '@pages': path.resolve(__dirname, 'src/pages/'),
     },
   },
   module: {
