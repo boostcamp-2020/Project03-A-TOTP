@@ -15,7 +15,7 @@ const InputTag = styled.input`
   width: 230px;
   height: 30px;
   border: none;
-  padding-left: 10px
+  padding-left: 10px;
 `;
 
 const Button = styled.button`

@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from '@/components/App';
-import { GlobalStyle } from '@/style/GlobalStyle';
+import { GlobalStyle } from '@styles/GlobalStyle';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '@styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <App />
+    <GoogleReCaptchaProvider reCaptchaKey='6LcsnewZAAAAAOHzbLjkR4CvWRBNdibrcmtHd8SD' language='ko'>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </GoogleReCaptchaProvider>
   </React.StrictMode>,
   document.getElementById('app'),
 );

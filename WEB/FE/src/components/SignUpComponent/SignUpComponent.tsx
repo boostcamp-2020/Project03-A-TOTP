@@ -1,17 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FontSize } from '@styles/variable';
-import Input from '../common/Input';
-import Button from '../common/Button';
+import Input from '@components/common/Input';
+import Button from '@components/common/Button';
 
 const Wrapper = styled.div`
   width: 40%;
   margin: auto;
-  text-align: -webkit-center;
+  text-align: center;
 `;
 
 const Title = styled.div`
-  font-size: ${FontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-weight: 600;
   height: 100px;
 `;
@@ -33,24 +32,36 @@ const SignUpComponent = () => {
     console.log('useEffect :', form);
   }, [form]);
 
-  const checkDuplicateEventHandler = (e): void =>{
+  const checkDuplicateEventHandler = (e: MouseEvent): void => {
     e.preventDefault();
     console.log('dup-id API');
   };
 
-  const submitEventHandler = (e): void =>{
+  const submitEventHandler = (e: MouseEvent): void => {
     e.preventDefault();
-    console.log('send : ',form);
-  }
+    console.log('send : ', form);
+  };
 
   return (
     <Wrapper>
       <Title>SIGN UP</Title>
-      <Input placeholder='ID' name='id' form={form} setForm={setForm} buttonEvent={checkDuplicateEventHandler} />
+      <Input
+        placeholder='ID'
+        name='id'
+        form={form}
+        setForm={setForm}
+        buttonEvent={checkDuplicateEventHandler}
+      />
       {list.map((name, idx) => (
         <Input key={idx} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
       ))}
-      <Input placeholder='E-Mail' name='email' form={form} setForm={setForm} buttonEvent={checkDuplicateEventHandler} />
+      <Input
+        placeholder='E-Mail'
+        name='email'
+        form={form}
+        setForm={setForm}
+        buttonEvent={checkDuplicateEventHandler}
+      />
       <Button name={'회원가입'} buttonEvent={submitEventHandler} />
     </Wrapper>
   );
