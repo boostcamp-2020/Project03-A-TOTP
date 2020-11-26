@@ -10,6 +10,10 @@ const authController = {
       next(e);
     }
   },
+  async logIn(req, res) {
+    const { id, password } = req.body;
+    res.json({ id, password });
+  },
 };
 
 module.exports = authController;
