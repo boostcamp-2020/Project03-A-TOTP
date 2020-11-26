@@ -23,24 +23,29 @@ struct MainView: View {
     // MARK: Body
     
     var body: some View {
-        VStack(spacing: 12) {
-            HeaderView()
-            SearchBarView(viewModel: .constant(viewModel))
-            viewModel.isSearching ? nil : MainCellView().padding(.bottom, -6)
-            ScrollView {
-                LazyVGrid(columns: columns,
-                          spacing: 12) {
-                    ForEach(viewModel.filteredTokens, id: \.token.id) { token in
-                        TokenCellView(viewModel: .constant(token))
-                    }
-                    viewModel.isSearching ? nil : TokenAddCellView()
-                        .frame(minHeight: 100)
-                    }
-                .padding([.leading, .trailing, .bottom], 12)
-                .padding(.top, 6)
+        
+        NavigationView {
+            VStack(spacing: 12) {
+                HeaderView()
+                SearchBarView(viewModel: .constant(viewModel))
+                viewModel.isSearching ? nil : MainCellView().padding(.bottom, -6)
+                ScrollView {
+                    LazyVGrid(columns: columns,
+                              spacing: 12) {
+                        ForEach(viewModel.filteredTokens, id: \.token.id) { token in
+                            TokenCellView(viewModel: .constant(token))
+                        }
+                        viewModel.isSearching ? nil : TokenAddCellView()
+                            .frame(minHeight: 100)
+                        }
+                    .padding([.leading, .trailing, .bottom], 12)
+                    .padding(.top, 6)
+                }
+                .navigationBarHidden(true) // NavigationView에서 이걸 해주는 게 아니라 안에 있는 컨텐츠에서 해주어야 한다.
             }
+            .padding(.top, 0)
+            
         }
-        .padding(.top)
     }
     
 }

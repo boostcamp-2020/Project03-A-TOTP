@@ -70,25 +70,31 @@ struct TokenAddCellView: View {
     // MARK: Body
     
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Image(systemName: "plus.circle")
-                    .resizable()
-                    .frame(width: 25, height: 25, alignment: .center)
-                    .foregroundColor(Color(.systemGray2))
-                
-                Spacer()
-            }
-            Spacer()
-        }
-        .padding(.horizontal, 12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5.0]))
-                .foregroundColor(Color(.systemGray2))
-        )
+        
+        NavigationLink(
+            destination: Text("이동"),
+            label: {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25, alignment: .center)
+                            .foregroundColor(Color(.systemGray2))
+
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5.0]))
+                        .foregroundColor(Color(.systemGray2))
+                )
+            })
+        
     }
     
 }
