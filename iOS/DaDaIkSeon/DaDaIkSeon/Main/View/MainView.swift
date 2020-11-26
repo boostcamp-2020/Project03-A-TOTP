@@ -11,27 +11,33 @@ struct MainView: View {
     
     // MARK: ViewModel
     
-    @ObservedObject private var viewModel = TokenListViewModel()
+    @ObservedObject private var viewModel = MainViewModel()
     
     // MARK: Property
     
-    @State var searchText: String = ""
-    
-    // MARK: init
-    
-    init() {
-        viewModel.fetchTokens()
-    }
+    var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 12),
+        GridItem(.flexible(), spacing: 12)
+    ]
     
     // MARK: Body
     
     var body: some View {
         VStack(spacing: 12) {
             HeaderView()
-            SearchBarView(text: $searchText)
-            MainCellView()
+            SearchBarView(viewModel: .constant(viewModel))
+            viewModel.isSearching ? nil : MainCellView().padding(.bottom, -6)
             ScrollView {
-                TokenListView(tokens: $viewModel.tokens)
+                LazyVGrid(columns: columns,
+                          spacing: 12) {
+                    ForEach(viewModel.filteredTokens, id: \.token.id) { token in
+                        TokenCellView(viewModel: .constant(token))
+                    }
+                    viewModel.isSearching ? nil : TokenAddCellView()
+                        .frame(minHeight: 100)
+                    }
+                .padding([.leading, .trailing, .bottom], 12)
+                .padding(.top, 6)
             }
         }
         .padding(.top)

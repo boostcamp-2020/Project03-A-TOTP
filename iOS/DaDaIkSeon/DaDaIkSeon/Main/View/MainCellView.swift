@@ -10,7 +10,7 @@ import SwiftUI
 struct MainCellView: View {
     
     // MARK: ViewModel
-    @ObservedObject var mainCellVM: MainCellViewModel = MainCellViewModel()
+    @ObservedObject var mainCellViewModel = MainCellViewModel()
     
     // MARK: Property
     let zStackHeight: CGFloat = 200.0
@@ -22,10 +22,11 @@ struct MainCellView: View {
             // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
                 HStack {
-                    Image(systemName: "circle")
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.white)
                     Spacer()
                     Button(action: {
-                        mainCellVM.editButtonDidTab()
+                        mainCellViewModel.editButtonDidTab()
                     }, label: {
                         Image(systemName: "ellipsis.circle.fill")
                             .resizable()
@@ -39,13 +40,12 @@ struct MainCellView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        mainCellVM.copyButtonDidTab()
+                        mainCellViewModel.copyButtonDidTab()
                     }, label: {
                         Image(systemName: "doc.on.doc")
                             .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.black)
-                            .background(Color.white)
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.white)
                         // 배경색이랑 같게
                     })
                     //.background(Color.white)
@@ -54,20 +54,21 @@ struct MainCellView: View {
                 .padding(.horizontal, 12)
                 .frame(height: 50, alignment: .center)
             }
-            .background(Color.green)
+            .background(LinearGradient.blue)
             .cornerRadius(15)
+            .shadow(color: Color.shadow, radius: 6, x: 0, y: 3)
             
             // MARK: 프로그레스 바
             CircularProgressBar(
-                progressAmount: $mainCellVM.timeAmount,
-                totalTime: mainCellVM.totalTime)
+                progressAmount: $mainCellViewModel.timeAmount,
+                totalTime: mainCellViewModel.totalTime)
                 .frame(height: 170)
             
             // MARK: 이름, 비밀번호, 시간 텍스트 뷰
             VStack(spacing: 5) {
                 Spacer()
                     .frame(height: 50)
-                Text(mainCellVM.tokenName)
+                Text(mainCellViewModel.tokenName)
                     .foregroundColor(.white)
                     .font(.system(size: 11))
                     .lineLimit(2)
@@ -75,15 +76,15 @@ struct MainCellView: View {
                     .frame(
                         width: 90,
                         alignment: .center)
-                (Text(mainCellVM.password.prefix(3))
+                (Text(mainCellViewModel.password.prefix(3))
                     + Text(" ")
-                    + Text(mainCellVM.password.suffix(3)))
+                    + Text(mainCellViewModel.password.suffix(3)))
                     .foregroundColor(.white)
                     .font(.system(size: 28))
                     .fontWeight(.bold)
                     .kerning(3)
                 
-                Text(mainCellVM.timeString)
+                Text(mainCellViewModel.timeString)
                     .font(.system(size: 15))
                     .fontWeight(.bold)
                     .padding(.top, 10)
@@ -91,11 +92,9 @@ struct MainCellView: View {
                 Spacer()
                     .frame(height: 30)
             }
-            
         }
         .frame(height: zStackHeight)
         .padding(.horizontal, 12)
-        //.shadow(color: Color.shadow, radius: 6, x: 0, y: 3)
     }
 }
 

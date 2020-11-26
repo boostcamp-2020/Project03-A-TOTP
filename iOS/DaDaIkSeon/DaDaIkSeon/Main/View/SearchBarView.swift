@@ -9,16 +9,15 @@ import SwiftUI
 
 struct SearchBarView: View {
     
-    // MARK: Property
+    // MARK: ViewModel
     
-    @Binding var text: String
-    @State private var isEditing = false
+    @Binding var viewModel: MainViewModel
     
     // MARK: Body
     
     var body: some View {
         HStack {
-            TextField("검색", text: $text)
+            TextField("검색", text: $viewModel.searchText)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -30,10 +29,10 @@ struct SearchBarView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
                         
-                        if isEditing {
+                        if viewModel.isSearching {
                             // X버튼
                             Button(action: {
-                                text = ""
+                                viewModel.searchText = ""
                             }, label: {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
@@ -42,17 +41,17 @@ struct SearchBarView: View {
                         }
                     }
                 )
-                .padding(.horizontal, 8)
+                .padding(.horizontal, 12)
                 .onTapGesture {
-                    isEditing.toggle()
+                    viewModel.isSearching = true
                 }
                 .animation(.default)
             
-            if isEditing {
+            if viewModel.isSearching {
                 // 취소 버튼
                 Button(action: {
-                    isEditing.toggle()
-                    text = ""
+                    viewModel.isSearching = false
+                    viewModel.searchText = ""
                     // 키보드 닫기
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                                     to: nil,
@@ -67,14 +66,6 @@ struct SearchBarView: View {
                 .animation(.default)
             }
         }
-    }
-    
-}
-
-struct SearchBarView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        SearchBarView(text: .constant(""))
     }
     
 }
