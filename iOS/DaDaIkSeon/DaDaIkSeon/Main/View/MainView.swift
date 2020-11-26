@@ -26,16 +26,16 @@ struct MainView: View {
         VStack(spacing: 12) {
             HeaderView()
             SearchBarView(viewModel: .constant(viewModel))
-            MainCellView()
+            viewModel.isSearching ? nil : MainCellView()
             ScrollView {
                 LazyVGrid(columns: columns,
                           spacing: 12) {
                     ForEach(viewModel.filteredTokens, id: \.token.id) { token in
                         TokenCellView(viewModel: .constant(token))
                     }
-                TokenAddCellView()
-                    .frame(minHeight: 100)
-                }
+                    viewModel.isSearching ? nil : TokenAddCellView()
+                        .frame(minHeight: 100)
+                    }
                 .padding([.leading, .trailing, .bottom], 12)
                 .padding(.top, 6)
             }
