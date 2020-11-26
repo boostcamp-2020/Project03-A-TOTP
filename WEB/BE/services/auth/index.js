@@ -19,6 +19,22 @@ const authService = {
       next(e);
     }
   },
+
+  async update({ info, next }) {
+    const query = {
+      state: info.state,
+    };
+    const where = {
+      idx: info.idx,
+    };
+    try {
+      const result = await authsModel.update(query, { where });
+
+      return result;
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 module.exports = authService;
