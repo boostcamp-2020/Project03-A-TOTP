@@ -52,12 +52,36 @@ struct TokenEditView: View {
                 Spacer()
                 
                 segmentedMode == 0 ? PaletteView() : nil
+                segmentedMode == 1 ? IconView() : nil
                 
                 Spacer()
             }
             .padding(.horizontal, 60)
         }
     }
+}
+
+struct IconView: View {
+
+    private var columns = [GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible())]
+
+    var body: some View {
+        LazyVGrid(columns: columns) {
+            ForEach(1...15, id: \.self) { _ in
+                Circle()
+                    .foregroundColor(.blue)
+                    .frame(width: 35, height: 35, alignment: .center)
+                    .padding(.horizontal, 8)
+            }
+        }
+        .padding(16)
+        .padding(.bottom, 30)
+    }
+
 }
 
 struct PaletteView: View {
