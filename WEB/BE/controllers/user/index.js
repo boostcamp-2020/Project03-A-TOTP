@@ -4,6 +4,7 @@ const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256 } = require('@utils/crypto');
 const { encryptedPassword } = require('@utils/bcrypt');
+const { requestEmail } = require('@controllers/email');
 
 const userController = {
   async signUp(req, res, next) {
@@ -14,6 +15,7 @@ const userController = {
       phone: req.body.phone,
     };
     const { id, password } = req.body;
+    requestEmail(req.body.email, req.body.name);
     try {
       userInfo = encrypUserInfo({ userInfo });
       const secretKey = makeSecretKey();
