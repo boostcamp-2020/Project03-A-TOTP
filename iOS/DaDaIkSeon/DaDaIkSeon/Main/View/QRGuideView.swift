@@ -39,7 +39,7 @@ struct QRGuideView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: Button(action: {
-                    self.mode.wrappedValue.dismiss()
+                    mode.wrappedValue.dismiss()
                 }, label: {
                     Text("취소")
                         .foregroundColor(.black)
@@ -57,7 +57,7 @@ struct QRGuideView: View {
                     case .failure(let error):
                         print(error)
                     }
-                    self.showingScanner = false
+                    showingScanner = false
                 }
             }
         }

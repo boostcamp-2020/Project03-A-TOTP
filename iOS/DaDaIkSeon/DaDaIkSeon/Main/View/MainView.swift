@@ -39,7 +39,7 @@ struct MainView: View {
                         }
                         viewModel.isSearching ? nil : TokenAddCellView()
                             .onTapGesture {
-                                self.isShowing = true
+                                isShowing = true
                             }
                             .frame(minHeight: 100)
                         }
