@@ -25,12 +25,11 @@ struct MainView: View {
     var body: some View {
         VStack(spacing: 12) {
             HeaderView()
-            SearchBarView()
+            SearchBarView(viewModel: .constant(viewModel))
             MainCellView()
             ScrollView {
                 LazyVGrid(columns: columns,
                           spacing: 12) {
-                    Text("?? \(viewModel.searchText)!!")
                     ForEach(viewModel.filteredTokens, id: \.token.id) { token in
                         TokenCellView(viewModel: .constant(token))
                     }

@@ -11,7 +11,7 @@ struct SearchBarView: View {
     
     // MARK: ViewModel
     
-    @ObservedObject var viewModel = MainViewModel()
+    @Binding var viewModel: MainViewModel
     
     // MARK: Body
     
