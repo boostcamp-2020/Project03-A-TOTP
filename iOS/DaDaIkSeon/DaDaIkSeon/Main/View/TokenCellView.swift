@@ -12,7 +12,7 @@ struct TokenCellView: View {
     
     // MARK: ViewModel
     
-    @Binding var token: TokenViewModel
+    @Binding var viewModel: TokenViewModel
     
     // MARK: Body
     
@@ -40,7 +40,7 @@ struct TokenCellView: View {
             Spacer()
             
             HStack {
-                Text(token.tokenName)
+                Text(viewModel.token.tokenName ?? "")
                     .font(.system(size: 11))
                     .foregroundColor(.white)
                     .lineLimit(2)
@@ -49,7 +49,7 @@ struct TokenCellView: View {
             .padding(.horizontal, 12)
             
             HStack {
-                Text(token.key)
+                Text(viewModel.token.key ?? "")
                     .font(.system(size: 18))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
