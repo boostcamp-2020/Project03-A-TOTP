@@ -10,12 +10,17 @@ import Combine
 
 final class MainViewModel: ObservableObject {
     
+    // MARK: Property
+    
     @Published var filteredTokens: [TokenViewModel] = []
     @Published var searchText = ""
     @Published var isSearching = false
     
     var publisher: AnyCancellable?
     var tokens: [TokenViewModel] = []
+    
+    
+    // MARK: Init
     
     init() {
         fetchTokens()
@@ -28,11 +33,12 @@ final class MainViewModel: ObservableObject {
             })
     }
     
+    // MARK: Actions
+    
     func searchTextChanged(text: String) {
         filteredTokens = tokens.filter {
             $0.token.tokenName?.contains(searchText) ?? false || searchText.isEmpty
         }
-        print("입력한대로 필터가 된다라???!?? \(filteredTokens)")
     }
     
     /// 토큰 배열을 리턴

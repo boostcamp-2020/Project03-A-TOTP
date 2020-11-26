@@ -7,9 +7,13 @@
 
 import Foundation
 
-class TokenViewModel: ObservableObject {
+final class TokenViewModel: ObservableObject {
+    
+    // MARK: Property
     
     @Published var token: Token
+    
+    // MARK: init
     
     init(token: Token) {
         self.token = token
