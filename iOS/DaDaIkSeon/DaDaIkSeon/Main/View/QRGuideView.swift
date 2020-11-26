@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct QRGuideView: View {
     
+    @State var showingScanner = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
             Spacer()
             Button(action: {
-                // QR 스캐너
+                showingScanner = true
             }, label: {
                 HStack {
                     Spacer()
@@ -39,7 +41,23 @@ struct QRGuideView: View {
             }, label: {
                 Text("취소")
                     .foregroundColor(.black)
-            }))
+            })
+        )
+        .sheet(isPresented: $showingScanner) {
+            CodeScannerView(codeTypes: [.qr], simulatedData: "-") { result in
+                switch result {
+                case .success(let code):
+                    
+                    // 여기서 성공하면 새로운 화면 띄운다.
+                    // 키값도 넘겨준다.
+                    
+                    print(code)
+                case .failure(let error):
+                    print(error)
+                }
+                self.showingScanner = false
+            }
+        }
         
     }
     
