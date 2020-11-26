@@ -119,7 +119,6 @@ struct CircularProgressBar: View {
                             lineCap: .round,
                             lineJoin: .round))
                 .foregroundColor(Color.white)
-                // TODO: 색을 채워나가는 게 아니라 지워가는 걸로 바꾸는 법 고민 중
                 .rotationEffect(Angle(degrees: 270.0))
                 .animation(.none)
         }

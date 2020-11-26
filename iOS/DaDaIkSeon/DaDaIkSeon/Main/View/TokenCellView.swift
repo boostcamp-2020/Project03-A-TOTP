@@ -69,7 +69,13 @@ struct TokenAddCellView: View {
     
     // MARK: Body
     
+    @State var showSheetView = false
+    
     var body: some View {
+        
+        //        NavigationLink(
+        //            destination: QRGuideView(),
+        //            label: {
         VStack {
             Spacer()
             HStack {
@@ -89,6 +95,7 @@ struct TokenAddCellView: View {
                 .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5.0]))
                 .foregroundColor(Color(.systemGray2))
         )
+        //            })
     }
-    
 }
+

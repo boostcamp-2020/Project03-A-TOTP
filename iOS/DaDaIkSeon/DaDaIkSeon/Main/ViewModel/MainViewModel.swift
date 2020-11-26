@@ -19,7 +19,6 @@ final class MainViewModel: ObservableObject {
     var publisher: AnyCancellable?
     var tokens: [TokenViewModel] = []
     
-    
     // MARK: Init
     
     init() {
@@ -44,11 +43,41 @@ final class MainViewModel: ObservableObject {
     /// 토큰 배열을 리턴
     func fetchTokens() {
         tokens = [
-            TokenViewModel(token: Token(id: UUID(), key: "111 111", tokenName: "token1", color: nil, icon: nil)),
-            TokenViewModel(token: Token(id: UUID(), key: "222 222", tokenName: "token2", color: nil, icon: nil)),
-            TokenViewModel(token: Token(id: UUID(), key: "333 333", tokenName: "token3", color: nil, icon: nil)),
-            TokenViewModel(token: Token(id: UUID(), key: "444 444", tokenName: "token4", color: nil, icon: nil)),
-            TokenViewModel(token: Token(id: UUID(), key: "555 555", tokenName: "token5", color: nil, icon: nil))]
+            TokenViewModel(
+                token: Token(id: UUID(),
+                             key: "111 111",
+                             tokenName: "token1",
+                             color: nil,
+                             icon: nil)
+            ),
+            TokenViewModel(
+                token: Token(id: UUID(),
+                             key: "222 222",
+                             tokenName: "token2",
+                             color: nil,
+                             icon: nil)
+            ),
+            TokenViewModel(
+                token: Token(id: UUID(),
+                             key: "333 333",
+                             tokenName: "token3",
+                             color: nil,
+                             icon: nil)
+            ),
+            TokenViewModel(
+                token: Token(id: UUID(),
+                             key: "444 444",
+                             tokenName: "token4",
+                             color: nil,
+                             icon: nil)
+            ),
+            TokenViewModel(
+                token: Token(id: UUID(),
+                             key: "555 555",
+                             tokenName: "token5",
+                             color: nil,
+                             icon: nil)
+            )]
     }
     
 }
