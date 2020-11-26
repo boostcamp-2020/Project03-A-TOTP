@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   console.error(message);
   res.status(status || 500).json({
-    result: message,
+    message,
   });
 });
 
