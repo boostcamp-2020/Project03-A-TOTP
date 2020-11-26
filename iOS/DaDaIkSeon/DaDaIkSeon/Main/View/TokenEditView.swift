@@ -11,6 +11,7 @@ struct TokenEditView: View {
     
     @State var isEditing = false
     @State var text = ""
+    @State private var segmentedMode = 0
     
     var body: some View {
         NavigationView {
@@ -42,6 +43,13 @@ struct TokenEditView: View {
                 
                 Divider()
                     .padding(.bottom, 80)
+                
+                Picker(selection: $segmentedMode, label: Text("mode")) {
+                    Text("색상").tag(0)
+                    Text("아이콘").tag(1)
+                }.pickerStyle(SegmentedPickerStyle())
+                
+                Spacer()
             }
             .padding(.horizontal, 60)
         }
