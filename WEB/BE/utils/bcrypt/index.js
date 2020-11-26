@@ -1,8 +1,9 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
+
 const saltRounds = Number(process.env.SALTROUNDS);
 
-const encryptedPassword = (password) => {
+const getEncryptedPassword = (password) => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (err) reject(err);
@@ -20,4 +21,4 @@ const comparePassword = (password, DBpw) => {
   });
 };
 
-module.exports = { encryptedPassword, comparePassword };
+module.exports = { getEncryptedPassword, comparePassword };
