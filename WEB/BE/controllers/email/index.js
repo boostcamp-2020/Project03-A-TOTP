@@ -6,13 +6,13 @@ const SECRETKEY = process.env.EMAILSECRETKEY;
 const time = Date.now();
 const payload = `POST /api/v1/mails\n${time}\n${ACCESSKEY}`;
 
-const requestEmail = (address, name) => {
-  const result = encryptWithAES256({ Text: `${address} ${time + 7200000}` });
+const requestEmail = (address, name, idx) => {
+  const result = encryptWithAES256({ Text: `${address} ${time + 7200000} ${idx}` });
   const resultURL = `https://dadaikseon.com/confirm-email?user=${encodeURIComponent(result)}`;
-
+  console.log(resultURL);
   const option = {
     uri: process.env.EMAILURL,
-    method: '',
+    method: 'POST',
     headers: {
       'x-ncp-apigw-timestamp': time,
       'x-ncp-iam-access-key': ACCESSKEY,
@@ -37,9 +37,7 @@ const requestEmail = (address, name) => {
     json: true,
   };
   try {
-    request.post(option, (err, httpResponse, body) => {
-      console.log(body);
-    });
+    request.post(option, (err, httpResponse, body) => {});
   } catch (e) {
     console.log(e);
   }
