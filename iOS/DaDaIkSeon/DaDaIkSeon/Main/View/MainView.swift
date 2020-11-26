@@ -41,9 +41,8 @@ struct MainView: View {
                     .padding([.leading, .trailing, .bottom], 12)
                     .padding(.top, 6)
                 }
-                .navigationBarHidden(true) // NavigationView에서 이걸 해주는 게 아니라 안에 있는 컨텐츠에서 해주어야 한다.
+                .navigationBarHidden(true) 
             }
-            .padding(.top, 0)
             
         }
     }
