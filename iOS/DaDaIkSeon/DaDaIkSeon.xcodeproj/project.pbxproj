@@ -16,7 +16,7 @@
 		7C66194E256CCAF20028E7C6 /* DaDaIkSeonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */; };
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
 		7C7DC50F256D75D10089CD68 /* TokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC50E256D75D10089CD68 /* TokenListView.swift */; };
-		7C7DC514256D75FE0089CD68 /* TokenListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* TokenListViewModel.swift */; };
+		7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* MainViewModel.swift */; };
 		7CCDD258256E12C600150565 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD257256E12C600150565 /* TokenViewModel.swift */; };
 		7CCDD28E256E45E000150565 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD28D256E45E000150565 /* Color+.swift */; };
 		7CCDD299256E940600150565 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD298256E940500150565 /* SearchBarView.swift */; };
@@ -64,7 +64,7 @@
 		7C66194F256CCAF20028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7C7DC50E256D75D10089CD68 /* TokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListView.swift; sourceTree = "<group>"; };
-		7C7DC513256D75FE0089CD68 /* TokenListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenListViewModel.swift; path = DaDaIkSeon/Main/ViewModel/TokenListViewModel.swift; sourceTree = SOURCE_ROOT; };
+		7C7DC513256D75FE0089CD68 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = DaDaIkSeon/Main/ViewModel/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
 		7CCDD257256E12C600150565 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
 		7CCDD28D256E45E000150565 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		7CCDD298256E940500150565 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				88339A14256E27B80089D6B1 /* MainCellViewModel.swift */,
-				7C7DC513256D75FE0089CD68 /* TokenListViewModel.swift */,
+				7C7DC513256D75FE0089CD68 /* MainViewModel.swift */,
 				7CCDD257256E12C600150565 /* TokenViewModel.swift */,
 			);
 			path = ViewModel;
@@ -480,7 +480,7 @@
 				7CCDD258256E12C600150565 /* TokenViewModel.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				88339A15256E27B80089D6B1 /* MainCellViewModel.swift in Sources */,
-				7C7DC514256D75FE0089CD68 /* TokenListViewModel.swift in Sources */,
+				7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
 			);
