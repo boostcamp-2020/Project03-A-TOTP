@@ -1,11 +1,3 @@
----
-name: BE PR
-about: BE PR 템플릿
-title: '[BE] '
-labels: BE
-assignees: ''
----
-
 ## :white_check_mark: 작업 내용
 
 - Todo1
