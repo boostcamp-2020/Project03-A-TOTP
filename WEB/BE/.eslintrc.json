@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream:WEB/BE/.eslintrc.json
   "extends": ["prettier", "airbnb-base", "eslint:recommended"],
   "parser": "babel-eslint",
   "plugins": ["prettier"],
@@ -6,6 +7,13 @@
     "ecmaVersion": 7,
     "sourceType": "script"
   },
+=======
+  "extends": [
+    "airbnb-base","plugin:prettier/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": ["prettier"],
+>>>>>>> Stashed changes:WEB/BE/.eslintrc
   "env": {
     "browser": true,
     "node": true
@@ -34,7 +42,6 @@
     "consistent-return": "off",
     "no-alert": "off",
     "no-return-assign": "off",
-    "import/prefer-default-export": "off",
     "no-param-reassign": "off",
     "no-shadow": "off",
     "no-continue": "off",

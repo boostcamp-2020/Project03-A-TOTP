@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from '@styles/variable';
+import { Colors } from '@styles/theme';
 
 const ButtonTag = styled.button`
   height: 36px;
