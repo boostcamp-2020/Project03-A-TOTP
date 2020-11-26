@@ -30,7 +30,9 @@ struct MainView: View {
             VStack(spacing: 12) {
                 HeaderView()
                 SearchBarView()
-                viewModel.isSearching ? nil : MainCellView().padding(.bottom, -6)
+                viewModel.isSearching ?
+                    nil : MainCellView(token: .constant(viewModel.mainCell))
+                    .padding(.bottom, -6)
                 ScrollView {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
@@ -42,7 +44,7 @@ struct MainView: View {
                                 isShowing = true
                             }
                             .frame(minHeight: 100)
-                        }
+                    }
                     .padding([.leading, .trailing, .bottom], 12)
                     .padding(.top, 6)
                 }

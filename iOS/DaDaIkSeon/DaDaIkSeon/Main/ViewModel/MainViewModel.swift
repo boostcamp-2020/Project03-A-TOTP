@@ -15,6 +15,11 @@ final class MainViewModel: ObservableObject {
     @Published var filteredTokens: [TokenViewModel] = []
     @Published var searchText = ""
     @Published var isSearching = false
+    @Published var mainCell
+        = Token(id: UUID(),
+                key: "6UAOpz+x3dsNrQ==",
+                tokenName: "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄",
+                color: nil, icon: nil)
     
     var publisher: AnyCancellable?
     var tokens: [TokenViewModel] = []
