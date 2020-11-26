@@ -10,11 +10,19 @@ import SwiftUI
 struct TokenEditView: View {
     
     var body: some View {
-        
-        VStack {
-            
+        NavigationView {
+            VStack {
+                Spacer()
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                    .padding(60)
+                    .background(LinearGradient.mint)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+            }
+            .padding(.horizontal, 60)
         }
-        
     }
 }
 
