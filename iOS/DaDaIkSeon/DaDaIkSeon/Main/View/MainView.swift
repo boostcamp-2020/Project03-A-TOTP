@@ -26,7 +26,7 @@ struct MainView: View {
         VStack(spacing: 12) {
             HeaderView()
             SearchBarView(viewModel: .constant(viewModel))
-            viewModel.isSearching ? nil : MainCellView()
+            viewModel.isSearching ? nil : MainCellView().padding(.bottom, -6)
             ScrollView {
                 LazyVGrid(columns: columns,
                           spacing: 12) {
