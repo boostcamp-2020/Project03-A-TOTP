@@ -13,7 +13,8 @@
     "@controllers": "controllers",
     "@models": "models",
     "@routes": "routes",
-    "@services": "services"
+    "@services": "services",
+    "@middlewares": "middlewares"
   },
   "author": "",
   "license": "ISC",

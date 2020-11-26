@@ -20,6 +20,7 @@ const authService = {
     }
   },
 
+
   async update({ info, next }) {
     const query = {
       state: info.state,
@@ -33,6 +34,14 @@ const authService = {
       return result;
     } catch (e) {
       next(e);
+    }
+  },
+
+  async checkAuth({ id, password }) {
+    try {
+      return await authsModel.findOne({ where: { id, password } });
+    } catch (e) {
+      throw e;
     }
   },
 };

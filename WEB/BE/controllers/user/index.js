@@ -3,7 +3,7 @@ const QRCode = require('qrcode');
 const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
-const { encryptedPassword } = require('@utils/bcrypt');
+const { getEncryptedPassword } = require('@utils/bcrypt');
 const { requestEmail } = require('@controllers/email');
 
 const userController = {
@@ -20,7 +20,7 @@ const userController = {
       userInfo = encrypUserInfo({ userInfo });
       const secretKey = makeSecretKey();
       const qrcode = await makeQRCode({ secretKey });
-      const encryptPassword = await encryptedPassword(password);
+      const encryptPassword = await getEncryptedPassword(password);
       const insertResult = await userService.insert({ userInfo, next });
       const result = await authService.insert({
         idx: insertResult.dataValues.idx,

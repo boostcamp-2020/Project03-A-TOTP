@@ -1,18 +1,14 @@
 {
-  "extends": [
-    "prettier",
-    "airbnb-base",
-    "eslint:recommended",
-  ],
+  "extends": ["prettier", "airbnb-base", "eslint:recommended"],
   "parser": "babel-eslint",
   "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 7,
-    "sourceType": "script",
+    "sourceType": "script"
   },
   "env": {
     "browser": true,
-    "node": true 
+    "node": true
   },
   "ignorePatterns": ["node_modules/"],
 

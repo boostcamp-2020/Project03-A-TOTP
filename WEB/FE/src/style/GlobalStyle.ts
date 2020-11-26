@@ -21,6 +21,17 @@ export const resetCss = css`
     font-size: 100%;
     vertical-align: baseline;
   }
+  html {
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    width: 100%;
+    height: 100%;
+    color: #333;
+    font-size: 100%;
+    line-height: 1.2;
+  }
   /* prettier-ignore */
   article, aside, details, figcaption, figure, 
   footer, header, hgroup, menu, nav, section {

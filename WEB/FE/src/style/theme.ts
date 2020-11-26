@@ -5,6 +5,7 @@ enum Colors {
   Black = '#333333',
   Gray = '#D9D8DD',
   White = '#FFFFFF',
+  border = '#eaecef',
 }
 
 enum FontSize {
