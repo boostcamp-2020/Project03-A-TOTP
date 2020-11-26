@@ -20,11 +20,11 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
-    "crypto": "^1.0.1",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "debug": "^4.2.0",
-    "eslint-config-airbnb-base": "^14.2.1",
     "dotenv": "^8.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "http-errors": "^1.8.0",
@@ -33,9 +33,10 @@
     "mysql2": "^2.2.5",
     "path": "^0.12.7",
     "qrcode": "^1.4.4",
-    "speakeasy": "^2.0.0",
     "redis": "^3.0.2",
-    "sequelize": "^6.3.5"
+    "request": "^2.88.2",
+    "sequelize": "^6.3.5",
+    "speakeasy": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
