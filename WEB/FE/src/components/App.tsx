@@ -4,6 +4,7 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ThemeProvider } from 'styled-components';
 import { PrivateRoute } from './route/PrivateRoute';
 import { theme } from '../style/theme';
+import ComfirmEmail from './confirmEmail/index';
 import { Modal } from './common/Modal';
 
 interface AppProps {}
@@ -25,6 +26,7 @@ const App: React.FC<AppProps> = () => {
           <Switch>
             {/** @TODO component 추가 */}
             <Route exact path='/' component={Hello} />
+            <Route exact path='/confirm-email' component={ComfirmEmail} />
             <PrivateRoute path='/user' component={No} />
           </Switch>
         </BrowserRouter>

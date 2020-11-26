@@ -19,4 +19,9 @@ const decryptWithAES256 = ({ encryptedText }) => {
   return decryptedValue;
 };
 
-module.exports = { encryptWithAES256, decryptWithAES256 };
+const encryptWithSHA256 = (key, payload) => {
+  const result = Crypto.createHmac('sha256', key).update(payload).digest('base64');
+  return result;
+};
+
+module.exports = { encryptWithAES256, decryptWithAES256, encryptWithSHA256 };
