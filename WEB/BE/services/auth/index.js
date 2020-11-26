@@ -19,6 +19,13 @@ const authService = {
       next(e);
     }
   },
+  async checkAuth({ id, password }) {
+    try {
+      return await authsModel.findOne({ where: { id, password } });
+    } catch (e) {
+      throw e;
+    }
+  },
 };
 
 module.exports = authService;
