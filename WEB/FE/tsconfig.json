@@ -71,7 +71,7 @@
       "@utils/*": ["src/utils/*"], 
       "@types/*": ["src/types/*"], 
       "@layouts/*": ["src/layouts/*"], 
-      "@pages/*": ["src/pages/*"], 
+      "@pages/*": ["src/pages/*"],
     }
   },
   "include": ["./src/**/*"],

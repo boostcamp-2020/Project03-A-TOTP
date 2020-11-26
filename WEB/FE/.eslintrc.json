@@ -12,7 +12,6 @@
     "airbnb/hooks",
     "prettier/react",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
@@ -21,19 +20,10 @@
     "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
-    "tsconfigRootDir": "./",
     "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
-  },
-  "settings": { 
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
-    "import/resolver": {
-       "typescript": "./tsconifg.json"
     }
   },
   "rules": {
@@ -61,6 +51,6 @@
     }, 
     "import/resolver": { 
       "typescript": "./tsconfig.json" 
-    } 
-  },
+    }
+  }
 }

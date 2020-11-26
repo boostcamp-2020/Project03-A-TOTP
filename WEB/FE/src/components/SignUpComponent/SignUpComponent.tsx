@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { FontSize } from '@styles/variable';
+import { verify } from '@utils/verify';
 import Input from '../common/Input';
 import Button from '../common/Button';
 
@@ -11,10 +11,20 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: ${FontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-weight: 600;
   height: 100px;
 `;
+
+interface Form {
+  id: string;
+  password: string;
+  rePassword: string;
+  name: string;
+  birthday: string;
+  email: string;
+  phone: string;
+}
 
 const SignUpComponent = () => {
   const list: string[] = ['password', 'rePassword', 'name', 'birthday', 'phone'];
@@ -33,25 +43,43 @@ const SignUpComponent = () => {
     console.log('useEffect :', form);
   }, [form]);
 
-  const checkDuplicateEventHandler = (e): void =>{
+  const checkDuplicateEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     console.log('dup-id API');
   };
 
-  const submitEventHandler = (e): void =>{
+  const submitEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    console.log('send : ',form);
-  }
+    console.log('send : ', form);
+    const result: string = verify(form);
+    if (result !== '1') {
+      alert(result);
+      return;
+    }
+    alert('회원가입 성공');
+  };
 
   return (
     <Wrapper>
       <Title>SIGN UP</Title>
-      <Input placeholder='ID' name='id' form={form} setForm={setForm} buttonEvent={checkDuplicateEventHandler} />
+      <Input
+        placeholder='ID'
+        name='id'
+        form={form}
+        setForm={setForm}
+        buttonEvent={checkDuplicateEventHandler}
+      />
       {list.map((name, idx) => (
         <Input key={idx} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
       ))}
-      <Input placeholder='E-Mail' name='email' form={form} setForm={setForm} buttonEvent={checkDuplicateEventHandler} />
-      <Button name={'회원가입'} buttonEvent={submitEventHandler} />
+      <Input
+        placeholder='E-Mail'
+        name='email'
+        form={form}
+        setForm={setForm}
+        buttonEvent={checkDuplicateEventHandler}
+      />
+      <Button name='회원가입' buttonEvent={submitEventHandler} />
     </Wrapper>
   );
 };
