@@ -50,10 +50,34 @@ struct TokenEditView: View {
                 }.pickerStyle(SegmentedPickerStyle())
                 
                 Spacer()
+                
+                segmentedMode == 0 ? PaletteView() : nil
+                
+                Spacer()
             }
             .padding(.horizontal, 60)
         }
     }
+}
+
+struct PaletteView: View {
+
+    private var columns = [GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible())]
+    
+    var body: some View {
+        LazyVGrid(columns: columns) {
+            ForEach(1...6, id: \.self) { _ in
+                Circle()
+                    .foregroundColor(.blue)
+                    .frame(width: 55, height: 55, alignment: .center)
+            }
+        }
+        .padding(16)
+        .padding(.bottom, 30)
+    }
+    
 }
 
 struct TokenEditView_Previews: PreviewProvider {
