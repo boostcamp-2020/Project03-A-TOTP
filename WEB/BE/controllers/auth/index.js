@@ -10,6 +10,7 @@ const authController = {
       next(e);
     }
   },
+  async logIn(req, res) {},
 };
 
 module.exports = authController;
