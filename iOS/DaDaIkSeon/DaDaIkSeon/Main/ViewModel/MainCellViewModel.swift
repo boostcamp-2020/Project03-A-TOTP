@@ -26,7 +26,7 @@ class MainCellViewModel: ObservableObject {
     @Published var timeAmount = 0.0
     @Published var password = ""
     
-    let totalTime = 3.0
+    let totalTime = 30.0
     let timerInterval = 0.01
     
     var subscriptions = Set<AnyCancellable>()
@@ -35,17 +35,20 @@ class MainCellViewModel: ObservableObject {
     
     var lastSecond: Int = 1
     
-    let todaySartTime = { () -> Date? in
-        let dateFormmater = DateFormatter()
-        dateFormmater.locale = Locale(identifier: "ko_KR")
-        dateFormmater.dateFormat = "yyyy-MM-dd"
+    let dateFormmater = DateFormatter()
+    var todaySartTime: Date? {
         let today = dateFormmater.string(from: Date())
         return dateFormmater.date(from: today)
-    }()
+    }
     
     init() {
+        
+        dateFormmater.locale = Locale(identifier: "ko_KR")
+        dateFormmater.dateFormat = "yyyy-MM-dd"
+        
         timer = Timer.publish(every: timerInterval, on: .main, in: .common)
             .autoconnect()
+        
         password = makePassword(key: key)
         
         timeAmount
