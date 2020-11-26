@@ -4,10 +4,17 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ThemeProvider } from 'styled-components';
 import { PrivateRoute } from './route/PrivateRoute';
 import { theme } from '../style/theme';
+import { Modal } from './common/Modal';
 
 interface AppProps {}
 
-const Hello = () => <>Hello</>;
+const Hello = () => (
+  <>
+    <Modal>
+      <div>Hi! I'm Modal</div>
+    </Modal>
+  </>
+);
 const No = () => <>No</>;
 
 const App: React.FC<AppProps> = () => {
