@@ -57,10 +57,10 @@ const userController = {
     }
     const info = {
       state: 1,
-      idx: idx,
+      idx,
     };
     try {
-      await authService.update({ info: info, next });
+      await authService.update({ info, next });
       res.json(true);
     } catch (e) {
       next(e);

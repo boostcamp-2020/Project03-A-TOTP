@@ -1,5 +1,6 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
+
 const saltRounds = Number(process.env.SALTROUNDS);
 
 const getEncryptedPassword = (password) => {

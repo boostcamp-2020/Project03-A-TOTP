@@ -20,4 +20,4 @@ const ComfirmEmail: React.FC<RouteComponentProps<PathParamsProps>> = ({ location
   return <Redirect to='/' />;
 };
 
-export default ComfirmEmail;
+export default ComfirmEmail
