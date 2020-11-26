@@ -5,13 +5,14 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint","import"],
   "extends": [
     "prettier",
     "airbnb",
     "airbnb/hooks",
     "prettier/react",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
@@ -20,10 +21,19 @@
     "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
+    "tsconfigRootDir": "./",
     "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
+    }
+  },
+  "settings": { 
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+       "typescript": "./tsconifg.json"
     }
   },
   "rules": {
@@ -42,7 +52,7 @@
     "@typescript-eslint/no-empty-interface": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
+    // "@typescript-eslint/no-shadow": ["error"],
     "react/prop-types": 0
   },
   "settings": { 

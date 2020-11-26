@@ -12,6 +12,12 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@styles': path.resolve(__dirname, 'src/styles/'),
+      '@pages': path.resolve(__dirname, 'src/pages/'),
+    },
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@': path.resolve(__dirname, 'src/'),
