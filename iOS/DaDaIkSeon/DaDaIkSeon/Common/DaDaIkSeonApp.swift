@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct DaDaIkSeonApp: App {
+    
+    var mainViewModel = MainViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(MainViewModel())
+            MainView().environmentObject(mainViewModel)
         }
     }
 }
