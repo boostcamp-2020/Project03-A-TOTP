@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import * as Pages from '../pages';
+import * as Pages from '@pages/';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ThemeProvider } from 'styled-components';
+import { theme } from '../styles/theme';
 import { PrivateRoute } from './route/PrivateRoute';
-import { theme } from '../style/theme';
 import ComfirmEmail from './confirmEmail/index';
 import { Modal } from './common/Modal';
 
@@ -13,7 +13,7 @@ interface AppProps {}
 const Hello = () => (
   <>
     <Modal>
-      <div>Hi! I'm Modal</div>
+      <div>Hi! im Modal</div>
     </Modal>
   </>
 );
