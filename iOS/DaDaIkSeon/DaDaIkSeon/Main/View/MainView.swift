@@ -20,6 +20,8 @@ struct MainView: View {
         GridItem(.flexible(), spacing: 12)
     ]
     
+    @State var isShowing = false
+    
     // MARK: Body
     
     var body: some View {
@@ -36,14 +38,20 @@ struct MainView: View {
                             TokenCellView(viewModel: .constant(token))
                         }
                         viewModel.isSearching ? nil : TokenAddCellView()
+                            .onTapGesture {
+                                self.isShowing = true
+                            }
                             .frame(minHeight: 100)
                         }
                     .padding([.leading, .trailing, .bottom], 12)
                     .padding(.top, 6)
                 }
-                .navigationBarHidden(true) 
+                .navigationBarHidden(true)
             }
             
+        }
+        .sheet(isPresented: $isShowing) {
+            QRGuideView()
         }
     }
     
