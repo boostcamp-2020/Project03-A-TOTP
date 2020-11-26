@@ -40,6 +40,8 @@ struct TokenEditView: View {
                     .padding(.bottom, -8)
                     .animation(.default)
                 
+                Divider()
+                    .padding(.bottom, 80)
             }
             .padding(.horizontal, 60)
         }
