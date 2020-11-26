@@ -15,7 +15,7 @@ const InputTag = styled.input`
   width: 230px;
   height: 30px;
   border: none;
-  padding-left: 10px
+  padding-left: 10px;
 `;
 
 const Button = styled.button`
@@ -31,7 +31,7 @@ const Input = (props: any) => {
   return (
     <Wrapper>
       <InputTag
-        type={name === 'password' || name ==='rePassword' ? 'password':'text'}
+        type={name === 'password' || name === 'rePassword' ? 'password' : 'text'}
         placeholder={placeholder}
         value={form[name]}
         onChange={(e) => onChangeHandler(e, props.name)}
