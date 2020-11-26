@@ -25,7 +25,7 @@ const authService = {
       state: info.state,
     };
     const where = {
-      idx: info.idx,
+      user_idx: info.idx,
     };
     try {
       const result = await authsModel.update(query, { where });
