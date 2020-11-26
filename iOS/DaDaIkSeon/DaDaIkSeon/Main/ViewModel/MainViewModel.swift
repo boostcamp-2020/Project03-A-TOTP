@@ -50,35 +50,35 @@ final class MainViewModel: ObservableObject {
         tokens = [
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "111 111",
+                             key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token1",
                              color: nil,
                              icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "222 222",
+                             key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token2",
                              color: nil,
                              icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "333 333",
+                             key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token3",
                              color: nil,
                              icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "444 444",
+                             key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token4",
                              color: nil,
                              icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "555 555",
+                             key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token5",
                              color: nil,
                              icon: nil)

@@ -12,7 +12,6 @@ import CryptoKit
 final class TokenViewModel: ObservableObject {
     
     // MARK: Property
-    
     @Published var token: Token
     
     var key: String {
@@ -22,10 +21,6 @@ final class TokenViewModel: ObservableObject {
         return key
     }
     
-    @Published var tokenName = "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄"
-    
-    @Published var timeString = "1"
-    @Published var timeAmount = 0.0
     @Published var password = ""
     
     let totalTime = 30.0
@@ -42,8 +37,7 @@ final class TokenViewModel: ObservableObject {
         let today = dateFormmater.string(from: Date())
         return dateFormmater.date(from: today)
     }
-    
-    
+      
     // MARK: init
     
     init(token: Token) {
@@ -58,10 +52,6 @@ final class TokenViewModel: ObservableObject {
         
         password = makePassword(key: key)
         
-        timeAmount
-            = -Double(todaySartTime?.timeIntervalSinceNow ?? 0)
-            .truncatingRemainder(dividingBy: totalTime) + 1
-        
         timer
             .map({ (output) in
                 return output.timeIntervalSince(self.todaySartTime ?? Date())
@@ -72,15 +62,12 @@ final class TokenViewModel: ObservableObject {
             .sink { [weak self] (seconds) in
                 guard let weakSelf = self else { return }
                 if weakSelf.lastSecond != seconds {
-                    weakSelf.timeString = "\(seconds + 1)"
                     if seconds == 0 {
                         weakSelf.password
                             = weakSelf.makePassword(key: weakSelf.key)
-                        weakSelf.timeAmount = 0
                     }
                     weakSelf.lastSecond = seconds
                 }
-                weakSelf.timeAmount += weakSelf.timerInterval
             }
             .store(in: &subscriptions)
     }

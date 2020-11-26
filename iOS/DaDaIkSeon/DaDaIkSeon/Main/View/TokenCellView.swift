@@ -49,10 +49,13 @@ struct TokenCellView: View {
             .padding(.horizontal, 12)
             
             HStack {
-                Text(viewModel.token.key ?? "")
+                (Text(viewModel.password.prefix(3))
+                    + Text(" ")
+                    + Text(viewModel.password.suffix(3)))
+                    .foregroundColor(.white)
                     .font(.system(size: 18))
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .kerning(3)
                 Spacer()                
             }
             .padding([.horizontal, .bottom], 12)
