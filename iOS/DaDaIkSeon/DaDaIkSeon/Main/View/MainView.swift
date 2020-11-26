@@ -11,7 +11,7 @@ struct MainView: View {
     
     // MARK: ViewModel
     
-    @ObservedObject private var viewModel = MainViewModel()
+    @EnvironmentObject private var viewModel: MainViewModel
     
     // MARK: Property
     
@@ -29,7 +29,7 @@ struct MainView: View {
         NavigationView {
             VStack(spacing: 12) {
                 HeaderView()
-                SearchBarView(viewModel: .constant(viewModel))
+                SearchBarView()
                 viewModel.isSearching ? nil : MainCellView().padding(.bottom, -6)
                 ScrollView {
                     LazyVGrid(columns: columns,

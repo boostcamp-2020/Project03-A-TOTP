@@ -11,13 +11,13 @@ struct SearchBarView: View {
     
     // MARK: ViewModel
     
-    @Binding var viewModel: MainViewModel
+    @EnvironmentObject var viewModel: MainViewModel
     
     // MARK: Body
     
     var body: some View {
         HStack {
-            TextField("검색", text: $viewModel.searchText)
+            TextField("검색", text: .constant(viewModel.searchText))
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
