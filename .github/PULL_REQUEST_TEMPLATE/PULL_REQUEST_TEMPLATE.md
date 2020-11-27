@@ -1,11 +1,3 @@
----
-name: FE PR
-about: FE PR 템플릿
-title: '[FE] '
-labels: FE
-assignees: ''
----
-
 ## :white_check_mark: 작업 내용
 
 - Todo1

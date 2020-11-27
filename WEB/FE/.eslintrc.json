@@ -5,7 +5,7 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint","import"],
   "extends": [
     "prettier",
     "airbnb",
@@ -38,6 +38,18 @@
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "import/extensions": 0,
-    "no-use-before-define": 0
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-empty-interface": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "no-shadow": "off",
+    "react/prop-types": 0
+  },
+  "settings": { 
+    "import/parsers": { 
+      "@typescript-eslint/parser": [".ts", ".tsx", ".js"] 
+    }, 
+    "import/resolver": { 
+      "typescript": "./tsconfig.json" 
+    }
   }
 }
