@@ -52,7 +52,7 @@ const userController = {
     const time = user[1];
     const idx = user[2];
     if (time < Date.now()) {
-      res.status(400).json({ mgs: '요청 만료' });
+      res.status(400).json({ result: false });
       return;
     }
     const info = {
@@ -61,7 +61,7 @@ const userController = {
     };
     try {
       await authService.update({ info, next });
-      res.json(true);
+      res.json({ result: true });
     } catch (e) {
       next(e);
     }
