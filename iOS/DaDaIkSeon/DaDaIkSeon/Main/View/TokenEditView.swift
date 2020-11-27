@@ -83,19 +83,21 @@ struct TokenEditView: View {
                         .foregroundColor(.black)
                 })
             )
-            
         }
+//        .onTapGesture {
+//            hideKeyboard()
+//        }
     }
 }
 
 struct IconView: View {
-
+    
     private var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
-
+    
     // 아이콘 이미지 저장방법은?
     
     var body: some View {
@@ -109,11 +111,11 @@ struct IconView: View {
         .padding(.horizontal, 30)
         .padding(.bottom, 30)
     }
-
+    
 }
 
 struct PaletteView: View {
-
+    
     private var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]

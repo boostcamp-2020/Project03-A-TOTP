@@ -45,18 +45,13 @@ struct SearchBarView: View {
                 .onTapGesture {
                     viewModel.isSearching = true
                 }
-                .animation(.default)
             
             if viewModel.isSearching {
                 // 취소 버튼
                 Button(action: {
                     viewModel.isSearching = false
                     viewModel.searchText = ""
-                    // 키보드 닫기
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                                    to: nil,
-                                                    from: nil,
-                                                    for: nil)
+                    hideKeyboard()
                 }, label: {
                     Text("취소")
                         .foregroundColor(.black)
