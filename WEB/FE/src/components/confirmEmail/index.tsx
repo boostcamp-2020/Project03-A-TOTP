@@ -1,7 +1,7 @@
 import React from 'react';
 import qs from 'qs';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
-import { confirmEmailAPI } from '../../api/index';
+import { confirmEmailAPI } from '@api/index';
 
 interface PathParamsProps {
   id: string;
@@ -20,4 +20,4 @@ const ComfirmEmail: React.FC<RouteComponentProps<PathParamsProps>> = ({ location
   return <Redirect to='/' />;
 };
 
-export default ComfirmEmail
+export default ComfirmEmail;

@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Input from '@components/common/Input';
+import Button from '@components/common/Button';
 import { verify } from '@utils/verify';
-import Input from '../common/Input';
-import Button from '../common/Button';
 
 const Wrapper = styled.div`
   width: 40%;
   margin: auto;
-  text-align: -webkit-center;
+  text-align: center;
 `;
 
 const Title = styled.div`
@@ -47,6 +47,7 @@ const SignUpComponent = () => {
     e.preventDefault();
     console.log('dup-id API');
   };
+
 
   const submitEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
