@@ -20,8 +20,10 @@ export const resetCss = css`
     border: 0;
     font-size: 100%;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
-  html {
+  html,
+  #app {
     width: 100%;
     height: 100%;
   }

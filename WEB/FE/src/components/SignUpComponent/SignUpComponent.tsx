@@ -9,7 +9,8 @@ import { useHistory } from 'react-router-dom';
 import Buffer from 'buffer';
 
 const Wrapper = styled.div`
-  width: 40%;
+  width: 100%;
+  max-width: 440px;
   margin: auto;
   text-align: center;
 `;

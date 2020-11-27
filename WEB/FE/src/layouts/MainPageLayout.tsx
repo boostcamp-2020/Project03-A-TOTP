@@ -1,9 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 
-interface MainPageLayoutProps {}
+interface MainPageLayoutProps {
+  children: React.ReactNode;
+}
 
 const MainPageLayout: React.FC<MainPageLayoutProps> = ({ children }) => {
-  return <main>{children}</main>;
+  return <>{children}</>;
 };
 
 export { MainPageLayout };
