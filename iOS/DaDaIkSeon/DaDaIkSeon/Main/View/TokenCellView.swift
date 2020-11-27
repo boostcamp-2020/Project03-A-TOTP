@@ -27,13 +27,16 @@ struct TokenCellView: View {
                 Spacer()
                 
                 Button(action: {
-                    // 큰 셀로 Data보내는 Action 추가하는 곳.
+                    viewModel.showEditView = true
                 }, label: {
                     Image(systemName: "ellipsis.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20, alignment: .top)
                         .foregroundColor(.white)
                 })
+                .sheet(isPresented: $viewModel.showEditView) {
+                    TokenEditView()
+                }
             }
             .padding(.horizontal, 12)
             .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민

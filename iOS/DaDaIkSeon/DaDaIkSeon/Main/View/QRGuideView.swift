@@ -71,8 +71,6 @@ struct QRScannerView: View {
     
 }
 
-
-
 // MARK: Preview
 struct QRGuideView_Previews: PreviewProvider {
     static var previews: some View {

@@ -13,6 +13,7 @@ final class TokenViewModel: ObservableObject {
     
     // MARK: Property
     @Published var token: Token
+    @Published var showEditView = false
     
     var key: String {
         guard let key = token.key else {
