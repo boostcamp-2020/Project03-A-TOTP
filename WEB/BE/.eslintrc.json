@@ -1,11 +1,9 @@
 {
-  "extends": ["prettier", "airbnb-base", "eslint:recommended"],
+  "extends": [
+    "airbnb-base","plugin:prettier/recommended"
+  ],
   "parser": "babel-eslint",
   "plugins": ["prettier"],
-  "parserOptions": {
-    "ecmaVersion": 7,
-    "sourceType": "script"
-  },
   "env": {
     "browser": true,
     "node": true
@@ -34,7 +32,6 @@
     "consistent-return": "off",
     "no-alert": "off",
     "no-return-assign": "off",
-    "import/prefer-default-export": "off",
     "no-param-reassign": "off",
     "no-shadow": "off",
     "no-continue": "off",

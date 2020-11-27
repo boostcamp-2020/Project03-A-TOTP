@@ -31,6 +31,7 @@ const Input = (props: any) => {
   return (
     <Wrapper>
       <InputTag
+        type={name === 'password' || name === 'rePassword' ? 'password' : 'text'}
         placeholder={placeholder}
         value={form[name]}
         onChange={(e) => onChangeHandler(e, props.name)}

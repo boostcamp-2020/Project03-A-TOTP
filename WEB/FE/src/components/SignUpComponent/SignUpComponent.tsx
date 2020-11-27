@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
+import { verify } from '@utils/verify';
 
 const Wrapper = styled.div`
   width: 40%;
@@ -14,6 +15,16 @@ const Title = styled.div`
   font-weight: 600;
   height: 100px;
 `;
+
+interface Form {
+  id: string;
+  password: string;
+  rePassword: string;
+  name: string;
+  birthday: string;
+  email: string;
+  phone: string;
+}
 
 const SignUpComponent = () => {
   const list: string[] = ['password', 'rePassword', 'name', 'birthday', 'phone'];
@@ -32,14 +43,21 @@ const SignUpComponent = () => {
     console.log('useEffect :', form);
   }, [form]);
 
-  const checkDuplicateEventHandler = (e: MouseEvent): void => {
+  const checkDuplicateEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     console.log('dup-id API');
   };
 
-  const submitEventHandler = (e: MouseEvent): void => {
+
+  const submitEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     console.log('send : ', form);
+    const result: string = verify(form);
+    if (result !== '1') {
+      alert(result);
+      return;
+    }
+    alert('회원가입 성공');
   };
 
   return (
@@ -62,7 +80,7 @@ const SignUpComponent = () => {
         setForm={setForm}
         buttonEvent={checkDuplicateEventHandler}
       />
-      <Button name={'회원가입'} buttonEvent={submitEventHandler} />
+      <Button name='회원가입' buttonEvent={submitEventHandler} />
     </Wrapper>
   );
 };
