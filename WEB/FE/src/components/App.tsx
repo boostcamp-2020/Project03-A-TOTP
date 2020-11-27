@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import * as Pages from '@pages/';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ThemeProvider } from 'styled-components';
@@ -13,7 +13,7 @@ interface AppProps {}
 const Hello = () => (
   <>
     <Modal>
-      <div>Hi! im Modal</div>
+      <Link to='/signup'>Sign Up</Link>
     </Modal>
   </>
 );
@@ -29,6 +29,7 @@ const App: React.FC<AppProps> = () => {
             <Route exact path='/' component={Hello} />
             <Route exact path='/confirm-email' component={ComfirmEmail} />
             <Route exact path='/signup' component={Pages.SignUpPage} />
+            <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
             <PrivateRoute path='/user' component={No} />
           </Switch>
         </BrowserRouter>
