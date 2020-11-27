@@ -12,8 +12,8 @@ struct TokenCellView: View {
     
     // MARK: ViewModel
     
-    @Binding var viewModel: TokenViewModel
-    @State var showEditView = false
+    //@Binding var viewModel: TokenViewModel
+    @ObservedObject var viewModel: TokenViewModel
     
     // MARK: Body
     
@@ -27,14 +27,14 @@ struct TokenCellView: View {
                 Spacer()
                 
                 Button(action: {
-                    showEditView = true
+                    viewModel.showEditView = true
                 }, label: {
                     Image(systemName: "ellipsis.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20, alignment: .top)
                         .foregroundColor(.white)
                 })
-                .sheet(isPresented: $showEditView) {
+                .sheet(isPresented: $viewModel.showEditView) {
                     TokenEditView()
                 }
             }

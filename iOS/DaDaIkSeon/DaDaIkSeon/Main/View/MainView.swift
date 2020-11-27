@@ -35,7 +35,7 @@ struct MainView: View {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.filteredTokens, id: \.token.id) { token in
-                            TokenCellView(viewModel: .constant(token))
+                            TokenCellView(viewModel: token)
                         }
                         viewModel.isSearching ? nil : TokenAddCellView()
                             .onTapGesture {
