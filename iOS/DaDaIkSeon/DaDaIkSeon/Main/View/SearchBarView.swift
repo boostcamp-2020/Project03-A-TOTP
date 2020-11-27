@@ -11,7 +11,7 @@ struct SearchBarView: View {
     
     // MARK: ViewModel
     
-    @Binding var viewModel: MainViewModel
+    @EnvironmentObject var viewModel: MainViewModel
     
     // MARK: Body
     

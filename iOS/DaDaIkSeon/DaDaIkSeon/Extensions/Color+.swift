@@ -38,3 +38,24 @@ extension LinearGradient {
                        endPoint: .bottom)
     }
 }
+
+extension String {
+    func linearGradientColor() -> LinearGradient {
+        switch self {
+        case "pink":
+            return LinearGradient.pink
+        case "mint":
+            return LinearGradient.mint
+        case "salmon":
+            return LinearGradient.salmon
+        case "blue":
+            return LinearGradient.blue
+        case "brown":
+            return LinearGradient.brown
+        case "navy":
+            return LinearGradient.navy
+        default:
+            return LinearGradient.pink
+        }
+    }
+}

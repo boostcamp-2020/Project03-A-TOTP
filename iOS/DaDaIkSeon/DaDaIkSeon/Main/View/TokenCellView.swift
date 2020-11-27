@@ -12,7 +12,8 @@ struct TokenCellView: View {
     
     // MARK: ViewModel
     
-    @Binding var viewModel: TokenViewModel
+    //@Binding var viewModel: TokenViewModel
+    @ObservedObject var viewModel: TokenViewModel
     
     // MARK: Body
     
@@ -49,53 +50,19 @@ struct TokenCellView: View {
             .padding(.horizontal, 12)
             
             HStack {
-                Text(viewModel.token.key ?? "")
+                (Text(viewModel.password.prefix(3))
+                    + Text(" ")
+                    + Text(viewModel.password.suffix(3)))
+                    .foregroundColor(.white)
                     .font(.system(size: 18))
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .kerning(3)
                 Spacer()                
             }
             .padding([.horizontal, .bottom], 12)
         }
-        .background(LinearGradient.salmon)
+        .background(viewModel.color.linearGradientColor())
         .cornerRadius(15)
         .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
     }
 }
-
-// MARK: TokenAddCellView
-
-struct TokenAddCellView: View {
-    
-    // MARK: Body
-    
-    @State var showSheetView = false
-    
-    var body: some View {
-        
-        //        NavigationLink(
-        //            destination: QRGuideView(),
-        //            label: {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Image(systemName: "plus.circle")
-                    .resizable()
-                    .frame(width: 25, height: 25, alignment: .center)
-                    .foregroundColor(Color(.systemGray2))
-                
-                Spacer()
-            }
-            Spacer()
-        }
-        .padding(.horizontal, 12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5.0]))
-                .foregroundColor(Color(.systemGray2))
-        )
-        //            })
-    }
-}
-
