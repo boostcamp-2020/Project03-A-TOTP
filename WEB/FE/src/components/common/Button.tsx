@@ -11,11 +11,7 @@ const ButtonTag = styled.button`
 
 const Button = (props: any) => {
   const { name, buttonEvent } = props;
-  return (
-    <>
-      <ButtonTag onClick={(e) => buttonEvent(e)}>{name}</ButtonTag>
-    </>
-  );
+  return <ButtonTag onClick={(e) => buttonEvent(e)}>{name}</ButtonTag>;
 };
 
 export default Button;

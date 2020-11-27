@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Input from '@components/common/Input';
+import Button from '@components/common/Button';
 import { verify } from '@utils/verify';
 import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
@@ -11,7 +13,7 @@ import Button from '../common/Button';
 const Wrapper = styled.div`
   width: 40%;
   margin: auto;
-  text-align: -webkit-center;
+  text-align: center;
 `;
 
 const Title = styled.div`
@@ -65,7 +67,7 @@ const SignUpComponent = () => {
     setIDState(form.id);
   };
 
-  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const submitEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const result = await checkEmailDuplicateAPI({ email: form.email });
     if (!result) {
