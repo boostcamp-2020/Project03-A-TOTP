@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { App } from '@/components/App';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from './styles/GlobalStyle';
-import { theme } from './styles/theme';
+import { GlobalStyle } from '@styles/GlobalStyle';
+import { theme } from '@styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>

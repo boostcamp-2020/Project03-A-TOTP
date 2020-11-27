@@ -88,8 +88,6 @@ const makeURL = ({ secretKey }) => {
     secret: secretKey.ascii,
     issuer: 'TOTP',
     label: process.env.SECRETKEYLABEL,
-    algorithm: process.env.SECRETKEYALGORITHM,
-    period: 60,
   });
   return url;
 };
