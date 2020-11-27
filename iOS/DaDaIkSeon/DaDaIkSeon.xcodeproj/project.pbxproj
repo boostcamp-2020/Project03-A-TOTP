@@ -25,6 +25,7 @@
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
 		88339A15256E27B80089D6B1 /* MainCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88339A14256E27B80089D6B1 /* MainCellViewModel.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
+		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
@@ -76,6 +77,7 @@
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
 		88339A14256E27B80089D6B1 /* MainCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellViewModel.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
+		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		90688457817CB7719705FC9F /* Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				7C661932256CCAED0028E7C6 /* MainView.swift */,
 				882D44AA256D0B9B001901F9 /* MainCellView.swift */,
 				882D44B2256D0BB6001901F9 /* TokenCellView.swift */,
+				8835E10825701CD700838FDF /* TokenAddCellView.swift */,
 				889CEABB256FDE2B001A1D6F /* QRGuideView.swift */,
 				8835E0FD256FEF0200838FDF /* TokenEditView.swift */,
 			);
@@ -490,6 +493,7 @@
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
+				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */,
 				7CCDD258256E12C600150565 /* TokenViewModel.swift in Sources */,
