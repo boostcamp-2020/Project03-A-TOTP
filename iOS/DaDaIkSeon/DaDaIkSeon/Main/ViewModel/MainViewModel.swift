@@ -20,7 +20,7 @@ final class MainViewModel: ObservableObject {
     @Published var mainCell
         = Token(id: UUID(),
                 key: "6UAOpz+x3dsNrQ==",
-                tokenName: "토큰의이름은두줄두줄두줄두줄두줄두줄두줄두줄두줄",
+                tokenName: "토큰의 이름은 두 줄 까지만 가능합니다.",
                 color: nil, icon: nil)
     
     var publisher: AnyCancellable?
@@ -54,7 +54,7 @@ final class MainViewModel: ObservableObject {
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
-                             tokenName: "token1",
+                             tokenName: "배고파",
                              color: nil,
                              icon: nil),
                 timer: timer
@@ -62,7 +62,7 @@ final class MainViewModel: ObservableObject {
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
-                             tokenName: "token2",
+                             tokenName: "네이버2",
                              color: nil,
                              icon: nil),
                 timer: timer
@@ -70,7 +70,7 @@ final class MainViewModel: ObservableObject {
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
-                             tokenName: "token3",
+                             tokenName: "네이버",
                              color: nil,
                              icon: nil),
                 timer: timer
@@ -78,7 +78,7 @@ final class MainViewModel: ObservableObject {
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
-                             tokenName: "token4",
+                             tokenName: "구글",
                              color: nil,
                              icon: nil),
                 timer: timer
@@ -86,7 +86,7 @@ final class MainViewModel: ObservableObject {
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
-                             tokenName: "token5",
+                             tokenName: "배아파",
                              color: nil,
                              icon: nil),
                 timer: timer
