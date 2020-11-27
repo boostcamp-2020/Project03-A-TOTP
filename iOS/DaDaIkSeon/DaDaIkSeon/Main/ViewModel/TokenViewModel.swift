@@ -40,16 +40,15 @@ final class TokenViewModel: ObservableObject {
       
     // MARK: init
     
-    init(token: Token) {
+    init(token: Token, timer: Publishers.Autoconnect<Timer.TimerPublisher>) {
         
         self.token = token
         
         dateFormmater.locale = Locale(identifier: "ko_KR")
         dateFormmater.dateFormat = "yyyy-MM-dd"
         
-        timer = Timer.publish(every: timerInterval, on: .main, in: .common)
-            .autoconnect()
-        
+        self.timer = timer
+            
         password = makePassword(key: key)
         
         timer

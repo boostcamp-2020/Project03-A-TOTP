@@ -11,6 +11,8 @@ import Combine
 final class MainViewModel: ObservableObject {
     
     // MARK: Property
+    let timer = Timer.publish(every: 0.01, on: .main, in: .common)
+        .autoconnect()
     
     @Published var filteredTokens: [TokenViewModel] = []
     @Published var searchText = ""
@@ -27,6 +29,7 @@ final class MainViewModel: ObservableObject {
     // MARK: Init
     
     init() {
+        
         fetchTokens()
         
         publisher = $searchText
@@ -53,35 +56,41 @@ final class MainViewModel: ObservableObject {
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token1",
                              color: nil,
-                             icon: nil)
+                             icon: nil),
+                timer: timer
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token2",
                              color: nil,
-                             icon: nil)
+                             icon: nil),
+                timer: timer
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token3",
                              color: nil,
-                             icon: nil)
+                             icon: nil),
+                timer: timer
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token4",
                              color: nil,
-                             icon: nil)
+                             icon: nil),
+                timer: timer
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "token5",
                              color: nil,
-                             icon: nil)
+                             icon: nil),
+                timer: timer
+                    
             )]
     }
     
