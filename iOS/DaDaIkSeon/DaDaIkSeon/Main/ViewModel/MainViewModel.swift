@@ -53,7 +53,7 @@ final class MainViewModel: ObservableObject {
         tokens = [
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "6UAOpz+x3dsNrQ==",
+                             key: "WEJ3NLTTYHF4XVXG",
                              tokenName: "배고파",
                              color: nil,
                              icon: nil),
@@ -61,7 +61,7 @@ final class MainViewModel: ObservableObject {
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "6UAOpz+x3dsNrQ==",
+                             key: "nv66p42pcv4f2fbgetakq6clottovx7z",
                              tokenName: "네이버2",
                              color: nil,
                              icon: nil),
@@ -69,7 +69,7 @@ final class MainViewModel: ObservableObject {
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "6UAOpz+x3dsNrQ==",
+                             key: "WEJ3NLTTYHF4XVXG",
                              tokenName: "네이버",
                              color: nil,
                              icon: nil),
@@ -85,7 +85,7 @@ final class MainViewModel: ObservableObject {
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
-                             key: "6UAOpz+x3dsNrQ==",
+                             key: "nv66p42pcv4f2fbgetakq6clottovx7z",
                              tokenName: "배아파",
                              color: nil,
                              icon: nil),

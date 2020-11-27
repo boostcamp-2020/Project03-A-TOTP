@@ -12,7 +12,8 @@ struct TokenCellView: View {
     
     // MARK: ViewModel
     
-    @Binding var viewModel: TokenViewModel
+    //@Binding var viewModel: TokenViewModel
+    @ObservedObject var viewModel: TokenViewModel
     
     // MARK: Body
     
