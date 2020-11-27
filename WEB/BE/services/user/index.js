@@ -1,4 +1,5 @@
 const usersModel = require('@models/sequelizeWEB.js').users;
+
 const userService = {
   async check({ email, next }) {
     const query = {};
