@@ -61,7 +61,7 @@ struct TokenCellView: View {
             }
             .padding([.horizontal, .bottom], 12)
         }
-        .background(LinearGradient.salmon)
+        .background(viewModel.color.linearGradientColor())
         .cornerRadius(15)
         .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
     }

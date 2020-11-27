@@ -55,7 +55,7 @@ final class MainViewModel: ObservableObject {
                 token: Token(id: UUID(),
                              key: "WEJ3NLTTYHF4XVXG",
                              tokenName: "배고파",
-                             color: nil,
+                             color: "pink",
                              icon: nil),
                 timer: timer
             ),
@@ -63,7 +63,7 @@ final class MainViewModel: ObservableObject {
                 token: Token(id: UUID(),
                              key: "nv66p42pcv4f2fbgetakq6clottovx7z",
                              tokenName: "네이버2",
-                             color: nil,
+                             color: "salmon",
                              icon: nil),
                 timer: timer
             ),
@@ -71,7 +71,7 @@ final class MainViewModel: ObservableObject {
                 token: Token(id: UUID(),
                              key: "WEJ3NLTTYHF4XVXG",
                              tokenName: "네이버",
-                             color: nil,
+                             color: "navy",
                              icon: nil),
                 timer: timer
             ),
@@ -79,7 +79,7 @@ final class MainViewModel: ObservableObject {
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "구글",
-                             color: nil,
+                             color: "blue",
                              icon: nil),
                 timer: timer
             ),
@@ -87,7 +87,7 @@ final class MainViewModel: ObservableObject {
                 token: Token(id: UUID(),
                              key: "nv66p42pcv4f2fbgetakq6clottovx7z",
                              tokenName: "배아파",
-                             color: nil,
+                             color: "brown",
                              icon: nil),
                 timer: timer
                     

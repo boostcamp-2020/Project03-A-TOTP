@@ -21,6 +21,7 @@ final class TokenViewModel: ObservableObject {
         return key
     }
     
+    @Published var color = "pink"
     @Published var password = ""
     
     let totalTime = 30.0
@@ -43,6 +44,7 @@ final class TokenViewModel: ObservableObject {
     init(token: Token, timer: Publishers.Autoconnect<Timer.TimerPublisher>) {
         
         self.token = token
+        self.color = token.color ?? "pink"
         
         dateFormmater.locale = Locale(identifier: "ko_KR")
         dateFormmater.dateFormat = "yyyy-MM-dd"
