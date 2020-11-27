@@ -1,4 +1,5 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import * as Pages from '@pages/index';
 import { PrivateRoute } from '@components/route/PrivateRoute';
 import ComfirmEmail from '@components/confirmEmail/index';
@@ -23,6 +24,7 @@ const App: React.FC<AppProps> = () => {
         <Route exact path='/' component={Hello} />
         <Route exact path='/confirm-email' component={ComfirmEmail} />
         <Route exact path='/signup' component={Pages.SignUpPage} />
+        <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

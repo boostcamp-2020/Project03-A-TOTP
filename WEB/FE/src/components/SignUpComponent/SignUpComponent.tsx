@@ -7,8 +7,6 @@ import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@a
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
 import Buffer from 'buffer';
-import Input from '../common/Input';
-import Button from '../common/Button';
 
 const Wrapper = styled.div`
   width: 40%;
@@ -67,7 +65,7 @@ const SignUpComponent = () => {
     setIDState(form.id);
   };
 
-  const submitEventHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const result = await checkEmailDuplicateAPI({ email: form.email });
     if (!result) {
@@ -78,15 +76,14 @@ const SignUpComponent = () => {
     setEmailState(form.email);
   };
 
-  const submitEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (idState !== form.id || emailState !== form.email) {
-      alert('아이디 또는 이메일 중복체크를 해주세요.');
+  const submitEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const signupValidation = verify(form);
+    if (signupValidation !== '1') {
+      alert(signupValidation);
       return;
     }
-    const verifyResult = verify(form);
-    if (verifyResult !== '1') {
-      alert(verifyResult);
+    if (idState !== form.id || emailState !== form.email || form.id === '' || form.email === '') {
+      alert('아이디 또는 이메일 중복체크를 해주세요.');
       return;
     }
     const token: string = await executeRecaptcha('SignUp');
