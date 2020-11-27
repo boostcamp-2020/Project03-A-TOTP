@@ -39,10 +39,11 @@ struct MainView: View {
                         ForEach(viewModel.filteredTokens, id: \.token.id) { token in
                             TokenCellView(viewModel: .constant(token))
                         }
-                        viewModel.isSearching ? nil : TokenAddCellView()
-                            .onTapGesture {
-                                isShowing = true
-                            }
+                        viewModel.isSearching ? nil : NavigationLink(
+                            destination: QRGuideView(),
+                            label: {
+                                TokenAddCellView()
+                            })
                             .frame(minHeight: 100)
                     }
                     .padding([.leading, .trailing, .bottom], 12)
@@ -51,9 +52,6 @@ struct MainView: View {
                 .navigationBarHidden(true)
             }
             
-        }
-        .sheet(isPresented: $isShowing) {
-            QRGuideView()
         }
     }
     
