@@ -12,7 +12,7 @@ interface Form {
   password: string;
   rePassword: string;
   name: string;
-  birthday: string;
+  birth: string;
   email: string;
   phone: string;
 }
@@ -30,7 +30,7 @@ export const verify = (form: Form): string => {
   )
     return '비밀번호가 조건에 맞지 않습니다.';
   if (form.password !== form.rePassword) return '비밀번호가 일치하지 않습니다.';
-  if (!form.id || !form.password || !form.email || !form.name || !form.birthday || !form.phone)
+  if (!form.id || !form.password || !form.email || !form.name || !form.birth || !form.phone)
     return '입력되지 않은 값이 있습니다.';
   return '1';
 };

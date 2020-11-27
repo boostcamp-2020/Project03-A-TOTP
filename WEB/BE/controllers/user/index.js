@@ -1,5 +1,4 @@
 const speakeasy = require('speakeasy');
-const QRCode = require('qrcode');
 const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
@@ -19,7 +18,7 @@ const userController = {
     try {
       userInfo = encrypUserInfo({ userInfo });
       const secretKey = makeSecretKey();
-      const qrcode = await makeQRCode({ secretKey });
+      const url = makeURL({ secretKey });
       const encryptPassword = await getEncryptedPassword(password);
       const insertResult = await userService.insert({ userInfo, next });
       const result = await authService.insert({
@@ -31,7 +30,7 @@ const userController = {
         next,
       });
       requestEmail(req.body.email, req.body.name, insertResult.dataValues.idx);
-      res.json({ result, qrcode });
+      res.json({ result, url });
     } catch (e) {
       next(e);
     }
@@ -52,7 +51,7 @@ const userController = {
     const time = user[1];
     const idx = user[2];
     if (time < Date.now()) {
-      res.status(400).json({ mgs: '요청 만료' });
+      res.status(400).json({ result: false });
       return;
     }
     const info = {
@@ -61,7 +60,7 @@ const userController = {
     };
     try {
       await authService.update({ info, next });
-      res.json(true);
+      res.json({ result: true });
     } catch (e) {
       next(e);
     }
@@ -84,16 +83,13 @@ const makeSecretKey = () => {
   return secretKey;
 };
 
-const makeQRCode = async ({ secretKey }) => {
+const makeURL = ({ secretKey }) => {
   const url = speakeasy.otpauthURL({
     secret: secretKey.ascii,
     issuer: 'TOTP',
     label: process.env.SECRETKEYLABEL,
-    algorithm: process.env.SECRETKEYALGORITHM,
-    period: 60,
   });
-  const qrcode = (await QRCode.toDataURL(url)).split('base64,')[1];
-  return qrcode;
+  return url;
 };
 
 module.exports = userController;
