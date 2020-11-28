@@ -25,41 +25,28 @@ final class TokenViewModel: ObservableObject {
     @Published var color = "pink"
     @Published var password = ""
     
-    let totalTime = 30.0
-    let timerInterval = 0.01
+    let totalTime = TOTPTimer.shared.totalTime
+    let timerInterval = TOTPTimer.shared.timerInterval
     
     var subscriptions = Set<AnyCancellable>()
     
-    let timer: Publishers.Autoconnect<Timer.TimerPublisher>
-    
     var lastSecond: Int = 1
-    
-    let dateFormmater = DateFormatter()
-    var todaySartTime: Date? {
-        let today = dateFormmater.string(from: Date())
-        return dateFormmater.date(from: today)
-    }
       
     // MARK: init
     
-    init(token: Token, timer: Publishers.Autoconnect<Timer.TimerPublisher>) {
+    init(token: Token) {
         
         self.token = token
         self.color = token.color ?? "pink"
-        
-        dateFormmater.locale = Locale(identifier: "ko_KR")
-        dateFormmater.dateFormat = "yyyy-MM-dd"
-        
-        self.timer = timer
-            
+          
         password = makePassword(key: key)
         
-        timer
+        TOTPTimer.shared.timer
             .map({ (output) in
-                return output.timeIntervalSince(self.todaySartTime ?? Date())
+                output.timeIntervalSince1970
             })
             .map({ (timeInterval) in
-                return Int(timeInterval) % Int(self.totalTime)
+                Int(timeInterval.truncatingRemainder(dividingBy: self.totalTime))
             })
             .sink { [weak self] (seconds) in
                 guard let weakSelf = self else { return }

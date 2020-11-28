@@ -11,9 +11,7 @@ import Combine
 final class MainViewModel: ObservableObject {
     
     // MARK: Property
-    let timer = Timer.publish(every: 0.01, on: .main, in: .common)
-        .autoconnect()
-    
+
     @Published var filteredTokens: [TokenViewModel] = []
     @Published var searchText = ""
     @Published var isSearching = false
@@ -56,41 +54,35 @@ final class MainViewModel: ObservableObject {
                              key: "WEJ3NLTTYHF4XVXG",
                              tokenName: "배고파",
                              color: "pink",
-                             icon: nil),
-                timer: timer
+                             icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "nv66p42pcv4f2fbgetakq6clottovx7z",
                              tokenName: "네이버2",
                              color: "salmon",
-                             icon: nil),
-                timer: timer
+                             icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "WEJ3NLTTYHF4XVXG",
                              tokenName: "네이버",
                              color: "navy",
-                             icon: nil),
-                timer: timer
+                             icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "6UAOpz+x3dsNrQ==",
                              tokenName: "구글",
                              color: "blue",
-                             icon: nil),
-                timer: timer
+                             icon: nil)
             ),
             TokenViewModel(
                 token: Token(id: UUID(),
                              key: "nv66p42pcv4f2fbgetakq6clottovx7z",
                              tokenName: "배아파",
                              color: "brown",
-                             icon: nil),
-                timer: timer
-                    
+                             icon: nil)
             )]
     }
     
