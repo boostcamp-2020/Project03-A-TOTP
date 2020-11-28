@@ -39,7 +39,7 @@ final class TokenViewModel: ObservableObject {
         self.token = token
         self.color = token.color ?? "pink"
           
-        password = makePassword(key: key)
+        password = TOTPGenerator.generate(from: key) ?? "000000"
         
         TOTPTimer.shared.timer
             .map({ (output) in
@@ -53,7 +53,7 @@ final class TokenViewModel: ObservableObject {
                 if weakSelf.lastSecond != seconds {
                     if seconds == 0 {
                         weakSelf.password
-                            = weakSelf.makePassword(key: weakSelf.key)
+                            = TOTPGenerator.generate(from: weakSelf.key) ?? "000000"
                     }
                     weakSelf.lastSecond = seconds
                 }
@@ -69,41 +69,6 @@ final class TokenViewModel: ObservableObject {
     
     func copyButtonDidTab() {
         print("CopyButtonDidTab")
-    }
-    
-    // MARK: Logic
-    
-    func makePassword(key: String) -> String {
-        
-        let period = TimeInterval(totalTime)
-        let digits = 6
-        
-        // 키 값
-        guard let secret = Data(base64Encoded: key) else {
-            return "000000"
-        }
-        
-        // 현재 시간
-        var counter = UInt64(Date().timeIntervalSince1970 / period).bigEndian
-        let counterData = withUnsafeBytes(of: &counter) { Array($0) }
-        
-        // HMAC 알고리즘 연산
-        let hash = HMAC<Insecure.SHA1>.authenticationCode(
-            for: counterData, using: SymmetricKey(data: secret))
-        
-        // 추출
-        var truncatedHash = hash.withUnsafeBytes { ptr -> UInt32 in
-            let offset = ptr[hash.byteCount - 1] & 0x0f
-            guard let baseAddress = ptr.baseAddress else { return 0 }
-            let truncatedHashPtr = baseAddress + Int(offset)
-            return truncatedHashPtr.bindMemory(to: UInt32.self, capacity: 1).pointee
-        }
-        
-        truncatedHash = UInt32(bigEndian: truncatedHash)
-        truncatedHash = truncatedHash & 0x7FFF_FFFF
-        truncatedHash = truncatedHash & UInt32(pow(10, Float(digits)))
-        
-        return "\(String(format: "%0*u", digits, truncatedHash))"
     }
     
 }

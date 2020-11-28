@@ -32,7 +32,7 @@ struct Token: Identifiable {
                   color: "navy",
                   icon: nil),
             Token(id: UUID(),
-                  key: "6UAOpz+x3dsNrQ==",
+                  key: "WEJ3NLTTYHF4XVXG",
                   tokenName: "구글",
                   color: "blue",
                   icon: nil),
