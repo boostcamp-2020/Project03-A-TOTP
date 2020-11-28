@@ -31,7 +31,7 @@ struct MainView: View {
                 HeaderView()
                 SearchBarView()
                 viewModel.isSearching ?
-                    nil : MainCellView(token: .constant(viewModel.mainCell))
+                    nil : MainCellView()
                     .padding(.bottom, -6)
                 ScrollView {
                     LazyVGrid(columns: columns,
