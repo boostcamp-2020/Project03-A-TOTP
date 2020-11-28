@@ -10,19 +10,7 @@ import SwiftOTP
 
 class TOTPGenerationTests: XCTestCase {
     
-    // MARK: function
-    var extractKey: (String) -> String? {
-        TOTPGenerator.extractKey(from:)
-    }
-    
-    var generateTOTP: (String) -> String? {
-        TOTPGenerator.generate(from:)
-    }
-    
     // MARK: URL
-    var testURLs: [String] {
-        [github, google]
-    }
     let github = "otpauth://totp/GitHub:jjm159?secret=WEJ3NLTTYHF4XVXG&issuer=GitHub"
     let google = "otpauth://totp/Google%3Awjdwoaud15%40gmail.com?secret=fn3gdedtxfsluaz4qlcv7ndhowimn4h2&issuer=Google"
     
@@ -97,7 +85,10 @@ class TOTPGenerationTests: XCTestCase {
     
 }
 
+// MARK: function
+
 extension TOTPGenerationTests {
+    
     func keyData(from urlOfQrcode: String) -> Data? {
         guard let keyString = extractKey(urlOfQrcode) else {
             return nil
@@ -107,4 +98,17 @@ extension TOTPGenerationTests {
         }
         return nil
     }
+    
+    var testURLs: [String] {
+        [github, google]
+    }
+    
+    var extractKey: (String) -> String? {
+        TOTPGenerator.extractKey(from:)
+    }
+    
+    var generateTOTP: (String) -> String? {
+        TOTPGenerator.generate(from:)
+    }
+    
 }
