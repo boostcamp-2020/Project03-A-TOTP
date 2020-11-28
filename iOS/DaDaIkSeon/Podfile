@@ -7,6 +7,7 @@ target 'DaDaIkSeon' do
 
   # Pods for DaDaIkSeon
   pod 'SwiftLint'
+  pod 'SwiftOTP'
 
   target 'DaDaIkSeonTests' do
     inherit! :search_paths

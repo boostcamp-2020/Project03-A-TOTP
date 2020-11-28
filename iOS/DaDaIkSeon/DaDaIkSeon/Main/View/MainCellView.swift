@@ -11,14 +11,9 @@ struct MainCellView: View {
     
     // MARK: ViewModel
     @ObservedObject var mainCellViewModel = MainCellViewModel()
-    @Binding var token: Token
     
     // MARK: Property
     let zStackHeight: CGFloat = 200.0
-    
-    init(token: Binding<Token>) {
-        self._token = token
-    }
     
     // MARK: Body
     var body: some View {
@@ -135,7 +130,7 @@ struct MainCellView_Previews: PreviewProvider {
     
     static var previews: some View {
         //PreviewWrapper()
-        MainCellView(token: .constant(Token(id: UUID())))
+        MainCellView()
     }
     
     //    struct PreviewWrapper: View {
