@@ -7,20 +7,34 @@
 
 import SwiftUI
 
+struct MainState {
+    var service: MainServiceable
+    var filteredTokens: [Token]
+}
+
+enum MainInput {
+    case search(_ text: String)
+}
+
 struct MainView: View {
     
-    // MARK: ViewModel
-    
-    @EnvironmentObject private var viewModel: MainViewModel
-    
     // MARK: Property
+    
+    @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    @State var isShowing = false
+    @State var searchText = ""
+    @State var isSearching = false
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
     
-    @State var isShowing = false
+    // MARK: Initialization
+    
+    init(service: MainServiceable) {
+        viewModel = AnyViewModel(MainViewModel(service: service))
+    }
     
     // MARK: Body
     
@@ -28,18 +42,67 @@ struct MainView: View {
         
         NavigationView {
             VStack(spacing: 12) {
-                HeaderView()
-                SearchBarView()
-                viewModel.isSearching ?
-                    nil : MainCellView()
+                
+                isSearching ? nil : HeaderView()
+                
+                HStack {
+                    TextField("검색", text: $searchText)
+                        .padding(7)
+                        .padding(.horizontal, 25)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .overlay(
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.gray)
+                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 8)
+
+                                if isSearching {
+                                    // X버튼
+                                    Button(action: {
+                                        searchText = ""
+                                    }, label: {
+                                        Image(systemName: "multiply.circle.fill")
+                                            .foregroundColor(.gray)
+                                            .padding(.trailing, 8)
+                                    })
+                                }
+                            }
+                        )
+                        .onChange(of: searchText) { _ in
+                            changeText(text: searchText)
+                        }
+                        .padding(.horizontal, 12)
+                        .onTapGesture {
+                            isSearching = true
+                        }
+
+                    if isSearching {
+                        // 취소 버튼
+                        Button(action: {
+                            isSearching = false
+                            searchText = ""
+                            hideKeyboard()
+                        }, label: {
+                            Text("취소")
+                                .foregroundColor(.black)
+                        })
+                        .padding(.trailing, 10)
+                        .transition(.move(edge: .trailing))
+                    }
+                }
+                
+                isSearching ? nil : MainCellView()
                     .padding(.bottom, -6)
+                
                 ScrollView {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
-                        ForEach(viewModel.filteredTokens, id: \.token.id) { token in
-                            TokenCellView(viewModel: token)
+                        ForEach(viewModel.state.filteredTokens) { token in
+                            TokenCellView(viewModel: TokenViewModel(token: token))
                         }
-                        viewModel.isSearching ? nil : NavigationLink(
+                        isSearching ? nil : NavigationLink(
                             destination: QRGuideView(),
                             label: {
                                 TokenAddCellView()
@@ -54,13 +117,19 @@ struct MainView: View {
             
         }
     }
-    
+}
+
+private extension MainView {
+    func changeText(text: String) {
+        viewModel.trigger(.search(text))
+    }
 }
 
 struct MainView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
-        MainView().environmentObject(MainViewModel())
+        let service = MainService()
+        MainView(service: service)
     }
-    
+
 }
