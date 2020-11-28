@@ -27,19 +27,14 @@ class MainCellViewModel: ObservableObject {
     @Published var timeAmount = 0.0
     @Published var password = ""
     
-    let totalTime = 30.0
-    let timerInterval = 0.01
+    let totalTime = TOTPTimer.shared.totalTime
+    let timerInterval = TOTPTimer.shared.timerInterval
     
     var subscriptions = Set<AnyCancellable>()
-    
-    let timer: Publishers.Autoconnect<Timer.TimerPublisher>
     
     var lastSecond: Int = 1
     
     init() {
-        
-        timer = Timer.publish(every: timerInterval, on: .main, in: .common)
-            .autoconnect()
         
         password = makePassword(key: key)
         
@@ -47,7 +42,7 @@ class MainCellViewModel: ObservableObject {
             = Date().timeIntervalSince1970
             .truncatingRemainder(dividingBy: totalTime) + 1
         
-        timer
+        TOTPTimer.shared.timer
             .map({ (output) in
                 output.timeIntervalSince1970
             })
