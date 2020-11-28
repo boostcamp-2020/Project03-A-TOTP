@@ -10,11 +10,11 @@ import SwiftUI
 @main
 struct DaDaIkSeonApp: App {
     
-    var mainViewModel = MainViewModel()
+    let service = MainService()
     
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(mainViewModel)
+            MainView(service: service)
         }
     }
 }
