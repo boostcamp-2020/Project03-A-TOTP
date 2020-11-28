@@ -27,6 +27,7 @@
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
+		88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
@@ -81,6 +82,7 @@
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
+		88697B6E257298BD008DA21B /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		88DAA8432572880A003E6A62 /* TOTPTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPTimer.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
 				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
+				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
 				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
 				7C661939256CCAF10028E7C6 /* Info.plist */,
 			);
@@ -532,6 +535,7 @@
 			files = (
 				7CCDD299256E940600150565 /* SearchBarView.swift in Sources */,
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
+				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
