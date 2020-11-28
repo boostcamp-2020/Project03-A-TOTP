@@ -8,7 +8,7 @@
 import Foundation
 import SwiftOTP
 
-class TOTPGenerator {
+final class TOTPGenerator {
     
     static func generate(from key: String) -> String? {
         
@@ -34,10 +34,9 @@ class TOTPGenerator {
     static func extractKey(from urlOfQrcode: String) -> String? {
         let items = URLComponents(string: urlOfQrcode)?.queryItems
         if let items = items {
-            for index in items.indices {
-                if items[index].name == "secret" {
-                    return items[index].value
-                }
+            for index in items.indices
+            where items[index].name == "secret" {
+                return items[index].value
             }
         }
         return nil

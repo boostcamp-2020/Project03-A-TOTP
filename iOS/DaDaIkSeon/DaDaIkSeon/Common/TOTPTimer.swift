@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class TOTPTimer {
+final class TOTPTimer {
     
     let totalTime = 30.0
     let timerInterval = 0.01
