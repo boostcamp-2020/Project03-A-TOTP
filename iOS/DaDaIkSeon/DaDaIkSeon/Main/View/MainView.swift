@@ -24,7 +24,6 @@ struct MainView: View {
     // MARK: Property
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
-    @State var searchText = ""
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
