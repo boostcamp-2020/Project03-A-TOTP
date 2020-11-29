@@ -10,6 +10,8 @@ import Foundation
 protocol MainServiceable {
     func loadTokens() -> [Token]
     func getFilteredTokens(text: String) -> [Token]
+    func getSearchingState() -> Bool
+    func getSearchText() -> String
 }
 
 final class MainService: MainServiceable {
@@ -18,6 +20,8 @@ final class MainService: MainServiceable {
     
     var tokens: [Token] = []
     var filteredTokens: [Token] = []
+    var searchText = ""
+    var isSearching = false
     
     // MARK: Init
     
@@ -32,8 +36,15 @@ final class MainService: MainServiceable {
     }
     
     func getFilteredTokens(text: String) -> [Token] {
-        filteredTokens = tokens.filter { $0.tokenName?.contains(text) ?? false || text.isEmpty }
+        filteredTokens = tokens.filter {
+            $0.tokenName?.contains(text) ?? false || text.isEmpty
+        }
+        isSearching = true
         return filteredTokens
     }
+    
+    func getSearchingState() -> Bool { isSearching }
+    
+    func getSearchText() -> String { searchText }
     
 }
