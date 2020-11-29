@@ -16,15 +16,26 @@ final class MainViewModel: ViewModel {
     
     init(service: MainServiceable) {
         let tokens = service.loadTokens()
-        state = MainState(service: service, filteredTokens: tokens)
+        let isSearching = service.getSearchingState()
+        let searchText = service.getSearchText()
+        
+        state = MainState(service: service,
+                          filteredTokens: tokens,
+                          searchText: searchText,
+                          isSearching: isSearching)
     }
     
     // MARK: Methods
     
     func trigger(_ input: MainInput) {
         switch input {
-        case .search(let text):
+        case .startSearch(let text):
+            state.searchText = text
+            state.isSearching = true
             state.filteredTokens = state.service.getFilteredTokens(text: text)
+        case .endSearch:
+            state.searchText = ""
+            state.isSearching = false
         }
     }
     
