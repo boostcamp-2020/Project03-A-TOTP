@@ -83,7 +83,7 @@ const SignUpComponent = () => {
       alert('아이디 또는 이메일 중복체크를 해주세요.');
       return;
     }
-    const token: string = await executeRecaptcha('SignUp');
+    const reCaptchaToken: string = await executeRecaptcha('SignUp');
     const result: string = (
       await registerUserAPI({
         id: form.id,
@@ -92,7 +92,7 @@ const SignUpComponent = () => {
         birth: form.birth,
         name: form.name,
         phone: form.phone,
-        token,
+        reCaptchaToken,
       })
     ).split('totp/')[1];
     /**

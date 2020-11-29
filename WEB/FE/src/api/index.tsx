@@ -7,7 +7,7 @@ interface UserInfo {
   birth: string;
   name: string;
   phone: string;
-  token: string;
+  reCaptchaToken: string;
 }
 
 export const confirmEmailAPI = (query: string): void => {
