@@ -13,7 +13,7 @@ const ButtonTag = styled.button`
 interface ButtonProps {
   text: React.ReactNode;
   type?: 'submit' | 'button' | 'reset';
-  onClick: (e: React.MouseEvent) => any;
+  onClick?: (e: React.MouseEvent) => any;
 }
 
 const Button: React.FC<ButtonProps> = ({ text, onClick, type = 'button' }) => {

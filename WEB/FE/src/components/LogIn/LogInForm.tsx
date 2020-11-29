@@ -1,30 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '@components/common/Button';
+import { AuthForm } from '@components/common/AuthForm';
 
-const Form = styled.form`
-  width: 100%;
-  max-width: 440px;
-  margin: auto;
-  padding: 4rem 2rem;
-  border-radius: 8px;
-  box-shadow: #ddd 0 0 20px 0;
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  margin-bottom: 2rem;
-`;
+const Input = styled.input``;
 
 interface LogInFormProps {}
 
 const LogInForm: React.FC<LogInFormProps> = () => {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // login({ id, password });
+  };
+
   return (
-    <Form>
-      <Title>LogIn</Title>
-      <Button text='로그인' onClick={() => {}} />
-    </Form>
+    <AuthForm title='LogIn' action='/api/auth/login' onSubmit={onSubmit} submitButtonText='로그인'>
+      <Input placeholder='id' name='id' type='text' value={id} onChange={(e) => setId(e.target.value)} />
+      <Input
+        placeholder='password'
+        name='password'
+        type='password'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+    </AuthForm>
   );
 };
 
