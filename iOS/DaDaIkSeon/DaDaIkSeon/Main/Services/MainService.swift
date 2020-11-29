@@ -14,12 +14,18 @@ protocol MainServiceable {
 
 final class MainService: MainServiceable {
     
+    // MARK: Property
+    
     var tokens: [Token] = []
     var filteredTokens: [Token] = []
+    
+    // MARK: Init
     
     init() {
         tokens = loadTokens()
     }
+    
+    // MARK: Methods
     
     func loadTokens() -> [Token] {
         return Token.dummy()
