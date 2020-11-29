@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { InputTag } from '@styles/style';
 
 const Wrapper = styled.div`
   display: flex;
@@ -7,15 +8,6 @@ const Wrapper = styled.div`
   border: 2px solid darkgray;
   border-radius: 5px;
   margin-bottom: 12px;
-`;
-
-const InputTag = styled.input`
-  display: block;
-  flex: 1;
-  width: 230px;
-  height: 30px;
-  border: none;
-  padding-left: 10px;
 `;
 
 const Button = styled.button`

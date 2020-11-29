@@ -1,13 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const ButtonTag = styled.button`
-  height: 36px;
-  border: none;
-  background-color: ${({ theme }) => theme.color.GrayBrown};
-  color: ${({ theme }) => theme.color.White};
-  width: 100%;
-`;
+import { ButtonTag } from '@styles/style';
 
 const Button = (props: any) => {
   const { name, buttonEvent } = props;
