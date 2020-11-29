@@ -69,12 +69,6 @@ struct MainView: View {
     }
 }
 
-private extension MainView {
-    func changeText(text: String) {
-        viewModel.trigger(.startSearch(text))
-    }
-}
-
 struct MainView_Previews: PreviewProvider {
 
     static var previews: some View {
