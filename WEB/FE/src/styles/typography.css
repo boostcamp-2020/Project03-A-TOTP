@@ -1,0 +1,43 @@
+@font-face {
+  font-display: swap;
+  font-family: "SpocaHanSans";
+  font-weight: 200;
+  font-style: normal;
+  src: local('SpoqaHanSansThin'), local('Spoqa Han Sans Thin'),
+    url('@styles/fonts/SpoqaHanSansThin.woff2') format('woff2'),
+    url('@styles/fonts/SpoqaHanSansThin.woff') format('woff'),
+    url('@styles/fonts/SpoqaHanSansThin.ttf') format('ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "SpocaHanSans";
+  font-weight: 300;
+  font-style: normal;
+  src: local('SpoqaHanSansLight'), local('Spoqa Han Sans Light'),
+    url('@styles/fonts/SpoqaHanSansLight.woff2') format('woff2'),
+    url('@styles/fonts/SpoqaHanSansLight.woff') format('woff'),
+    url('@styles/fonts/SpoqaHanSansLight.ttf') format('ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "SpocaHanSans";
+  font-weight: 500;
+  font-style: normal;
+  src: local('SpoqaHanSansRegular'), local('Spoqa Han Sans Regular'),
+    url('@styles/fonts/SpoqaHanSansRegular.woff2') format('woff2'),
+    url('@styles/fonts/SpoqaHanSansRegular.woff') format('woff'),
+    url('@styles/fonts/SpoqaHanSansRegular.ttf') format('ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "SpocaHanSans";
+  font-weight: 700;
+  font-style: normal;
+  src: local('SpoqaHanSansBold'), local('Spoqa Han Sans Bold'),
+    url('@styles/fonts/SpoqaHanSansBold.woff2') format('woff2'),
+    url('@styles/fonts/SpoqaHanSansBold.woff') format('woff'),
+    url('@styles/fonts/SpoqaHanSansBold.ttf') format('ttf');
+}
