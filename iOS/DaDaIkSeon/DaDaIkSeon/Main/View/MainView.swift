@@ -43,61 +43,10 @@ struct MainView: View {
         
         NavigationView {
             VStack(spacing: 12) {
-                
                 viewModel.state.isSearching ? nil : HeaderView()
-                
-                HStack {
-                    TextField("검색", text: $searchText)
-                        .padding(7)
-                        .padding(.horizontal, 25)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .overlay(
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.gray)
-                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 8)
-
-                                if viewModel.state.isSearching {
-                                    // X버튼
-                                    Button(action: {
-                                        viewModel.trigger(.endSearch)
-                                        searchText = viewModel.state.searchText
-                                    }, label: {
-                                        Image(systemName: "multiply.circle.fill")
-                                            .foregroundColor(.gray)
-                                            .padding(.trailing, 8)
-                                    })
-                                }
-                            }
-                        )
-                        .onChange(of: searchText) { _ in
-                            viewModel.trigger(.startSearch(searchText))
-                        }
-                        .padding(.horizontal, 12)
-                        .onTapGesture {
-                            viewModel.trigger(.startSearch(searchText))
-                        }
-
-                    if viewModel.state.isSearching {
-                        // 취소 버튼
-                        Button(action: {
-                            viewModel.trigger(.endSearch)
-                            searchText = viewModel.state.searchText
-                            hideKeyboard()
-                        }, label: {
-                            Text("취소")
-                                .foregroundColor(.black)
-                        })
-                        .padding(.trailing, 10)
-                        .transition(.move(edge: .trailing))
-                    }
-                }
-                
+                SearchBarView().environmentObject(viewModel)
                 viewModel.state.isSearching ? nil : MainCellView()
                     .padding(.bottom, -6)
-                
                 ScrollView {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
