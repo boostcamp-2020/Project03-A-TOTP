@@ -10,10 +10,13 @@ import SwiftUI
 struct MainState {
     var service: MainServiceable
     var filteredTokens: [Token]
+    var searchText: String
+    var isSearching: Bool
 }
 
 enum MainInput {
-    case search(_ text: String)
+    case startSearch(_ text: String)
+    case endSearch
 }
 
 struct MainView: View {
@@ -21,9 +24,7 @@ struct MainView: View {
     // MARK: Property
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
-    @State var isShowing = false
     @State var searchText = ""
-    @State var isSearching = false
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
@@ -43,7 +44,7 @@ struct MainView: View {
         NavigationView {
             VStack(spacing: 12) {
                 
-                isSearching ? nil : HeaderView()
+                viewModel.state.isSearching ? nil : HeaderView()
                 
                 HStack {
                     TextField("검색", text: $searchText)
@@ -58,10 +59,11 @@ struct MainView: View {
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                     .padding(.leading, 8)
 
-                                if isSearching {
+                                if viewModel.state.isSearching {
                                     // X버튼
                                     Button(action: {
-                                        searchText = ""
+                                        viewModel.trigger(.endSearch)
+                                        searchText = viewModel.state.searchText
                                     }, label: {
                                         Image(systemName: "multiply.circle.fill")
                                             .foregroundColor(.gray)
@@ -71,18 +73,18 @@ struct MainView: View {
                             }
                         )
                         .onChange(of: searchText) { _ in
-                            changeText(text: searchText)
+                            viewModel.trigger(.startSearch(searchText))
                         }
                         .padding(.horizontal, 12)
                         .onTapGesture {
-                            isSearching = true
+                            viewModel.trigger(.startSearch(searchText))
                         }
 
-                    if isSearching {
+                    if viewModel.state.isSearching {
                         // 취소 버튼
                         Button(action: {
-                            isSearching = false
-                            searchText = ""
+                            viewModel.trigger(.endSearch)
+                            searchText = viewModel.state.searchText
                             hideKeyboard()
                         }, label: {
                             Text("취소")
@@ -93,7 +95,7 @@ struct MainView: View {
                     }
                 }
                 
-                isSearching ? nil : MainCellView()
+                viewModel.state.isSearching ? nil : MainCellView()
                     .padding(.bottom, -6)
                 
                 ScrollView {
@@ -102,7 +104,7 @@ struct MainView: View {
                         ForEach(viewModel.state.filteredTokens) { token in
                             TokenCellView(viewModel: TokenViewModel(token: token))
                         }
-                        isSearching ? nil : NavigationLink(
+                        viewModel.state.isSearching  ? nil : NavigationLink(
                             destination: QRGuideView(),
                             label: {
                                 TokenAddCellView()
@@ -121,7 +123,7 @@ struct MainView: View {
 
 private extension MainView {
     func changeText(text: String) {
-        viewModel.trigger(.search(text))
+        viewModel.trigger(.startSearch(text))
     }
 }
 
