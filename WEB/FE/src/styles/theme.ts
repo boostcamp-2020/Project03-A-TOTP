@@ -16,7 +16,15 @@ enum FontSize {
   xs = '12px',
 }
 
+enum FontWeight {
+  thin = 200,
+  light = 300,
+  regular = 500,
+  bold = 700,
+}
+
 export const theme = {
   color: Colors,
   fontSize: FontSize,
+  fontWeight: FontWeight,
 };
