@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBarView: View {
 
-    // MARK: ViewModel
+    // MARK: Property
     
     @EnvironmentObject var viewModel: AnyViewModel<MainState, MainInput>
     @State var searchText = ""
@@ -33,8 +33,7 @@ struct SearchBarView: View {
                         if viewModel.state.isSearching {
                             // X버튼
                             Button(action: {
-                                viewModel.trigger(.endSearch)
-                                searchText = viewModel.state.searchText
+                                endSearch()
                             }, label: {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
@@ -44,18 +43,17 @@ struct SearchBarView: View {
                     }
                 )
                 .onChange(of: searchText) { _ in
-                    viewModel.trigger(.startSearch(searchText))
+                    search(text: searchText)
                 }
                 .padding(.horizontal, 12)
                 .onTapGesture {
-                    viewModel.trigger(.startSearch(searchText))
+                    search(text: searchText)
                 }
 
             if viewModel.state.isSearching {
                 // 취소 버튼
                 Button(action: {
-                    viewModel.trigger(.endSearch)
-                    searchText = viewModel.state.searchText
+                    endSearch()
                     hideKeyboard()
                 }, label: {
                     Text("취소")
@@ -67,4 +65,17 @@ struct SearchBarView: View {
         }
     }
 
+}
+
+private extension SearchBarView {
+    
+    func search(text: String) {
+        viewModel.trigger(.startSearch(text))
+    }
+    
+    func endSearch() {
+        viewModel.trigger(.endSearch)
+        searchText = viewModel.state.searchText
+    }
+    
 }
