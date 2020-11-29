@@ -6,9 +6,9 @@ import { verify } from '@utils/verify';
 import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
-import Buffer from 'buffer';
+import { Buffer } from 'buffer';
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   width: 40%;
   margin: auto;
   text-align: center;
@@ -30,11 +30,11 @@ interface Form {
   phone: string;
 }
 
-const SignUpComponent = () => {
+const SignUpComponent = (): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const history = useHistory();
   const list: string[] = ['password', 'rePassword', 'name', 'birth', 'phone'];
-  const placeholders: string[] = ['Password', 'Confirm Password', 'Name', 'Birthday', 'Phone'];
+  const placeholders: (string | null)[] = ['Password', 'Confirm Password', 'Name', null, 'Phone'];
   const [idState, setIDState] = useState('');
   const [emailState, setEmailState] = useState('');
   const [form, setForm] = useState({
@@ -54,7 +54,7 @@ const SignUpComponent = () => {
     emailState !== form.email ? setEmailState('-1') : undefined;
   }, [form]);
 
-  const checkIDDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const checkIDDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const result = await checkIDDuplicateAPI({ id: form.id });
     if (!result) {
@@ -65,7 +65,7 @@ const SignUpComponent = () => {
     setIDState(form.id);
   };
 
-  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const result = await checkEmailDuplicateAPI({ email: form.email });
     if (!result) {
@@ -76,7 +76,7 @@ const SignUpComponent = () => {
     setEmailState(form.email);
   };
 
-  const submitEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const submitEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const signupValidation = verify(form);
     if (signupValidation !== '1') {
       alert(signupValidation);
@@ -87,22 +87,21 @@ const SignUpComponent = () => {
       return;
     }
     const token: string = await executeRecaptcha('SignUp');
-    const result: string = (
-      await registerUserAPI({
-        id: form.id,
-        password: form.password,
-        email: form.email,
-        birth: form.birth,
-        name: form.name,
-        phone: form.phone,
-        token,
-      })
-    ).split('totp/')[1];
+    const result: string = await registerUserAPI({
+      id: form.id,
+      password: form.password,
+      email: form.email,
+      birth: form.birth,
+      name: form.name,
+      phone: form.phone,
+      token,
+    });
     /**
      * @TODO url 인코딩하여 보내기
      */
+    const url = Buffer.from(encodeURIComponent(result)).toString('base64');
     alert(`회원가입에 성공하셨습니다.`);
-    history.push(`/QRCode/${result}`);
+    history.push(`/QRCode/${url}`);
   };
 
   return (
