@@ -22,7 +22,7 @@ const LogInForm: React.FC<LogInFormProps> = () => {
   };
 
   return (
-    <AuthForm title='LogIn' action='/api/auth/login' onSubmit={onSubmit} submitButtonText='로그인'>
+    <AuthForm title='LogIn' action='/api/auth' onSubmit={onSubmit} submitButtonText='로그인'>
       <Input placeholder='id' name='id' type='text' value={id} onChange={(e) => setId(e.target.value)} />
       <Input
         placeholder='password'
