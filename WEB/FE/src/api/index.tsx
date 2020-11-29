@@ -56,7 +56,7 @@ export const registerUserAPI = async (data: UserInfo): string => {
   }
 };
 
-export const login = async ({ id, password }) => {
-  const { data } = await axios.post('/api/auth', { id, password });
+export const login = async ({ id, password, reCaptchaToken }) => {
+  const { data } = await axios.post('/api/auth', { id, password, reCaptchaToken });
   return data;
 };
