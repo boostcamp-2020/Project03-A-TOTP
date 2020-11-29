@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AuthForm } from '@components/common/AuthForm';
+import { login } from '@api/index';
 
 const Input = styled.input``;
 
@@ -12,8 +13,9 @@ const LogInForm: React.FC<LogInFormProps> = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // login({ id, password });
+    login({ id, password })
+      .then((result) => alert(result.id))
+      .catch((err) => alert(err.response?.data?.message || err.message));
   };
 
   return (

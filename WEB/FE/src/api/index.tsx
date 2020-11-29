@@ -55,3 +55,8 @@ export const registerUserAPI = async (data: UserInfo): string => {
      */
   }
 };
+
+export const login = async ({ id, password }) => {
+  const { data } = await axios.post('/api/auth', { id, password });
+  return data;
+};
