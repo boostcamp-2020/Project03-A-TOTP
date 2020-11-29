@@ -6,45 +6,35 @@
 //
 
 import Foundation
-import Combine
 
-final class MainViewModel: ObservableObject {
+final class MainViewModel: ViewModel {
     
     // MARK: Property
-
-    @Published var filteredTokens: [TokenViewModel] = []
-    @Published var searchText = ""
-    @Published var isSearching = false
     
-    var publisher: AnyCancellable?
-    var tokens: [TokenViewModel] = []
+    @Published var state: MainState
     
-    // MARK: Init
-    
-    init() {
+    init(service: MainServiceable) {
+        let tokens = service.loadTokens()
+        let isSearching = service.getSearchingState()
+        let searchText = service.getSearchText()
         
-        fetchTokens()
-        
-        publisher = $searchText
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] input in
-                guard let weakSelf = self else { return }
-                weakSelf.searchTextChanged(text: input)
-            })
+        state = MainState(service: service,
+                          filteredTokens: tokens,
+                          searchText: searchText,
+                          isSearching: isSearching)
     }
     
-    // MARK: Actions
+    // MARK: Methods
     
-    func searchTextChanged(text: String) {
-        filteredTokens = tokens.filter {
-            $0.token.tokenName?.contains(searchText) ?? false || searchText.isEmpty
-        }
-    }
-    
-    /// 토큰 배열을 리턴
-    func fetchTokens() {
-        tokens = Token.dummy().map {
-            TokenViewModel(token: $0)
+    func trigger(_ input: MainInput) {
+        switch input {
+        case .startSearch(let text):
+            state.searchText = text
+            state.isSearching = true
+            state.filteredTokens = state.service.getFilteredTokens(text: text)
+        case .endSearch:
+            state.searchText = ""
+            state.isSearching = false
         }
     }
     

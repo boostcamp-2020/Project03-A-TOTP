@@ -7,20 +7,34 @@
 
 import SwiftUI
 
+struct MainState {
+    var service: MainServiceable
+    var filteredTokens: [Token]
+    var searchText: String
+    var isSearching: Bool
+}
+
+enum MainInput {
+    case startSearch(_ text: String)
+    case endSearch
+}
+
 struct MainView: View {
     
-    // MARK: ViewModel
-    
-    @EnvironmentObject private var viewModel: MainViewModel
-    
     // MARK: Property
+    
+    @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
     
-    @State var isShowing = false
+    // MARK: Initialization
+    
+    init(service: MainServiceable) {
+        viewModel = AnyViewModel(MainViewModel(service: service))
+    }
     
     // MARK: Body
     
@@ -28,18 +42,17 @@ struct MainView: View {
         
         NavigationView {
             VStack(spacing: 12) {
-                HeaderView()
-                SearchBarView()
-                viewModel.isSearching ?
-                    nil : MainCellView()
+                viewModel.state.isSearching ? nil : HeaderView()
+                SearchBarView().environmentObject(viewModel)
+                viewModel.state.isSearching ? nil : MainCellView()
                     .padding(.bottom, -6)
                 ScrollView {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
-                        ForEach(viewModel.filteredTokens, id: \.token.id) { token in
-                            TokenCellView(viewModel: token)
+                        ForEach(viewModel.state.filteredTokens) { token in
+                            TokenCellView(viewModel: TokenViewModel(token: token))
                         }
-                        viewModel.isSearching ? nil : NavigationLink(
+                        viewModel.state.isSearching  ? nil : NavigationLink(
                             destination: QRGuideView(),
                             label: {
                                 TokenAddCellView()
@@ -54,13 +67,13 @@ struct MainView: View {
             
         }
     }
-    
 }
 
 struct MainView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
-        MainView().environmentObject(MainViewModel())
+        let service = MainService()
+        MainView(service: service)
     }
-    
+
 }

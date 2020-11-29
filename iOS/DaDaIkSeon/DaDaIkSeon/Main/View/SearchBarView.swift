@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct SearchBarView: View {
+
+    // MARK: Property
     
-    // MARK: ViewModel
-    
-    @EnvironmentObject var viewModel: MainViewModel
+    @EnvironmentObject var viewModel: AnyViewModel<MainState, MainInput>
+    @State var searchText = ""
     
     // MARK: Body
-    
+
     var body: some View {
         HStack {
-            TextField("검색", text: $viewModel.searchText)
+            TextField("검색", text: $searchText)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -28,11 +29,11 @@ struct SearchBarView: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                        
-                        if viewModel.isSearching {
+
+                        if viewModel.state.isSearching {
                             // X버튼
                             Button(action: {
-                                viewModel.searchText = ""
+                                endSearch()
                             }, label: {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
@@ -41,16 +42,18 @@ struct SearchBarView: View {
                         }
                     }
                 )
+                .onChange(of: searchText) { _ in
+                    search(text: searchText)
+                }
                 .padding(.horizontal, 12)
                 .onTapGesture {
-                    viewModel.isSearching = true
+                    search(text: searchText)
                 }
-            
-            if viewModel.isSearching {
+
+            if viewModel.state.isSearching {
                 // 취소 버튼
                 Button(action: {
-                    viewModel.isSearching = false
-                    viewModel.searchText = ""
+                    endSearch()
                     hideKeyboard()
                 }, label: {
                     Text("취소")
@@ -58,9 +61,21 @@ struct SearchBarView: View {
                 })
                 .padding(.trailing, 10)
                 .transition(.move(edge: .trailing))
-                .animation(.default)
             }
         }
+    }
+
+}
+
+private extension SearchBarView {
+    
+    func search(text: String) {
+        viewModel.trigger(.startSearch(text))
+    }
+    
+    func endSearch() {
+        viewModel.trigger(.endSearch)
+        searchText = viewModel.state.searchText
     }
     
 }
