@@ -38,8 +38,12 @@ const authService = {
   },
 
   async getAuthById({ id }) {
-    const result = await authsModel.findOne({ where: { id } });
-    return result;
+    try {
+      const result = await authsModel.findOne({ where: { id } });
+      return result;
+    } catch (e) {
+      throw new Error(e);
+    }
   },
 };
 
