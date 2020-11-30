@@ -12,6 +12,7 @@ protocol TokenServiceable {
     func getFilteredTokens(text: String) -> [Token]
     func getSearchingState() -> Bool
     func getSearchText() -> String
+    func moveToken(id: UUID) -> [Token]
 }
 
 final class TokenService: TokenServiceable {
@@ -27,6 +28,7 @@ final class TokenService: TokenServiceable {
     
     init() {
         tokens = loadTokens()
+        filteredTokens = tokens
     }
     
     // MARK: Methods
@@ -45,5 +47,14 @@ final class TokenService: TokenServiceable {
     func getSearchingState() -> Bool { isSearching }
     
     func getSearchText() -> String { searchText }
+    
+    func moveToken(id: UUID) -> [Token] {
+        if let index = tokens.firstIndex(where: { $0.id == id }) {
+            let token = tokens.remove(at: index)
+            tokens.insert(token, at: 0)
+        }
+        filteredTokens = tokens
+        return filteredTokens
+    }
     
 }
