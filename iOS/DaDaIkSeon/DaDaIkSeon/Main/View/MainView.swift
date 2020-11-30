@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainState {
-    var service: MainServiceable
+    var service: TokenServiceable
     var filteredTokens: [Token]
     var searchText: String
     var isSearching: Bool
@@ -17,6 +17,7 @@ struct MainState {
 enum MainInput {
     case startSearch(_ text: String)
     case endSearch
+    case moveToken(_ id: UUID)
 }
 
 struct MainView: View {
@@ -32,7 +33,7 @@ struct MainView: View {
     
     // MARK: Initialization
     
-    init(service: MainServiceable) {
+    init(service: TokenServiceable) {
         viewModel = AnyViewModel(MainViewModel(service: service))
     }
     
@@ -50,7 +51,14 @@ struct MainView: View {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
-                            TokenCellView(viewModel: TokenViewModel(token: token))
+                            TokenCellView(
+                                viewModel: TokenCellViewModel(service: viewModel.state.service,
+                                                              token: token)
+                            ).onTapGesture {
+                                withAnimation(.easeIn) {
+                                    viewModel.trigger(.moveToken(token.id))
+                                }
+                            }
                         }
                         viewModel.state.isSearching  ? nil : NavigationLink(
                             destination: QRGuideView(),
@@ -72,7 +80,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
 
     static var previews: some View {
-        let service = MainService()
+        let service = TokenService()
         MainView(service: service)
     }
 

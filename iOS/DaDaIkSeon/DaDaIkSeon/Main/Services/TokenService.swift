@@ -1,5 +1,5 @@
 //
-//  MainServiceable.swift
+//  TokenService.swift
 //  DaDaIkSeon
 //
 //  Created by 양어진 on 2020/11/29.
@@ -7,14 +7,15 @@
 
 import Foundation
 
-protocol MainServiceable {
+protocol TokenServiceable {
     func loadTokens() -> [Token]
     func getFilteredTokens(text: String) -> [Token]
     func getSearchingState() -> Bool
     func getSearchText() -> String
+    func moveToken(id: UUID) -> [Token]
 }
 
-final class MainService: MainServiceable {
+final class TokenService: TokenServiceable {
     
     // MARK: Property
     
@@ -27,6 +28,7 @@ final class MainService: MainServiceable {
     
     init() {
         tokens = loadTokens()
+        filteredTokens = tokens
     }
     
     // MARK: Methods
@@ -39,12 +41,20 @@ final class MainService: MainServiceable {
         filteredTokens = tokens.filter {
             $0.tokenName?.contains(text) ?? false || text.isEmpty
         }
-        isSearching = true
         return filteredTokens
     }
     
     func getSearchingState() -> Bool { isSearching }
     
     func getSearchText() -> String { searchText }
+    
+    func moveToken(id: UUID) -> [Token] {
+        if let index = tokens.firstIndex(where: { $0.id == id }) {
+            let token = tokens.remove(at: index)
+            tokens.insert(token, at: 0)
+        }
+        filteredTokens = tokens
+        return filteredTokens
+    }
     
 }

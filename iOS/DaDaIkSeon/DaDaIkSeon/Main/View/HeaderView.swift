@@ -14,7 +14,7 @@ struct HeaderView: View {
     var body: some View {
         HStack {
             Button(action: {
-                // 내 정보 페이지 띄우는 곳
+                print("내 정보 버튼 Did tap")
             }, label: {
                 Image(systemName: "person.crop.circle")
                     .resizable()
@@ -26,7 +26,7 @@ struct HeaderView: View {
             Spacer()
             
             Button(action: {
-                // Edit Mode로 전환
+                print("선택 버튼 Did tap")
             }, label: {
                 Text("선택")
                     .padding(.trailing, 4)

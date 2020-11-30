@@ -1,45 +1,30 @@
 //
-//  TokenViewModel.swift
+//  TokenCellViewModel.swift
 //  DaDaIkSeon
 //
-//  Created by 양어진 on 2020/11/25.
+//  Created by 양어진 on 2020/11/30.
 //
 
 import Foundation
 import Combine
-import CryptoKit
 
-final class TokenViewModel: ObservableObject {
+final class TokenCellViewModel: ViewModel {
     
     // MARK: Property
-    @Published var token: Token
-    @Published var showEditView = false
     
-    var key: String {
-        guard let key = token.key else {
-            return ""
-        }
-        return key
-    }
-    
-    @Published var color = "pink"
-    @Published var password = ""
+    @Published var state: TokenCellState
     
     let totalTime = TOTPTimer.shared.totalTime
     let timerInterval = TOTPTimer.shared.timerInterval
     
     var subscriptions = Set<AnyCancellable>()
-    
     var lastSecond: Int = 1
-      
-    // MARK: init
     
-    init(token: Token) {
-        
-        self.token = token
-        self.color = token.color ?? "pink"
-          
-        password = TOTPGenerator.generate(from: key) ?? "000000"
+    init(service: TokenServiceable, token: Token) {
+        state = TokenCellState(service: service,
+                               token: token,
+                               isShownEditView: false,
+                               password: TOTPGenerator.generate(from: token.key ?? "") ?? "000000")
         
         TOTPTimer.shared.timer
             .map({ (output) in
@@ -52,8 +37,8 @@ final class TokenViewModel: ObservableObject {
                 guard let weakSelf = self else { return }
                 if weakSelf.lastSecond != seconds {
                     if seconds == 0 {
-                        weakSelf.password
-                            = TOTPGenerator.generate(from: weakSelf.key) ?? "000000"
+                        weakSelf.state.password
+                            = TOTPGenerator.generate(from: token.key ?? "") ?? "000000"
                     }
                     weakSelf.lastSecond = seconds
                 }
@@ -61,14 +46,13 @@ final class TokenViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    // MARK: Action
+    // MARK: Methods
     
-    func editButtonDidTab() {
-        print("EditButtonDidTab")
-    }
-    
-    func copyButtonDidTab() {
-        print("CopyButtonDidTab")
+    func trigger(_ input: TokenCellInput) {
+        switch input {
+        case .showEditView:
+            state.isShownEditView = true
+        }
     }
     
 }
