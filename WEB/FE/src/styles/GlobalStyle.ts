@@ -32,7 +32,7 @@ export const resetCss = css`
     height: 100%;
     color: #333;
     font-size: 100%;
-    font-weight: 200;
+    font-weight: 500;
     line-height: 1.2;
     font-family: 'SpocaHanSans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Apple SD Gothic Neo',
       'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic', 'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움,
@@ -87,10 +87,12 @@ export const resetCss = css`
   }
   input {
     outline: 0;
+    font-weight: 500;
   }
   button {
     outline: 0;
     cursor: pointer;
+    font-weight: 500;
   }
 `;
 
