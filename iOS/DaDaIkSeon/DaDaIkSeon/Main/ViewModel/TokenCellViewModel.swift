@@ -20,6 +20,8 @@ final class TokenCellViewModel: ViewModel {
     var subscriptions = Set<AnyCancellable>()
     var lastSecond: Int = 1
     
+    // MARK: init
+    
     init(service: TokenServiceable, token: Token) {
         state = TokenCellState(service: service,
                                token: token,

@@ -23,7 +23,6 @@
 		7CE395A12570968F00F3C813 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE395A02570968F00F3C813 /* View+.swift */; };
 		7CF48DC82572B690001E3639 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF48DC72572B690001E3639 /* TokenService.swift */; };
 		7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF48DD72572B775001E3639 /* ViewModel.swift */; };
-		882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44AA256D0B9B001901F9 /* MainCellView.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
 		88339A15256E27B80089D6B1 /* MainCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88339A14256E27B80089D6B1 /* MainCellViewModel.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
@@ -35,6 +34,7 @@
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
 		88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DAA8432572880A003E6A62 /* TOTPTimer.swift */; };
+		88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */; };
 		8B3BF03307497E82800CB6D1 /* Pods_DaDaIkSeonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */; };
 		8FB143B0B01FA7993CFEAC9C /* Pods_DaDaIkSeon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */; };
 /* End PBXBuildFile section */
@@ -81,7 +81,6 @@
 		7CE395A02570968F00F3C813 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		7CF48DC72572B690001E3639 /* TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
 		7CF48DD72572B775001E3639 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		882D44AA256D0B9B001901F9 /* MainCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellView.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
 		88339A14256E27B80089D6B1 /* MainCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellViewModel.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		88DAA8432572880A003E6A62 /* TOTPTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPTimer.swift; sourceTree = "<group>"; };
+		88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenCellView+SubViews.swift"; sourceTree = "<group>"; };
 		90688457817CB7719705FC9F /* Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7BCEA6C2EC7E8E6CF1AF83B /* Pods-DaDaIkSeon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 				7CCDD2A1256E99F400150565 /* HeaderView.swift */,
 				7CCDD298256E940500150565 /* SearchBarView.swift */,
 				882D44B2256D0BB6001901F9 /* TokenCellView.swift */,
-				882D44AA256D0B9B001901F9 /* MainCellView.swift */,
+				88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */,
 				8835E10825701CD700838FDF /* TokenAddCellView.swift */,
 				889CEABB256FDE2B001A1D6F /* QRGuideView.swift */,
 				8835E0FD256FEF0200838FDF /* TokenEditView.swift */,
@@ -554,11 +554,11 @@
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
+				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
-				882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				88339A15256E27B80089D6B1 /* MainCellViewModel.swift in Sources */,
