@@ -20,8 +20,10 @@ export const resetCss = css`
     border: 0;
     font-size: 100%;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
-  html {
+  html,
+  #app {
     width: 100%;
     height: 100%;
   }
@@ -82,6 +84,13 @@ export const resetCss = css`
   }
   a:hover {
     text-decoration: none;
+  }
+  input {
+    outline: 0;
+  }
+  button {
+    outline: 0;
+    cursor: pointer;
   }
 `;
 
