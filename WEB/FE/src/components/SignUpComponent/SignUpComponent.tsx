@@ -7,9 +7,9 @@ import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@a
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
 import { Buffer } from 'buffer';
-
-const Wrapper = styled.form`
-  width: 40%;
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 440px;
   margin: auto;
   text-align: center;
 `;
@@ -48,11 +48,9 @@ const SignUpComponent = (): JSX.Element => {
   });
 
   useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    idState !== form.id ? setIDState('-1') : undefined;
-    // eslint-disable-next-line no-unused-expressions
-    emailState !== form.email ? setEmailState('-1') : undefined;
-  }, [form]);
+    if (idState !== form.id) setIDState('-1');
+    if (emailState !== form.email) setEmailState('-1');
+  }, [form, idState, emailState]);
 
   const checkIDDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -76,7 +74,7 @@ const SignUpComponent = (): JSX.Element => {
     setEmailState(form.email);
   };
 
-  const submitEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const submitEventHandler = async (e: React.MouseEvent) => {
     const signupValidation = verify(form);
     if (signupValidation !== '1') {
       alert(signupValidation);
@@ -86,20 +84,20 @@ const SignUpComponent = (): JSX.Element => {
       alert('아이디 또는 이메일 중복체크를 해주세요.');
       return;
     }
-    const token: string = await executeRecaptcha('SignUp');
+    const reCaptchaToken: string = await executeRecaptcha('SignUp');
     const result: string = await registerUserAPI({
-      id: form.id,
-      password: form.password,
-      email: form.email,
-      birth: form.birth,
-      name: form.name,
-      phone: form.phone,
-      token,
-    });
+        id: form.id,
+        password: form.password,
+        email: form.email,
+        birth: form.birth,
+        name: form.name,
+        phone: form.phone,
+        reCaptchaToken,
+      });
     /**
      * @TODO url 인코딩하여 보내기
      */
-    const url = Buffer.from(encodeURIComponent(result)).toString('base64');
+    const url = encodeURIComponent(Buffer.from(result).toString('base64'));
     alert(`회원가입에 성공하셨습니다.`);
     history.push(`/QRCode/${url}`);
   };
@@ -115,7 +113,7 @@ const SignUpComponent = (): JSX.Element => {
         buttonEvent={checkIDDuplicateEventHandler}
       />
       {list.map((name, idx) => (
-        <Input key={idx} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
+        <Input key={name} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
       ))}
       <Input
         placeholder='E-Mail'
@@ -124,7 +122,7 @@ const SignUpComponent = (): JSX.Element => {
         setForm={setForm}
         buttonEvent={checkEmailDuplicateEventHandler}
       />
-      <Button name='회원가입' buttonEvent={submitEventHandler} />
+      <Button text='회원가입' onClick={submitEventHandler} />
     </Wrapper>
   );
 };

@@ -37,11 +37,12 @@ const authService = {
     }
   },
 
-  async checkAuth({ id, password }) {
+  async getAuthById({ id }) {
     try {
-      return await authsModel.findOne({ where: { id, password } });
+      const result = await authsModel.findOne({ where: { id } });
+      return result;
     } catch (e) {
-      throw e;
+      throw new Error(e);
     }
   },
 };
