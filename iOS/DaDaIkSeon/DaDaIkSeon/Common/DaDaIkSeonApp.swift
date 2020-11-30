@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct DaDaIkSeonApp: App {
     
-    let service = MainService()
+    let service = TokenService()
     
     var body: some Scene {
         WindowGroup {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainState {
-    var service: MainServiceable
+    var service: TokenServiceable
     var filteredTokens: [Token]
     var searchText: String
     var isSearching: Bool
@@ -32,7 +32,7 @@ struct MainView: View {
     
     // MARK: Initialization
     
-    init(service: MainServiceable) {
+    init(service: TokenServiceable) {
         viewModel = AnyViewModel(MainViewModel(service: service))
     }
     
@@ -72,7 +72,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
 
     static var previews: some View {
-        let service = MainService()
+        let service = TokenService()
         MainView(service: service)
     }
 

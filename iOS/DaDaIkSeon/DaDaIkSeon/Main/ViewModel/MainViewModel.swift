@@ -13,7 +13,7 @@ final class MainViewModel: ViewModel {
     
     @Published var state: MainState
     
-    init(service: MainServiceable) {
+    init(service: TokenServiceable) {
         let tokens = service.loadTokens()
         let isSearching = service.getSearchingState()
         let searchText = service.getSearchText()
