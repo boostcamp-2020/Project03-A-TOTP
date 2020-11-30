@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-if (process.env.NODE_ENV === 'production') {
-  axios.defaults.baseURL = 'http://115.85.181.19';
-}
-
 interface UserInfo {
   id: string;
   password: string;
@@ -60,7 +56,13 @@ export const registerUserAPI = async (data: UserInfo): string => {
   }
 };
 
-export const login = async ({ id, password, reCaptchaToken }) => {
+interface loginParams {
+  id: string;
+  password: string;
+  reCaptchaToken: string;
+}
+
+export const login = async ({ id, password, reCaptchaToken }: loginParams): Promise<any> => {
   const { data } = await axios.post('/api/auth', { id, password, reCaptchaToken });
   return data;
 };

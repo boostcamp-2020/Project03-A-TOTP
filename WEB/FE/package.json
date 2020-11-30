@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --config ./webpack.dev.js",
-    "build": "webpack --config ./webpack.prod.js",
+    "dev": "webpack serve --config ./config/webpack.dev.js",
+    "build": "webpack --config ./config/webpack.prod.js",
     "test": "echo 'FE TEST'"
   },
   "keywords": [],
