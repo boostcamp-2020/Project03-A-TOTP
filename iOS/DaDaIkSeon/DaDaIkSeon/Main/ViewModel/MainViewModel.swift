@@ -35,6 +35,8 @@ final class MainViewModel: ViewModel {
         case .endSearch:
             state.searchText = ""
             state.isSearching = false
+        case .moveToken(let id):
+            state.filteredTokens = state.service.moveToken(id: id)
         }
     }
     
