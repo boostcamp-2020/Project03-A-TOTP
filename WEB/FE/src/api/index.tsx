@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = 'http://115.85.181.19';
+}
+
 interface UserInfo {
   id: string;
   password: string;
