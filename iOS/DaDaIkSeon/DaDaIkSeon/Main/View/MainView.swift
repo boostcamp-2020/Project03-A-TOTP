@@ -56,7 +56,6 @@ struct MainView: View {
                         isMain: true
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
-                    .padding(.bottom, -6)
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
@@ -80,12 +79,12 @@ struct MainView: View {
                             })
                             .frame(minHeight: 100)
                     }
-                    .padding([.leading, .trailing, .bottom], 12)
                     .padding(.top, 6)
                 }
                 .navigationBarHidden(true)
+                .padding(.horizontal, 12)
+                .padding(.top, 6)
             }
-            
         }
     }
 }
