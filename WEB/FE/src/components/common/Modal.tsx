@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ModalProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   style?: React.CSSProperties;
 }
 
