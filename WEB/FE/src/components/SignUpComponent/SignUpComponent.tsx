@@ -6,7 +6,6 @@ import { verify } from '@utils/verify';
 import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
-import Buffer from 'buffer';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -49,13 +48,11 @@ const SignUpComponent = () => {
   });
 
   useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    idState !== form.id ? setIDState('-1') : undefined;
-    // eslint-disable-next-line no-unused-expressions
-    emailState !== form.email ? setEmailState('-1') : undefined;
-  }, [form]);
+    if (idState !== form.id) setIDState('-1');
+    if (emailState !== form.email) setEmailState('-1');
+  }, [form, idState, emailState]);
 
-  const checkIDDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const checkIDDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const result = await checkIDDuplicateAPI({ id: form.id });
     if (!result) {
@@ -66,7 +63,7 @@ const SignUpComponent = () => {
     setIDState(form.id);
   };
 
-  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const result = await checkEmailDuplicateAPI({ email: form.email });
     if (!result) {
@@ -77,7 +74,7 @@ const SignUpComponent = () => {
     setEmailState(form.email);
   };
 
-  const submitEventHandler = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const submitEventHandler = async (e: React.MouseEvent) => {
     const signupValidation = verify(form);
     if (signupValidation !== '1') {
       alert(signupValidation);
@@ -87,7 +84,7 @@ const SignUpComponent = () => {
       alert('아이디 또는 이메일 중복체크를 해주세요.');
       return;
     }
-    const token: string = await executeRecaptcha('SignUp');
+    const reCaptchaToken: string = await executeRecaptcha('SignUp');
     const result: string = (
       await registerUserAPI({
         id: form.id,
@@ -96,7 +93,7 @@ const SignUpComponent = () => {
         birth: form.birth,
         name: form.name,
         phone: form.phone,
-        token,
+        reCaptchaToken,
       })
     ).split('totp/')[1];
     /**
@@ -117,7 +114,7 @@ const SignUpComponent = () => {
         buttonEvent={checkIDDuplicateEventHandler}
       />
       {list.map((name, idx) => (
-        <Input key={idx} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
+        <Input key={name} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
       ))}
       <Input
         placeholder='E-Mail'
@@ -126,7 +123,7 @@ const SignUpComponent = () => {
         setForm={setForm}
         buttonEvent={checkEmailDuplicateEventHandler}
       />
-      <Button name='회원가입' buttonEvent={submitEventHandler} />
+      <Button text='회원가입' onClick={submitEventHandler} />
     </Wrapper>
   );
 };

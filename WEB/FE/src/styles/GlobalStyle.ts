@@ -70,6 +70,13 @@ export const resetCss = css`
   a:hover {
     text-decoration: none;
   }
+  input {
+    outline: 0;
+  }
+  button {
+    outline: 0;
+    cursor: pointer;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`

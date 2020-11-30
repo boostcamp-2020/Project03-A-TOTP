@@ -23,6 +23,7 @@ const Button = styled.button`
   height: 36px;
   border: none;
 `;
+
 const Input = (props: any) => {
   const { placeholder, form, setForm, name, buttonEvent } = props;
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>, target: string) => {

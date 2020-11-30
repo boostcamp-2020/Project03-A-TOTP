@@ -11,7 +11,7 @@ interface UserInfo {
   birth: string;
   name: string;
   phone: string;
-  token: string;
+  reCaptchaToken: string;
 }
 
 export const confirmEmailAPI = (query: string): void => {
@@ -58,4 +58,9 @@ export const registerUserAPI = async (data: UserInfo): string => {
      * @TODO 처리 필요
      */
   }
+};
+
+export const login = async ({ id, password, reCaptchaToken }) => {
+  const { data } = await axios.post('/api/auth', { id, password, reCaptchaToken });
+  return data;
 };
