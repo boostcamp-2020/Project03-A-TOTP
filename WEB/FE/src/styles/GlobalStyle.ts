@@ -20,8 +20,10 @@ export const resetCss = css`
     border: 0;
     font-size: 100%;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
-  html {
+  html,
+  #app {
     width: 100%;
     height: 100%;
   }
@@ -30,7 +32,22 @@ export const resetCss = css`
     height: 100%;
     color: #333;
     font-size: 100%;
+    font-weight: 500;
     line-height: 1.2;
+    font-family: 'SpocaHanSans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Apple SD Gothic Neo',
+      'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic', 'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움,
+      Dotum, Tahoma, Geneva, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+  }
+  * {
+    box-sizing: inherit;
+  }
+  input,
+  button,
+  textarea {
+    font-family: inherit;
   }
   /* prettier-ignore */
   article, aside, details, figcaption, figure, 
@@ -67,6 +84,15 @@ export const resetCss = css`
   }
   a:hover {
     text-decoration: none;
+  }
+  input {
+    outline: 0;
+    font-weight: 500;
+  }
+  button {
+    outline: 0;
+    cursor: pointer;
+    font-weight: 500;
   }
 `;
 
