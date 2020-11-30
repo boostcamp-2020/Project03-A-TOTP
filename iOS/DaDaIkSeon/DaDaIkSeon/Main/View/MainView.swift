@@ -12,6 +12,7 @@ struct MainState {
     var filteredTokens: [Token]
     var searchText: String
     var isSearching: Bool
+    var mainToken: Token
 }
 
 enum MainInput {
@@ -39,26 +40,39 @@ struct MainView: View {
     
     // MARK: Body
     
+    @Namespace var namespace
+    //@State var mainCellToken: Token
+    
     var body: some View {
         
         NavigationView {
             VStack(spacing: 12) {
                 viewModel.state.isSearching ? nil : HeaderView()
                 SearchBarView().environmentObject(viewModel)
-                viewModel.state.isSearching ? nil : MainCellView()
-                    .padding(.bottom, -6)
+                
                 ScrollView {
+                    
+                    viewModel.state.isSearching ? nil : TokenCellView(
+                        viewModel: TokenCellViewModel(service: viewModel.state.service,
+                                                      token: viewModel.state.mainToken)
+                    )
+                    .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
+                    .padding(.bottom, -6)
+                    
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
-                            TokenCellView(
-                                viewModel: TokenCellViewModel(service: viewModel.state.service,
-                                                              token: token)
-                            ).onTapGesture {
-                                withAnimation(.easeIn) {
+                            Button(action: {
+                                withAnimation(.spring(response: 0.5)) {
                                     viewModel.trigger(.moveToken(token.id))
                                 }
-                            }
+                            }, label: {
+                                TokenCellView(
+                                    viewModel: TokenCellViewModel(service: viewModel.state.service,
+                                                                  token: token)
+                                )
+                            })
+                           .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                         }
                         viewModel.state.isSearching  ? nil : NavigationLink(
                             destination: QRGuideView(),

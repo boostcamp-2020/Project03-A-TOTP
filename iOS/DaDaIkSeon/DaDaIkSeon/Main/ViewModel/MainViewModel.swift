@@ -14,14 +14,16 @@ final class MainViewModel: ViewModel {
     @Published var state: MainState
     
     init(service: TokenServiceable) {
-        let tokens = service.loadTokens()
+        let filteredTokens = service.excludeMainCell()
         let isSearching = service.getSearchingState()
         let searchText = service.getSearchText()
+        let mainToken = service.getMainToken()
         
         state = MainState(service: service,
-                          filteredTokens: tokens,
+                          filteredTokens: filteredTokens,
                           searchText: searchText,
-                          isSearching: isSearching)
+                          isSearching: isSearching,
+                          mainToken: mainToken)
     }
     
     // MARK: Methods
@@ -32,11 +34,22 @@ final class MainViewModel: ViewModel {
             state.searchText = text
             state.isSearching = true
             state.filteredTokens = state.service.getFilteredTokens(text: text)
+            //state.service.tokens.filter
+            
         case .endSearch:
             state.searchText = ""
             state.isSearching = false
         case .moveToken(let id):
-            state.filteredTokens = state.service.moveToken(id: id)
+            //state.mainToken = state.service.moveToken(id: id)
+            
+            let lastMainToken = state.service.getMainToken()
+            state.service.setMainTokenIndex(id: id)
+            state.mainToken = state.service.token(id: id) ?? Token()
+//            state.filteredTokens.removeAll(where: { $0.id == id })
+//            state.filteredTokens.append(lastMainToken)
+            state.filteredTokens = state.service.excludeMainCell()
+        // 처음에 메인뷰에 있던 뷰가 append로 추가되어도 안보이는 이유 -> 기존에 날라갔던 게 아니기 때문. 재사용할 원본이 없어서?
+            
         }
     }
     
