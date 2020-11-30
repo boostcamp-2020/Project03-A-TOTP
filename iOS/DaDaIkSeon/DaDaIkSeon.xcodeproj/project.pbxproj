@@ -17,7 +17,6 @@
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
 		7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* MainViewModel.swift */; };
 		7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */; };
-		7CCDD258256E12C600150565 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD257256E12C600150565 /* TokenViewModel.swift */; };
 		7CCDD28E256E45E000150565 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD28D256E45E000150565 /* Color+.swift */; };
 		7CCDD299256E940600150565 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD298256E940500150565 /* SearchBarView.swift */; };
 		7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD2A1256E99F400150565 /* HeaderView.swift */; };
@@ -76,7 +75,6 @@
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7C7DC513256D75FE0089CD68 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = DaDaIkSeon/Main/ViewModel/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
 		7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellViewModel.swift; sourceTree = "<group>"; };
-		7CCDD257256E12C600150565 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
 		7CCDD28D256E45E000150565 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		7CCDD298256E940500150565 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		7CCDD2A1256E99F400150565 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 				7C7DC513256D75FE0089CD68 /* MainViewModel.swift */,
 				7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */,
 				88339A14256E27B80089D6B1 /* MainCellViewModel.swift */,
-				7CCDD257256E12C600150565 /* TokenViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -562,7 +559,6 @@
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				882D44AB256D0B9B001901F9 /* MainCellView.swift in Sources */,
-				7CCDD258256E12C600150565 /* TokenViewModel.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				88339A15256E27B80089D6B1 /* MainCellViewModel.swift in Sources */,
