@@ -13,6 +13,8 @@ struct TokenCellState {
     var token: Token
     var isShownEditView: Bool
     var password: String
+    var leftTime: String
+    var timeAmount: Double
 }
 
 enum TokenCellInput {
@@ -25,8 +27,8 @@ struct TokenCellView: View {
     
     @ObservedObject var viewModel: AnyViewModel<TokenCellState, TokenCellInput>
     
-    
     // MARK: Property
+    
     @State var isShownEditView = false
     var isMain: Bool
     let zStackHeight: CGFloat = 200.0
@@ -143,7 +145,6 @@ struct CopyButtonView: View {
         .frame(height: 50, alignment: .center)
     }
 }
-
 
 struct TokenPasswordView: View {
     

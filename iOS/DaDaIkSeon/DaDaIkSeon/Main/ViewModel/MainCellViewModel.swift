@@ -26,9 +26,7 @@ class MainCellViewModel: ObservableObject {
     
     let totalTime = TOTPTimer.shared.totalTime
     let timerInterval = TOTPTimer.shared.timerInterval
-    
     var subscriptions = Set<AnyCancellable>()
-    
     var lastSecond: Int = 1
     
     init() {
