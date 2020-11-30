@@ -6,7 +6,7 @@ import { verify } from '@utils/verify';
 import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
-
+import { Buffer } from 'buffer';
 const Wrapper = styled.div`
   width: 100%;
   max-width: 440px;
@@ -30,11 +30,11 @@ interface Form {
   phone: string;
 }
 
-const SignUpComponent = () => {
+const SignUpComponent = (): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const history = useHistory();
   const list: string[] = ['password', 'rePassword', 'name', 'birth', 'phone'];
-  const placeholders: string[] = ['Password', 'Confirm Password', 'Name', 'Birthday', 'Phone'];
+  const placeholders: (string | null)[] = ['Password', 'Confirm Password', 'Name', null, 'Phone'];
   const [idState, setIDState] = useState('');
   const [emailState, setEmailState] = useState('');
   const [form, setForm] = useState({
@@ -85,8 +85,7 @@ const SignUpComponent = () => {
       return;
     }
     const reCaptchaToken: string = await executeRecaptcha('SignUp');
-    const result: string = (
-      await registerUserAPI({
+    const result: string = await registerUserAPI({
         id: form.id,
         password: form.password,
         email: form.email,
@@ -94,13 +93,13 @@ const SignUpComponent = () => {
         name: form.name,
         phone: form.phone,
         reCaptchaToken,
-      })
-    ).split('totp/')[1];
+      });
     /**
      * @TODO url 인코딩하여 보내기
      */
+    const url = encodeURIComponent(Buffer.from(result).toString('base64'));
     alert(`회원가입에 성공하셨습니다.`);
-    history.push(`/QRCode/${result}`);
+    history.push(`/QRCode/${url}`);
   };
 
   return (
