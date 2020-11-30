@@ -7,6 +7,7 @@ const cors = require('cors');
 const debug = require('debug')('server:server');
 const authRouter = require('@routes/auth');
 const userRouter = require('@routes/user');
+const csrf = require('@middlewares/csrf');
 const sequelizeWEB = require('./models/sequelizeIOS').sequelize;
 const sequelizeIOS = require('./models/sequelizeWEB').sequelize;
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
+app.use(csrf.checkHeader);
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
