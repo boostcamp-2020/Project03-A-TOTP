@@ -49,16 +49,14 @@ struct MainView: View {
             VStack(spacing: 12) {
                 viewModel.state.isSearching ? nil : HeaderView()
                 SearchBarView().environmentObject(viewModel)
-                
                 ScrollView {
-                    
                     viewModel.state.isSearching ? nil : TokenCellView(
-                        viewModel: TokenCellViewModel(service: viewModel.state.service,
-                                                      token: viewModel.state.mainToken)
+                        service: viewModel.state.service,
+                        token: viewModel.state.mainToken,
+                        isMain: true
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .padding(.bottom, -6)
-                    
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
@@ -68,11 +66,12 @@ struct MainView: View {
                                 }
                             }, label: {
                                 TokenCellView(
-                                    viewModel: TokenCellViewModel(service: viewModel.state.service,
-                                                                  token: token)
+                                    service: viewModel.state.service,
+                                    token: token,
+                                    isMain: false
                                 )
                             })
-                           .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
+                            .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                         }
                         viewModel.state.isSearching  ? nil : NavigationLink(
                             destination: QRGuideView(),
@@ -92,10 +91,10 @@ struct MainView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
         let service = TokenService()
         MainView(service: service)
     }
-
+    
 }

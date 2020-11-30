@@ -10,7 +10,11 @@ import SwiftUI
 struct MainCellView: View {
     
     // MARK: ViewModel
-    @ObservedObject var mainCellViewModel = MainCellViewModel()
+    @ObservedObject var viewModel: AnyViewModel<TokenCellState, TokenCellInput>
+
+    init(service: TokenServiceable, token: Token) {
+        viewModel = AnyViewModel(TokenCellViewModel(service: service, token: token))
+    }
     
     // MARK: Property
     let zStackHeight: CGFloat = 200.0
@@ -26,7 +30,7 @@ struct MainCellView: View {
                         .foregroundColor(.white)
                     Spacer()
                     Button(action: {
-                        mainCellViewModel.editButtonDidTab()
+                        viewModel.trigger(.showEditView)
                     }, label: {
                         Image(systemName: "ellipsis.circle.fill")
                             .resizable()
@@ -35,12 +39,12 @@ struct MainCellView: View {
                     })
                 }
                 .padding(.horizontal, 12)
-                .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
+                .frame(height: 50, alignment: .center)
                 Spacer()
                 HStack {
                     Spacer()
                     Button(action: {
-                        mainCellViewModel.copyButtonDidTab()
+                        //mainCellViewModel.copyButtonDidTab()
                     }, label: {
                         Image(systemName: "doc.on.doc")
                             .resizable()
@@ -58,17 +62,17 @@ struct MainCellView: View {
             .cornerRadius(15)
             .shadow(color: Color.shadow, radius: 6, x: 0, y: 3)
             
-            // MARK: 프로그레스 바
-            CircularProgressBar(
-                progressAmount: $mainCellViewModel.timeAmount,
-                totalTime: mainCellViewModel.totalTime)
-                .frame(height: 170)
+//            // MARK: 프로그레스 바
+//            CircularProgressBar(
+//                progressAmount: viewModel.timeAmount,
+//                totalTime: viewModel.totalTime)
+//                .frame(height: 170)
             
             // MARK: 이름, 비밀번호, 시간 텍스트 뷰
             VStack(spacing: 5) {
                 Spacer()
                     .frame(height: 50)
-                Text(mainCellViewModel.tokenName)
+                Text(viewModel.state.token.tokenName ?? "")
                     .foregroundColor(.white)
                     .font(.system(size: 11))
                     .lineLimit(2)
@@ -76,21 +80,21 @@ struct MainCellView: View {
                     .frame(
                         width: 90,
                         alignment: .center)
-                (Text(mainCellViewModel.password.prefix(3))
+                (Text(viewModel.state.password.prefix(3))
                     + Text(" ")
-                    + Text(mainCellViewModel.password.suffix(3)))
+                    + Text(viewModel.state.password.suffix(3)))
                     .foregroundColor(.white)
                     .font(.system(size: 28))
                     .fontWeight(.bold)
                     .kerning(3)
                 
-                Text(mainCellViewModel.timeString)
-                    .font(.system(size: 15))
-                    .fontWeight(.bold)
-                    .padding(.top, 10)
-                    .foregroundColor(.white)
-                Spacer()
-                    .frame(height: 30)
+//                Text(viewModel.state.timeString)
+//                    .font(.system(size: 15))
+//                    .fontWeight(.bold)
+//                    .padding(.top, 10)
+//                    .foregroundColor(.white)
+//                Spacer()
+//                    .frame(height: 30)
             }
         }
         .frame(height: zStackHeight)
@@ -106,7 +110,6 @@ struct CircularProgressBar: View {
     
     var body: some View {
         ZStack {
-            
             Circle()
                 .stroke(lineWidth: CGFloat(strokeWidth))
                 .opacity(0.3)
@@ -126,20 +129,20 @@ struct CircularProgressBar: View {
     
 }
 
-struct MainCellView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        //PreviewWrapper()
-        MainCellView()
-    }
-    
-    //    struct PreviewWrapper: View {
-    //
-    //        @State var viewModel = MainCellViewModel()
-    //
-    //        var body: some View {
-    //            MainCellView(mainCellVM: $vm)
-    //        }
-    //    }
-    
-}
+//struct MainCellView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        //PreviewWrapper()
+//        MainCellView(mainCellViewModel: MainCellViewModel())
+//    }
+////
+////        struct PreviewWrapper: View {
+////
+////            @State var viewModel = MainCellViewModel()
+////
+////            var body: some View {
+////                MainCellView(mainCellVM: $viewModel)
+////            }
+////        }
+//
+//}

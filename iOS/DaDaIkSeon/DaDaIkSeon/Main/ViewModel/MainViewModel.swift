@@ -32,7 +32,6 @@ final class MainViewModel: ViewModel {
             state.filteredTokens = state.service.tokenList().filter {
                 $0.tokenName?.contains(text) ?? false || text.isEmpty
             }
-            
         case .endSearch:
             state.searchText = ""
             state.isSearching = false
