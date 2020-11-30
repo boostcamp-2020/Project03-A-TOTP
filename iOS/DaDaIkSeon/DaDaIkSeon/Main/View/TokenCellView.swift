@@ -45,25 +45,11 @@ struct TokenCellView: View {
         ZStack {
             // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
-                HStack {
-                    Image(systemName: "heart.circle")
-                        .foregroundColor(.white)
-                        .frame(width: 20, height: 20, alignment: .top)
-                    Spacer()
-                    Button(action: {
-                        viewModel.trigger(.showEditView)
-                    }, label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20, alignment: .top)
-                            .foregroundColor(.white)
-                    })
-                    .sheet(isPresented: $isShownEditView) {
-                        TokenEditView()
-                    }
-                }
-                .padding(.horizontal, 12)
-                .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
+                TopButtonViews(
+                    action: {
+                        self.viewModel.trigger(.showEditView)
+                    },
+                    isShownEditView: $isShownEditView)
                 Spacer()
                 if !isMain {
                     TokenNameView(tokenName: viewModel.state.token.tokenName)
@@ -86,33 +72,9 @@ struct TokenCellView: View {
                     .frame(height: 170)
                 
                 // MARK: 이름, 비밀번호, 시간 텍스트 뷰
-                VStack(spacing: 5) {
-                    Spacer()
-                        .frame(height: 50)
-                    Text(viewModel.state.token.tokenName ?? "")
-                        .foregroundColor(.white)
-                        .font(.system(size: 11))
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .frame(
-                            width: 90,
-                            alignment: .center)
-                    (Text(viewModel.state.password.prefix(3))
-                        + Text(" ")
-                        + Text(viewModel.state.password.suffix(3)))
-                        .foregroundColor(.white)
-                        .font(.system(size: 28))
-                        .fontWeight(.bold)
-                        .kerning(3)
-                    
-                    Text(viewModel.state.leftTime)
-                        .font(.system(size: 15))
-                        .fontWeight(.bold)
-                        .padding(.top, 10)
-                        .foregroundColor(.white)
-                    Spacer()
-                        .frame(height: 30)
-                }
+                TokenInfoViews(name: viewModel.state.token.tokenName ?? "",
+                     password: viewModel.state.password,
+                     leftTime: viewModel.state.leftTime)
             }
             
         }
