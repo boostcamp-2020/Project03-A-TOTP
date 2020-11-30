@@ -37,18 +37,16 @@ struct TokenCellView: View {
                 Spacer()
                 
                 Button(action: {
-//                    viewModel.showEditView = true
-                    // 변경 트리거 불러오기
-                    
+                    viewModel.trigger(.showEditView)
                 }, label: {
                     Image(systemName: "ellipsis.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20, alignment: .top)
                         .foregroundColor(.white)
                 })
-//                .sheet(isPresented: viewModel.state.isShownEditView) {
-//                    TokenEditView()
-//                }
+                .sheet(isPresented: $viewModel.state.isShownEditView) {
+                    TokenEditView()
+                }
             }
             .padding(.horizontal, 12)
             .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
