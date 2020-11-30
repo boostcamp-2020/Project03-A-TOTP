@@ -6,6 +6,8 @@ enum Colors {
   Gray = '#D9D8DD',
   White = '#FFFFFF',
   border = '#eaecef',
+  headerBg = '#3F3D56',
+  borderColor = '#e1e4e8',
 }
 
 enum FontSize {
