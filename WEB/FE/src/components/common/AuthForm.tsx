@@ -9,10 +9,6 @@ const Form = styled.form`
   padding: 4rem 2rem;
   border-radius: 8px;
   box-shadow: #ddd 0 0 20px 0;
-
-  button {
-    margin: 0.2rem;
-  }
 `;
 
 const Title = styled.h1`
@@ -34,7 +30,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ children, title, action, onSubmit, 
     <Form action={action} method='POST' onSubmit={onSubmit}>
       <Title>{title}</Title>
       {children}
-      <Button htmlType='submit' text={submitButtonText} style={{ margin: 'auto' }} />
+      <Button htmlType='submit' text={submitButtonText} />
     </Form>
   );
 };
