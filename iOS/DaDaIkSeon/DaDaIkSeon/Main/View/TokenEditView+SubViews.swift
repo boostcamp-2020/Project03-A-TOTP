@@ -15,13 +15,27 @@ struct IconView: View {
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
+    private var icons: [Image] = [
+        Image.mail, Image.message, Image.game,
+        Image.book, Image.creditcard, Image.play,
+        Image.search, Image.thumbsup, Image.calendar,
+        Image.musicNote, Image.cart, Image.heart,
+        Image.pin, Image.bolt, Image.globe
+    ]
+    
     var body: some View {
         LazyVGrid(columns: columns) {
-            ForEach(1...15, id: \.self) { _ in
-                Circle()
-                    .foregroundColor(.mint1)
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .padding(4)
+            ForEach(0..<15, id: \.self) { index in
+                icons[index]
+                    .padding(12)
+                    .aspectRatio(contentMode: .fit)
+                    .background(
+                        Rectangle()
+                            .foregroundColor(Color.shadow)
+                            .frame(width: 40, height: 40, alignment: .center)
+                            .cornerRadius(15)
+                    )
+                    .foregroundColor(Color(.gray))
             }
         }
     }
@@ -35,7 +49,7 @@ struct PaletteView: View {
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
-    private var color: [LinearGradient] = [
+    private var colors: [LinearGradient] = [
         LinearGradient.blue, LinearGradient.brown, LinearGradient.pink,
         LinearGradient.navy, LinearGradient.salmon, LinearGradient.mint
     ]
@@ -49,7 +63,7 @@ struct PaletteView: View {
         LazyVGrid(columns: columns) {
             ForEach(0...5, id: \.self) { index in
                 Circle()
-                    .fill(color[index])
+                    .fill(colors[index])
                     .frame(width: geometry.size.width * 0.15,
                            height: geometry.size.width * 0.15,
                            alignment: .center)

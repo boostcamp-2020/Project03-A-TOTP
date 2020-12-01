@@ -11,11 +11,10 @@ struct TokenEditView: View {
     
     // MARK: Property
     
-    @State var isEditing = false
+    @EnvironmentObject var navigationFlow: NavigationFlowObject
     @State var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
-    @EnvironmentObject var navigationFlow: NavigationFlowObject
     
     // TokenEditview에 들어갈 아이들
     // var qrcode: String? // 추가 모드일 때
