@@ -20,7 +20,8 @@ final class MainViewModel: ViewModel {
                           isSearching: false,
                           mainToken: service.mainToken(),
                           checkBoxMode: false,
-                          selectedTokens: [UUID: Bool]()
+                          selectedTokens: [UUID: Bool](),
+                          settingMode: false
         )
         state.filteredTokens = excludeMainCell()
     }
@@ -56,6 +57,12 @@ final class MainViewModel: ViewModel {
             state.selectedTokens.removeAll()
         case .selectCell(let id):
             state.selectedTokens[id]?.toggle()
+        case .deleteSelectedTokens:
+            print("삭제")
+        case .startSetting:
+            state.settingMode = true
+        case .endSetting:
+            state.settingMode = false
         }
     }
     

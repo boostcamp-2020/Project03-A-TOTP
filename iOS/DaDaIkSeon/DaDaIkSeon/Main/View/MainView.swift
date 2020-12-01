@@ -14,7 +14,8 @@ struct MainState {
     var isSearching: Bool
     var mainToken: Token
     var checkBoxMode: Bool
-    var selectedTokens: [UUID:Bool] // 선택 모드가 종료되면 []로 초기화, 물론 삭제라면 삭제 후!
+    var selectedTokens: [UUID: Bool]
+    var settingMode: Bool
 }
 
 enum MainInput {
@@ -24,6 +25,9 @@ enum MainInput {
     case showCheckBox
     case hideCheckBox
     case selectCell(_ id: UUID)
+    case startSetting
+    case endSetting
+    case deleteSelectedTokens
 }
 
 class NavigationFlowObject: ObservableObject {
