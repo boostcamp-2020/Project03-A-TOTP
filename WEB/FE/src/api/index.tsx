@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.headers['X-CSRF'] = 'X-CSRF';
+
 interface UserInfo {
   id: string;
   password: string;
