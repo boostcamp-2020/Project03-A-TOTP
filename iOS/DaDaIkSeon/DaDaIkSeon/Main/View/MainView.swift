@@ -21,6 +21,10 @@ enum MainInput {
     case moveToken(_ id: UUID)
 }
 
+class NavigationFlowObject: ObservableObject {
+    @Published var isActive = false
+}
+
 struct MainView: View {
     
     // MARK: ViewModel
@@ -28,6 +32,8 @@ struct MainView: View {
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
     
     // MARK: Property
+    
+    @EnvironmentObject var navigationFlow: NavigationFlowObject
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
@@ -49,17 +55,19 @@ struct MainView: View {
         NavigationView {
             
             VStack(spacing: 12) {
-                viewModel.state.isSearching ? nil : HeaderView()
+                viewModel.state.isSearching ?
+                    nil : HeaderView()
                 
                 SearchBarView().environmentObject(viewModel)
                 
                 ScrollView {
-                    viewModel.state.isSearching ? nil : TokenCellView(
-                        service: viewModel.state.service,
-                        token: viewModel.state.mainToken,
-                        isMain: true
-                    )
-                    .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
+                    viewModel.state.isSearching ?
+                        nil : TokenCellView(
+                            service: viewModel.state.service,
+                            token: viewModel.state.mainToken,
+                            isMain: true
+                        )
+                        .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     
                     LazyVGrid(columns: columns,
                               spacing: 12) {
@@ -67,6 +75,7 @@ struct MainView: View {
                             Button(action: {
                                 withAnimation(.spring(response: 0.5)) {
                                     viewModel.trigger(.moveToken(token.id))
+                                    hideKeyboard()
                                 }
                             }, label: {
                                 TokenCellView(
@@ -77,11 +86,20 @@ struct MainView: View {
                             })
                             .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                         }
-                        viewModel.state.isSearching  ? nil : NavigationLink(
-                            destination: QRGuideView(),
-                            label: {
-                                TokenAddCellView()
-                            })
+                        viewModel.state.isSearching ?
+                            nil : NavigationLink(
+                                destination: QRGuideView(service: viewModel.state.service)
+                                    .environmentObject(navigationFlow),
+                                isActive: $navigationFlow.isActive,
+                                label: {
+                                    TokenAddCellView()
+                                        .onTapGesture {
+                                            print("탭")
+                                            navigationFlow.isActive = true
+                                        }
+                                }
+                            )
+                            .isDetailLink(false)
                             .frame(minHeight: 100)
                     }
                     .padding(.top, 6)
@@ -91,7 +109,10 @@ struct MainView: View {
                 .padding(.horizontal, 12)
                 .padding(.top, 6)
             }
-        
+            
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
     }
 }

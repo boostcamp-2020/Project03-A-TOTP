@@ -47,7 +47,8 @@ struct TokenCellView: View {
             VStack {
                 TopButtonViews(
                     action: {
-                        self.viewModel.trigger(.showEditView)
+                        viewModel.trigger(.showEditView)
+                        isShownEditView = true
                     },
                     isShownEditView: $isShownEditView)
                 Spacer()
