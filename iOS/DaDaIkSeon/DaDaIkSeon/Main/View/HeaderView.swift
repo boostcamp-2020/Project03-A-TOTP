@@ -9,6 +9,10 @@ import SwiftUI
 
 struct HeaderView: View {
     
+    // MARK: ViewModel
+    
+    @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    
     // MARK: Body
     
     var body: some View {
@@ -26,7 +30,7 @@ struct HeaderView: View {
             Spacer()
             
             Button(action: {
-                print("선택 버튼 Did tap")
+                viewModel.trigger(.showCheckBox)
             }, label: {
                 Text("선택")
                     .padding(.trailing, 4)
@@ -40,7 +44,7 @@ struct HeaderView: View {
 struct HeaderView_Previews: PreviewProvider {
     
     static var previews: some View {
-        HeaderView()
+        HeaderView(viewModel: AnyViewModel(MainViewModel(service: TokenService())))
     }
     
 }

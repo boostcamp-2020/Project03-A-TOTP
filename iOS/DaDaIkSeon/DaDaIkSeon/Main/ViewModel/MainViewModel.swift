@@ -18,7 +18,8 @@ final class MainViewModel: ViewModel {
                           filteredTokens: [],
                           searchText: "",
                           isSearching: false,
-                          mainToken: service.mainToken())
+                          mainToken: service.mainToken(),
+                          checkBoxMode: false)
         state.filteredTokens = excludeMainCell()
     }
     
@@ -43,9 +44,12 @@ final class MainViewModel: ViewModel {
                 return
             }
             showMainScene()
+        case .showCheckBox:
+            state.checkBoxMode = true
+            print("선택 버튼 Did tap")
         }
     }
-
+    
 }
 
 extension MainViewModel {

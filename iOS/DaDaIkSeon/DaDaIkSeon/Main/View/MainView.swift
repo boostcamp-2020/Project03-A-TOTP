@@ -13,12 +13,14 @@ struct MainState {
     var searchText: String
     var isSearching: Bool
     var mainToken: Token
+    var checkBoxMode: Bool
 }
 
 enum MainInput {
     case startSearch(_ text: String)
     case endSearch
     case moveToken(_ id: UUID)
+    case showCheckBox
 }
 
 class NavigationFlowObject: ObservableObject {
@@ -56,7 +58,7 @@ struct MainView: View {
             
             VStack(spacing: 12) {
                 viewModel.state.isSearching ?
-                    nil : HeaderView()
+                    nil : HeaderView(viewModel: viewModel)
                 
                 SearchBarView().environmentObject(viewModel)
                 
@@ -73,10 +75,18 @@ struct MainView: View {
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
                             Button(action: {
-                                withAnimation(.spring(response: 0.5)) {
-                                    viewModel.trigger(.moveToken(token.id))
-                                    hideKeyboard()
+                                if viewModel.state.checkBoxMode {
+                                    // 셀은 자기가 선택 상태인지 알 수 있는 상태 값이 필요하다
+                                    print("선택 모드")
+                                    
+                                } else {
+                                    print("선택 모드 아님")
+                                    withAnimation(.spring(response: 0.5)) {
+                                        viewModel.trigger(.moveToken(token.id))
+                                        hideKeyboard()
+                                    }
                                 }
+                                
                             }, label: {
                                 TokenCellView(
                                     service: viewModel.state.service,
@@ -94,7 +104,6 @@ struct MainView: View {
                                 label: {
                                     TokenAddCellView()
                                         .onTapGesture {
-                                            print("탭")
                                             navigationFlow.isActive = true
                                         }
                                 }
