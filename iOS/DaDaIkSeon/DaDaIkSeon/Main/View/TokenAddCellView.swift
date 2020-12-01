@@ -19,7 +19,7 @@ struct TokenAddCellView: View {
             Spacer()
             HStack {
                 Spacer()
-                Image(systemName: "plus.circle")
+                Image.plus
                     .resizable()
                     .frame(width: 25, height: 25, alignment: .center)
                     .foregroundColor(Color(.systemGray2))

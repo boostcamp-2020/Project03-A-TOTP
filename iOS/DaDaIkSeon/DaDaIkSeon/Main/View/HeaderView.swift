@@ -16,7 +16,7 @@ struct HeaderView: View {
             Button(action: {
                 print("내 정보 버튼 Did tap")
             }, label: {
-                Image(systemName: "person.crop.circle")
+                Image.person
                     .resizable()
                     .frame(width: 25, height: 25)
                     .foregroundColor(.black)
