@@ -25,12 +25,18 @@ const Description = styled.p`
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const ButtonContainer = styled.div`
   text-align: center;
   margin: 3rem 0 1rem;
+
+  a {
+    color: ${({ theme }) => theme.color.link};
+    display: inline-block;
+    margin: 1rem 0;
+  }
 `;
 
 const InputStyle: CSS.Properties = {
@@ -45,29 +51,28 @@ const InputStyle: CSS.Properties = {
 const TOTPModal = ({ isOpen, TOTP, onChange, onSubmit, onClose }: TOTPModalProps): JSX.Element => {
   return (
     <>
-      <Modal>
-        <Title>OTP 인증</Title>
-        <Description>표시된 OTP 6자리를 입력해 주세요</Description>
-        <OtpInput
-          value={TOTP}
-          onChange={onChange}
-          numInputs={6}
-          inputStyle={InputStyle}
-          isInputNum
-          shouldAutoFocus
-        />
-        <ButtonContainer>
-          <Button text='확인' onClick={onSubmit} style={{ padding: '0 4rem', marginRight: '1rem' }} />
-          <Button text='취소' onClick={onClose} type='text' />
-          <br />
-          <Button
-            text={<Link to='/'>QR코드 재등록</Link>}
-            onClick={onClose}
-            type='text'
-            style={{ color: 'darkblue', marginTop: '0.75rem' }}
+      {isOpen ? (
+        <Modal>
+          <Title>OTP 인증</Title>
+          <Description>표시된 OTP 6자리를 입력해 주세요</Description>
+          <OtpInput
+            value={TOTP}
+            onChange={onChange}
+            numInputs={6}
+            inputStyle={InputStyle}
+            isInputNum
+            shouldAutoFocus
           />
-        </ButtonContainer>
-      </Modal>
+          <ButtonContainer>
+            <Button text='확인' onClick={onSubmit} style={{ padding: '0 4rem', marginRight: '1rem' }} />
+            <Button text='취소' onClick={onClose} type='text' />
+            <br />
+            <Link to='/'>QR코드 재등록</Link>
+          </ButtonContainer>
+        </Modal>
+      ) : (
+        ''
+      )}
     </>
   );
 };

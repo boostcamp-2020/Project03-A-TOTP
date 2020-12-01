@@ -8,13 +8,9 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [TOTP, setTOTP] = useState('');
 
-  const onSuccessLogIn = () => {
-    setIsModalOpen(true);
-  };
-
-  const onSubmitOTP = () => {};
-
+  const onSuccessLogIn = () => setIsModalOpen(true);
   const onCloseModal = () => setIsModalOpen(false);
+  const onSubmitOTP = () => {};
 
   return (
     <>
