@@ -15,14 +15,14 @@ struct TopButtonViews: View {
     var body: some View {
         
         HStack {
-            Image(systemName: "heart.circle")
+            Image.heart
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
             Button(action: {
                 action()
             }, label: {
-                Image(systemName: "ellipsis.circle.fill")
+                Image.ellipsis
                     .resizable()
                     .frame(width: 20, height: 20, alignment: .top)
                     .foregroundColor(.white)
@@ -109,7 +109,7 @@ struct CopyButtonView: View {
             Button(action: {
                 action()
             }, label: {
-                Image(systemName: "doc.on.doc")
+                Image.copy
                     .resizable()
                     .frame(width: 25, height: 25)
                     .foregroundColor(.white)
