@@ -14,6 +14,11 @@ struct TokenEditView: View {
     @State private var segmentedMode = 0
     @EnvironmentObject var navigationFlow: NavigationFlowObject
     
+    // TokenEditView에 들어갈 아이들
+    //var qrcode: String? // 추가 모드일 때만 필요
+    //var tokenId: UUID? // 편집 모드일 때만 필요
+    //var service: TokenService?
+    
     var body: some View {
         VStack {
             Spacer()

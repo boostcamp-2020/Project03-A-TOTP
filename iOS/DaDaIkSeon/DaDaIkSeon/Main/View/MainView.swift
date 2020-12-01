@@ -88,7 +88,7 @@ struct MainView: View {
                         }
                         viewModel.state.isSearching ?
                             nil : NavigationLink(
-                                destination: QRGuideView()
+                                destination: QRGuideView(service: viewModel.state.service)
                                     .environmentObject(navigationFlow),
                                 isActive: $navigationFlow.isActive,
                                 label: {

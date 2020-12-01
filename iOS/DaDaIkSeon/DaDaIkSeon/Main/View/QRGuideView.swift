@@ -11,9 +11,10 @@ import CodeScanner
 struct QRGuideView: View {
     
     // MARK: Property
-    @State var isShownScanner = false
-    @State var isShownEditView: Bool = false
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    private(set) var service: TokenServiceable
+    @State private var isShownScanner = false
+    @State private var isShownEditView: Bool = false
+    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     // MARK: Body
     var body: some View {
@@ -32,7 +33,10 @@ struct QRGuideView: View {
             .frame(maxWidth: .infinity, maxHeight: 46)
             .background(Color(.systemGray6))
             .cornerRadius(15)
-            NavigationLink("", destination: TokenEditView(), isActive: $isShownEditView)
+            NavigationLink(
+                "",
+                destination: TokenEditView(),
+                isActive: $isShownEditView)
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -46,7 +50,7 @@ struct QRGuideView: View {
             })
         )
         .sheet(isPresented: $isShownScanner) {
-                QRScannerView(isShownEditView: $isShownEditView)
+            QRScannerView(isShownEditView: $isShownEditView)
         }
         
     }
@@ -55,7 +59,7 @@ struct QRGuideView: View {
 struct QRScannerView: View {
     
     @Binding var isShownEditView: Bool
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
@@ -77,6 +81,6 @@ struct QRScannerView: View {
 // MARK: Preview
 struct QRGuideView_Previews: PreviewProvider {
     static var previews: some View {
-        QRGuideView()
+        QRGuideView(service: TokenService())
     }
 }
