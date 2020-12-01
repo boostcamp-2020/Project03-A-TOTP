@@ -84,9 +84,7 @@ struct TokenEditView: View {
                 })
             )
         }
-//        .onTapGesture {
-//            hideKeyboard()
-//        }
+
     }
 }
 
