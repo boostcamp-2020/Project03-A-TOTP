@@ -70,11 +70,15 @@ struct SearchBarView: View {
 private extension SearchBarView {
     
     func search(text: String) {
-        viewModel.trigger(.startSearch(text))
+        withAnimation {
+            viewModel.trigger(.startSearch(text))
+        }
     }
     
     func endSearch() {
-        viewModel.trigger(.endSearch)
+        withAnimation {
+            viewModel.trigger(.endSearch)
+        }
         searchText = viewModel.state.searchText
     }
     

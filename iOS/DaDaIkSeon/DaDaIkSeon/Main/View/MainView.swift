@@ -23,14 +23,18 @@ enum MainInput {
 
 struct MainView: View {
     
-    // MARK: Property
+    // MARK: ViewModel
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    
+    // MARK: Property
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
+    
+    @Namespace var namespace
     
     // MARK: Initialization
     
@@ -40,12 +44,10 @@ struct MainView: View {
     
     // MARK: Body
     
-    @Namespace var namespace
-    //@State var mainCellToken: Token
-    
     var body: some View {
         
         NavigationView {
+            
             VStack(spacing: 12) {
                 viewModel.state.isSearching ? nil : HeaderView()
                 SearchBarView().environmentObject(viewModel)
@@ -85,6 +87,7 @@ struct MainView: View {
                 .padding(.horizontal, 12)
                 .padding(.top, 6)
             }
+        
         }
     }
 }
