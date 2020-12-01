@@ -12,6 +12,13 @@ struct HeaderView: View {
     // MARK: ViewModel
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    @State var showingAlert: Bool = false
+    var count: Int {
+        viewModel.state.selectedTokens
+            .filter { ( key, _ ) in
+                viewModel.state.selectedTokens[key] == true
+            }.count
+    }
     
     // MARK: Body
     
@@ -32,21 +39,27 @@ struct HeaderView: View {
                 Spacer()
                 selectButton
             }
-        }.padding([.leading, .trailing], 16)
+        }
+        .padding([.leading, .trailing], 16)
     }
     
     // MARK: 삭제, 세팅 버튼
     
     var deleteButton: some View {
         Button(action: {
-            viewModel.trigger(.deleteSelectedTokens)
+            showingAlert = true
         }, label: {
-            let count = viewModel.state.selectedTokens
-                .filter { ( key, _ ) in
-                    viewModel.state.selectedTokens[key] == true
-                }.count
             Text(count == 0 ? "" : "\(count)개 삭제")
         })
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("TOTP 토큰 삭제"),
+                message: Text("선택한 \(count)개의 토큰을 삭제하시려구요?"),
+                primaryButton: .destructive(
+                    Text("응"), action: {
+                        viewModel.trigger(.deleteSelectedTokens)}),
+                secondaryButton: .cancel(Text("좀 더 생각을..")))
+        }
     }
     
     var settingButton: some View {
