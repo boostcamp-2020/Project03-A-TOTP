@@ -26,16 +26,20 @@ struct TokenEditView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            
+            let geometryWidth = geometry.size.width
+            let isSmallDevice = geometry.size.width < 325
+            
             VStack(spacing: 16) {
                 Spacer()
-                VStack(spacing: 32) {
+                VStack(spacing: isSmallDevice ? 16 : 32) {
                     Image.search
                         .resizable()
                         .frame(minWidth: 50,
                                maxWidth: 80,
                                minHeight: 50,
                                maxHeight: 80)
-                        .padding(geometry.size.width * 0.1)
+                        .padding(geometryWidth * 0.1)
                         .aspectRatio(1.0, contentMode: .fit)
                         .background(LinearGradient.mint)
                         .foregroundColor(.white)
@@ -49,10 +53,10 @@ struct TokenEditView: View {
                         .cornerRadius(10)
                         .multilineTextAlignment(TextAlignment.center)
                 }
-                .padding(.horizontal, geometry.size.width * 0.22)
+                .padding(.horizontal, geometryWidth * 0.22)
                 .padding(.top, 20)
                 Spacer()
-                VStack(spacing: geometry.size.width > 400 ? 40 : 20) {
+                VStack(spacing: isSmallDevice ? 20 : 40) {
                     Picker("palette", selection: $segmentedMode) {
                         Text(segmentList[0]).tag(0)
                         Text(segmentList[1]).tag(1)
@@ -65,9 +69,9 @@ struct TokenEditView: View {
                     segmentedMode == 0 ? PaletteView(geometry: geometry) : nil
                     segmentedMode == 1 ? IconView() : nil
                 }
-                .padding(.horizontal, geometry.size.width > 325 ? 40 : 20)
+                .padding(.horizontal, isSmallDevice ? 20 : 40)
 
-                geometry.size.width > 325 ? Spacer() : nil
+                isSmallDevice ? nil : Spacer()
                 
                 Button(action: {
                     print("저장 버튼 Did Tap")
@@ -105,7 +109,6 @@ struct TokenEditView: View {
                 hideKeyboard()
             }
         }
-        
         Spacer()
     }
 }
