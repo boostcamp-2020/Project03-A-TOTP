@@ -12,78 +12,94 @@ struct TokenEditView: View {
     @State var isEditing = false
     @State var text = ""
     @State private var segmentedMode = 0
+    @State private var palette = ["색상", "아이콘"]
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
-        VStack {
-            
-            VStack {
-                Spacer()
+//        NavigationView {
+        VStack(spacing: 16) {
+            Spacer()
+            VStack(spacing: 32) {
                 Image.search
                     .resizable()
                     .aspectRatio(1.0, contentMode: .fit)
-                    .frame(minWidth: 20,
+                    .frame(minWidth: 70,
                            maxWidth: 80,
-                           minHeight: 20,
+                           minHeight: 70,
                            maxHeight: 80)
-                    .padding(60)
+                    .padding(45)
                     .background(LinearGradient.mint)
                     .foregroundColor(.white)
                     .cornerRadius(15)
                 
                 TextField("토큰 이름을 입력하세요", text: $text)
-                    .padding(7)
-                    .padding(.horizontal, 25)
-                    .cornerRadius(8)
-                    .overlay(
-                        HStack {
-                            Image(systemName: "pencil.and.outline")
-                                .foregroundColor(.gray)
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 8)
-                        }
-                    )
-                    .padding(.top, 20)
-                    .padding(.bottom, -8)
-                    .padding(.horizontal, 40)
-                
-                Divider()
-                    .padding(.horizontal, 60)
-                
-                Spacer()
-                
-                Picker(selection: $segmentedMode, label: Text("mode")) {
-                    Text("색상").tag(0)
-                    Text("아이콘").tag(1)
+                    .padding(6)
+                    .font(.system(size: 15))
+                    .foregroundColor(.black)
+                    .background(Color(.tertiarySystemFill))
+                    .cornerRadius(10)
+                    .multilineTextAlignment(TextAlignment.center)
+            }
+            .padding(.horizontal, 90)
+//            .padding(.top, 30)
+            Spacer()
+            VStack(spacing: 40) {
+                Picker("palette", selection: $segmentedMode) {
+                    Text(palette[0]).tag(0)
+                    Text(palette[1]).tag(1)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal, 60)
-                
-                Spacer()
+                .onTapGesture {
+                    segmentedMode = segmentedMode == 0 ? 1 : 0
+                }
+//                .padding([.top, .bottom], 60)
                 
                 segmentedMode == 0 ? PaletteView() : nil
                 segmentedMode == 1 ? IconView() : nil
                 
-                Spacer()
+//                Spacer()
+                
             }
             .padding(.horizontal, 40)
-    //        .navigationBarHidden(false)
-    //        .navigationBarTitle("토큰 수정", displayMode: .inline)
-    //        .navigationBarBackButtonHidden(true)
-    //        .navigationBarItems(
-    //            leading: Button(action: {
-    //                mode.wrappedValue.dismiss()
-    //            }, label: {
-    //                Text("취소")
-    //                    .foregroundColor(.black)
-    //            }),
-    //            trailing: Button(action: {
-    //                mode.wrappedValue.dismiss()
-    //            }, label: {
-    //                Text("저장")
-    //                    .foregroundColor(.black)
-    //            })
-    //        )
+            Spacer()
+            
+            VStack {
+            Button(action: {
+                
+            }, label: {
+                HStack {
+                    Spacer()
+                    Text("저장")
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+            })
+            .frame(width: 85)
+            .padding(.vertical, 10.0)
+            .background(LinearGradient.mint)
+            .cornerRadius(15)
+            }
+            Spacer()
         }
+        .navigationBarHidden(false)
+        .navigationBarTitle("토큰 수정", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(
+            leading: Button(action: {
+                mode.wrappedValue.dismiss()
+            }, label: {
+                Text("취소")
+                    .foregroundColor(.black)
+            }),
+            trailing: Button(action: {
+                mode.wrappedValue.dismiss()
+            }, label: {
+                Text("저장")
+                    .foregroundColor(.black)
+            })
+        )
+//        }
+        .background(Color.white)
         .onTapGesture {
             hideKeyboard()
         }
@@ -106,10 +122,10 @@ struct IconView: View {
                 Circle()
                     .foregroundColor(.mint1)
                     .frame(width: 35, height: 35, alignment: .center)
+                    .padding(5)
             }
         }
-        .padding(.horizontal, 30)
-        .padding(.bottom, 30)
+        .padding(.bottom, 16)
     }
     
 }
@@ -133,18 +149,19 @@ struct PaletteView: View {
                 Circle()
                     .foregroundColor(color[index])
                     .frame(width: 55, height: 55, alignment: .center)
+                    .padding(8)
             }
         }
-        .padding(.horizontal, 30)
-        .padding(.bottom, 30)
+        .padding(.bottom, 16)
     }
     
 }
 
 struct TokenEditView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        TokenEditView()
+//        NavigationView {
+            TokenEditView()
+//        }
         
     }
 }
