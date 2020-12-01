@@ -46,7 +46,8 @@ final class MainViewModel: ViewModel {
             showMainScene()
         case .showCheckBox:
             state.checkBoxMode = true
-            print("선택 버튼 Did tap")
+        case .hideCheckBox:
+            state.checkBoxMode = false
         }
     }
     

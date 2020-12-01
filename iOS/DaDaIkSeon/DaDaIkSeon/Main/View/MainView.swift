@@ -21,6 +21,7 @@ enum MainInput {
     case endSearch
     case moveToken(_ id: UUID)
     case showCheckBox
+    case hideCheckBox
 }
 
 class NavigationFlowObject: ObservableObject {
