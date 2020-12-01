@@ -9,16 +9,22 @@ import SwiftUI
 
 struct TokenEditView: View {
     
+    // MARK: Property
+    
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var isEditing = false
     @State var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    // MARK: Body
     
     var body: some View {
-//        NavigationView {
+        
         VStack(spacing: 16) {
+            
             Spacer()
+            
             VStack(spacing: 32) {
                 Image.search
                     .resizable()
@@ -41,8 +47,9 @@ struct TokenEditView: View {
                     .multilineTextAlignment(TextAlignment.center)
             }
             .padding(.horizontal, 90)
-//            .padding(.top, 30)
+            
             Spacer()
+            
             VStack(spacing: 40) {
                 Picker("palette", selection: $segmentedMode) {
                     Text(segmentList[0]).tag(0)
@@ -52,20 +59,16 @@ struct TokenEditView: View {
                 .onTapGesture {
                     segmentedMode = segmentedMode == 0 ? 1 : 0
                 }
-//                .padding([.top, .bottom], 60)
                 
                 segmentedMode == 0 ? PaletteView() : nil
                 segmentedMode == 1 ? IconView() : nil
-                
-//                Spacer()
-                
             }
             .padding(.horizontal, 40)
+            
             Spacer()
             
-            VStack {
             Button(action: {
-                
+                print("저장 버튼 Did Tap")
             }, label: {
                 HStack {
                     Spacer()
@@ -78,7 +81,7 @@ struct TokenEditView: View {
             .padding(.vertical, 10)
             .background(LinearGradient.mint)
             .cornerRadius(15)
-            }
+            
             Spacer()
         }
         .navigationBarHidden(false)
@@ -98,7 +101,6 @@ struct TokenEditView: View {
                     .foregroundColor(.black)
             })
         )
-//        }
         .background(Color.white)
         .onTapGesture {
             hideKeyboard()
@@ -108,9 +110,6 @@ struct TokenEditView: View {
 
 struct TokenEditView_Previews: PreviewProvider {
     static var previews: some View {
-//        NavigationView {
-            TokenEditView()
-//        }
-        
+        TokenEditView()
     }
 }
