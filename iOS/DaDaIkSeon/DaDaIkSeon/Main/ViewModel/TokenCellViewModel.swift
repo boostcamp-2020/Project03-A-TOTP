@@ -27,7 +27,8 @@ final class TokenCellViewModel: ViewModel {
                                token: token,
                                password: TOTPGenerator.generate(from: token.key ?? "") ?? "000000",
                                leftTime: "1",
-                               timeAmount: 0.0)
+                               timeAmount: 0.0,
+                               isShownEditView: false)
         timeAmount = countTimeBy30 + 1
         
         initTimer(key: token.key ?? "")
@@ -37,6 +38,10 @@ final class TokenCellViewModel: ViewModel {
     
     func trigger(_ input: TokenCellInput) {
         switch input {
+        case .showEditView:
+            state.isShownEditView = true
+        case .hideEditView:
+            state.isShownEditView = false
         }
     }
     
@@ -95,6 +100,11 @@ extension TokenCellViewModel {
     var token: Token {
         get { state.token }
         set { state.token = newValue }
+    }
+    
+    var isShownEditView: Bool {
+        get { state.isShownEditView }
+        set { state.isShownEditView = newValue }
     }
     
     var password: String {

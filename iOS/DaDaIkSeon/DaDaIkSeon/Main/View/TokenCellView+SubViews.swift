@@ -10,7 +10,6 @@ import SwiftUI
 struct TopButtonViews: View {
     
     var action: () -> Void
-    @Binding var isShownEditView: Bool
     
     var body: some View {
         
@@ -27,9 +26,6 @@ struct TopButtonViews: View {
                     .frame(width: 20, height: 20, alignment: .top)
                     .foregroundColor(.white)
             })
-            .sheet(isPresented: $isShownEditView) {
-                TokenEditView()
-            }
         }
         .padding(.horizontal, 12)
         .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
