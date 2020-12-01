@@ -11,14 +11,13 @@ import CryptoKit
 struct TokenCellState {
     var service: TokenServiceable
     var token: Token
-    var isShownEditView: Bool
     var password: String
     var leftTime: String
     var timeAmount: Double
 }
 
 enum TokenCellInput {
-    case showEditView
+    
 }
 
 struct TokenCellView: View {
@@ -47,7 +46,6 @@ struct TokenCellView: View {
             VStack {
                 TopButtonViews(
                     action: {
-                        viewModel.trigger(.showEditView)
                         isShownEditView = true
                     },
                     isShownEditView: $isShownEditView)

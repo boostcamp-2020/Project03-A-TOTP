@@ -25,7 +25,6 @@ final class TokenCellViewModel: ViewModel {
     init(service: TokenServiceable, token: Token) {
         state = TokenCellState(service: service,
                                token: token,
-                               isShownEditView: false,
                                password: TOTPGenerator.generate(from: token.key ?? "") ?? "000000",
                                leftTime: "1",
                                timeAmount: 0.0)
@@ -38,8 +37,6 @@ final class TokenCellViewModel: ViewModel {
     
     func trigger(_ input: TokenCellInput) {
         switch input {
-        case .showEditView:
-            state.isShownEditView = true
         }
     }
     
@@ -98,11 +95,6 @@ extension TokenCellViewModel {
     var token: Token {
         get { state.token }
         set { state.token = newValue }
-    }
-    
-    var isShownEditView: Bool {
-        get { state.isShownEditView }
-        set { state.isShownEditView = newValue }
     }
     
     var password: String {
