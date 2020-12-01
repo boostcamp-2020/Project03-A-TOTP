@@ -33,7 +33,6 @@ struct MainView: View {
     
     // MARK: Property
     
-    @State var isShowEditView = false
     @EnvironmentObject var navigationFlow: NavigationFlowObject
     
     var columns: [GridItem] = [
@@ -115,17 +114,6 @@ struct MainView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .sheet(
-            isPresented: $isShowEditView,
-            onDismiss: {
-                //viewModel.trigger(.)
-                // refresh 라는 걸 만들어야 할까?
-                // editview에서 변경한 서비스를 반영하기 위해?
-                // 아니야 그냥 뷰모델 넘겨서 뷰모델을 수정해버리자?
-            }, content: {
-                TokenEditView()
-            }
-        )
     }
 }
 
