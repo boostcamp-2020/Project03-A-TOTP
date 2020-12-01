@@ -35,6 +35,8 @@ final class MainViewModel: ViewModel {
         case .endSearch:
             state.searchText = ""
             state.isSearching = false
+            state.mainToken = state.service.mainToken()
+            state.filteredTokens = excludeMainCell()
         case .moveToken(let id):
             state.service.updateMainTokenIndex(id: id)
             state.mainToken = state.service.token(id: id) ?? Token()
