@@ -36,7 +36,7 @@ final class MainViewModel: ViewModel {
             state.searchText = ""
             state.isSearching = false
             showMainScene()
-        case .moveToken(let id): // 이름 - selectToken 같은 게 좀 더 나을지도?
+        case .moveToken(let id):
             state.service.updateMainTokenIndex(id: id)
             if state.isSearching {
                 trigger(.endSearch)
@@ -60,4 +60,5 @@ extension MainViewModel {
             $0.id != state.service.mainToken().id
         }
     }
+    
 }

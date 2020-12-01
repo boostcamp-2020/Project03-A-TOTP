@@ -50,7 +50,9 @@ struct MainView: View {
             
             VStack(spacing: 12) {
                 viewModel.state.isSearching ? nil : HeaderView()
+                
                 SearchBarView().environmentObject(viewModel)
+                
                 ScrollView {
                     viewModel.state.isSearching ? nil : TokenCellView(
                         service: viewModel.state.service,
@@ -58,6 +60,7 @@ struct MainView: View {
                         isMain: true
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
+                    
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
@@ -82,6 +85,7 @@ struct MainView: View {
                             .frame(minHeight: 100)
                     }
                     .padding(.top, 6)
+                    
                 }
                 .navigationBarHidden(true)
                 .padding(.horizontal, 12)
