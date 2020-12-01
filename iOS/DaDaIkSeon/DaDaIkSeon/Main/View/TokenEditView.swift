@@ -12,13 +12,13 @@ struct TokenEditView: View {
     @State var isEditing = false
     @State var text = ""
     @State private var segmentedMode = 0
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
-        NavigationView {
+        VStack {
+            
             VStack {
                 Spacer()
-                Image(systemName: "magnifyingglass")
+                Image.search
                     .resizable()
                     .aspectRatio(1.0, contentMode: .fit)
                     .frame(minWidth: 20,
@@ -66,27 +66,27 @@ struct TokenEditView: View {
                 Spacer()
             }
             .padding(.horizontal, 40)
-            .navigationBarHidden(false)
-            .navigationBarTitle("토큰 수정", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(
-                leading: Button(action: {
-                    mode.wrappedValue.dismiss()
-                }, label: {
-                    Text("취소")
-                        .foregroundColor(.black)
-                }),
-                trailing: Button(action: {
-                    mode.wrappedValue.dismiss()
-                }, label: {
-                    Text("저장")
-                        .foregroundColor(.black)
-                })
-            )
+    //        .navigationBarHidden(false)
+    //        .navigationBarTitle("토큰 수정", displayMode: .inline)
+    //        .navigationBarBackButtonHidden(true)
+    //        .navigationBarItems(
+    //            leading: Button(action: {
+    //                mode.wrappedValue.dismiss()
+    //            }, label: {
+    //                Text("취소")
+    //                    .foregroundColor(.black)
+    //            }),
+    //            trailing: Button(action: {
+    //                mode.wrappedValue.dismiss()
+    //            }, label: {
+    //                Text("저장")
+    //                    .foregroundColor(.black)
+    //            })
+    //        )
         }
-//        .onTapGesture {
-//            hideKeyboard()
-//        }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 
@@ -143,8 +143,8 @@ struct PaletteView: View {
 
 struct TokenEditView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            TokenEditView()
-        }
+        
+        TokenEditView()
+        
     }
 }
