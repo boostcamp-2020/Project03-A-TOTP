@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { InputTag } from '@styles/style';
+
+export const InputTag = styled.input`
+  display: block;
+  flex: 1;
+  width: 230px;
+  height: 30px;
+  border: none;
+  padding-left: 10px;
+`;
 
 const Wrapper = styled.div`
   display: flex;

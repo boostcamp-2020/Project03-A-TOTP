@@ -7,6 +7,7 @@ import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@a
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
 import { Buffer } from 'buffer';
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 440px;
@@ -86,14 +87,14 @@ const SignUpComponent = (): JSX.Element => {
     }
     const reCaptchaToken: string = await executeRecaptcha('SignUp');
     const result: string = await registerUserAPI({
-        id: form.id,
-        password: form.password,
-        email: form.email,
-        birth: form.birth,
-        name: form.name,
-        phone: form.phone,
-        reCaptchaToken,
-      });
+      id: form.id,
+      password: form.password,
+      email: form.email,
+      birth: form.birth,
+      name: form.name,
+      phone: form.phone,
+      reCaptchaToken,
+    });
     /**
      * @TODO url 인코딩하여 보내기
      */
