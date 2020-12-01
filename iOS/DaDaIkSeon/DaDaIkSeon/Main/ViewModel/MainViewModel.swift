@@ -58,7 +58,12 @@ final class MainViewModel: ViewModel {
         case .selectCell(let id):
             state.selectedTokens[id]?.toggle()
         case .deleteSelectedTokens:
-            print("삭제")
+            state.service.removeTokens(
+                state.selectedTokens
+                    .filter { $0.value == true}
+                    .map { $0.key })
+            trigger(.hideCheckBox)
+            showMainScene()
         case .startSetting:
             state.settingMode = true
         case .endSetting:

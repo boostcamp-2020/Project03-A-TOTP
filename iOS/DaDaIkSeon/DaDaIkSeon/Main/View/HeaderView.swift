@@ -57,7 +57,9 @@ struct HeaderView: View {
                 message: Text("선택한 \(count)개의 토큰을 삭제하시려구요?"),
                 primaryButton: .destructive(
                     Text("응"), action: {
-                        viewModel.trigger(.deleteSelectedTokens)}),
+                        withAnimation {
+                            viewModel.trigger(.deleteSelectedTokens)
+                        }}),
                 secondaryButton: .cancel(Text("좀 더 생각을..")))
         }
     }
