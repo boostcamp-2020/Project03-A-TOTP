@@ -35,18 +35,26 @@ final class MainViewModel: ViewModel {
         case .endSearch:
             state.searchText = ""
             state.isSearching = false
-            state.mainToken = state.service.mainToken()
-            state.filteredTokens = excludeMainCell()
-        case .moveToken(let id):
+            showMainScene()
+        case .moveToken(let id): // 이름 - selectToken 같은 게 좀 더 나을지도?
             state.service.updateMainTokenIndex(id: id)
-            state.mainToken = state.service.token(id: id) ?? Token()
-            state.filteredTokens = excludeMainCell()
+            if state.isSearching {
+                trigger(.endSearch)
+                return
+            }
+            showMainScene()
         }
     }
 
 }
 
 extension MainViewModel {
+    
+    func showMainScene() {
+        state.mainToken = state.service.mainToken()
+        state.filteredTokens = excludeMainCell()
+    }
+    
     func excludeMainCell() -> [Token] {
         state.service.tokenList().filter {
             $0.id != state.service.mainToken().id
