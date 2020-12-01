@@ -67,6 +67,7 @@ struct MainView: View {
                             Button(action: {
                                 withAnimation(.spring(response: 0.5)) {
                                     viewModel.trigger(.moveToken(token.id))
+                                    hideKeyboard()
                                 }
                             }, label: {
                                 TokenCellView(
