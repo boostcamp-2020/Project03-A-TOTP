@@ -59,7 +59,7 @@ struct QRGuideView: View {
 struct QRScannerView: View {
     
     @Binding var isShownEditView: Bool
-    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
