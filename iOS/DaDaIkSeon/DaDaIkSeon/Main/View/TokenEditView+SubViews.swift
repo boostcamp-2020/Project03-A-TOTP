@@ -24,13 +24,13 @@ struct IconView: View {
                     .padding(4)
             }
         }
-        .padding(.bottom, 16)
     }
     
 }
 
 struct PaletteView: View {
     
+    var geometry: GeometryProxy
     private var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
@@ -40,16 +40,22 @@ struct PaletteView: View {
         LinearGradient.navy, LinearGradient.salmon, LinearGradient.mint
     ]
     
+    init(geometry: GeometryProxy) {
+        self.geometry = geometry
+    }
+    
     var body: some View {
+    
         LazyVGrid(columns: columns) {
             ForEach(0...5, id: \.self) { index in
                 Circle()
                     .fill(color[index])
-                    .frame(width: 60, height: 60, alignment: .center)
+                    .frame(width: geometry.size.width * 0.15,
+                           height: geometry.size.width * 0.15,
+                           alignment: .center)
                     .padding(6)
             }
         }
-        .padding(.bottom, 16)
     }
     
 }
