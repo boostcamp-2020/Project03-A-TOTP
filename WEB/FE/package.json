@@ -54,6 +54,7 @@
     "prettier": "^2.1.2",
     "react-cookie": "^4.0.3",
     "react-google-recaptcha-v3": "^1.7.0",
+    "react-otp-input": "^2.3.0",
     "react-router-dom": "^5.2.0",
     "style-loader": "^2.0.0",
     "ts-node": "^9.0.0",
