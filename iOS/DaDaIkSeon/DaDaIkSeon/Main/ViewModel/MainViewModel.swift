@@ -14,14 +14,12 @@ final class MainViewModel: ViewModel {
     @Published var state: MainState
     
     init(service: TokenServiceable) {
-        let tokens = service.loadTokens()
-        let isSearching = service.getSearchingState()
-        let searchText = service.getSearchText()
-        
         state = MainState(service: service,
-                          filteredTokens: tokens,
-                          searchText: searchText,
-                          isSearching: isSearching)
+                          filteredTokens: [],
+                          searchText: "",
+                          isSearching: false,
+                          mainToken: service.mainToken())
+        state.filteredTokens = excludeMainCell()
     }
     
     // MARK: Methods
@@ -31,12 +29,35 @@ final class MainViewModel: ViewModel {
         case .startSearch(let text):
             state.searchText = text
             state.isSearching = true
-            state.filteredTokens = state.service.getFilteredTokens(text: text)
+            state.filteredTokens = state.service.tokenList().filter {
+                $0.tokenName?.contains(text) ?? false || text.isEmpty
+            }
         case .endSearch:
             state.searchText = ""
             state.isSearching = false
+            showMainScene()
         case .moveToken(let id):
-            state.filteredTokens = state.service.moveToken(id: id)
+            state.service.updateMainTokenIndex(id: id)
+            if state.isSearching {
+                trigger(.endSearch)
+                return
+            }
+            showMainScene()
+        }
+    }
+
+}
+
+extension MainViewModel {
+    
+    func showMainScene() {
+        state.mainToken = state.service.mainToken()
+        state.filteredTokens = excludeMainCell()
+    }
+    
+    func excludeMainCell() -> [Token] {
+        state.service.tokenList().filter {
+            $0.id != state.service.mainToken().id
         }
     }
     

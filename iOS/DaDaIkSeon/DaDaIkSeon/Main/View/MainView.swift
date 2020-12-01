@@ -12,6 +12,7 @@ struct MainState {
     var filteredTokens: [Token]
     var searchText: String
     var isSearching: Bool
+    var mainToken: Token
 }
 
 enum MainInput {
@@ -22,14 +23,18 @@ enum MainInput {
 
 struct MainView: View {
     
-    // MARK: Property
+    // MARK: ViewModel
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    
+    // MARK: Property
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
+    
+    @Namespace var namespace
     
     // MARK: Initialization
     
@@ -42,23 +47,35 @@ struct MainView: View {
     var body: some View {
         
         NavigationView {
+            
             VStack(spacing: 12) {
                 viewModel.state.isSearching ? nil : HeaderView()
+                
                 SearchBarView().environmentObject(viewModel)
-                viewModel.state.isSearching ? nil : MainCellView()
-                    .padding(.bottom, -6)
+                
                 ScrollView {
+                    viewModel.state.isSearching ? nil : TokenCellView(
+                        service: viewModel.state.service,
+                        token: viewModel.state.mainToken,
+                        isMain: true
+                    )
+                    .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
+                    
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
-                            TokenCellView(
-                                viewModel: TokenCellViewModel(service: viewModel.state.service,
-                                                              token: token)
-                            ).onTapGesture {
-                                withAnimation(.easeIn) {
+                            Button(action: {
+                                withAnimation(.spring(response: 0.5)) {
                                     viewModel.trigger(.moveToken(token.id))
                                 }
-                            }
+                            }, label: {
+                                TokenCellView(
+                                    service: viewModel.state.service,
+                                    token: token,
+                                    isMain: false
+                                )
+                            })
+                            .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                         }
                         viewModel.state.isSearching  ? nil : NavigationLink(
                             destination: QRGuideView(),
@@ -67,21 +84,23 @@ struct MainView: View {
                             })
                             .frame(minHeight: 100)
                     }
-                    .padding([.leading, .trailing, .bottom], 12)
                     .padding(.top, 6)
+                    
                 }
                 .navigationBarHidden(true)
+                .padding(.horizontal, 12)
+                .padding(.top, 6)
             }
-            
+        
         }
     }
 }
 
 struct MainView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
         let service = TokenService()
         MainView(service: service)
     }
-
+    
 }

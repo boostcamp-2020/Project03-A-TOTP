@@ -13,6 +13,8 @@ struct TokenCellState {
     var token: Token
     var isShownEditView: Bool
     var password: String
+    var leftTime: String
+    var timeAmount: Double
 }
 
 enum TokenCellInput {
@@ -23,61 +25,70 @@ struct TokenCellView: View {
     
     // MARK: ViewModel
     
-    @ObservedObject var viewModel: TokenCellViewModel
+    @ObservedObject var viewModel: AnyViewModel<TokenCellState, TokenCellInput>
+    
+    // MARK: Property
+    
+    @State var isShownEditView = false
+    var isMain: Bool
+    let zStackHeight: CGFloat = 200.0
+    
+    init(service: TokenServiceable, token: Token, isMain: Bool) {
+        viewModel = AnyViewModel(TokenCellViewModel(service: service, token: token))
+        self.isMain = isMain
+    }
     
     // MARK: Body
     
     var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "heart.circle")
-                    .foregroundColor(.white)
-                    .frame(width: 20, height: 20, alignment: .top)
-                
+        
+        ZStack {
+            // MARK: 이모티콘, 설정 버튼, 복사 버튼
+            VStack {
+                TopButtonViews(
+                    action: {
+                        self.viewModel.trigger(.showEditView)
+                    },
+                    isShownEditView: $isShownEditView)
                 Spacer()
+                if !isMain {
+                    TokenNameView(tokenName: viewModel.state.token.tokenName)
+                    TokenPasswordView(password: viewModel.state.password, isMain: isMain)
+                } else {
+                    CopyButtonView {
+                        //mainCellViewModel.copyButtonDidTab()
+                    }
+                }
+            }
+            .background(viewModel.state.token.color?.linearGradientColor() ?? LinearGradient.pink)
+            .cornerRadius(15)
+            .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
+            
+            if isMain {
+                // MARK: 프로그레스 바
+                CircularProgressBar(
+                    progressAmount: viewModel.state.timeAmount,
+                    totalTime: TOTPTimer.shared.totalTime)
+                    .frame(height: 170)
                 
-                Button(action: {
-//                    viewModel.showEditView = true
-                    // 변경 트리거 불러오기
-                    
-                }, label: {
-                    Image(systemName: "ellipsis.circle.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20, alignment: .top)
-                        .foregroundColor(.white)
-                })
-//                .sheet(isPresented: viewModel.state.isShownEditView) {
-//                    TokenEditView()
-//                }
+                // MARK: 이름, 비밀번호, 시간 텍스트 뷰
+                TokenInfoViews(name: viewModel.state.token.tokenName ?? "",
+                     password: viewModel.state.password,
+                     leftTime: viewModel.state.leftTime)
             }
-            .padding(.horizontal, 12)
-            .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
             
-            Spacer()
-            
-            HStack {
-                Text(viewModel.state.token.tokenName ?? "")
-                    .font(.system(size: 11))
-                    .foregroundColor(.white)
-                    .lineLimit(2)
-                Spacer()
-            }
-            .padding(.horizontal, 12)
-            
-            HStack {
-                (Text(viewModel.state.password.prefix(3))
-                    + Text(" ")
-                    + Text(viewModel.state.password.suffix(3)))
-                    .foregroundColor(.white)
-                    .font(.system(size: 18))
-                    .fontWeight(.bold)
-                    .kerning(3)
-                Spacer()                
-            }
-            .padding([.horizontal, .bottom], 12)
         }
-        .background(viewModel.state.token.color?.linearGradientColor() ?? LinearGradient.pink)
-        .cornerRadius(15)
-        .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
+        .frame(height: isMain ? zStackHeight : nil)
     }
+}
+
+struct TokenCellView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        let service = TokenService()
+        TokenCellView(service: service,
+                      token: Token(),
+                      isMain: true)
+    }
+    
 }
