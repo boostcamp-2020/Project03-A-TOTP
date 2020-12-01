@@ -16,10 +16,12 @@ protocol TokenServiceable {
     func excludeMainCell() -> [Token]
     func updateMainTokenIndex(id: UUID)
     func mainToken() -> Token
+    func removeTokens(_ idList: [UUID])
+    func removeToken(_ id: UUID)
 }
 
 final class TokenService: TokenServiceable {
-    
+   
     // MARK: Property
     
     var tokens: [Token] = []
@@ -64,6 +66,16 @@ final class TokenService: TokenServiceable {
     
     func loadTokens() -> [Token] {
         return Token.dummy()
+    }
+    
+    func removeTokens(_ idList: [UUID]) {
+        idList.forEach { id in
+            tokens.removeAll(where: { $0.id == id })
+        }
+    }
+    
+    func removeToken(_ id: UUID) {
+        tokens.removeAll(where: { $0.id == id })
     }
     
 }
