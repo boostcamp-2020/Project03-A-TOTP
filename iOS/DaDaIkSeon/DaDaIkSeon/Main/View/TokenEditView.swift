@@ -65,7 +65,7 @@ struct TokenEditView: View {
                         segmentedMode = segmentedMode == 0 ? 1 : 0
                     }
                     
-                    segmentedMode == 0 ? PaletteView(geometry: geometry) : nil
+                    segmentedMode == 0 ? ColorView(geometry: geometry) : nil
                     segmentedMode == 1 ? IconView() : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
