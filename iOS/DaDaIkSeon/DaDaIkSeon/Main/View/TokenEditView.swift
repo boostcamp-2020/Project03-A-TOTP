@@ -11,11 +11,16 @@ struct TokenEditView: View {
     
     // MARK: Property
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var isEditing = false
     @State var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
+    @EnvironmentObject var navigationFlow: NavigationFlowObject
+  
+  // TokenEditview에 들어갈 아이들
+  // var qrcode: String? // 추가 모드일 때
+  // var token: Token? // 편집 모드일 때
+  // var service: TokenService
     
     // MARK: Body
     
@@ -89,16 +94,14 @@ struct TokenEditView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading: Button(action: {
-                mode.wrappedValue.dismiss()
+                navigationFlow.isActive = false
             }, label: {
-                Text("취소")
-                    .foregroundColor(.black)
+                Text("취소").foregroundColor(.black)
             }),
             trailing: Button(action: {
-                mode.wrappedValue.dismiss()
+                navigationFlow.isActive = false
             }, label: {
-                Text("저장")
-                    .foregroundColor(.black)
+                Text("저장").foregroundColor(.black)
             })
         )
         .background(Color.white)

@@ -14,7 +14,7 @@ struct DaDaIkSeonApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView(service: service)
+            MainView(service: service).environmentObject(NavigationFlowObject())
         }
     }
 }
