@@ -14,6 +14,7 @@ struct MainState {
     var isSearching: Bool
     var mainToken: Token
     var checkBoxMode: Bool
+    var selectedTokens: [UUID:Bool] // 선택 모드가 종료되면 []로 초기화, 물론 삭제라면 삭제 후!
 }
 
 enum MainInput {
@@ -22,6 +23,7 @@ enum MainInput {
     case moveToken(_ id: UUID)
     case showCheckBox
     case hideCheckBox
+    case selectCell(_ id: UUID)
 }
 
 class NavigationFlowObject: ObservableObject {
@@ -78,10 +80,8 @@ struct MainView: View {
                             Button(action: {
                                 if viewModel.state.checkBoxMode {
                                     // 셀은 자기가 선택 상태인지 알 수 있는 상태 값이 필요하다
-                                    print("선택 모드")
-                                    
+                                    viewModel.trigger(.selectCell(token.id))
                                 } else {
-                                    print("선택 모드 아님")
                                     withAnimation(.spring(response: 0.5)) {
                                         viewModel.trigger(.moveToken(token.id))
                                         hideKeyboard()

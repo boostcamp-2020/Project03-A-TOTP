@@ -21,7 +21,12 @@ struct HeaderView: View {
                 print("내 정보 버튼 Did tap")
             }, label: {
                 if viewModel.state.checkBoxMode {
-                    Text("개 삭제")
+                    
+                    let count = viewModel.state.selectedTokens
+                        .filter { ( key, _ ) in
+                        viewModel.state.selectedTokens[key] == true
+                    }.count
+                    Text("\(count)개 삭제")
                 } else {
                     Image.person.resizable()
                         .frame(width: 25)

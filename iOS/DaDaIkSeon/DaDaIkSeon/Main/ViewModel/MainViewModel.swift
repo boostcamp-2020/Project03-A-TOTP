@@ -19,7 +19,9 @@ final class MainViewModel: ViewModel {
                           searchText: "",
                           isSearching: false,
                           mainToken: service.mainToken(),
-                          checkBoxMode: false)
+                          checkBoxMode: false,
+                          selectedTokens: [UUID: Bool]()
+        )
         state.filteredTokens = excludeMainCell()
     }
     
@@ -46,8 +48,14 @@ final class MainViewModel: ViewModel {
             showMainScene()
         case .showCheckBox:
             state.checkBoxMode = true
+            state.service.tokenList().forEach {
+                state.selectedTokens[$0.id] = false
+            }
         case .hideCheckBox:
             state.checkBoxMode = false
+            state.selectedTokens.removeAll()
+        case .selectCell(let id):
+            state.selectedTokens[id]?.toggle()
         }
     }
     
