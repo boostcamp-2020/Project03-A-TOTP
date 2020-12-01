@@ -57,10 +57,9 @@ final class TokenService: TokenServiceable {
     }
     
     func updateMainTokenIndex(id: UUID) {
-        let lastMainIndex = mainTokenIndex
+        tokens.insert(tokens.remove(at: mainTokenIndex), at: 0)
         if let index = tokens.firstIndex(where: { $0.id == id }) {
             mainTokenIndex = index
-            tokens.insert(tokens.remove(at: lastMainIndex), at: 0)
         }
     }
     
