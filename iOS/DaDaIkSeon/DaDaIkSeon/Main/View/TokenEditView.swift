@@ -42,7 +42,7 @@ struct TokenEditView: View {
                     .padding(6)
                     .font(.system(size: 15))
                     .foregroundColor(.black)
-                    .background(Color(.tertiarySystemFill))
+                    .background(Color(.systemGray6))
                     .cornerRadius(10)
                     .multilineTextAlignment(TextAlignment.center)
             }
@@ -85,7 +85,7 @@ struct TokenEditView: View {
             Spacer()
         }
         .navigationBarHidden(false)
-        .navigationBarTitle("토큰 수정", displayMode: .inline)
+        .navigationBarTitle("토큰 추가", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading: Button(action: {
