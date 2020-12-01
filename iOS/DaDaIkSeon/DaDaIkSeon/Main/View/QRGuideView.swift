@@ -37,6 +37,7 @@ struct QRGuideView: View {
                 "",
                 destination: TokenEditView(),
                 isActive: $isShownEditView)
+                .isDetailLink(false)
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)

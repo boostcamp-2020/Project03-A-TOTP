@@ -99,7 +99,6 @@ struct MainView: View {
                                         }
                                 }
                             )
-                            .isDetailLink(false)
                             .frame(minHeight: 100)
                     }
                     .padding(.top, 6)
