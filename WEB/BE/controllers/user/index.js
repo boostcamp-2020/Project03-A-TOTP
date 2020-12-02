@@ -3,7 +3,7 @@ const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
-const { emailController } = require('@controllers/email');
+const { emailSender } = require('@utils/email');
 
 const userController = {
   async signUp(req, res, next) {
@@ -29,7 +29,7 @@ const userController = {
         secretKey: secretKey.base32,
         next,
       });
-      emailController.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
+      emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
       res.json({ result, url });
     } catch (e) {
       next(e);
@@ -77,7 +77,7 @@ const userController = {
         // 유저 없음
         res.status(400).json({ msg: '없는 사용자' });
       }
-      emailController.sendId(email, name, user.auth.id);
+      emailSender.sendId(email, name, user.auth.id);
       res.json(true);
     } catch (e) {
       /**

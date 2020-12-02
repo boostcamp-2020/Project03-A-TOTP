@@ -4,7 +4,7 @@ const { encryptWithSHA256, encryptWithAES256 } = require('@utils/crypto');
 const ACCESSKEY = process.env.EMAILACCESSKEY;
 const SECRETKEY = process.env.EMAILSECRETKEY;
 
-const emailController = {
+const emailSender = {
   SignUpAuthentication(address, name, idx) {
     const time = Date.now();
     const result = encryptWithAES256({ Text: `${address} ${time + 7200000} ${idx}` });
@@ -26,7 +26,6 @@ const emailController = {
   },
 
   sendId(address, name, id) {
-    console.log('?????????????');
     const parameters = {
       userName: name,
       userId: id,
@@ -73,4 +72,4 @@ const makeOption = (templateSid, address, name, parameters) => {
   return option;
 };
 
-module.exports = { emailController };
+module.exports = { emailSender };
