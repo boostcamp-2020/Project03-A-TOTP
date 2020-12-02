@@ -29,7 +29,8 @@ struct TokenEditView: View {
     @State private var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
-    @State private var showingAlert: Bool = false
+    @State private var showingEmptyAlert: Bool = false
+    @State private var showingManyAlert: Bool = false
     
     init(service: TokenServiceable, token: Token?, qrCode: String?) {
         viewModel = AnyViewModel(TokenEditViewModel(service: service,
@@ -105,8 +106,9 @@ struct TokenEditView: View {
                 isSmallDevice ? nil : Spacer()
                 
                 Button(action: {
-                    showingAlert = text.isEmpty
-                    if !text.isEmpty {
+                    showingEmptyAlert = text.isEmpty
+                    showingManyAlert = text.count > 17
+                    if !showingEmptyAlert && !showingManyAlert {
                         dismiss()
                         addToken()
                     }
@@ -118,9 +120,14 @@ struct TokenEditView: View {
                         Spacer()
                     }
                 })
-                .alert(isPresented: $showingAlert) {
+                .alert(isPresented: $showingEmptyAlert) {
                     Alert(title: Text("토큰 정보 입력"),
                           message: Text("이름을 추가해주세요"),
+                          dismissButton: .default(Text("네")))
+                }
+                .alert(isPresented: $showingManyAlert) {
+                    Alert(title: Text("토큰 정보 입력"),
+                          message: Text("이름을 17자 이내로 작성해주세요"),
                           dismissButton: .default(Text("네")))
                 }
                 .frame(width: 85)
