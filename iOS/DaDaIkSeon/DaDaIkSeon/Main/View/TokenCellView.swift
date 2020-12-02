@@ -63,7 +63,11 @@ struct TokenCellView: View {
                     })
                     .sheet(isPresented: $viewModel.state.isShownEditView,
                            onDismiss: { viewModel.trigger(.hideEditView) },
-                           content: { TokenEditView() })
+                           content: { 
+                               TokenEditView(service: service, 
+                                             token: token, 
+                                             qrCode: nil) 
+                           })
                 
                 Spacer()
                 
