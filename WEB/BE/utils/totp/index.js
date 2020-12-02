@@ -10,6 +10,10 @@ const totp = {
     });
     return secretKey;
   },
+
+  makeURL({ secretKey, email }) {
+    return `otpauth://totp/${process.env.SECRETKEYLABEL}?secret=${secretKey}&issuer=${email}`;
+  },
 };
 
 module.exports = totp;
