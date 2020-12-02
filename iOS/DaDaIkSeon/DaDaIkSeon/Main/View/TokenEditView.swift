@@ -35,7 +35,7 @@ struct TokenEditView: View {
         viewModel = AnyViewModel(TokenEditViewModel(service: service,
                                                     token: token,
                                                     qrCode: qrCode))
-        print("token: \(token), qrCode Key : \(qrCode)")
+        print("token: \(String(describing: token)), qrCode Key : \(String(describing: qrCode))")
     }
     
     // MARK: Body
