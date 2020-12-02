@@ -9,20 +9,18 @@ import SwiftUI
 
 struct IconView: View {
     
-    // 선택한 icon TokenEditView에 넘겨줘야함!
-    
     private var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
-    private var icons: [Image] = [
-        Image.mail, Image.message, Image.game,
-        Image.book, Image.creditcard, Image.play,
-        Image.search, Image.thumbsup, Image.calendar,
-        Image.musicNote, Image.cart, Image.heart,
-        Image.pin, Image.bolt, Image.globe
+    private var icons: [String] = [
+        "mail", "message", "game",
+        "book", "creditcard", "play",
+        "search", "thumbsup", "calendar",
+        "musicNote", "cart", "heart",
+        "pin", "bolt", "globe"
     ]
     
     @State var pressedIndex: Int = 0
@@ -35,7 +33,7 @@ struct IconView: View {
                     pressedIndex = index
                     print("탭탭!", pressedIndex)
                 } label: {
-                    icons[index]
+                    icons[index].toImage()
                         .padding(12)
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(Color(.gray))
@@ -51,16 +49,16 @@ struct IconView: View {
 
 struct ColorView: View {
     
-    // 선택한 색 TokenEditView에 넘겨줘야함!
-    
+    @EnvironmentObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     var geometry: GeometryProxy
+    
     private var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
-    private var colors: [LinearGradient] = [
-        LinearGradient.blue, LinearGradient.brown, LinearGradient.pink,
-        LinearGradient.navy, LinearGradient.salmon, LinearGradient.mint
+    private var colors: [String] = [
+        "blue", "brown", "pink",
+        "navy", "salmon", "mint"
     ]
     
     init(geometry: GeometryProxy) {
@@ -71,12 +69,16 @@ struct ColorView: View {
     
         LazyVGrid(columns: columns) {
             ForEach(0...5, id: \.self) { index in
-                Circle()
-                    .fill(colors[index])
-                    .frame(width: geometry.size.width * 0.15,
-                           height: geometry.size.width * 0.15,
-                           alignment: .center)
-                    .padding(6)
+                Button {
+                    viewModel.trigger(.changeColor(colors[index]))
+                } label: {
+                    Circle()
+                        .fill(colors[index].linearGradientColor())
+                        .frame(width: geometry.size.width * 0.15,
+                               height: geometry.size.width * 0.15,
+                               alignment: .center)
+                        .padding(6)
+                }
             }
         }
     }
