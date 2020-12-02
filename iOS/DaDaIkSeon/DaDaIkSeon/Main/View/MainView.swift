@@ -65,92 +65,102 @@ struct MainView: View {
     var body: some View {
         
         NavigationView {
-            
             VStack(spacing: 12) {
                 viewModel.state.isSearching ?
                     nil : HeaderView(viewModel: viewModel)
-                
                 if !viewModel.state.checkBoxMode {
-                    SearchBarView().environmentObject(viewModel)
+                    SearchBarView(viewModel: viewModel)
                 }
-                
                 ScrollView {
-                    
-                    Group {
-                        if viewModel.state.zeroTokenState {
-                            ZeroTokenView()
-                        } else {
-                            let mainTokenId = viewModel.state.mainToken.id
-                            viewModel.state.isSearching ?
-                                nil : TokenCellView(
-                                    service: viewModel.state.service,
-                                    token: viewModel.state.mainToken,
-                                    isMain: true,
-                                    checkBoxMode: $viewModel.state.checkBoxMode,
-                                    isSelected: viewModel.state.selectedTokens[mainTokenId]
-                                )
-                                .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
-                                .onTapGesture {
-                                    if viewModel.state.checkBoxMode {
-                                        viewModel.trigger(.selectCell(mainTokenId))
-                                    }
-                                }
-                        }
-                    }
-                    .frame(height: 200)
-                           
-                    LazyVGrid(columns: columns,
-                              spacing: 12) {
-                        ForEach(viewModel.state.filteredTokens) { token in
-                            Button(action: {
-                                if viewModel.state.checkBoxMode {
-                                    viewModel.trigger(.selectCell(token.id))
-                                } else {
-                                    withAnimation(.spring(response: 0.5)) {
-                                        viewModel.trigger(.moveToken(token.id))
-                                        hideKeyboard()
-                                    }
-                                }
-                                
-                            }, label: {
-                                TokenCellView(
-                                    service: viewModel.state.service,
-                                    token: token,
-                                    isMain: false,
-                                    checkBoxMode: $viewModel.state.checkBoxMode,
-                                    isSelected: viewModel.state.selectedTokens[token.id]
-                                )
-                            })
-                            .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
-                        }
-                        viewModel.state.isSearching ?
-                            nil : NavigationLink(
-                                destination: NavigationLazyView(
-                                    QRGuideView(service: viewModel.state.service)
-                                ).environmentObject(navigationFlow),
-                                isActive: $navigationFlow.isActive,
-                                label: {
-                                    TokenAddCellView()
-                                        .onTapGesture {
-                                            navigationFlow.isActive = true
-                                        }
-                                }
-                            )
-                            .frame(minHeight: 100)
-                    }
-                    .padding(.top, 6)
-                    
+                    mainCellView.frame(height: 200)
+                    gridView.padding(.top, 6)
                 }
                 .navigationBarHidden(true)
                 .padding(.horizontal, 12)
                 .padding(.top, 6)
             }
-            
+            .onAppear(perform: {
+                viewModel.trigger(.refreshTokens)
+            })
         }
         .onTapGesture {
             hideKeyboard()
         }
     }
+    
+    // MARK: Views
+    
+    var mainCellView: some View {
+        
+        Group{
+            if viewModel.state.zeroTokenState {
+                ZeroTokenView()
+            } else {
+                let mainTokenId = viewModel.state.mainToken.id
+                viewModel.state.isSearching ?
+                    nil : TokenCellView(
+                        service: viewModel.state.service,
+                        token: viewModel.state.mainToken,
+                        isMain: true,
+                        checkBoxMode: $viewModel.state.checkBoxMode,
+                        isSelected: viewModel.state.selectedTokens[mainTokenId]
+                    )
+                    .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
+                    .onTapGesture {
+                        if viewModel.state.checkBoxMode {
+                            viewModel.trigger(.selectCell(mainTokenId))
+                        }
+                    }
+            }
+        }
+    }
+    
+    var gridView: some View {
+        
+        LazyVGrid(columns: columns,
+                  spacing: 12) {
+            ForEach(viewModel.state.filteredTokens) { token in
+                Button(action: {
+                    if viewModel.state.checkBoxMode {
+                        viewModel.trigger(.selectCell(token.id))
+                    } else {
+                        withAnimation(.spring(response: 0.5)) {
+                            viewModel.trigger(.moveToken(token.id))
+                            hideKeyboard()
+                        }
+                    }
+                }, label: {
+                    TokenCellView(
+                        service: viewModel.state.service,
+                        token: token,
+                        isMain: false,
+                        checkBoxMode: $viewModel.state.checkBoxMode,
+                        isSelected: viewModel.state.selectedTokens[token.id]
+                    )
+                })
+                .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
+            }
+            addTokenView.frame(minHeight: 100)
+        }
+    }
+    
+    var addTokenView: some View {
+        viewModel.state.isSearching ?
+            nil : NavigationLink(
+                destination: NavigationLazyView(
+                    QRGuideView(service: viewModel.state.service)
+                ).environmentObject(navigationFlow),
+                isActive: $navigationFlow.isActive,
+                label: {
+                    TokenAddCellView()
+                        .onTapGesture {
+                            navigationFlow.isActive = true
+                        }
+                }
+                
+            )
+    }
+    
 }
 
 struct MainView_Previews: PreviewProvider {
