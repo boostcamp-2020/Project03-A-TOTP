@@ -113,10 +113,6 @@ struct MainView: View {
             }
             
         }
-        .onAppear {
-            print("보였지?")
-            viewModel.trigger(.refreshTokens)
-        }
         .onTapGesture {
             hideKeyboard()
         }
