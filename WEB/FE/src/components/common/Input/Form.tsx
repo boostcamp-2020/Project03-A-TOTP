@@ -4,9 +4,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  border: 1px solid darkgray;
-  border-radius: 5px;
-  margin-top: 20px;
+  border: 1px solid ${({ theme }) => theme.color.Puple};
+  border-radius: 4px;
+  margin-top: 1.3rem;
   overflow: hidden;
   position: relative;
 `;
