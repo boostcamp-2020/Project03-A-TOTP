@@ -27,15 +27,23 @@ interface AuthFormProps {
   action: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => any;
   submitButtonText: string;
+  disabled?: boolean;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ children, title, action, onSubmit, submitButtonText }) => {
+const AuthForm: React.FC<AuthFormProps> = ({
+  children,
+  title,
+  action,
+  onSubmit,
+  submitButtonText,
+  disabled = false,
+}) => {
   return (
     <Form action={action} method='POST' onSubmit={onSubmit}>
       <Title>{title}</Title>
       {children}
       <ButtonContainer>
-        <Button htmlType='submit' text={submitButtonText} block />
+        <Button htmlType='submit' text={submitButtonText} block disabled={disabled} />
       </ButtonContainer>
     </Form>
   );

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  border: 2px solid darkgray;
+  border: 1px solid darkgray;
   border-radius: 5px;
   margin-top: 20px;
   overflow: hidden;
