@@ -29,8 +29,7 @@ struct TokenEditView: View {
     @State private var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
-    @State private var showingEmptyAlert: Bool = false
-    @State private var showingManyAlert: Bool = false
+    @State private var showingAlert: Bool = false
     
     init(service: TokenServiceable, token: Token?, qrCode: String?) {
         viewModel = AnyViewModel(TokenEditViewModel(service: service,
@@ -106,9 +105,8 @@ struct TokenEditView: View {
                 isSmallDevice ? nil : Spacer()
                 
                 Button(action: {
-                    showingEmptyAlert = text.isEmpty
-                    showingManyAlert = text.count > 17
-                    if !showingEmptyAlert && !showingManyAlert {
+                    showingAlert = text.isEmpty || text.count > 17
+                    if !showingAlert {
                         dismiss()
                         addToken()
                     }
@@ -120,16 +118,7 @@ struct TokenEditView: View {
                         Spacer()
                     }
                 })
-                .alert(isPresented: $showingEmptyAlert) {
-                    Alert(title: Text("토큰 정보 입력"),
-                          message: Text("이름을 추가해주세요"),
-                          dismissButton: .default(Text("네")))
-                }
-                .alert(isPresented: $showingManyAlert) {
-                    Alert(title: Text("토큰 정보 입력"),
-                          message: Text("이름을 17자 이내로 작성해주세요"),
-                          dismissButton: .default(Text("네")))
-                }
+                .modifier(AlertModifier(isShowing: showingAlert))
                 .frame(width: 85)
                 .padding(.vertical, 10)
                 .background(viewModel.state.token.color?.linearGradientColor()
@@ -161,6 +150,15 @@ struct TokenEditView: View {
     }
 }
 
+// MARK: Views
+
+extension TokenEditView {
+    
+}
+
+
+// MARK: Methods
+
 extension TokenEditView {
     
     func addToken() {
@@ -180,6 +178,21 @@ extension TokenEditView {
         navigationFlow.isActive = false
     }
     
+}
+
+// MARK: ViewModifier
+
+struct AlertModifier: ViewModifier {
+    @State var isShowing: Bool
+    
+    func body(content: Content) -> some View {
+        return content
+            .alert(isPresented: $isShowing) {
+                Alert(title: Text("토큰 정보 입력"),
+                      message: Text("17자 이내의 이름을 작성해주세요"),
+                      dismissButton: .default(Text("네")))
+            }
+    }
 }
 
 struct TokenEditView_Previews: PreviewProvider {
