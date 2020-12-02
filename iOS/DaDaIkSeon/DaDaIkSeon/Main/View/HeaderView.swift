@@ -12,13 +12,13 @@ struct HeaderView: View {
     // MARK: ViewModel
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
-    @State var showingAlert: Bool = false
-    var count: Int {
+    
+    // MARK: Property
+    
+    @State private var showingAlert: Bool = false
+    
+    private var count: Int {
         viewModel.state.selectedCount
-//        viewModel.state.selectedTokens
-//            .filter { ( key, _ ) in
-//                viewModel.state.selectedTokens[key] == true
-//            }.count
     }
     
     // MARK: Body
