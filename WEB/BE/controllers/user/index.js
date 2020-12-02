@@ -1,9 +1,9 @@
-const speakeasy = require('speakeasy');
 const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
 const { emailSender } = require('@utils/email');
+const totp = require('@utils/totp');
 
 const userController = {
   async signUp(req, res, next) {
@@ -17,8 +17,8 @@ const userController = {
 
     try {
       userInfo = encrypUserInfo({ userInfo });
-      const secretKey = makeSecretKey();
-      const url = makeURL({ secretKey });
+      const secretKey = totp.makeSecretKey();
+      const url = totp.makeURL({ secretKey, email: req.body.email });
       const encryptPassword = await getEncryptedPassword(password);
       const insertResult = await userService.insert({ userInfo, next });
       const result = await authService.insert({
@@ -26,7 +26,7 @@ const userController = {
         id,
         password: encryptPassword,
         state: '0',
-        secretKey: secretKey.base32,
+        secretKey,
         next,
       });
       emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
@@ -92,24 +92,6 @@ const encrypUserInfo = ({ userInfo }) => {
     userInfo[key] = encryptWithAES256({ Text: userInfo[key] });
   });
   return userInfo;
-};
-
-const makeSecretKey = () => {
-  const secretKey = speakeasy.generateSecret({
-    length: 20,
-    name: process.env.SECRETKEYNAME,
-    algorithm: process.env.SECRETKEYALGORITHM,
-  });
-  return secretKey;
-};
-
-const makeURL = ({ secretKey }) => {
-  const url = speakeasy.otpauthURL({
-    secret: secretKey.ascii,
-    issuer: 'TOTP',
-    label: process.env.SECRETKEYLABEL,
-  });
-  return url;
 };
 
 module.exports = userController;
