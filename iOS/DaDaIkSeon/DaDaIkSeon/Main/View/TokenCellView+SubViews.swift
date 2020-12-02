@@ -17,7 +17,7 @@ struct TopButtonViews: View {
     var body: some View {
         
         HStack {
-            Image.heart
+            token.icon?.toImage()
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()

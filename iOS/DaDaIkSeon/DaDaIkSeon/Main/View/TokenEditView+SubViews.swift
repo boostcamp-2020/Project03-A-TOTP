@@ -49,33 +49,29 @@ struct IconView: View {
 
 struct ColorView: View {
     
-    @EnvironmentObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
-    var geometry: GeometryProxy
+    var action: (String) -> Void
+    var geometryWidth: CGFloat
     
-    private var columns = [GridItem(.flexible()),
+    var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
-    private var colors: [String] = [
+    var colors: [String] = [
         "blue", "brown", "pink",
         "navy", "salmon", "mint"
     ]
-    
-    init(geometry: GeometryProxy) {
-        self.geometry = geometry
-    }
     
     var body: some View {
     
         LazyVGrid(columns: columns) {
             ForEach(0...5, id: \.self) { index in
                 Button {
-                    viewModel.trigger(.changeColor(colors[index]))
+                    action(colors[index])
                 } label: {
                     Circle()
                         .fill(colors[index].linearGradientColor())
-                        .frame(width: geometry.size.width * 0.15,
-                               height: geometry.size.width * 0.15,
+                        .frame(width: geometryWidth * 0.15,
+                               height: geometryWidth * 0.15,
                                alignment: .center)
                         .padding(6)
                 }

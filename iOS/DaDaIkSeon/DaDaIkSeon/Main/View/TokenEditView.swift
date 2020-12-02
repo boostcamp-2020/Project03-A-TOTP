@@ -88,8 +88,13 @@ struct TokenEditView: View {
                         segmentedMode = segmentedMode == 0 ? 1 : 0
                     }
                     
-                    segmentedMode == 0 ?
-                        ColorView(geometry: geometry).environmentObject(viewModel) : nil
+                    segmentedMode == 0 ? ColorView(
+                        action: { name in
+                            viewModel.trigger(.changeColor(name))
+                        },
+                        geometryWidth: geometryWidth
+                    ) : nil
+
                     segmentedMode == 1 ? IconView() : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
@@ -97,7 +102,7 @@ struct TokenEditView: View {
                 isSmallDevice ? nil : Spacer()
                 
                 Button(action: {
-                    print("저장 버튼 Did Tap")
+                print("저장 버튼 Did Tap \(viewModel.state.token?.color)")
                 }, label: {
                     HStack {
                         Spacer()
