@@ -70,11 +70,14 @@ struct MainView: View {
                 SearchBarView().environmentObject(viewModel)
                 
                 ScrollView {
+                    let mainTokenId = viewModel.state.service.mainToken().id
                     viewModel.state.isSearching ?
                         nil : TokenCellView(
                             service: viewModel.state.service,
                             token: viewModel.state.mainToken,
-                            isMain: true
+                            isMain: true,
+                            checkBoxMode: $viewModel.state.checkBoxMode,
+                            isSelected: viewModel.state.selectedTokens[mainTokenId]
                         )
                         .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     
@@ -83,7 +86,6 @@ struct MainView: View {
                         ForEach(viewModel.state.filteredTokens) { token in
                             Button(action: {
                                 if viewModel.state.checkBoxMode {
-                                    // 셀은 자기가 선택 상태인지 알 수 있는 상태 값이 필요하다
                                     viewModel.trigger(.selectCell(token.id))
                                 } else {
                                     withAnimation(.spring(response: 0.5)) {
@@ -96,7 +98,9 @@ struct MainView: View {
                                 TokenCellView(
                                     service: viewModel.state.service,
                                     token: token,
-                                    isMain: false
+                                    isMain: false,
+                                    checkBoxMode: $viewModel.state.checkBoxMode,
+                                    isSelected: viewModel.state.selectedTokens[token.id]
                                 )
                             })
                             .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)

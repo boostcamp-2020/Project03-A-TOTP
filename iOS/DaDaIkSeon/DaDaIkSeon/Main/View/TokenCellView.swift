@@ -31,14 +31,17 @@ struct TokenCellView: View {
     // MARK: Property
     
     @Binding var checkBoxMode: Bool
+    var isSelected: Bool
     
     var isMain: Bool
     let zStackHeight: CGFloat = 200.0
     
-    init(service: TokenServiceable, token: Token, isMain: Bool, checkBoxMode: Binding<Bool>) {
+    init(service: TokenServiceable, token: Token,
+         isMain: Bool, checkBoxMode: Binding<Bool>, isSelected: Bool?) {
         viewModel = AnyViewModel(TokenCellViewModel(service: service, token: token))
         self.isMain = isMain
         _checkBoxMode = checkBoxMode
+        self.isSelected = isSelected ?? false
     }
     
     // MARK: Body
@@ -48,17 +51,21 @@ struct TokenCellView: View {
         ZStack {
             // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
+                
                 TopButtonViews(
+                    checkBoxMode: $checkBoxMode,
+                    isChecked: isSelected,
                     action: {
-                        viewModel.trigger(.showEditView)
+                        checkBoxMode ?
+                            nil
+                            : viewModel.trigger(.showEditView)
                     })
-                    .sheet(
-                        isPresented: $viewModel.state.isShownEditView,
-                        onDismiss: {
-                            viewModel.trigger(.hideEditView)},
-                        content: {
-                            TokenEditView()})
+                    .sheet(isPresented: $viewModel.state.isShownEditView,
+                           onDismiss: { viewModel.trigger(.hideEditView) },
+                           content: { TokenEditView() })
+                
                 Spacer()
+                
                 if !isMain {
                     TokenNameView(tokenName: viewModel.state.token.tokenName)
                     TokenPasswordView(password: viewModel.state.password, isMain: isMain)
