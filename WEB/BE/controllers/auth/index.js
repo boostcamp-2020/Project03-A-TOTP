@@ -5,7 +5,10 @@ const { encryptWithAES256 } = require('@utils/crypto');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 
-const JWT_TIME_LIMIT = '10m';
+const TEN_MINUTES = '10m';
+const ACIONS = {
+  FIND_PW: 'FIND_PW',
+};
 
 const authController = {
   async dupId(req, res, next) {
@@ -17,6 +20,7 @@ const authController = {
       next(e);
     }
   },
+
   async logIn(req, res, next) {
     try {
       const { id, password } = req.body;
@@ -35,6 +39,7 @@ const authController = {
       next(createError(e));
     }
   },
+
   async sendPasswordToken(req, res, next) {
     try {
       const { id, name, birth } = req.body;
@@ -52,14 +57,31 @@ const authController = {
         return next(createError(400, '입력한 정보가 일치하지 않습니다.'));
       }
 
-      const token = JWT.sign({ id, action: 'PW_EMAIL' }, process.env.ENCRYPTIONKEY, {
-        expiresIn: JWT_TIME_LIMIT,
+      const token = JWT.sign({ id, action: ACIONS.FIND_PW }, process.env.ENCRYPTIONKEY, {
+        expiresIn: TEN_MINUTES,
       });
 
       res.json({
         message: 'OTP를 입력해 주세요',
         passwordToken: token,
       });
+    } catch (e) {
+      next(createError(e));
+    }
+  },
+
+  async sendPasswordEmail(req, res, next) {
+    try {
+      const { passwordToken, totp } = req.body;
+      const { id, action } = JWT.verify(passwordToken, process.env.ENCRYPTIONKEY);
+
+      if (action !== ACIONS.FIND_PW) return next(createError(401, '잘못된 요청입니다'));
+
+      /** @TODO TOTP 검증 */
+
+      /** @TOTO 이메일 전송 */
+
+      res.send('ok');
     } catch (e) {
       next(createError(e));
     }
