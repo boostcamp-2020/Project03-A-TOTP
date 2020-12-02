@@ -7,19 +7,35 @@
 
 import SwiftUI
 
+struct TokenEditState {
+    var service: TokenServiceable
+    var qrCode: String?
+    var token: Token?
+}
+
+enum TokenEditInput {
+    case addToken(_ token: Token)
+    case changeColor(_ name: String)
+    case changeIcon(_ name: String)
+}
+
 struct TokenEditView: View {
     
     // MARK: Property
     
+    @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     @EnvironmentObject var navigationFlow: NavigationFlowObject
+    
     @State var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
     
-    // TokenEditview에 들어갈 아이들
-    // var qrcode: String? // 추가 모드일 때
-    // var token: Token? // 편집 모드일 때
-    // var service: TokenService
+    init(service: TokenServiceable, token: Token?, qrCode: String?) {
+        viewModel = AnyViewModel(TokenEditViewModel(service: service,
+                                                    token: token,
+                                                    qrCode: qrCode))
+        
+    }
     
     // MARK: Body
     
@@ -31,20 +47,25 @@ struct TokenEditView: View {
             
             VStack(spacing: 16) {
                 Spacer()
+                
                 VStack(spacing: isSmallDevice ? 16 : 32) {
-                    Image.search
+                    
+                    viewModel.state.token?.icon?.toImage()
                         .resizable()
-                        .frame(minWidth: 50,
-                               maxWidth: 80,
-                               minHeight: 50,
-                               maxHeight: 80)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(minWidth: geometryWidth * 0.125,
+                               maxWidth: geometryWidth * 0.2,
+                               minHeight: geometryWidth * 0.125,
+                               maxHeight: geometryWidth * 0.2)
                         .padding(geometryWidth * 0.1)
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .background(LinearGradient.mint)
+                        .background(viewModel.state.token?.color?.linearGradientColor()
+                                        ?? LinearGradient.mint)
+                        
                         .foregroundColor(.white)
                         .cornerRadius(15)
                     
-                    TextField("토큰이름을 입력하세요", text: $text)
+                    TextField(viewModel.state.token?.tokenName ?? "토큰이름을 입력하세요",
+                              text: $text)
                         .padding(6)
                         .font(.system(size: 15))
                         .foregroundColor(.black)
@@ -54,7 +75,9 @@ struct TokenEditView: View {
                 }
                 .padding(.horizontal, geometryWidth * 0.22)
                 .padding(.top, 20)
+                
                 Spacer()
+                
                 VStack(spacing: isSmallDevice ? 20 : 40) {
                     Picker("palette", selection: $segmentedMode) {
                         Text(segmentList[0]).tag(0)
@@ -65,7 +88,8 @@ struct TokenEditView: View {
                         segmentedMode = segmentedMode == 0 ? 1 : 0
                     }
                     
-                    segmentedMode == 0 ? ColorView(geometry: geometry) : nil
+                    segmentedMode == 0 ?
+                        ColorView(geometry: geometry).environmentObject(viewModel) : nil
                     segmentedMode == 1 ? IconView() : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
@@ -84,7 +108,8 @@ struct TokenEditView: View {
                 })
                 .frame(width: 85)
                 .padding(.vertical, 10)
-                .background(LinearGradient.mint)
+                .background(viewModel.state.token?.color?.linearGradientColor()
+                                ?? LinearGradient.mint)
                 .cornerRadius(15)
 
             }
@@ -114,6 +139,9 @@ struct TokenEditView: View {
 
 struct TokenEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TokenEditView()
+        let tokenService = TokenService()
+        TokenEditView(service: tokenService,
+                      token: nil,
+                      qrCode: nil)
     }
 }
