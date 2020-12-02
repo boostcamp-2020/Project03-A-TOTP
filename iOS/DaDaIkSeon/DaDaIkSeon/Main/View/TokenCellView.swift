@@ -54,8 +54,6 @@ struct TokenCellView: View {
                 TopButtonViews(
                     checkBoxMode: $checkBoxMode,
                     isChecked: isSelected,
-                    service: viewModel.state.service,
-                    token: viewModel.state.token,
                     action: {
                         checkBoxMode ?
                             nil
