@@ -11,7 +11,7 @@ struct SearchBarView: View {
 
     // MARK: Property
     
-    @EnvironmentObject var viewModel: AnyViewModel<MainState, MainInput>
+    @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
     @State var searchText = ""
     
     // MARK: Body

@@ -69,7 +69,7 @@ struct MainView: View {
                 viewModel.state.isSearching ?
                     nil : HeaderView(viewModel: viewModel)
                 if !viewModel.state.checkBoxMode {
-                    SearchBarView().environmentObject(viewModel)
+                    SearchBarView(viewModel: viewModel)
                 }
                 ScrollView {
                     mainCellView.frame(height: 200)
@@ -157,6 +157,7 @@ struct MainView: View {
                             navigationFlow.isActive = true
                         }
                 }
+                
             )
     }
     
