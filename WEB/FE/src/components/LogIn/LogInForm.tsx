@@ -6,9 +6,11 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const Input = styled.input``;
 
-interface LogInFormProps {}
+interface LogInFormProps {
+  onSuccess: () => any;
+}
 
-const LogInForm: React.FC<LogInFormProps> = () => {
+const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +19,7 @@ const LogInForm: React.FC<LogInFormProps> = () => {
     e.preventDefault();
     executeRecaptcha('LogIn')
       .then((reCaptchaToken: string) => login({ id, password, reCaptchaToken }))
-      .then((result) => alert(result.id))
+      .then((result) => onSuccess(result.id))
       .catch((err) => alert(err.response?.data?.message || err.message));
   };
 

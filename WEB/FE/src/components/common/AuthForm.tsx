@@ -30,7 +30,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ children, title, action, onSubmit, 
     <Form action={action} method='POST' onSubmit={onSubmit}>
       <Title>{title}</Title>
       {children}
-      <Button type='submit' text={submitButtonText} />
+      <Button htmlType='submit' text={submitButtonText} />
     </Form>
   );
 };
