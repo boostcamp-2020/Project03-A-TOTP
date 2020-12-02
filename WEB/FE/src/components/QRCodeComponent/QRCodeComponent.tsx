@@ -30,16 +30,18 @@ const QRWrapper = styled.div`
 const RegisterText = styled.div`
   font-size: ${({ theme }) => theme.fontSize.lg};
   margin-left: 20px;
+  button {
+    font-size: ${({ theme }) => theme.fontSize.md};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    margin-top: 18%;
+  }
 `;
 
 const buttonStyle: CSS.Properties = {
   width: '20%',
   float: 'right',
-  color: 'white',
-  fontSize: '${({ theme }) => theme.fontSize.md}',
-  fontFamily: '600',
-  marginTop: '18%',
 };
+
 interface qrProps {
   url: string;
 }
