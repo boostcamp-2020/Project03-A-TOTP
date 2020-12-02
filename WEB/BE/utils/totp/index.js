@@ -10,6 +10,13 @@ const totp = {
   makeURL({ secretKey, email }) {
     return `otpauth://totp/${process.env.SECRETKEYLABEL}?secret=${secretKey}&issuer=${email}`;
   },
+
+  verifyDigits(key, digits, date = new Date()) {
+    const sixDigits = makeSixDigits(key, date);
+    return digits === sixDigits;
+  },
 };
+
+const makeSixDigits = (key, date) => {};
 
 module.exports = totp;
