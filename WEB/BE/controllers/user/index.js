@@ -65,6 +65,26 @@ const userController = {
       next(e);
     }
   },
+
+  async findID(req, res, next) {
+    const { email, name } = req.body;
+    // let userIdx = '';
+
+    const userInfo = encrypUserInfo({ userInfo: req.body });
+    try {
+      const user = await userService.findAuthByUser({ userInfo });
+      if (!user) {
+        // 유저 없음
+        res.status(400).json({ msg: '없는 사용자' });
+      }
+      emailController.sendId(email, name, user.auth.id);
+      res.json(true);
+    } catch (e) {
+      /**
+       * @TODO 에러 처리
+       */
+    }
+  },
 };
 
 const encrypUserInfo = ({ userInfo }) => {
