@@ -10,6 +10,7 @@ import SwiftUI
 struct TopButtonViews: View {
     
     @Binding var checkBoxMode: Bool
+    var token: Token
     var isChecked: Bool
     var action: () -> Void
     
