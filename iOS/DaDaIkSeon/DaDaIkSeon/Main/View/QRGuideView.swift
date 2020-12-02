@@ -12,6 +12,7 @@ struct QRGuideView: View {
     
     // MARK: Property
     private(set) var service: TokenServiceable
+    @State private var qrCodeURL = ""
     @State private var isShownScanner = false
     @State private var isShownEditView: Bool = false
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
@@ -36,11 +37,13 @@ struct QRGuideView: View {
             
             NavigationLink(
                 "",
-                destination: NavigationLazyView(TokenEditView(service: service,
-                                                              token: nil,
-                                                              qrCode: TOTPGenerator.extractKey(from: "otpauth://totp/TeamDADAIKSEON?secret=KU3WWOJWKNDU2MLWHNQSY4ZEIVAG4QRX&issuer=TOTP&algorithm=SHA512&period=60"))),
-                isActive: $isShownEditView)
-                .isDetailLink(false)
+                destination: NavigationLazyView(
+                    TokenEditView(service: service,
+                                  token: nil,
+                                  qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
+                isActive: $isShownEditView
+            )
+            .isDetailLink(false)
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -54,7 +57,8 @@ struct QRGuideView: View {
             })
         )
         .sheet(isPresented: $isShownScanner) {
-            QRScannerView(isShownEditView: $isShownEditView)
+            QRScannerView(isShownEditView: $isShownEditView,
+                          qrCodeURL: $qrCodeURL)
         }
         
     }
@@ -63,15 +67,16 @@ struct QRGuideView: View {
 struct QRScannerView: View {
     
     @Binding var isShownEditView: Bool
+    @Binding var qrCodeURL: String
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
             CodeScannerView(codeTypes: [.qr], simulatedData: "-") { result in
                 switch result {
-                case .success(let code):
+                case .success(let url):
                     isShownEditView = true
-                    print(code)
+                    qrCodeURL = url
                 case .failure(let error):
                     print(error)
                 }
