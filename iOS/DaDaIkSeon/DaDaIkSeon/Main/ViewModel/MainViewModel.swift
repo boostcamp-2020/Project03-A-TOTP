@@ -21,7 +21,8 @@ final class MainViewModel: ViewModel {
                           mainToken: service.mainToken(),
                           checkBoxMode: false,
                           selectedTokens: [UUID: Bool](),
-                          settingMode: false
+                          settingMode: false,
+                          selectedCount: 0
         )
         state.filteredTokens = excludeMainCell()
     }
@@ -56,7 +57,15 @@ final class MainViewModel: ViewModel {
             state.checkBoxMode = false
             state.selectedTokens.removeAll()
         case .selectCell(let id):
-            state.selectedTokens[id]?.toggle()
+            if let token = state.selectedTokens[id] {
+                if token {
+                    state.selectedCount -= 1
+                    state.selectedTokens[id] = false
+                } else { 
+                    state.selectedCount += 1
+                    state.selectedTokens[id] = true
+                }
+            }
         case .deleteSelectedTokens:
             state.service.removeTokens(
                 state.selectedTokens

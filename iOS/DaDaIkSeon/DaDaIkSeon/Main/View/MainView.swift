@@ -16,6 +16,7 @@ struct MainState {
     var checkBoxMode: Bool
     var selectedTokens: [UUID: Bool]
     var settingMode: Bool
+    var selectedCount: Int
 }
 
 enum MainInput {

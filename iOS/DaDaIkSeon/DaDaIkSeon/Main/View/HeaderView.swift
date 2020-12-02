@@ -14,10 +14,11 @@ struct HeaderView: View {
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
     @State var showingAlert: Bool = false
     var count: Int {
-        viewModel.state.selectedTokens
-            .filter { ( key, _ ) in
-                viewModel.state.selectedTokens[key] == true
-            }.count
+        viewModel.state.selectedCount
+//        viewModel.state.selectedTokens
+//            .filter { ( key, _ ) in
+//                viewModel.state.selectedTokens[key] == true
+//            }.count
     }
     
     // MARK: Body
