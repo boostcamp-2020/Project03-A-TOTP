@@ -34,7 +34,6 @@ struct TokenCellView: View {
     var isSelected: Bool
     
     var isMain: Bool
-    let zStackHeight: CGFloat = 200.0
     
     init(service: TokenServiceable, token: Token,
          isMain: Bool, checkBoxMode: Binding<Bool>, isSelected: Bool?) {
@@ -93,7 +92,6 @@ struct TokenCellView: View {
             }
             
         }
-        .frame(height: isMain ? zStackHeight : nil)
     }
 }
 //
