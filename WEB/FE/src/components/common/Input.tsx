@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  border: 2px solid darkgray;
-  border-radius: 5px;
-  margin-bottom: 12px;
-`;
-
-const InputTag = styled.input`
+export const InputTag = styled.input`
   display: block;
   flex: 1;
   width: 230px;
   height: 30px;
   border: none;
   padding-left: 10px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 2px solid darkgray;
+  border-radius: 5px;
+  margin-bottom: 12px;
 `;
 
 const Button = styled.button`
