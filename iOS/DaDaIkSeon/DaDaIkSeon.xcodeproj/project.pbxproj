@@ -17,6 +17,7 @@
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
 		7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* MainViewModel.swift */; };
 		7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */; };
+		7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB878352576A939002B1615 /* TokenEditViewModel.swift */; };
 		7CCDD28E256E45E000150565 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD28D256E45E000150565 /* Color+.swift */; };
 		7CCDD299256E940600150565 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD298256E940500150565 /* SearchBarView.swift */; };
 		7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD2A1256E99F400150565 /* HeaderView.swift */; };
@@ -76,6 +77,7 @@
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7C7DC513256D75FE0089CD68 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = DaDaIkSeon/Main/ViewModel/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
 		7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellViewModel.swift; sourceTree = "<group>"; };
+		7CB878352576A939002B1615 /* TokenEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditViewModel.swift; sourceTree = "<group>"; };
 		7CCDD28D256E45E000150565 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		7CCDD298256E940500150565 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		7CCDD2A1256E99F400150565 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			children = (
 				7C7DC513256D75FE0089CD68 /* MainViewModel.swift */,
 				7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */,
+				7CB878352576A939002B1615 /* TokenEditViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 			files = (
 				7CCDD299256E940600150565 /* SearchBarView.swift in Sources */,
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
+				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,

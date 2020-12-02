@@ -35,7 +35,9 @@ struct QRGuideView: View {
             .cornerRadius(15)
             NavigationLink(
                 "",
-                destination: TokenEditView(),
+                destination: TokenEditView(service: service,
+                                           token: nil,
+                                           qrCode: "qrString"),
                 isActive: $isShownEditView)
         }
         .padding(.horizontal, 40)

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TopButtonViews: View {
     
+    private(set) var service: TokenServiceable
+    var token: Token
     var action: () -> Void
     @Binding var isShownEditView: Bool
     
@@ -28,7 +30,9 @@ struct TopButtonViews: View {
                     .foregroundColor(.white)
             })
             .sheet(isPresented: $isShownEditView) {
-                TokenEditView()
+                TokenEditView(service: service,
+                              token: token,
+                              qrCode: nil)
             }
         }
         .padding(.horizontal, 12)
