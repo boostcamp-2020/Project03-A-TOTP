@@ -24,7 +24,6 @@ final class MainViewModel: ViewModel {
                           settingMode: false,
                           selectedCount: 0,
                           zeroTokenState: service.tokenCount == 0
-                          
         )
         showMainScene()
     }
@@ -83,7 +82,7 @@ final class MainViewModel: ViewModel {
             state.settingMode = false
         }
     }
-    
+
 }
 
 extension MainViewModel {
