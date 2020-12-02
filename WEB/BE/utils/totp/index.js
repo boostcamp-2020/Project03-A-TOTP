@@ -23,6 +23,9 @@ const makeSixDigits = (key, date) => {
   const buffer = makeBuffer(timeStmap);
   const hash = crypto.createHmac('sha1', key).update(buffer).digest('hex');
   const DBC = selectDBC(hash);
+  let sixDigits = (parseInt(DBC, 16) % 1000000).toString();
+  sixDigits = sixDigits.length !== 6 ? `0${sixDigits}` : sixDigits;
+  return sixDigits;
 };
 
 const makeTimeStamp = (date, window = 0) => {
