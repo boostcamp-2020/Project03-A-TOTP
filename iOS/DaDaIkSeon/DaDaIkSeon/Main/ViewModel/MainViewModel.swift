@@ -18,13 +18,15 @@ final class MainViewModel: ViewModel {
                           filteredTokens: [],
                           searchText: "",
                           isSearching: false,
-                          mainToken: service.mainToken(),
+                          mainToken: Token(),
                           checkBoxMode: false,
                           selectedTokens: [UUID: Bool](),
                           settingMode: false,
-                          selectedCount: 0
+                          selectedCount: 0,
+                          zeroTokenState: service.tokenCount == 0
+                          
         )
-        state.filteredTokens = excludeMainCell()
+        showMainScene()
     }
     
     // MARK: Methods
@@ -61,7 +63,7 @@ final class MainViewModel: ViewModel {
                 if token {
                     state.selectedCount -= 1
                     state.selectedTokens[id] = false
-                } else { 
+                } else {
                     state.selectedCount += 1
                     state.selectedTokens[id] = true
                 }
@@ -85,13 +87,17 @@ final class MainViewModel: ViewModel {
 extension MainViewModel {
     
     func showMainScene() {
-        state.mainToken = state.service.mainToken()
-        state.filteredTokens = excludeMainCell()
+        guard let maintoken = state.service.mainToken() else {
+            state.zeroTokenState = true // 추가 되면 다시 false로 바꿔야 한다. 
+            return
+        }
+        state.mainToken = maintoken
+        state.filteredTokens = excludeMainCell(mainId: maintoken.id)
     }
     
-    func excludeMainCell() -> [Token] {
+    func excludeMainCell(mainId: UUID) -> [Token] {
         state.service.tokenList().filter {
-            $0.id != state.service.mainToken().id
+            $0.id != mainId
         }
     }
     

@@ -10,12 +10,15 @@ import Foundation
 // Tokens(Token) Entity's CRUD
 
 protocol TokenServiceable {
+    
+    var tokenCount: Int { get }
+    
     func loadTokens() -> [Token]
     func tokenList() -> [Token]
     func token(id: UUID) -> Token?
     func excludeMainCell() -> [Token]
     func updateMainTokenIndex(id: UUID)
-    func mainToken() -> Token
+    func mainToken() -> Token?
     func removeTokens(_ idList: [UUID])
     func removeToken(_ id: UUID)
 }
@@ -26,6 +29,10 @@ final class TokenService: TokenServiceable {
     
     private var tokens: [Token] = []
     private var mainTokenIndex: Int
+    
+    var tokenCount: Int {
+        tokens.count
+    }
     
     // MARK: Init
     
@@ -44,7 +51,8 @@ final class TokenService: TokenServiceable {
         tokens.first(where: { $0.id == id })
     }
     
-    func mainToken() -> Token {
+    func mainToken() -> Token? {
+        if tokenCount == 0 { return nil }
         return tokens[mainTokenIndex]
     }
     
@@ -69,8 +77,11 @@ final class TokenService: TokenServiceable {
     
     func removeTokens(_ idList: [UUID]) {
         
+        
         // 삭제 대상이 메인 셀이면?
         // token에 메인을 제외한 첫 번째 셀을 메인으로 함
+        // 얘가 0개가 되면 zero update
+        // 
 //        for index in tokens.indices
 //        where tokens[index].id ==
 //        {
