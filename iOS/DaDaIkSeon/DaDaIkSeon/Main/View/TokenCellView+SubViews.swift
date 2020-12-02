@@ -11,8 +11,6 @@ struct TopButtonViews: View {
     
     @Binding var checkBoxMode: Bool
     var isChecked: Bool
-    private(set) var service: TokenServiceable
-    var token: Token
     var action: () -> Void
     
     var body: some View {
