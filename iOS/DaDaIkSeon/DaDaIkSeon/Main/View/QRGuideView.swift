@@ -12,11 +12,10 @@ struct QRGuideView: View {
     
     // MARK: Property
     private(set) var service: TokenServiceable
+    @State private var qrCodeURL = ""
     @State private var isShownScanner = false
     @State private var isShownEditView: Bool = false
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
-    
-    @State private var qrCodeURL = ""
     
     // MARK: Body
     var body: some View {
@@ -58,7 +57,8 @@ struct QRGuideView: View {
             })
         )
         .sheet(isPresented: $isShownScanner) {
-            QRScannerView(isShownEditView: $isShownEditView, qrCodeURL: $qrCodeURL)
+            QRScannerView(isShownEditView: $isShownEditView,
+                          qrCodeURL: $qrCodeURL)
         }
         
     }

@@ -26,10 +26,10 @@ struct TokenEditView: View {
     
     @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     @EnvironmentObject var navigationFlow: NavigationFlowObject
-    
-    @State var text = ""
+    @State private var text = ""
     @State private var segmentedMode = 0
     @State private var segmentList = ["색상", "아이콘"]
+    @State private var showingAlert: Bool = false
     
     init(service: TokenServiceable, token: Token?, qrCode: String?) {
         viewModel = AnyViewModel(TokenEditViewModel(service: service,
@@ -105,8 +105,11 @@ struct TokenEditView: View {
                 isSmallDevice ? nil : Spacer()
                 
                 Button(action: {
-                    dismiss()
-                    addToken()
+                    showingAlert = text.isEmpty
+                    if !text.isEmpty {
+                        dismiss()
+                        addToken()
+                    }
                 }, label: {
                     HStack {
                         Spacer()
@@ -115,12 +118,16 @@ struct TokenEditView: View {
                         Spacer()
                     }
                 })
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("토큰 정보 입력"),
+                          message: Text("이름을 추가해주세요"),
+                          dismissButton: .default(Text("네")))
+                }
                 .frame(width: 85)
                 .padding(.vertical, 10)
                 .background(viewModel.state.token.color?.linearGradientColor()
                                 ?? LinearGradient.mint)
                 .cornerRadius(15)
-
             }
             .navigationBarHidden(false)
             .navigationBarTitle("토큰 추가", displayMode: .inline)
