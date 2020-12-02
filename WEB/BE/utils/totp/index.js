@@ -1,14 +1,10 @@
 const crypto = require('crypto');
-const speakeasy = require('speakeasy');
+const base32 = require('hi-base32');
 
 const totp = {
-  makeSecretKey() {
-    const secretKey = speakeasy.generateSecret({
-      length: 20,
-      name: process.env.SECRETKEYNAME,
-      algorithm: process.env.SECRETKEYALGORITHM,
-    });
-    return secretKey;
+  makeSecretKey(length = 20) {
+    const secretKey = crypto.randomBytes(length);
+    return base32.encode(secretKey).replace(/=/g, '');
   },
 
   makeURL({ secretKey, email }) {
