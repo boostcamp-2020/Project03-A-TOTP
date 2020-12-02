@@ -9,13 +9,15 @@ import SwiftUI
 
 struct TopButtonViews: View {
     
+    private(set) var service: TokenServiceable
+    var token: Token
     var action: () -> Void
     @Binding var isShownEditView: Bool
     
     var body: some View {
         
         HStack {
-            Image.heart
+            token.icon?.toImage()
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
@@ -28,7 +30,9 @@ struct TopButtonViews: View {
                     .foregroundColor(.white)
             })
             .sheet(isPresented: $isShownEditView) {
-                TokenEditView()
+                TokenEditView(service: service,
+                              token: token,
+                              qrCode: nil)
             }
         }
         .padding(.horizontal, 12)

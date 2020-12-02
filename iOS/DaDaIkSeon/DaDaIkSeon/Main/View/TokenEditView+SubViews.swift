@@ -9,47 +9,82 @@ import SwiftUI
 
 struct IconView: View {
     
-    private var columns = [GridItem(.flexible()),
+    var action: (String) -> Void
+    
+    var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
+    var icons: [String] = [
+        "mail", "message", "game",
+        "book", "creditcard", "play",
+        "search", "thumbsup", "calendar",
+        "musicNote", "cart", "heart",
+        "pin", "bolt", "globe"
+    ]
+    
+    @State var pressedIndex: Int = 0
+    
     var body: some View {
         LazyVGrid(columns: columns) {
-            ForEach(1...15, id: \.self) { _ in
-                Circle()
-                    .foregroundColor(.mint1)
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .padding(4)
+            
+            ForEach(0..<15, id: \.self) { index in
+                Button {
+                    pressedIndex = index
+                    action(icons[index])
+                } label: {
+                    icons[index].toImage()
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(minWidth: 20,
+                               maxWidth: 25,
+                               minHeight: 20,
+                               maxHeight: 25)
+                        .padding(5)
+                        .foregroundColor(Color.shadow)
+                }
+                .padding(3)
+                .colorMultiply(pressedIndex == index ? Color.black : Color.shadow)
+//              .listRowBackground(pressedIndex == index ?  Color.black : Color(.systemGray6))
             }
+
         }
-        .padding(.bottom, 16)
     }
     
 }
 
-struct PaletteView: View {
+struct ColorView: View {
     
-    private var columns = [GridItem(.flexible()),
+    var action: (String) -> Void
+    var geometryWidth: CGFloat
+    
+    var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
-    private var color: [LinearGradient] = [
-        LinearGradient.blue, LinearGradient.brown, LinearGradient.pink,
-        LinearGradient.navy, LinearGradient.salmon, LinearGradient.mint
+    var colors: [String] = [
+        "blue", "brown", "pink",
+        "navy", "salmon", "mint"
     ]
     
     var body: some View {
+    
         LazyVGrid(columns: columns) {
             ForEach(0...5, id: \.self) { index in
-                Circle()
-                    .fill(color[index])
-                    .frame(width: 60, height: 60, alignment: .center)
-                    .padding(6)
+                Button {
+                    action(colors[index])
+                } label: {
+                    Circle()
+                        .fill(colors[index].linearGradientColor())
+                        .frame(width: geometryWidth * 0.15,
+                               height: geometryWidth * 0.15,
+                               alignment: .center)
+                        .padding(6)
+                }
             }
         }
-        .padding(.bottom, 16)
     }
     
 }

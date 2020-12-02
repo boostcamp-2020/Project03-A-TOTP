@@ -13,6 +13,7 @@ protocol TokenServiceable {
     func loadTokens() -> [Token]
     func tokenList() -> [Token]
     func token(id: UUID) -> Token?
+    func add(token: Token)
     func excludeMainCell() -> [Token]
     func updateMainTokenIndex(id: UUID)
     func mainToken() -> Token
@@ -40,6 +41,10 @@ final class TokenService: TokenServiceable {
     
     func token(id: UUID) -> Token? {
         tokens.first(where: { $0.id == id })
+    }
+    
+    func add(token: Token) {
+        tokens.append(token)
     }
     
     func mainToken() -> Token {

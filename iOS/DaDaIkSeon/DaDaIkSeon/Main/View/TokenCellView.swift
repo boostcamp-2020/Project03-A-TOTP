@@ -46,6 +46,8 @@ struct TokenCellView: View {
             // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
                 TopButtonViews(
+                    service: viewModel.state.service,
+                    token: viewModel.state.token,
                     action: {
                         viewModel.trigger(.showEditView)
                         isShownEditView = true

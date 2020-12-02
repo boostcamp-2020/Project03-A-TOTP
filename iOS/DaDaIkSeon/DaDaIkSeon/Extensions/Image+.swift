@@ -29,3 +29,42 @@ extension Image {
     static let copy = Image(systemName: "doc.on.doc")
     static let plus = Image(systemName: "plus.circle")
 }
+
+extension String {
+    func toImage() -> Image {
+        switch self {
+        case "calendar":
+            return Image.calendar
+        case "creditcard":
+            return Image.creditcard
+        case "musicNote":
+            return Image.musicNote
+        case "cart":
+            return Image.cart
+        case "heart":
+            return Image.heart
+        case "pin":
+            return Image.pin
+        case "bolt":
+            return Image.bolt
+        case "globe":
+            return Image.globe
+        case "mail":
+            return Image.mail
+        case "message":
+            return Image.message
+        case "game":
+            return Image.game
+        case "book":
+            return Image.book
+        case "play":
+            return Image.play
+        case "search":
+            return Image.search
+        case "thumbsup":
+            return Image.thumbsup
+        default:
+            return Image.heart
+        }
+    }
+}
