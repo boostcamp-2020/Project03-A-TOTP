@@ -30,6 +30,7 @@ enum MainInput {
     case startSetting
     case endSetting
     case deleteSelectedTokens
+    case refreshTokens
 }
 
 class NavigationFlowObject: ObservableObject {
@@ -124,8 +125,9 @@ struct MainView: View {
                         }
                         viewModel.state.isSearching ?
                             nil : NavigationLink(
-                                destination: QRGuideView(service: viewModel.state.service)
-                                    .environmentObject(navigationFlow),
+                                destination: NavigationLazyView(
+                                    QRGuideView(service: viewModel.state.service)
+                                ).environmentObject(navigationFlow),
                                 isActive: $navigationFlow.isActive,
                                 label: {
                                     TokenAddCellView()

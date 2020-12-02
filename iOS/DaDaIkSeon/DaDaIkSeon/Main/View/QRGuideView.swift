@@ -33,9 +33,12 @@ struct QRGuideView: View {
             .frame(maxWidth: .infinity, maxHeight: 46)
             .background(Color(.systemGray6))
             .cornerRadius(15)
+            
             NavigationLink(
                 "",
-                destination: TokenEditView(),
+                destination: NavigationLazyView(TokenEditView(service: service,
+                                                              token: nil,
+                                                              qrCode: TOTPGenerator.extractKey(from: "otpauth://totp/TeamDADAIKSEON?secret=KU3WWOJWKNDU2MLWHNQSY4ZEIVAG4QRX&issuer=TOTP&algorithm=SHA512&period=60"))),
                 isActive: $isShownEditView)
                 .isDetailLink(false)
         }
@@ -80,6 +83,7 @@ struct QRScannerView: View {
 }
 
 // MARK: Preview
+
 struct QRGuideView_Previews: PreviewProvider {
     static var previews: some View {
         QRGuideView(service: TokenService())
