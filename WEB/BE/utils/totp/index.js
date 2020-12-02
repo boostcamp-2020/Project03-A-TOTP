@@ -17,6 +17,12 @@ const totp = {
   },
 };
 
-const makeSixDigits = (key, date) => {};
+const makeSixDigits = (key, date) => {
+  const timeStmap = makeTimeStamp(date);
+};
+
+const makeTimeStamp = (date, window = 0) => {
+  return Math.floor(new Date(date) / 30000) + window;
+};
 
 module.exports = totp;
