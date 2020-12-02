@@ -13,4 +13,5 @@ router.post(
 );
 router.post('/dup-email', userController.dupEmail);
 router.get('/confirm-email', userController.confirmEmail);
+router.post('/find-id', reCAPTCHA.verify, validator(['email', 'name', 'birth']), userController.findID);
 module.exports = router;

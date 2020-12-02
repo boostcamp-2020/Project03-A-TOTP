@@ -3,7 +3,7 @@ const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
-const { requestEmail } = require('@controllers/email');
+const { emailSender } = require('@utils/email');
 
 const userController = {
   async signUp(req, res, next) {
@@ -29,7 +29,7 @@ const userController = {
         secretKey: secretKey.base32,
         next,
       });
-      requestEmail(req.body.email, req.body.name, insertResult.dataValues.idx);
+      emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
       res.json({ result, url });
     } catch (e) {
       next(e);
@@ -63,6 +63,26 @@ const userController = {
       res.json({ result: true });
     } catch (e) {
       next(e);
+    }
+  },
+
+  async findID(req, res, next) {
+    const { email, name } = req.body;
+    // let userIdx = '';
+
+    const userInfo = encrypUserInfo({ userInfo: req.body });
+    try {
+      const user = await userService.findAuthByUser({ userInfo });
+      if (!user) {
+        // 유저 없음
+        res.status(400).json({ msg: '없는 사용자' });
+      }
+      emailSender.sendId(email, name, user.auth.id);
+      res.json(true);
+    } catch (e) {
+      /**
+       * @TODO 에러 처리
+       */
     }
   },
 };
