@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack serve --config ./config/webpack.dev.js",
     "build": "webpack --config ./config/webpack.prod.js",
-    "test": "echo 'FE TEST'"
+    "test": "echo 'FE TEST'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +30,11 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
     "@babel/preset-typescript": "^7.12.1",
+    "@storybook/addon-actions": "^6.1.9",
+    "@storybook/addon-essentials": "^6.1.9",
+    "@storybook/addon-knobs": "^6.1.9",
+    "@storybook/addon-links": "^6.1.9",
+    "@storybook/react": "^6.1.9",
     "@types/node": "^14.14.8",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
@@ -50,7 +57,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.0.3",
-    "html-webpack-plugin": "^4.5.0",
+    "html-webpack-plugin": "^4.2.0",
     "prettier": "^2.1.2",
     "react-cookie": "^4.0.3",
     "react-google-recaptcha-v3": "^1.7.0",
