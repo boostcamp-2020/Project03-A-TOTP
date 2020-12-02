@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "airbnb-base","plugin:prettier/recommended"
-  ],
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "parser": "babel-eslint",
   "plugins": ["prettier"],
   "env": {
@@ -36,6 +34,8 @@
     "no-shadow": "off",
     "no-continue": "off",
     "no-plusplus": "off",
-    "no-new": "off"
+    "no-new": "off",
+    "no-useless-escape": 0,
+    "no-restricted-syntax": 0
   }
 }
