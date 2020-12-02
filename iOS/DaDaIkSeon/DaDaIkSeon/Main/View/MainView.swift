@@ -102,6 +102,7 @@ struct MainView: View {
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
+                            
                             Button(action: {
                                 if viewModel.state.checkBoxMode {
                                     viewModel.trigger(.selectCell(token.id))
@@ -122,7 +123,9 @@ struct MainView: View {
                                 )
                             })
                             .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
+                            
                         }
+                        
                         viewModel.state.isSearching ?
                             nil : NavigationLink(
                                 destination: NavigationLazyView(
