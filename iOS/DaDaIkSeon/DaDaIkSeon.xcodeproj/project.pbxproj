@@ -36,6 +36,7 @@
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
+		88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */; };
 		88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DAA8432572880A003E6A62 /* TOTPTimer.swift */; };
 		88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */; };
 		8B3BF03307497E82800CB6D1 /* Pods_DaDaIkSeonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */; };
@@ -95,6 +96,7 @@
 		88697B6E257298BD008DA21B /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroTokenView.swift; sourceTree = "<group>"; };
 		88DAA8432572880A003E6A62 /* TOTPTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPTimer.swift; sourceTree = "<group>"; };
 		88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenCellView+SubViews.swift"; sourceTree = "<group>"; };
 		90688457817CB7719705FC9F /* Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				889CEABB256FDE2B001A1D6F /* QRGuideView.swift */,
 				8835E0FD256FEF0200838FDF /* TokenEditView.swift */,
 				7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */,
+				88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
+				88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,

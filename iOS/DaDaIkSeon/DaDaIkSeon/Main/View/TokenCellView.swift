@@ -11,14 +11,15 @@ import CryptoKit
 struct TokenCellState {
     var service: TokenServiceable
     var token: Token
-    var isShownEditView: Bool
     var password: String
     var leftTime: String
     var timeAmount: Double
+    var isShownEditView: Bool
 }
 
 enum TokenCellInput {
     case showEditView
+    case hideEditView
 }
 
 struct TokenCellView: View {
@@ -29,13 +30,17 @@ struct TokenCellView: View {
     
     // MARK: Property
     
-    @State var isShownEditView = false
-    var isMain: Bool
-    let zStackHeight: CGFloat = 200.0
+    @Binding var checkBoxMode: Bool
+    var isSelected: Bool
     
-    init(service: TokenServiceable, token: Token, isMain: Bool) {
+    var isMain: Bool
+    
+    init(service: TokenServiceable, token: Token,
+         isMain: Bool, checkBoxMode: Binding<Bool>, isSelected: Bool?) {
         viewModel = AnyViewModel(TokenCellViewModel(service: service, token: token))
         self.isMain = isMain
+        _checkBoxMode = checkBoxMode
+        self.isSelected = isSelected ?? false
     }
     
     // MARK: Body
@@ -45,15 +50,25 @@ struct TokenCellView: View {
         ZStack {
             // MARK: 이모티콘, 설정 버튼, 복사 버튼
             VStack {
+                
                 TopButtonViews(
-                    service: viewModel.state.service,
-                    token: viewModel.state.token,
+                    checkBoxMode: $checkBoxMode,
+                    isChecked: isSelected,
                     action: {
-                        viewModel.trigger(.showEditView)
-                        isShownEditView = true
-                    },
-                    isShownEditView: $isShownEditView)
+                        checkBoxMode ?
+                            nil
+                            : viewModel.trigger(.showEditView)
+                    })
+                    .sheet(isPresented: $viewModel.state.isShownEditView,
+                           onDismiss: { viewModel.trigger(.hideEditView) },
+                           content: { 
+                               TokenEditView(service: viewModel.state.service, 
+                                             token: viewModel.state.token, 
+                                             qrCode: nil) 
+                           })
+                
                 Spacer()
+                
                 if !isMain {
                     TokenNameView(tokenName: viewModel.state.token.tokenName)
                     TokenPasswordView(password: viewModel.state.password, isMain: isMain)
@@ -76,22 +91,21 @@ struct TokenCellView: View {
                 
                 // MARK: 이름, 비밀번호, 시간 텍스트 뷰
                 TokenInfoViews(name: viewModel.state.token.tokenName ?? "",
-                     password: viewModel.state.password,
-                     leftTime: viewModel.state.leftTime)
+                               password: viewModel.state.password,
+                               leftTime: viewModel.state.leftTime)
             }
             
         }
-        .frame(height: isMain ? zStackHeight : nil)
     }
 }
-
-struct TokenCellView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        let service = TokenService()
-        TokenCellView(service: service,
-                      token: Token(),
-                      isMain: true)
-    }
-    
-}
+//
+//struct TokenCellView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        let service = TokenService()
+//        TokenCellView(service: service,
+//                      token: Token(),
+//                      isMain: true)
+//    }
+//
+//}

@@ -13,12 +13,23 @@ struct MainState {
     var searchText: String
     var isSearching: Bool
     var mainToken: Token
+    var checkBoxMode: Bool
+    var selectedTokens: [UUID: Bool]
+    var settingMode: Bool
+    var selectedCount: Int
+    var zeroTokenState: Bool
 }
 
 enum MainInput {
     case startSearch(_ text: String)
     case endSearch
     case moveToken(_ id: UUID)
+    case showCheckBox
+    case hideCheckBox
+    case selectCell(_ id: UUID)
+    case startSetting
+    case endSetting
+    case deleteSelectedTokens
     case refreshTokens
 }
 
@@ -57,32 +68,57 @@ struct MainView: View {
             
             VStack(spacing: 12) {
                 viewModel.state.isSearching ?
-                    nil : HeaderView()
+                    nil : HeaderView(viewModel: viewModel)
                 
-                SearchBarView().environmentObject(viewModel)
+                if !viewModel.state.checkBoxMode {
+                    SearchBarView().environmentObject(viewModel)
+                }
                 
                 ScrollView {
-                    viewModel.state.isSearching ?
-                        nil : TokenCellView(
-                            service: viewModel.state.service,
-                            token: viewModel.state.mainToken,
-                            isMain: true
-                        )
-                        .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     
+                    Group {
+                        if viewModel.state.zeroTokenState {
+                            ZeroTokenView()
+                        } else {
+                            let mainTokenId = viewModel.state.mainToken.id
+                            viewModel.state.isSearching ?
+                                nil : TokenCellView(
+                                    service: viewModel.state.service,
+                                    token: viewModel.state.mainToken,
+                                    isMain: true,
+                                    checkBoxMode: $viewModel.state.checkBoxMode,
+                                    isSelected: viewModel.state.selectedTokens[mainTokenId]
+                                )
+                                .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
+                                .onTapGesture {
+                                    if viewModel.state.checkBoxMode {
+                                        viewModel.trigger(.selectCell(mainTokenId))
+                                    }
+                                }
+                        }
+                    }
+                    .frame(height: 200)
+                           
                     LazyVGrid(columns: columns,
                               spacing: 12) {
                         ForEach(viewModel.state.filteredTokens) { token in
                             Button(action: {
-                                withAnimation(.spring(response: 0.5)) {
-                                    viewModel.trigger(.moveToken(token.id))
-                                    hideKeyboard()
+                                if viewModel.state.checkBoxMode {
+                                    viewModel.trigger(.selectCell(token.id))
+                                } else {
+                                    withAnimation(.spring(response: 0.5)) {
+                                        viewModel.trigger(.moveToken(token.id))
+                                        hideKeyboard()
+                                    }
                                 }
+                                
                             }, label: {
                                 TokenCellView(
                                     service: viewModel.state.service,
                                     token: token,
-                                    isMain: false
+                                    isMain: false,
+                                    checkBoxMode: $viewModel.state.checkBoxMode,
+                                    isSelected: viewModel.state.selectedTokens[token.id]
                                 )
                             })
                             .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
@@ -96,12 +132,10 @@ struct MainView: View {
                                 label: {
                                     TokenAddCellView()
                                         .onTapGesture {
-                                            print("탭")
                                             navigationFlow.isActive = true
                                         }
                                 }
                             )
-                            .isDetailLink(false)
                             .frame(minHeight: 100)
                     }
                     .padding(.top, 6)

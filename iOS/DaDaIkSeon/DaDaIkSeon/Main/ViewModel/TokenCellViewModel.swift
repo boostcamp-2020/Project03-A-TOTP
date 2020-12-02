@@ -25,10 +25,10 @@ final class TokenCellViewModel: ViewModel {
     init(service: TokenServiceable, token: Token) {
         state = TokenCellState(service: service,
                                token: token,
-                               isShownEditView: false,
                                password: TOTPGenerator.generate(from: token.key ?? "") ?? "000000",
                                leftTime: "1",
-                               timeAmount: 0.0)
+                               timeAmount: 0.0,
+                               isShownEditView: false)
         timeAmount = countTimeBy30 + 1
         
         initTimer(key: token.key ?? "")
@@ -40,6 +40,8 @@ final class TokenCellViewModel: ViewModel {
         switch input {
         case .showEditView:
             state.isShownEditView = true
+        case .hideEditView:
+            state.isShownEditView = false
         }
     }
     

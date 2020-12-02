@@ -9,10 +9,9 @@ import SwiftUI
 
 struct TopButtonViews: View {
     
-    private(set) var service: TokenServiceable
-    var token: Token
+    @Binding var checkBoxMode: Bool
+    var isChecked: Bool
     var action: () -> Void
-    @Binding var isShownEditView: Bool
     
     var body: some View {
         
@@ -21,22 +20,23 @@ struct TopButtonViews: View {
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
-            Button(action: {
-                action()
-            }, label: {
-                Image.ellipsis
-                    .resizable()
-                    .frame(width: 20, height: 20, alignment: .top)
-                    .foregroundColor(.white)
-            })
-            .sheet(isPresented: $isShownEditView) {
-                TokenEditView(service: service,
-                              token: token,
-                              qrCode: nil)
+            Group {
+                if checkBoxMode {
+                    isChecked ?
+                        Image(systemName: "checkmark.circle.fill")
+                        :Image(systemName: "circle")
+                } else {
+                    Button(
+                        action: { action() },
+                        label: { Image.ellipsis.resizable() }
+                    )
+                }
             }
+            .frame(width: 20, height: 20, alignment: .top)
+            .foregroundColor(.white)
         }
         .padding(.horizontal, 12)
-        .frame(height: 50, alignment: .center) // 크기를 자동으로 하는 방법 고민
+        .frame(height: 50, alignment: .center)
     }
 }
 

@@ -40,6 +40,7 @@ struct QRGuideView: View {
                                                               token: nil,
                                                               qrCode: TOTPGenerator.extractKey(from: "otpauth://totp/TeamDADAIKSEON?secret=KU3WWOJWKNDU2MLWHNQSY4ZEIVAG4QRX&issuer=TOTP&algorithm=SHA512&period=60"))),
                 isActive: $isShownEditView)
+                .isDetailLink(false)
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)

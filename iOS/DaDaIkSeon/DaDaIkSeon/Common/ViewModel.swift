@@ -12,7 +12,7 @@ protocol ViewModel: ObservableObject where ObjectWillChangePublisher.Output == V
     associatedtype State
     associatedtype Input
 
-    var state: State { get }
+    var state: State { get set }
     func trigger(_ input: Input)
 }
 
@@ -37,7 +37,12 @@ final class AnyViewModel<State, Input>: ViewModel {
     }
 
     var state: State {
-        wrappedState()
+        get {
+            wrappedState()
+        }
+        set {
+            _ = newValue
+        }
     }
     
     // MARK: Initialization
