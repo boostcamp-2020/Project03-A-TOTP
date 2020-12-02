@@ -33,15 +33,17 @@ final class MainViewModel: ViewModel {
                 $0.tokenName?.contains(text) ?? false || text.isEmpty
             }
         case .endSearch:
-            state.searchText = ""
-            state.isSearching = false
+            endSearch()
             showMainScene()
         case .moveToken(let id):
             state.service.updateMainTokenIndex(id: id)
             if state.isSearching {
-                trigger(.endSearch)
+                endSearch()
+                showMainScene()
                 return
             }
+            showMainScene()
+        case .refreshTokens:
             showMainScene()
         }
     }
@@ -49,6 +51,11 @@ final class MainViewModel: ViewModel {
 }
 
 extension MainViewModel {
+    
+    func endSearch() {
+        state.searchText = ""
+        state.isSearching = false
+    }
     
     func showMainScene() {
         state.mainToken = state.service.mainToken()
