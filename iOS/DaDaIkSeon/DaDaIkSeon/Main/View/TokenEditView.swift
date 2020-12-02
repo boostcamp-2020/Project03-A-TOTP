@@ -10,11 +10,12 @@ import SwiftUI
 struct TokenEditState {
     var service: TokenServiceable
     var qrCode: String?
-    var token: Token?
+    var token: Token
 }
 
 enum TokenEditInput {
-    case addToken(_ token: Token)
+    case addToken
+    case changeName(_ name: String)
     case changeColor(_ name: String)
     case changeIcon(_ name: String)
 }
@@ -34,7 +35,7 @@ struct TokenEditView: View {
         viewModel = AnyViewModel(TokenEditViewModel(service: service,
                                                     token: token,
                                                     qrCode: qrCode))
-        
+        print("token: \(token), qrCode Key : \(qrCode)")
     }
     
     // MARK: Body
@@ -50,7 +51,7 @@ struct TokenEditView: View {
                 
                 VStack(spacing: isSmallDevice ? 16 : 32) {
                     
-                    viewModel.state.token?.icon?.toImage()
+                    viewModel.state.token.icon?.toImage()
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(minWidth: geometryWidth * 0.125,
@@ -58,13 +59,13 @@ struct TokenEditView: View {
                                minHeight: geometryWidth * 0.125,
                                maxHeight: geometryWidth * 0.2)
                         .padding(geometryWidth * 0.1)
-                        .background(viewModel.state.token?.color?.linearGradientColor()
+                        .background(viewModel.state.token.color?.linearGradientColor()
                                         ?? LinearGradient.mint)
                         
                         .foregroundColor(.white)
                         .cornerRadius(15)
                     
-                    TextField(viewModel.state.token?.tokenName ?? "토큰이름을 입력하세요",
+                    TextField(viewModel.state.token.tokenName ?? "토큰이름을 입력하세요",
                               text: $text)
                         .padding(6)
                         .font(.system(size: 15))
@@ -90,7 +91,7 @@ struct TokenEditView: View {
                     
                     segmentedMode == 0 ? ColorView(
                         action: { name in
-                            viewModel.trigger(.changeColor(name))
+                            changeColor(name)
                         },
                         geometryWidth: geometryWidth
                     ) : nil
@@ -102,7 +103,8 @@ struct TokenEditView: View {
                 isSmallDevice ? nil : Spacer()
                 
                 Button(action: {
-                print("저장 버튼 Did Tap \(viewModel.state.token?.color)")
+                    dismiss()
+                    addToken()
                 }, label: {
                     HStack {
                         Spacer()
@@ -113,7 +115,7 @@ struct TokenEditView: View {
                 })
                 .frame(width: 85)
                 .padding(.vertical, 10)
-                .background(viewModel.state.token?.color?.linearGradientColor()
+                .background(viewModel.state.token.color?.linearGradientColor()
                                 ?? LinearGradient.mint)
                 .cornerRadius(15)
 
@@ -123,12 +125,13 @@ struct TokenEditView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: Button(action: {
-                    navigationFlow.isActive = false
+                    dismiss()
                 }, label: {
                     Text("취소").foregroundColor(.black)
                 }),
                 trailing: Button(action: {
-                    navigationFlow.isActive = false
+                    dismiss()
+                    addToken()
                 }, label: {
                     Text("저장").foregroundColor(.black)
                 })
@@ -140,6 +143,23 @@ struct TokenEditView: View {
         }
         Spacer()
     }
+}
+
+extension TokenEditView {
+    
+    func addToken() {
+        viewModel.trigger(.changeName(text))
+        viewModel.trigger(.addToken)
+    }
+    
+    func changeColor(_ name: String) {
+        viewModel.trigger(.changeColor(name))
+    }
+    
+    func dismiss() {
+        navigationFlow.isActive = false
+    }
+    
 }
 
 struct TokenEditView_Previews: PreviewProvider {
