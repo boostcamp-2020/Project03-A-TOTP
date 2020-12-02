@@ -10,7 +10,6 @@ const requestEmail = (address, name, idx) => {
   const result = encryptWithAES256({ Text: `${address} ${time + 7200000} ${idx}` });
   const resultURL = `https://dadaikseon.com/confirm-email?user=${encodeURIComponent(result)}`;
 
-  console.log(resultURL);
   const option = {
     uri: process.env.EMAILURL,
     method: 'POST',
