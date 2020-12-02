@@ -78,7 +78,9 @@ struct HeaderView: View {
     
     var cancelButton: some View {
         Button(action: {
-            viewModel.trigger(.hideCheckBox)
+            withAnimation {
+                viewModel.trigger(.hideCheckBox)
+            }
         }, label: {
             Text("취소")
                 .padding(.trailing, 4)
@@ -88,7 +90,9 @@ struct HeaderView: View {
     
     var selectButton: some View {
         Button(action: {
-            viewModel.trigger(.showCheckBox)
+            withAnimation {
+                viewModel.trigger(.showCheckBox)
+            }
         }, label: {
             Text("선택")
                 .padding(.trailing, 4)
