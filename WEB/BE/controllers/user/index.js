@@ -3,7 +3,7 @@ const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
-const { requestEmail } = require('@controllers/email');
+const { emailController } = require('@controllers/email');
 
 const userController = {
   async signUp(req, res, next) {
@@ -29,7 +29,7 @@ const userController = {
         secretKey: secretKey.base32,
         next,
       });
-      requestEmail(req.body.email, req.body.name, insertResult.dataValues.idx);
+      emailController.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
       res.json({ result, url });
     } catch (e) {
       next(e);
