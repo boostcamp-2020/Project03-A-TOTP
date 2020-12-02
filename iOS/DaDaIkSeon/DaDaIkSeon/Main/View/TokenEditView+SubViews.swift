@@ -9,13 +9,15 @@ import SwiftUI
 
 struct IconView: View {
     
-    private var columns = [GridItem(.flexible()),
+    var action: (String) -> Void
+    
+    var columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
     
-    private var icons: [String] = [
+    var icons: [String] = [
         "mail", "message", "game",
         "book", "creditcard", "play",
         "search", "thumbsup", "calendar",
@@ -31,14 +33,20 @@ struct IconView: View {
             ForEach(0..<15, id: \.self) { index in
                 Button {
                     pressedIndex = index
-                    print("탭탭!", pressedIndex)
+                    action(icons[index])
                 } label: {
                     icons[index].toImage()
-                        .padding(12)
+                        .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color(.gray))
+                        .frame(minWidth: 20,
+                               maxWidth: 25,
+                               minHeight: 20,
+                               maxHeight: 25)
+                        .padding(5)
+                        .foregroundColor(Color.shadow)
                 }
-                .colorMultiply(pressedIndex == index ? Color.black : Color(.systemGray6))
+                .padding(3)
+                .colorMultiply(pressedIndex == index ? Color.black : Color.shadow)
 //              .listRowBackground(pressedIndex == index ?  Color.black : Color(.systemGray6))
             }
 

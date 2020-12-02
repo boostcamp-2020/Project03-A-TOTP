@@ -96,7 +96,9 @@ struct TokenEditView: View {
                         geometryWidth: geometryWidth
                     ) : nil
 
-                    segmentedMode == 1 ? IconView() : nil
+                    segmentedMode == 1 ? IconView(action: { name in
+                        changeIcon(name)
+                    }) : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
 
@@ -154,6 +156,10 @@ extension TokenEditView {
     
     func changeColor(_ name: String) {
         viewModel.trigger(.changeColor(name))
+    }
+    
+    func changeIcon(_ name: String) {
+        viewModel.trigger(.changeIcon(name))
     }
     
     func dismiss() {
