@@ -21,11 +21,11 @@ protocol TokenServiceable {
 }
 
 final class TokenService: TokenServiceable {
-   
+    
     // MARK: Property
     
-    var tokens: [Token] = []
-    var mainTokenIndex: Int
+    private var tokens: [Token] = []
+    private var mainTokenIndex: Int
     
     // MARK: Init
     
@@ -68,8 +68,22 @@ final class TokenService: TokenServiceable {
     }
     
     func removeTokens(_ idList: [UUID]) {
+        
+        // 삭제 대상이 메인 셀이면?
+        // token에 메인을 제외한 첫 번째 셀을 메인으로 함
+//        for index in tokens.indices
+//        where tokens[index].id ==
+//        {
+//
+//        }
+        
+        let mainTokenId = tokens[mainTokenIndex].id
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
+        }
+        for index in tokens.indices
+        where tokens[index].id == mainTokenId {
+            mainTokenIndex = index
         }
     }
     

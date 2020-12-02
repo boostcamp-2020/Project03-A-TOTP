@@ -70,7 +70,7 @@ struct MainView: View {
                 SearchBarView().environmentObject(viewModel)
                 
                 ScrollView {
-                    let mainTokenId = viewModel.state.service.mainToken().id
+                    let mainTokenId = viewModel.state.mainToken.id
                     viewModel.state.isSearching ?
                         nil : TokenCellView(
                             service: viewModel.state.service,
