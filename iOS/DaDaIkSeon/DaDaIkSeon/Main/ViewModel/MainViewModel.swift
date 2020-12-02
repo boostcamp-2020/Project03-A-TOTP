@@ -96,7 +96,7 @@ extension MainViewModel {
     
     func showMainScene() {
         if state.service.tokenCount == 0 {
-            state.zeroTokenState = true // TODO: 추가 되면 다시 false로 바꿔야 한다.
+            state.zeroTokenState = true
             state.filteredTokens = []
         } else {
             if state.service.tokenCount == 1 {

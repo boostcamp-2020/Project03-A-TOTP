@@ -145,6 +145,9 @@ struct MainView: View {
                 .padding(.horizontal, 12)
                 .padding(.top, 6)
             }
+            .onAppear(perform: {
+                viewModel.trigger(.refreshTokens)
+            })
             
         }
         .onTapGesture {

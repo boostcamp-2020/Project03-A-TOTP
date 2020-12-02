@@ -57,8 +57,7 @@ struct TokenCellView: View {
                     isChecked: isSelected,
                     action: {
                         checkBoxMode ?
-                            nil
-                            : viewModel.trigger(.showEditView)
+                            nil : viewModel.trigger(.showEditView)
                     })
                     .sheet(isPresented: $viewModel.state.isShownEditView,
                            onDismiss: { viewModel.trigger(.hideEditView) },
@@ -99,6 +98,7 @@ struct TokenCellView: View {
         }
     }
 }
+
 //
 //struct TokenCellView_Previews: PreviewProvider {
 //
