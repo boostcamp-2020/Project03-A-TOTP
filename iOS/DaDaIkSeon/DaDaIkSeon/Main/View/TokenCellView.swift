@@ -53,6 +53,7 @@ struct TokenCellView: View {
                 
                 TopButtonViews(
                     checkBoxMode: $checkBoxMode,
+                    token: viewModel.state.token,
                     isChecked: isSelected,
                     action: {
                         checkBoxMode ?
