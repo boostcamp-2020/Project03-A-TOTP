@@ -76,26 +76,37 @@ final class TokenService: TokenServiceable {
     }
     
     func removeTokens(_ idList: [UUID]) {
+      
+        // 삭제
         
+        // 근데 삭제 후에 메인 인덱스를 다시 설정해줘야함
         
-        // 삭제 대상이 메인 셀이면?
-        // token에 메인을 제외한 첫 번째 셀을 메인으로 함
-        // 얘가 0개가 되면 zero update
-        // 
-//        for index in tokens.indices
-//        where tokens[index].id ==
-//        {
+        // 메인 인덱스가 삭제가 되면 다음 셀을 가져와서 넣어줘야함
+        
+        // 이때 다음은 삭제 대상이 아닌 셀이어야 함
+        
+        // 만약 남아있는 셀이 없다면?
+        // mainIndex를 0으로 지정해준다. 암것도 없는 상태에서는 추가될 셀이 무조건 0이니까
+        
+        let oldTokenId = tokens[mainTokenIndex].id
+//        if idList.contains(mainTokenId) { // 메인 셀이 삭제 대상이라면 남아있는 아이 중에 무조건 0번이 메인이 됨ㄴ
 //
+//            idList.forEach { id in
+//                tokens.removeAll(where: { $0.id == id })
+//            }
+//            return
 //        }
-        
-        let mainTokenId = tokens[mainTokenIndex].id
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
-        for index in tokens.indices
-        where tokens[index].id == mainTokenId {
+        for index in tokens.indices // 남아있는 토큰 중에 메인이 있으면 그 인덱스를 메인 인덱스로
+        where tokens[index].id == oldTokenId {
             mainTokenIndex = index
         }
+        if idList.contains(oldTokenId) { // 삭제 대상 중에 메인이 있으면 0번을 메인 인덱스로
+            mainTokenIndex = 0
+        }
+        
     }
     
     func removeToken(_ id: UUID) {
