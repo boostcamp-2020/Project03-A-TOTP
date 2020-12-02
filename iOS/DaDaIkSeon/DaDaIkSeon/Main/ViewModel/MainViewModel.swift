@@ -58,6 +58,7 @@ final class MainViewModel: ViewModel {
         case .hideCheckBox:
             state.checkBoxMode = false
             state.selectedTokens.removeAll()
+            state.selectedCount = 0
         case .selectCell(let id):
             if let token = state.selectedTokens[id] {
                 if token {
@@ -74,6 +75,7 @@ final class MainViewModel: ViewModel {
                     .filter { $0.value == true}
                     .map { $0.key })
             trigger(.hideCheckBox)
+            state.selectedCount = 0
             showMainScene()
         case .startSetting:
             state.settingMode = true
@@ -87,12 +89,16 @@ final class MainViewModel: ViewModel {
 extension MainViewModel {
     
     func showMainScene() {
-        guard let maintoken = state.service.mainToken() else {
-            state.zeroTokenState = true // 추가 되면 다시 false로 바꿔야 한다. 
-            return
+        if state.service.tokenCount == 0 {
+            state.zeroTokenState = true // TODO: 추가 되면 다시 false로 바꿔야 한다.
+            state.filteredTokens = []
+        } else {
+            if let maintoken = state.service.mainToken() {
+                state.mainToken = maintoken
+                state.filteredTokens = excludeMainCell(mainId: maintoken.id)
+                return
+            }
         }
-        state.mainToken = maintoken
-        state.filteredTokens = excludeMainCell(mainId: maintoken.id)
     }
     
     func excludeMainCell(mainId: UUID) -> [Token] {
