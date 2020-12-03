@@ -52,5 +52,14 @@ const userService = {
        */
     }
   },
+
+  async getUserByIdx({ idx }) {
+    try {
+      const result = await usersModel.findOne({ where: { idx } });
+      return result;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
 };
 module.exports = userService;

@@ -11,6 +11,7 @@ const authService = {
       next(e);
     }
   },
+
   async insert({ idx, id, password, state, secretKey, next }) {
     const query = { id, password, state, secret_key: secretKey, user_idx: idx };
     try {
@@ -40,6 +41,15 @@ const authService = {
   async getAuthById({ id }) {
     try {
       const result = await authsModel.findOne({ where: { id } });
+      return result;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+
+  async getAuth(where) {
+    try {
+      const result = await authsModel.findOne({ where });
       return result;
     } catch (e) {
       throw new Error(e);

@@ -5,7 +5,7 @@ import { useInput } from '@hooks/useInput';
 import { DefaultInput, EmailInput } from '@components/common';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { findId } from '@api/index';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const FindIDComponent = (props: RouteComponentProps): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -13,6 +13,7 @@ const FindIDComponent = (props: RouteComponentProps): JSX.Element => {
   const [secondEmail, setSecondEmail] = useInput('');
   const [name, setName] = useInput('');
   const [birth, setBirth] = useInput('');
+  const history = useHistory();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,8 +21,7 @@ const FindIDComponent = (props: RouteComponentProps): JSX.Element => {
     executeRecaptcha('findId').then((reCaptchaToken: string) =>
       findId({ email, name, birth, reCaptchaToken })
         .then(() => {
-          document.location.href = '/login';
-          // props.history.push('/login');
+          history.push('/login');
         })
         .catch((err) => alert(err || err.message)),
     );
