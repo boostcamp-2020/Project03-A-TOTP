@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
 const AtDiv = styled.div`
   margin: 0% 1%;
-  margin-top: 4%;
+  margin-top: 7%;
 `;
 
 const Warning = styled.div<{ flag: boolean }>`
