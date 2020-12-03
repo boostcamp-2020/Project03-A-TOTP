@@ -7,8 +7,6 @@ import { Modal } from './common/Modal';
 
 interface AppProps {}
 
-const NotFound = () => <>Page Not Found</>;
-
 const Hello = () => (
   <>
     <Modal>
@@ -26,7 +24,7 @@ const App: React.FC<AppProps> = () => {
         <Route exact path='/signup' component={Pages.SignUpPage} />
         <Route exact path='/login' component={Pages.LogInPage} />
         <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
-        <Route component={NotFound} />
+        <Route component={Pages.NotFoundPage} />
       </Switch>
     </BrowserRouter>
   );
