@@ -1,4 +1,5 @@
 const authsModel = require('@models/sequelizeWEB.js').auths;
+const { users } = require('@models/sequelizeWEB.js');
 
 const authService = {
   async check({ id, next }) {
@@ -50,6 +51,27 @@ const authService = {
   async getAuth(where) {
     try {
       const result = await authsModel.findOne({ where });
+      return result;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+
+  async getUserById({ id }) {
+    const query = {
+      attributes: ['secret_key'],
+      include: [
+        {
+          model: users,
+          attributes: ['email', 'name'],
+        },
+      ],
+      where: {
+        id,
+      },
+    };
+    try {
+      const result = await authsModel.findOne(query);
       return result;
     } catch (e) {
       throw new Error(e);
