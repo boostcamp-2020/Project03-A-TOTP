@@ -8,6 +8,7 @@ const verifyJWT = {
     try {
       const { authToken, totp: digits } = req.body;
       const { id, action } = JWT.verify(authToken, process.env.ENCRYPTIONKEY);
+      req.body.id = id;
       req.body.action = action;
       const secretKey = (await authService.getAuthById({ id })).secret_key;
       const result = totp.verifyDigits(secretKey, digits);
