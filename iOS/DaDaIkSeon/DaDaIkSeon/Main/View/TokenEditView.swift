@@ -86,7 +86,9 @@ struct TokenEditView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .onTapGesture {
-                        segmentedMode = segmentedMode == 0 ? 1 : 0
+                        withAnimation {
+                            segmentedMode = segmentedMode == 0 ? 1 : 0
+                        }
                     }
                     
                     segmentedMode == 0 ? ColorView(
