@@ -4,6 +4,7 @@ const axios = require('axios');
 const ACCESSKEY = process.env.EMAILACCESSKEY;
 const SECRETKEY = process.env.EMAILSECRETKEY;
 const COMFIRMURL = 'https://dadaikseon.com/confirm-email?user=';
+const CHANGEPASSURL = 'https://dadaikseon.com/findPassword?user=';
 
 const emailSender = {
   async SignUpAuthentication(address, name, idx) {
@@ -38,8 +39,9 @@ const emailSender = {
   },
 
   async sendPassword(user) {
-    const url = '';
-    const { email, name } = user;
+    const { email, name, id } = user;
+    const url = makePassChangeURL(id);
+
     const parameters = {
       userName: name,
       URL: url,
@@ -89,6 +91,10 @@ const makeConfirmURL = (address, idx) => {
   return `${COMFIRMURL}${encodeURIComponent(result)}`;
 };
 
-const makePassChangeURL = () => {};
+const makePassChangeURL = (id) => {
+  const time = Date.now();
+  const result = encryptWithAES256({ Text: `${id} ${time + 7200000}` });
+  return `${CHANGEPASSURL}${encodeURIComponent(result)}`;
+};
 
 module.exports = { emailSender };
