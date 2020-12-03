@@ -3,12 +3,12 @@ const axios = require('axios');
 
 const ACCESSKEY = process.env.EMAILACCESSKEY;
 const SECRETKEY = process.env.EMAILSECRETKEY;
+const COMFIRMURL = 'https://dadaikseon.com/confirm-email?user=';
 
 const emailSender = {
   async SignUpAuthentication(address, name, idx) {
-    const time = Date.now();
-    const result = encryptWithAES256({ Text: `${address} ${time + 7200000} ${idx}` });
-    const resultURL = `https://dadaikseon.com/confirm-email?user=${encodeURIComponent(result)}`;
+    const resultURL = makeConfirmURL(address, idx);
+
     const parameters = {
       userName: name,
       URL: resultURL,
@@ -17,7 +17,6 @@ const emailSender = {
     const option = makeOption(2324, address, name, parameters);
 
     try {
-      // request.post(option, (err, httpResponse, body) => {});
       await axios(option);
     } catch (e) {
       throw new Error(e);
@@ -32,14 +31,14 @@ const emailSender = {
     const option = makeOption(2368, address, name, parameters);
 
     try {
-      // request.post(option, (err, httpResponse, body) => {});
       await axios(option);
     } catch (e) {
       throw new Error(e);
     }
   },
 
-  async sendPassword(user, url) {
+  async sendPassword(user) {
+    const url = '';
     const { email, name } = user;
     const parameters = {
       userName: name,
@@ -49,7 +48,6 @@ const emailSender = {
     const option = makeOption(2373, email, name, parameters);
 
     try {
-      // request.post(option, (err, httpResponse, body) => {});
       await axios(option);
     } catch (e) {
       throw new Error(e);
@@ -84,5 +82,13 @@ const makeOption = (templateSid, address, name, parameters) => {
   };
   return option;
 };
+
+const makeConfirmURL = (address, idx) => {
+  const time = Date.now();
+  const result = encryptWithAES256({ Text: `${address} ${time + 7200000} ${idx}` });
+  return `${COMFIRMURL}${encodeURIComponent(result)}`;
+};
+
+const makePassChangeURL = () => {};
 
 module.exports = { emailSender };
