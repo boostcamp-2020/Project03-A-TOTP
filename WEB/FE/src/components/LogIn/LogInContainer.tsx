@@ -32,6 +32,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setErrorMsg(errMsg);
   };
   const onSubmitOTP = () => {
+    setHasTOTPModalError(false);
     if (TOTP.length < TOTP_LEN) {
       onErrorWithOTP('전부 입력해 주세요~');
       return;
