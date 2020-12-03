@@ -80,6 +80,17 @@ export const loginWithOTP = async (params: loginWithOTPParams): Promise<any> => 
   return data;
 };
 
+interface findPasswordWithOTPParams {
+  authToken: string;
+  totp: string;
+  reCaptchaToken: string;
+}
+
+export const findPasswordWithOTP = async (params: findPasswordWithOTPParams): Promise<any> => {
+  const { data } = await axios.put('/api/auth/password/email', params);
+  return data;
+};
+
 interface findIdParams {
   email: string;
   name: string;
