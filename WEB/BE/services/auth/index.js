@@ -59,7 +59,7 @@ const authService = {
 
   async getUserById({ id }) {
     const query = {
-      attributes: ['secret_key'],
+      attributes: [],
       include: [
         {
           model: users,
