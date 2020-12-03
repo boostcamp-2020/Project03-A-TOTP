@@ -103,7 +103,9 @@ export const changePass = async (query: string, password: string): Promise<any> 
   const option: option = {
     method: 'PATCH',
     url: '/api/auth/password/email',
-    params: query,
+    params: {
+      user: query,
+    },
     data: {
       password,
     },
