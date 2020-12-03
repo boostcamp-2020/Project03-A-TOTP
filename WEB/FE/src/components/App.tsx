@@ -24,6 +24,7 @@ const App: React.FC<AppProps> = () => {
         <Route exact path='/signup' component={Pages.SignUpPage} />
         <Route exact path='/login' component={Pages.LogInPage} />
         <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
+        <Route exact path='/findId' component={Pages.findIDPage} />
         <Route component={Pages.NotFoundPage} />
       </Switch>
     </BrowserRouter>

@@ -68,3 +68,15 @@ export const login = async ({ id, password, reCaptchaToken }: loginParams): Prom
   const { data } = await axios.post('/api/auth', { id, password, reCaptchaToken });
   return data;
 };
+
+interface findIdParams {
+  email: string;
+  name: string;
+  birth: string;
+  reCaptchaToken: string;
+}
+
+export const findId = async ({ email, name, birth, reCaptchaToken }: findIdParams): Promise<any> => {
+  const { data } = await axios.post('/api/user/find-id', { email, name, birth, reCaptchaToken });
+  return data;
+};
