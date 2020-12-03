@@ -32,7 +32,11 @@ const authController = {
 
       if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
 
-      /** @TOTO 세션 생성하고 세션ID 전달? */
+      req.session.key = id;
+      /**
+       * @TODO Log 에 저장하기
+       * `session:${session.id}`
+       */
 
       res.json({ id: user.id });
     } catch (e) {
