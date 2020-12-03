@@ -9,6 +9,7 @@ const JWT = require('jsonwebtoken');
 const TEN_MINUTES = '10m';
 const ACIONS = {
   FIND_PW: 'FIND_PW',
+  LOGIN: 'LOGIN',
 };
 
 const authController = {
@@ -33,15 +34,28 @@ const authController = {
 
       if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
 
+      const token = JWT.sign({ id, action: ACIONS.LOGIN }, process.env.ENCRYPTIONKEY, {
+        expiresIn: TEN_MINUTES,
+      });
+
+      res.json({ id: user.id, authToken: token });
+    } catch (e) {
+      next(createError(e));
+    }
+  },
+
+  async logInSuccess(req, res, next) {
+    const { action } = req.body;
+    if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
+    try {
       req.session.key = id;
       /**
        * @TODO Log 에 저장하기
        * `session:${session.id}`
        */
-
-      res.json({ id: user.id });
+      res.json({ result: true });
     } catch (e) {
-      next(createError(e));
+      next(e);
     }
   },
 
@@ -68,7 +82,7 @@ const authController = {
 
       res.json({
         message: 'OTP를 입력해 주세요',
-        passwordToken: token,
+        authToken: token,
       });
     } catch (e) {
       next(createError(e));
@@ -77,12 +91,9 @@ const authController = {
 
   async sendPasswordEmail(req, res, next) {
     try {
-      const { passwordToken, totp } = req.body;
-      const { id, action } = JWT.verify(passwordToken, process.env.ENCRYPTIONKEY);
+      const { id, action } = req.body;
 
       if (action !== ACIONS.FIND_PW) return next(createError(401, '잘못된 요청입니다'));
-
-      /** @TODO TOTP 검증 */
 
       /** @TOTO 이메일 전송 */
       // 토큰이 있다는건 아이디가 있다는 것을 전제하고 구현

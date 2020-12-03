@@ -3,8 +3,8 @@ const base32 = require('hi-base32');
 
 const totp = {
   makeSecretKey(length = 20) {
-    const secretKey = crypto.randomBytes(length);
-    return base32.encode(secretKey).replace(/=/g, '');
+    const secretKey = crypto.randomBytes(length).toString('utf-8');
+    return base32.encode(secretKey);
   },
 
   makeURL({ secretKey, email }) {
@@ -19,8 +19,8 @@ const totp = {
 };
 
 const makeSixDigits = (key, date) => {
-  const timeStmap = makeTimeStamp(date);
-  const buffer = makeBuffer(timeStmap);
+  const timeStamp = makeTimeStamp(date);
+  const buffer = makeBuffer(timeStamp);
   const hash = crypto.createHmac('sha1', key).update(buffer).digest('hex');
   const DBC = selectDBC(hash);
   let sixDigits = (parseInt(DBC, 16) % 1000000).toString();
@@ -32,11 +32,11 @@ const makeTimeStamp = (date, window = 0) => {
   return Math.floor(new Date(date) / 30000) + window;
 };
 
-const makeBuffer = (timeStmap) => {
+const makeBuffer = (timeStamp) => {
   const buffer = Buffer.alloc(8);
   for (let i = 0; i < 8; i++) {
-    buffer[7 - i] = timeStmap & 0xff;
-    timeStmap >>= 8;
+    buffer[7 - i] = timeStamp & 0xff;
+    timeStamp >>= 8;
   }
   return buffer;
 };
