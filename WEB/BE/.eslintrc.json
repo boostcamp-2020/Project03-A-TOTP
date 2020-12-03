@@ -36,6 +36,7 @@
     "no-plusplus": "off",
     "no-new": "off",
     "no-useless-escape": 0,
-    "no-restricted-syntax": 0
+    "no-restricted-syntax": 0,
+    "no-bitwise": 0
   }
 }
