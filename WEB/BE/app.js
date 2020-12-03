@@ -44,7 +44,7 @@ app.use(
     resave: false,
     secret: process.env.SESSIONKEY,
     cookie: {
-      maxAge: 10000,
+      maxAge: 7200000,
       // secure: true,
       // httpOnly: true,
       // sameSite: true,
@@ -53,10 +53,10 @@ app.use(
 );
 
 if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1); // trust first proxy
-  session.cookie.secure = true; // serve secure cookies
+  app.set('trust proxy', 1);
+  session.cookie.secure = true;
   session.cookie.httpOnly = true;
-  session.cookie.sameSite = true; // true 또는 'strict'로 하면 되겠네요
+  session.cookie.sameSite = true;
 }
 
 app.use('/api/auth', authRouter);

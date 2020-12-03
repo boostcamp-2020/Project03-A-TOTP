@@ -1,25 +1,13 @@
+const createError = require('http-errors');
+
 const sessionAuthentication = {
   sessionCheck(req, res, next) {
+    console.log(req.session.id);
     if (!req.session.key) {
-      /**
-       * @TODO
-       * session이 없는 경우에 처리
-       */
+      next(createError(401, '권한이 없습니다'));
     } else {
       return next();
     }
-  },
-
-  sessionLogin(req, res, next) {
-    if (req.session.key) {
-      return next();
-    }
-    req.session.key = req.body.id;
-    /**
-     * @TODO
-     * session key 만들어주기
-     */
-    return next();
   },
 
   sessionLogout(req, res, next) {
