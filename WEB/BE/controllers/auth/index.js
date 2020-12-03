@@ -1,6 +1,6 @@
 const authService = require('@services/auth');
 const userService = require('@services/user');
-const { comparePassword } = require('@utils/bcrypt');
+const { comparePassword, getEncryptedPassword } = require('@utils/bcrypt');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { emailSender } = require('@utils/email');
 const createError = require('http-errors');
@@ -106,6 +106,25 @@ const authController = {
       emailSender.sendPassword(userInfo);
 
       res.send('ok');
+    } catch (e) {
+      next(createError(e));
+    }
+  },
+
+  async changePassword(req, res, next) {
+    try {
+      const { password } = req.body;
+      const { user } = req.query;
+      const userdata = decryptWithAES256({ encryptedText: user }).split(' ');
+      const id = userdata[0];
+      const time = userdata[1];
+      if (time < Date.now()) {
+        res.status(400).json({ message: '요청이 만료되었습니다.' });
+        return;
+      }
+      const encryptPassword = await getEncryptedPassword(password);
+      await authService.updatePassword(encryptPassword, id);
+      res.json({ message: '변경 완료' });
     } catch (e) {
       next(createError(e));
     }

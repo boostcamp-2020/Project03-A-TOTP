@@ -14,6 +14,7 @@ router
 router
   .route('/password/email')
   .post(reCAPTCHA.verify, validator(['id', 'name', 'birth']), authController.sendPasswordToken)
-  .put(reCAPTCHA.verify, verifyJWT.verifyTOTP, authController.sendPasswordEmail);
+  .put(reCAPTCHA.verify, verifyJWT.verifyTOTP, authController.sendPasswordEmail)
+  .patch(validator(['password']), authController.changePassword);
 
 module.exports = router;
