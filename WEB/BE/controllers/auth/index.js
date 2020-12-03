@@ -8,6 +8,7 @@ const JWT = require('jsonwebtoken');
 const TEN_MINUTES = '10m';
 const ACIONS = {
   FIND_PW: 'FIND_PW',
+  LOGIN: 'LOGIN',
 };
 
 const authController = {
@@ -32,11 +33,26 @@ const authController = {
 
       if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
 
-      /** @TOTO 세션 생성하고 세션ID 전달? */
+      const token = JWT.sign({ id, action: ACIONS.LOGIN }, process.env.ENCRYPTIONKEY, {
+        expiresIn: TEN_MINUTES,
+      });
 
-      res.json({ id: user.id });
+      res.json({ id: user.id, authToken: token });
     } catch (e) {
       next(createError(e));
+    }
+  },
+
+  async logInSuccess(req, res, next) {
+    const { action } = req.body;
+    if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
+    try {
+      /**
+       * @TODO Session 추가하기
+       */
+      res.json({ result: true });
+    } catch (e) {
+      next(e);
     }
   },
 
@@ -72,8 +88,7 @@ const authController = {
 
   async sendPasswordEmail(req, res, next) {
     try {
-      const { passwordToken, totp } = req.body;
-      const { id, action } = JWT.verify(passwordToken, process.env.ENCRYPTIONKEY);
+      const { action } = req.body;
 
       if (action !== ACIONS.FIND_PW) return next(createError(401, '잘못된 요청입니다'));
 
