@@ -12,6 +12,9 @@ interface TOTPModalProps {
   onChange: (otp: string) => any | React.Dispatch<React.SetStateAction<string>> | undefined;
   onSubmit: () => any;
   onClose: () => void;
+  hasErrored?: boolean;
+  disabled?: boolean;
+  errorMsg?: string | undefined;
 }
 
 const Title = styled.h1`
@@ -26,6 +29,15 @@ const Description = styled.p`
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   text-align: center;
   margin-bottom: 3rem;
+  position: relative;
+`;
+
+const Error = styled.span`
+  color: ${({ theme }) => theme.color.danger};
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: -32px;
 `;
 
 const ButtonContainer = styled.div`
@@ -48,13 +60,29 @@ const InputStyle: CSS.Properties = {
   border: '1px solid #ccc',
 };
 
-const TOTPModal = ({ isOpen, TOTP, onChange, onSubmit, onClose }: TOTPModalProps): JSX.Element => {
+const ErrorStyle: CSS.Properties = {
+  border: '1px solid #ff4d4f',
+};
+
+const TOTPModal = ({
+  isOpen,
+  TOTP,
+  onChange,
+  onSubmit,
+  onClose,
+  hasErrored,
+  disabled,
+  errorMsg,
+}: TOTPModalProps): JSX.Element => {
   return (
     <>
       {isOpen ? (
         <Modal>
           <Title>OTP 인증</Title>
-          <Description>표시된 OTP 6자리를 입력해 주세요</Description>
+          <Description>
+            표시된 OTP 6자리를 입력해 주세요
+            {hasErrored && <Error>{errorMsg}</Error>}
+          </Description>
           <OtpInput
             value={TOTP}
             onChange={onChange}
@@ -62,10 +90,18 @@ const TOTPModal = ({ isOpen, TOTP, onChange, onSubmit, onClose }: TOTPModalProps
             inputStyle={InputStyle}
             isInputNum
             shouldAutoFocus
+            hasErrored={hasErrored}
+            errorStyle={ErrorStyle}
+            isDisabled={disabled}
           />
           <ButtonContainer>
-            <Button text='확인' onClick={onSubmit} style={{ padding: '0 4rem', marginRight: '1rem' }} />
-            <Button text='취소' onClick={onClose} type='text' />
+            <Button
+              text='확인'
+              onClick={onSubmit}
+              style={{ padding: '0 4rem', marginRight: '1rem' }}
+              disabled={disabled}
+            />
+            <Button text='취소' onClick={onClose} type='text' disabled={disabled} />
             <br />
             <Link to='/'>QR코드 재등록</Link>
           </ButtonContainer>
@@ -75,6 +111,12 @@ const TOTPModal = ({ isOpen, TOTP, onChange, onSubmit, onClose }: TOTPModalProps
       )}
     </>
   );
+};
+
+TOTPModal.defaultProps = {
+  hasErrored: false,
+  disabled: false,
+  errorMsg: undefined,
 };
 
 export { TOTPModal };

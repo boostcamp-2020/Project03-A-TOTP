@@ -1,7 +1,8 @@
 const authService = require('@services/auth');
 const userService = require('@services/user');
 const { comparePassword } = require('@utils/bcrypt');
-const { encryptWithAES256 } = require('@utils/crypto');
+const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
+const { emailSender } = require('@utils/email');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 
@@ -47,8 +48,10 @@ const authController = {
     const { action } = req.body;
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
     try {
+      req.session.key = id;
       /**
-       * @TODO Session 추가하기
+       * @TODO Log 에 저장하기
+       * `session:${session.id}`
        */
       res.json({ result: true });
     } catch (e) {
@@ -93,6 +96,14 @@ const authController = {
       if (action !== ACIONS.FIND_PW) return next(createError(401, '잘못된 요청입니다'));
 
       /** @TOTO 이메일 전송 */
+      // 토큰이 있다는건 아이디가 있다는 것을 전제하고 구현
+      const user = await authService.getUserById({ id });
+      const userInfo = {
+        email: decryptWithAES256({ encryptedText: user.user.email }),
+        name: decryptWithAES256({ encryptedText: user.user.name }),
+        id,
+      };
+      emailSender.sendPassword(userInfo);
 
       res.send('ok');
     } catch (e) {
