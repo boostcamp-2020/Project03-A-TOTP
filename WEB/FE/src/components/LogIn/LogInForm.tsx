@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { AuthForm } from '@components/common/AuthForm';
 import DefaultInput from '@components/common/Input/DefaultInput';
-import { login } from '@api/index';
+import { loginWithPassword } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useInput } from '@hooks/useInput';
 
 interface LogInFormProps {
-  onSuccess: () => any;
+  onSuccess: (authToken: string) => any;
 }
 
 const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
@@ -18,10 +18,10 @@ const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true);
     e.preventDefault();
-    executeRecaptcha('LogIn')
-      .then((reCaptchaToken: string) => login({ id, password, reCaptchaToken }))
-      .then((result) => onSuccess(result.id))
-      .catch((err) => alert(err.response?.data?.message || err.message))
+    executeRecaptcha('LogInWithPassword')
+      .then((reCaptchaToken: string) => loginWithPassword({ id, password, reCaptchaToken }))
+      .then(({ authToken }: { authToken: string }) => onSuccess(authToken))
+      .catch((err: any) => alert(err.response?.data?.message || err.message))
       .finally(() => setIsSubmitting(false));
   };
 
