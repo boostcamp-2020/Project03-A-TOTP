@@ -3,8 +3,13 @@ const base32 = require('hi-base32');
 
 const totp = {
   makeSecretKey(length = 20) {
-    const secretKey = crypto.randomBytes(length).toString('utf-8');
-    return base32.encode(secretKey);
+    const bytes = crypto.randomBytes(length || 32);
+    const set = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
+    let output = '';
+    for (let i = 0, l = bytes.length; i < l; i++) {
+      output += set[Math.floor((bytes[i] / 255.0) * (set.length - 1))];
+    }
+    return base32.encode(output).replace(/=/g, '');
   },
 
   makeURL({ secretKey, email }) {
@@ -47,6 +52,20 @@ const selectDBC = (hash) => {
   const firstByte = (0x7f & parseInt(DBC.slice(0, 2), 16)).toString(16);
   DBC = firstByte + DBC.slice(2);
   return DBC;
+};
+
+const generateSecretASCII = (length, symbols = null) => {
+  const bytes = crypto.randomBytes(length || 32);
+  let set = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
+  if (symbols) {
+    set += '!@#$%^&*()<>?/[]{},.:;';
+  }
+
+  let output = '';
+  for (let i = 0, l = bytes.length; i < l; i++) {
+    output += set[Math.floor((bytes[i] / 255.0) * (set.length - 1))];
+  }
+  return output;
 };
 
 module.exports = totp;
