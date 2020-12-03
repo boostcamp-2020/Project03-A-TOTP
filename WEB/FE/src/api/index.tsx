@@ -64,8 +64,19 @@ interface loginParams {
   reCaptchaToken: string;
 }
 
-export const login = async ({ id, password, reCaptchaToken }: loginParams): Promise<any> => {
-  const { data } = await axios.post('/api/auth', { id, password, reCaptchaToken });
+export const loginWithPassword = async (params: loginParams): Promise<any> => {
+  const { data } = await axios.post('/api/auth', params);
+  return data;
+};
+
+interface loginWithOTPParams {
+  authToken: string;
+  totp: string;
+  reCaptchaToken: string;
+}
+
+export const loginWithOTP = async (params: loginWithOTPParams): Promise<any> => {
+  const { data } = await axios.put('/api/auth', params);
   return data;
 };
 

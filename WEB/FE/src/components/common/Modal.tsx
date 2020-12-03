@@ -41,7 +41,7 @@ const ModalContainer = styled.div`
   background-color: ${({ theme }) => theme.color.White};
   border-radius: 4px;
   margin-bottom: 5%;
-  animation: ${boxFade} 0.2s;
+  animation: ${boxFade} 0.3s;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.14);
 `;
 
