@@ -33,7 +33,7 @@ struct SearchBarView: View {
                         if viewModel.state.isSearching {
                             // X버튼
                             Button(action: {
-                                endSearch()
+                                freshSearchBar()
                             }, label: {
                                 Image.cancel
                                     .foregroundColor(.gray)
@@ -42,10 +42,10 @@ struct SearchBarView: View {
                         }
                     }
                 )
+                .padding(.horizontal, 12)
                 .onChange(of: searchText) { _ in
                     search(text: searchText)
                 }
-                .padding(.horizontal, 12)
                 .onTapGesture {
                     search(text: searchText)
                 }
@@ -76,10 +76,14 @@ private extension SearchBarView {
     }
     
     func endSearch() {
+        freshSearchBar()
         withAnimation {
             viewModel.trigger(.endSearch)
         }
-        searchText = viewModel.state.searchText
+    }
+    
+    func freshSearchBar() {
+        searchText = ""
     }
     
 }
