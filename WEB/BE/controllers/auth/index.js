@@ -1,7 +1,8 @@
 const authService = require('@services/auth');
 const userService = require('@services/user');
 const { comparePassword } = require('@utils/bcrypt');
-const { encryptWithAES256 } = require('@utils/crypto');
+const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
+const { emailSender } = require('@utils/email');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 
@@ -84,6 +85,14 @@ const authController = {
       /** @TODO TOTP 검증 */
 
       /** @TOTO 이메일 전송 */
+      // 토큰이 있다는건 아이디가 있다는 것을 전제하고 구현
+      const user = await authService.getUserById({ id });
+      const userInfo = {
+        email: decryptWithAES256({ encryptedText: user.user.email }),
+        name: decryptWithAES256({ encryptedText: user.user.name }),
+        id,
+      };
+      emailSender.sendPassword(userInfo);
 
       res.send('ok');
     } catch (e) {

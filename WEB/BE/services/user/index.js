@@ -47,9 +47,7 @@ const userService = {
       const result = await usersModel.findOne(query);
       return result;
     } catch (e) {
-      /**
-       * @TODO 오류 핸들러
-       */
+      throw new Error(e);
     }
   },
 
