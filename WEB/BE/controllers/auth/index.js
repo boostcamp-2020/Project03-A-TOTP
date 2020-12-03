@@ -45,7 +45,7 @@ const authController = {
   },
 
   async logInSuccess(req, res, next) {
-    const { action } = req.body;
+    const { action, id } = req.body;
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
     try {
       req.session.key = id;
