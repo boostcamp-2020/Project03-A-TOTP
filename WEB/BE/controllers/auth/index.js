@@ -79,7 +79,7 @@ const authController = {
 
       res.json({
         message: 'OTP를 입력해 주세요',
-        passwordToken: token,
+        authToken: token,
       });
     } catch (e) {
       next(createError(e));
@@ -88,11 +88,9 @@ const authController = {
 
   async sendPasswordEmail(req, res, next) {
     try {
-      const { action } = req.body;
+      const { id, action } = req.body;
 
       if (action !== ACIONS.FIND_PW) return next(createError(401, '잘못된 요청입니다'));
-
-      /** @TODO TOTP 검증 */
 
       /** @TOTO 이메일 전송 */
 
