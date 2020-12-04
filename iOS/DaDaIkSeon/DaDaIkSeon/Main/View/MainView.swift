@@ -92,7 +92,7 @@ struct MainView: View {
     
     var mainCellView: some View {
         
-        Group{
+        Group {
             if viewModel.state.zeroTokenState {
                 ZeroTokenView()
             } else {

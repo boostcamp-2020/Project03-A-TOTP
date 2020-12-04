@@ -86,7 +86,9 @@ struct TokenEditView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .onTapGesture {
-                        segmentedMode = segmentedMode == 0 ? 1 : 0
+                        withAnimation {
+                            segmentedMode = segmentedMode == 0 ? 1 : 0
+                        }
                     }
                     
                     segmentedMode == 0 ? ColorView(
@@ -118,7 +120,7 @@ struct TokenEditView: View {
                         Spacer()
                     }
                 })
-                .modifier(AlertModifier(isShowing: showingAlert))
+                .modifier(AlertModifier(isShowing: $showingAlert))
                 .frame(width: 85)
                 .padding(.vertical, 10)
                 .background(viewModel.state.token.color?.linearGradientColor()
@@ -135,11 +137,15 @@ struct TokenEditView: View {
                     Text("취소").foregroundColor(.black)
                 }),
                 trailing: Button(action: {
-                    dismiss()
-                    addToken()
+                    showingAlert = text.isEmpty || text.count > 17
+                    if !showingAlert {
+                        dismiss()
+                        addToken()
+                    }
                 }, label: {
                     Text("저장").foregroundColor(.black)
                 })
+                .modifier(AlertModifier(isShowing: $showingAlert))
             )
             .background(Color.white)
             .onTapGesture {
@@ -149,13 +155,6 @@ struct TokenEditView: View {
         Spacer()
     }
 }
-
-// MARK: Views
-
-extension TokenEditView {
-    
-}
-
 
 // MARK: Methods
 
@@ -183,7 +182,7 @@ extension TokenEditView {
 // MARK: ViewModifier
 
 struct AlertModifier: ViewModifier {
-    @State var isShowing: Bool
+    @Binding var isShowing: Bool
     
     func body(content: Content) -> some View {
         return content
