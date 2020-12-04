@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import * as Pages from '@pages/index';
 import { PrivateRoute } from '@/components/PrivateRoute/PrivateRoute';
 import ComfirmEmail from '@components/confirmEmail/index';
+import Button from '@components/common/Button';
 import { Modal } from './common/Modal';
 
 interface AppProps {}
@@ -10,7 +11,18 @@ interface AppProps {}
 const Hello = () => (
   <>
     <Modal>
-      <Link to='/signup'>Sign Up</Link>
+      <Button text={<Link to='/signup'>Sign up</Link>} />
+      <br />
+      <br />
+      <Button text={<Link to='/signup'>Log in</Link>} />
+      <br />
+      <br />
+      <Button text={<Link to='/findId'>Find ID</Link>} />
+      <br />
+      <br />
+      <Button text={<Link to='/findPassword'>Find Password</Link>} />
+      <br />
+      <br />
     </Modal>
   </>
 );
