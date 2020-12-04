@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogInForm } from '@components/LogIn/LogInForm';
+import { LogInContainer } from '@components/LogIn/LogInContainer';
 import { AuthPageLayout } from '@layouts/AuthPageLayout';
 
 interface LogInPageProps {}
@@ -7,7 +7,7 @@ interface LogInPageProps {}
 const LogInPage: React.FC<LogInPageProps> = () => {
   return (
     <AuthPageLayout>
-      <LogInForm />
+      <LogInContainer />
     </AuthPageLayout>
   );
 };

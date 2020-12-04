@@ -1,11 +1,10 @@
 import React from 'react';
-import qs from 'qs';
 import QRCodeComponent from '../components/QRCodeComponent/QRCodeComponent';
 
-const QRCodePage = ({ match, location }) => {
+const QRCodePage = ({ match }) => {
   return (
     <div>
-      <QRCodeComponent url={match.params.url} query={location.search} />
+      <QRCodeComponent url={match.params.url} />
     </div>
   );
 };

@@ -17,20 +17,34 @@ const Title = styled.h1`
   margin-bottom: 2rem;
 `;
 
+const ButtonContainer = styled.div`
+  padding-top: 1.5rem;
+`;
+
 interface AuthFormProps {
   children?: React.ReactNode;
   title: string;
   action: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => any;
   submitButtonText: string;
+  disabled?: boolean;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ children, title, action, onSubmit, submitButtonText }) => {
+const AuthForm: React.FC<AuthFormProps> = ({
+  children,
+  title,
+  action,
+  onSubmit,
+  submitButtonText,
+  disabled = false,
+}) => {
   return (
     <Form action={action} method='POST' onSubmit={onSubmit}>
       <Title>{title}</Title>
       {children}
-      <Button type='submit' text={submitButtonText} />
+      <ButtonContainer>
+        <Button htmlType='submit' text={submitButtonText} block disabled={disabled} />
+      </ButtonContainer>
     </Form>
   );
 };
