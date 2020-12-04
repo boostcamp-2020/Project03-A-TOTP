@@ -7,7 +7,7 @@ import { message } from '@utils/message';
 import { changePass } from '@/api';
 import { AuthForm } from '../common/AuthForm';
 
-const FindPasswordComponent = ({ location }): JSX.Element => {
+const ChangePasswordComponent = ({ location }): JSX.Element => {
   const { search } = location;
   const [password, setPassword] = useInput('');
   const [rePassword, setRePassword] = useInput('');
@@ -70,4 +70,4 @@ const FindPasswordComponent = ({ location }): JSX.Element => {
   );
 };
 
-export { FindPasswordComponent };
+export { ChangePasswordComponent };
