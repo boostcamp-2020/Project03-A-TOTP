@@ -4,7 +4,7 @@ const axios = require('axios');
 const ACCESSKEY = process.env.EMAILACCESSKEY;
 const SECRETKEY = process.env.EMAILSECRETKEY;
 const COMFIRMURL = 'https://dadaikseon.com/confirm-email?user=';
-const CHANGEPASSURL = 'https://dadaikseon.com/findPassword?user=';
+const CHANGEPASSURL = 'https://dadaikseon.com/ChangePassword?user=';
 
 const emailSender = {
   async SignUpAuthentication(address, name, idx) {
