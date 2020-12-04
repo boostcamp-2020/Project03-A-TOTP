@@ -1,18 +1,28 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import * as Pages from '@pages/index';
-import { PrivateRoute } from '@components/route/PrivateRoute';
+import { PrivateRoute } from '@/components/PrivateRoute/PrivateRoute';
 import ComfirmEmail from '@components/confirmEmail/index';
+import Button from '@components/common/Button';
 import { Modal } from './common/Modal';
 
 interface AppProps {}
 
-const NotFound = () => <>Page Not Found</>;
-
 const Hello = () => (
   <>
     <Modal>
-      <Link to='/signup'>Sign Up</Link>
+      <Button text={<Link to='/signup'>Sign up</Link>} />
+      <br />
+      <br />
+      <Button text={<Link to='/login'>Log in</Link>} />
+      <br />
+      <br />
+      <Button text={<Link to='/findId'>Find ID</Link>} />
+      <br />
+      <br />
+      <Button text={<Link to='/findPassword'>Find Password</Link>} />
+      <br />
+      <br />
     </Modal>
   </>
 );
@@ -26,7 +36,10 @@ const App: React.FC<AppProps> = () => {
         <Route exact path='/signup' component={Pages.SignUpPage} />
         <Route exact path='/login' component={Pages.LogInPage} />
         <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
-        <Route component={NotFound} />
+        <Route exact path='/findId' component={Pages.findIDPage} />
+        <Route exact path='/findPassword' component={Pages.FindPasswordPage} />
+        <Route exact path='/changePassword' component={Pages.ChangePasswordPage} />
+        <Route component={Pages.NotFoundPage} />
       </Switch>
     </BrowserRouter>
   );

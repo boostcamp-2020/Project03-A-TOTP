@@ -1,10 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 interface ModalProps {
   children: React.ReactNode;
   style?: React.CSSProperties;
 }
+
+const boxFade = keyframes`
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+`;
 
 const Wrapper = styled.div`
   position: fixed;
@@ -36,6 +41,8 @@ const ModalContainer = styled.div`
   background-color: ${({ theme }) => theme.color.White};
   border-radius: 4px;
   margin-bottom: 5%;
+  animation: ${boxFade} 0.3s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.14);
 `;
 
 const Modal: React.FC<ModalProps> = ({ children, style }) => {

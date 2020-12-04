@@ -1,130 +1,162 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Input from '@components/common/Input';
-import Button from '@components/common/Button';
+import React, { useState, useEffect, useCallback } from 'react';
+import { DefaultInput, PasswordInput, EmailInput, PhoneInput } from '@components/common';
 import { verify } from '@utils/verify';
 import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
+import { Buffer } from 'buffer';
+import { useInput } from '@hooks/index';
+import { AuthForm } from '@components/common/AuthForm';
+import { message } from '@utils/message';
 
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 440px;
-  margin: auto;
-  text-align: center;
-`;
-
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: 600;
-  height: 100px;
-`;
-
-interface Form {
-  id: string;
-  password: string;
-  rePassword: string;
-  name: string;
-  birth: string;
-  email: string;
-  phone: string;
-}
-
-const SignUpComponent = () => {
+const SignUpComponent = (): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const history = useHistory();
-  const list: string[] = ['password', 'rePassword', 'name', 'birth', 'phone'];
-  const placeholders: string[] = ['Password', 'Confirm Password', 'Name', 'Birthday', 'Phone'];
-  const [idState, setIDState] = useState('');
-  const [emailState, setEmailState] = useState('');
-  const [form, setForm] = useState({
-    id: '',
-    password: '',
-    rePassword: '',
-    name: '',
-    birth: '',
-    email: '',
-    phone: '',
-  });
+  const [id, setID] = useInput('');
+  const [name, setName] = useInput('');
+  const [birth, setBirth] = useInput('');
+  const [password, setPassword] = useInput('');
+  const [rePassword, setRePassword] = useInput('');
+  const [accord, setAccord] = useState(true);
+  const [firstEmail, setFirstEmail] = useInput('');
+  const [secondEmail, setSecondEmail] = useInput('');
+  const [emailState, setEmailState] = useState(true);
+  const [firstPhone, setFirstPhone] = useInput('');
+  const [secondPhone, setSecondPhone] = useInput('');
+  const [thirdPhone, setThirdPhone] = useInput('');
+  const [idCheck, setIDCheck] = useState('');
+  const [emailCheck, setEmailCheck] = useState('');
 
-  useEffect(() => {
-    if (idState !== form.id) setIDState('-1');
-    if (emailState !== form.email) setEmailState('-1');
-  }, [form, idState, emailState]);
-
-  const checkIDDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkIDDuplicateEventHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    const result = await checkIDDuplicateAPI({ id: form.id });
+    const result = await checkIDDuplicateAPI({ id });
     if (!result) {
-      alert('이미존재하는 아이디 입니다.');
+      alert(message.ALREADYID);
+      setIDCheck('-1');
       return;
     }
-    alert('사용가능한 아이디 입니다.');
-    setIDState(form.id);
+    alert(message.POSSIBLEID);
+    setIDCheck(id);
   };
 
-  const checkEmailDuplicateEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkEmailDuplicateEventHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    const result = await checkEmailDuplicateAPI({ email: form.email });
+    const result = await checkEmailDuplicateAPI({ email: `${firstEmail}@${secondEmail}` });
     if (!result) {
-      alert('이미존재하는 이메일 입니다.');
+      alert(message.ALREADYEMAIL);
+      setEmailCheck('-1');
       return;
     }
-    alert('사용가능한 이메일 입니다.');
-    setEmailState(form.email);
+    alert(message.POSSIBLEEMAIL);
+    setEmailCheck(`${firstEmail}@${secondEmail}`);
   };
 
-  const submitEventHandler = async (e: React.MouseEvent) => {
-    const signupValidation = verify(form);
+  const submitEventHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const email = `${firstEmail}@${secondEmail}`;
+    const phone = `${firstPhone}-${secondPhone}-${thirdPhone}`;
+    const signupValidation = verify({
+      id,
+      password,
+      rePassword,
+      name,
+      birth,
+      email: `${firstEmail}${secondEmail}`,
+      phone: [firstPhone, secondPhone, thirdPhone],
+    });
     if (signupValidation !== '1') {
       alert(signupValidation);
       return;
     }
-    if (idState !== form.id || emailState !== form.email || form.id === '' || form.email === '') {
-      alert('아이디 또는 이메일 중복체크를 해주세요.');
+    if (idCheck !== id || emailCheck !== email || id === '' || email === '@') {
+      alert(message.DUPLICATENOTCHECK);
       return;
     }
     const reCaptchaToken: string = await executeRecaptcha('SignUp');
-    const result: string = (
-      await registerUserAPI({
-        id: form.id,
-        password: form.password,
-        email: form.email,
-        birth: form.birth,
-        name: form.name,
-        phone: form.phone,
-        reCaptchaToken,
-      })
-    ).split('totp/')[1];
-    /**
-     * @TODO url 인코딩하여 보내기
-     */
-    alert(`회원가입에 성공하셨습니다.`);
-    history.push(`/QRCode/${result}`);
+    const result: string = await registerUserAPI({
+      id,
+      password,
+      email,
+      birth,
+      name,
+      phone,
+      reCaptchaToken,
+    });
+    const url = encodeURIComponent(Buffer.from(result).toString('base64'));
+    alert(message.SIGNUPSUCCESS);
+    history.push(`/QRCode/${url}`);
   };
 
+  const toggleAccord = useCallback(() => {
+    if (password !== rePassword) setAccord(false);
+    else setAccord(true);
+  }, [password, rePassword]);
+
+  useEffect(() => {
+    toggleAccord();
+  }, [toggleAccord]);
+
+  useEffect(() => {
+    if (secondEmail.indexOf('.') !== -1 || secondEmail === '') setEmailState(true);
+    else setEmailState(false);
+  }, [secondEmail]);
+
+  useEffect(() => {
+    setIDCheck('-1');
+  }, [id]);
+
+  useEffect(() => {
+    setEmailCheck('-1');
+  }, [firstEmail, secondEmail]);
+
   return (
-    <Wrapper>
-      <Title>SIGN UP</Title>
-      <Input
+    <AuthForm title='SIGN UP' action='' onSubmit={submitEventHandler} submitButtonText='회원가입'>
+      <DefaultInput value={name} type='text' placeholder='Name' onChange={setName} />
+      <DefaultInput
+        value={id}
+        type='text'
+        showExplanation
         placeholder='ID'
-        name='id'
-        form={form}
-        setForm={setForm}
+        onChange={setID}
         buttonEvent={checkIDDuplicateEventHandler}
       />
-      {list.map((name, idx) => (
-        <Input key={name} placeholder={placeholders[idx]} name={name} form={form} setForm={setForm} />
-      ))}
-      <Input
-        placeholder='E-Mail'
-        name='email'
-        form={form}
-        setForm={setForm}
-        buttonEvent={checkEmailDuplicateEventHandler}
+      <PasswordInput
+        value={password}
+        type='password'
+        showExplanation
+        placeholder='Password'
+        onChange={setPassword}
       />
-      <Button text='회원가입' onClick={submitEventHandler} />
-    </Wrapper>
+      <PasswordInput
+        value={rePassword}
+        type='password'
+        showExplanation
+        representWarning
+        state={accord}
+        placeholder='Password'
+        onChange={setRePassword}
+      />
+      <EmailInput
+        firstValue={firstEmail}
+        secondValue={secondEmail}
+        type='text'
+        onChangeFirst={setFirstEmail}
+        onChangeSecond={setSecondEmail}
+        buttonEvent={checkEmailDuplicateEventHandler}
+        representWarning={emailState}
+      />
+      <DefaultInput value={birth} type='date' placeholder='' onChange={setBirth} />
+      <PhoneInput
+        firstValue={firstPhone}
+        secondValue={secondPhone}
+        thirdValue={thirdPhone}
+        type='text'
+        placeholder='010'
+        onChangeFirst={setFirstPhone}
+        onChangeSecond={setSecondPhone}
+        onChangeThird={setThirdPhone}
+      />
+    </AuthForm>
   );
 };
 

@@ -1,4 +1,6 @@
-import axios from 'axios';
+import axios, { Method } from 'axios';
+
+axios.defaults.headers['X-CSRF'] = 'X-CSRF';
 
 interface UserInfo {
   id: string;
@@ -62,7 +64,75 @@ interface loginParams {
   reCaptchaToken: string;
 }
 
-export const login = async ({ id, password, reCaptchaToken }: loginParams): Promise<any> => {
-  const { data } = await axios.post('/api/auth', { id, password, reCaptchaToken });
+export const loginWithPassword = async (params: loginParams): Promise<any> => {
+  const { data } = await axios.post('/api/auth', params);
+  return data;
+};
+
+interface loginWithOTPParams {
+  authToken: string;
+  totp: string;
+  reCaptchaToken: string;
+}
+
+export const loginWithOTP = async (params: loginWithOTPParams): Promise<any> => {
+  const { data } = await axios.put('/api/auth', params);
+  return data;
+};
+
+interface findPasswordWithOTPParams {
+  authToken: string;
+  totp: string;
+  reCaptchaToken: string;
+}
+
+export const findPasswordWithOTP = async (params: findPasswordWithOTPParams): Promise<any> => {
+  const { data } = await axios.put('/api/auth/password/email', params);
+  return data;
+};
+
+interface findIdParams {
+  email: string;
+  name: string;
+  birth: string;
+  reCaptchaToken: string;
+}
+
+export const findId = async ({ email, name, birth, reCaptchaToken }: findIdParams): Promise<any> => {
+  const { data } = await axios.post('/api/user/find-id', { email, name, birth, reCaptchaToken });
+  return data;
+};
+
+interface findPasswordParams {
+  id: string;
+  name: string;
+  birth: string;
+  reCaptchaToken: string;
+}
+
+export const findPassword = async ({ id, name, birth, reCaptchaToken }: findPasswordParams): Promise<any> => {
+  const { data } = await axios.post('/api/auth/password/email', { id, name, birth, reCaptchaToken });
+  return data;
+};
+
+interface option {
+  method: Method;
+  url: string;
+  params: any;
+  data: any;
+}
+
+export const changePass = async (query: string, password: string): Promise<any> => {
+  const option: option = {
+    method: 'PATCH',
+    url: '/api/auth/password/email',
+    params: {
+      user: query,
+    },
+    data: {
+      password,
+    },
+  };
+  const { data } = await axios(option);
   return data;
 };

@@ -42,7 +42,8 @@
     "@typescript-eslint/no-empty-interface": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "no-shadow": "off",
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-empty-pattern": 0
   },
   "settings": { 
     "import/parsers": { 

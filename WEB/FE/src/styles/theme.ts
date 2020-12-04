@@ -8,6 +8,8 @@ enum Colors {
   border = '#eaecef',
   headerBg = '#3F3D56',
   borderColor = '#e1e4e8',
+  danger = '#ff4d4f',
+  link = '#4192F1',
 }
 
 enum FontSize {
