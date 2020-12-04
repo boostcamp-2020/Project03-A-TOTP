@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { Method } from 'axios';
 
 axios.defaults.headers['X-CSRF'] = 'X-CSRF';
 
@@ -112,5 +112,25 @@ interface findPasswordParams {
 
 export const findPassword = async ({ id, name, birth, reCaptchaToken }: findPasswordParams): Promise<any> => {
   const { data } = await axios.post('/api/auth/password/email', { id, name, birth, reCaptchaToken });
+
+interface option {
+  method: Method;
+  url: string;
+  params: any;
+  data: any;
+}
+
+export const changePass = async (query: string, password: string): Promise<any> => {
+  const option: option = {
+    method: 'PATCH',
+    url: '/api/auth/password/email',
+    params: {
+      user: query,
+    },
+    data: {
+      password,
+    },
+  };
+  const { data } = await axios(option);
   return data;
 };

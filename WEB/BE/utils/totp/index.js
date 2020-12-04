@@ -54,18 +54,4 @@ const selectDBC = (hash) => {
   return DBC;
 };
 
-const generateSecretASCII = (length, symbols = null) => {
-  const bytes = crypto.randomBytes(length || 32);
-  let set = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
-  if (symbols) {
-    set += '!@#$%^&*()<>?/[]{},.:;';
-  }
-
-  let output = '';
-  for (let i = 0, l = bytes.length; i < l; i++) {
-    output += set[Math.floor((bytes[i] / 255.0) * (set.length - 1))];
-  }
-  return output;
-};
-
 module.exports = totp;

@@ -4,3 +4,4 @@ export { default as LogInPage } from '@pages/LogInPage';
 export { default as findIDPage } from '@pages/findIDPage';
 export { default as NotFoundPage } from '@pages/NotFoundPage';
 export { default as FindPasswordPage } from '@pages/FindPasswordPage';
+export { default as ChangePasswordPage } from '@/pages/ChangePasswordPage';

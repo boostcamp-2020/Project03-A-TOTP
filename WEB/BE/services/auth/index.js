@@ -77,6 +77,22 @@ const authService = {
       throw new Error(e);
     }
   },
+
+  async updatePassword(password, id) {
+    const query = {
+      password,
+    };
+    const where = {
+      id,
+    };
+
+    try {
+      const result = await authsModel.update(query, { where });
+      return result;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
 };
 
 module.exports = authService;
