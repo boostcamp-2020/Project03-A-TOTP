@@ -14,7 +14,7 @@ const Hello = () => (
       <Button text={<Link to='/signup'>Sign up</Link>} />
       <br />
       <br />
-      <Button text={<Link to='/signup'>Log in</Link>} />
+      <Button text={<Link to='/login'>Log in</Link>} />
       <br />
       <br />
       <Button text={<Link to='/findId'>Find ID</Link>} />
