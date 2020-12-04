@@ -7,7 +7,7 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { findId } from '@api/index';
 import { useHistory } from 'react-router-dom';
 
-const FindIDComponent = (props: RouteComponentProps): JSX.Element => {
+const FindIDComponent = (): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [firstEmail, setFirstEmail] = useInput('');
   const [secondEmail, setSecondEmail] = useInput('');
