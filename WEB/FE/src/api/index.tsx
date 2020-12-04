@@ -112,6 +112,8 @@ interface findPasswordParams {
 
 export const findPassword = async ({ id, name, birth, reCaptchaToken }: findPasswordParams): Promise<any> => {
   const { data } = await axios.post('/api/auth/password/email', { id, name, birth, reCaptchaToken });
+  return data;
+};
 
 interface option {
   method: Method;
