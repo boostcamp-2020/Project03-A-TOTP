@@ -1,0 +1,41 @@
+name: FE Deployment
+
+on:
+  push:
+    branches:
+      - release-FE
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Npm Install
+        working-directory: ./WEB/FE
+        run: npm install
+
+      - name: Build
+        working-directory: ./WEB/FE
+        run: npm run build
+
+      - name: Deploy to Nginx Server
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete-after
+          path: WEB/FE/dist/
+          remote_path: ~/dist/
+          remote_host: ${{ secrets.FE_HOST }}
+          remote_user: ${{ secrets.FE_USERNAME }}
+          remote_key: ${{ secrets.FE_KEY }}
+          remote_port: ${{ secrets.FE_PORT }}
