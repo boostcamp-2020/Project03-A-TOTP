@@ -18,6 +18,7 @@ final class TokenCellViewModel: ViewModel {
     let timerInterval = TOTPTimer.shared.timerInterval
     
     var subscriptions = Set<AnyCancellable>()
+    
     var lastSecond: Int = 1
     
     // MARK: init
@@ -31,7 +32,9 @@ final class TokenCellViewModel: ViewModel {
                                isShownEditView: false)
         timeAmount = countTimeBy30 + 1
         
-        initTimer(key: token.key ?? "")
+        TOTPTimer.shared.start(
+            subscriber: initTimer(key: token.key ?? ""))
+        
     }
     
     // MARK: Methods
@@ -39,34 +42,40 @@ final class TokenCellViewModel: ViewModel {
     func trigger(_ input: TokenCellInput) {
         switch input {
         case .showEditView:
+            TOTPTimer.shared.cancel()
             state.isShownEditView = true
         case .hideEditView:
+            TOTPTimer.shared.startAll()
             state.isShownEditView = false
         }
+        
     }
     
 }
 
 extension TokenCellViewModel {
     
-    func initTimer(key: String) {
-        TOTPTimer.shared.timer
-            .map({ (output) in
+    // key를 TokenCellViewModel의 프로퍼티로 두지 말고 커링으로 timer 시작함수에 넣어놓자.
+    func initTimer(key: String) -> ((Publishers.Autoconnect<Timer.TimerPublisher>) -> Void) {
+        return {[weak self] timer in
+            guard let `self` = self else { return }
+            timer.map({ (output) in
                 output.timeIntervalSince1970
             })
             .map({ [weak self] (timeInterval) -> Int in
-                guard let weakSelf = self else { return 0 }
+                guard let `self` = self else { return 0 }
                 return Int(
-                    timeInterval.truncatingRemainder(dividingBy: weakSelf.totalTime))
+                    timeInterval.truncatingRemainder(dividingBy: `self`.totalTime))
             })
             .sink { [weak self] (seconds) in
-                guard let weakSelf = self else { return }
-                weakSelf.updatePassword(seconds: seconds, key: key)
-                weakSelf.updateTimeAmount()
+                guard let `self` = self else { return }
+                `self`.updatePassword(seconds: seconds, key: key)
+                `self`.updateTimeAmount()
             }
-            .store(in: &subscriptions)
+            .store(in: &`self`.subscriptions)
+        }
     }
-   
+    
     func updatePassword(seconds: Int, key: String) {
         if lastSecond != seconds {
             leftTime = "\(seconds + 1)"
@@ -89,7 +98,7 @@ extension TokenCellViewModel {
     
     var countTimeBy30: Double {
         Date().timeIntervalSince1970
-        .truncatingRemainder(dividingBy: totalTime)
+            .truncatingRemainder(dividingBy: totalTime)
     }
     
     var service: TokenServiceable {
