@@ -13,10 +13,10 @@ struct DaDaIkSeonApp: App {
     var body: some Scene {
         
         #if DEBUG
-        
+
         let service = MockTokenService()
-        
-        #elseif !DEBUG
+
+        #else
         
         let storageManager = StorageManager()
         let service = TokenService(storageManager)
