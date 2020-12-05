@@ -29,19 +29,43 @@ final class TokenEditViewModel: ViewModel {
                                token: defaultToken)
     }
     
-    // MARK: Methods
-    
     func trigger(_ input: TokenEditInput) {
         switch input {
         case .addToken:
-            state.service.add(token: state.token)
+            addToken()
         case .changeColor(let color):
-            state.token.color = color
+            change(color: color)
         case .changeIcon(let icon):
-            state.token.icon = icon
+            change(icon: icon)
         case .changeName(let name):
-            state.token.tokenName = name
+            change(name: name)
         }
     }
+    
+}
 
+// MARK: Methods
+
+private extension TokenEditViewModel {
+    
+    func addToken() {
+        if state.qrCode == nil {
+            state.service.update(token: state.token)
+        } else {
+            state.service.add(token: state.token)
+        }
+    }
+    
+    func change(color: String) {
+        state.token.color = color
+    }
+    
+    func change(icon: String) {
+        state.token.icon = icon
+    }
+    
+    func change(name: String) {
+        state.token.tokenName = name
+    }
+    
 }
