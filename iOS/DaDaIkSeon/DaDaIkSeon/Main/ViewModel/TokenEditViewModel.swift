@@ -49,11 +49,8 @@ final class TokenEditViewModel: ViewModel {
 private extension TokenEditViewModel {
     
     func addToken() {
-        if state.qrCode == nil {
-            state.service.update(token: state.token)
-        } else {
-            state.service.add(token: state.token)
-        }
+        state.qrCode == nil
+            ? state.service.update(token: state.token) : state.service.add(token: state.token)
     }
     
     func change(color: String) {
