@@ -47,7 +47,13 @@ final class TokenService: TokenServiceable {
         tokens.append(token)
         _ = storageManager.storeTokens(tokens)
     }
-  
+    
+    func update(token: Token) {
+        guard let index = tokens.firstIndex(where: { $0.id == token.id }) else { return }
+        tokens[index] = token
+        _ = storageManager.storeTokens(tokens)
+    }
+    
     func mainToken() -> Token? {
         var token: Token?
         tokens.forEach {
