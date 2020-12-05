@@ -1,17 +1,16 @@
 //
-//  TokenService.swift
+//  MockTokenService.swift
 //  DaDaIkSeon
 //
-//  Created by 양어진 on 2020/11/29.
+//  Created by 정재명 on 2020/12/05.
 //
 
 import Foundation
 
-final class TokenService: TokenServiceable {
+final class MockTokenService: TokenServiceable {
     
     // MARK: Property
     
-    private var storageManager: StorageManager
     private var tokens: [Token] = []
     
     var tokenCount: Int {
@@ -20,8 +19,7 @@ final class TokenService: TokenServiceable {
     
     // MARK: Init
     
-    init(_ storageManager: StorageManager) {
-        self.storageManager = storageManager
+    init() {
         tokens = loadTokens()
     }
     
@@ -36,7 +34,7 @@ final class TokenService: TokenServiceable {
     }
     
     func loadTokens() -> [Token] {
-        return storageManager.loadTokens() ?? []
+        return Token.dummy()
     }
     
     func add(token: Token) {
@@ -45,9 +43,8 @@ final class TokenService: TokenServiceable {
             token.isMain = true
         }
         tokens.append(token)
-        _ = storageManager.storeTokens(tokens)
     }
-  
+    
     func mainToken() -> Token? {
         var token: Token?
         tokens.forEach {
@@ -66,7 +63,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
-    func updateMainToken(id: UUID) {
+    func updateMainToken(id: UUID) { // main id가 없는 경우 에러다.
         guard let mainTokenIndex = tokens.firstIndex(where: {
             guard let isMain = $0.isMain else { return false }
             return isMain
@@ -85,17 +82,17 @@ final class TokenService: TokenServiceable {
         }
         if tokens.count == 0 { return }
         updateMainWithFirstToken()
-        _ = storageManager.storeTokens(tokens)
     }
     
     func removeToken(_ id: UUID) {
         tokens.removeAll(where: { $0.id == id })
-        _ = storageManager.storeTokens(tokens)
+        if tokens.count == 0 { return }
+        updateMainWithFirstToken()
     }
     
 }
 
-extension TokenService {
+extension MockTokenService {
     
     func updateMainWithFirstToken() {
         if nil !=  mainToken() {

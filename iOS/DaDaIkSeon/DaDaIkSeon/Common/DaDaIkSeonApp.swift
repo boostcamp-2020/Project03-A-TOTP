@@ -11,8 +11,17 @@ import SwiftUI
 struct DaDaIkSeonApp: App {
     
     var body: some Scene {
+        
+        #if DEBUG
+        
+        let service = MockTokenService()
+        
+        #elseif !DEBUG
+        
         let storageManager = StorageManager()
         let service = TokenService(storageManager)
+        
+        #endif
         
         WindowGroup {
             MainView(service: service).environmentObject(NavigationFlowObject())

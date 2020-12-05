@@ -89,14 +89,14 @@ private extension MainViewModel {
             }
             if let maintoken = state.service.mainToken() {
                 state.mainToken = maintoken
-                state.filteredTokens = excludeMainCell(mainId: maintoken.id)
+                state.filteredTokens = excludeMainCell()
                 return
             }
         }
     }
     
     func moveToken(_ id: UUID) {
-        state.service.updateMainTokenIndex(id: id)
+        state.service.updateMainToken(id: id)
         if state.isSearching {
             endSearch()
             showMainScene()
@@ -145,10 +145,8 @@ private extension MainViewModel {
         state.settingMode = false
     }
     
-    func excludeMainCell(mainId: UUID) -> [Token] {
-        state.service.tokenList().filter {
-            $0.id != mainId
-        }
+    func excludeMainCell() -> [Token] {
+        state.service.excludeMainCell()
     }
     
 }
