@@ -194,7 +194,7 @@ struct AlertModifier: ViewModifier {
 
 struct TokenEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let tokenService = TokenService()
+        let tokenService = TokenService(StorageManager())
         TokenEditView(service: tokenService,
                       token: nil,
                       qrCode: nil)

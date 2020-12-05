@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct DaDaIkSeonApp: App {
     
-    let service = TokenService()
-    
     var body: some Scene {
+        let storageManager = StorageManager()
+        let service = TokenService(storageManager)
+        
         WindowGroup {
             MainView(service: service).environmentObject(NavigationFlowObject())
         }
     }
+    
 }

@@ -28,6 +28,7 @@ final class TokenService: TokenServiceable {
     
     // MARK: Property
     
+    private var storageManager: StorageManager
     private var tokens: [Token] = []
     private var mainTokenIndex: Int
     
@@ -37,7 +38,8 @@ final class TokenService: TokenServiceable {
     
     // MARK: Init
     
-    init() {
+    init(_ storageManager: StorageManager) {
+        self.storageManager = storageManager
         mainTokenIndex = 0 // 나중에 수정 - UserDefault.get
         tokens = loadTokens()
     }

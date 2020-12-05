@@ -91,6 +91,6 @@ struct QRScannerView: View {
 
 struct QRGuideView_Previews: PreviewProvider {
     static var previews: some View {
-        QRGuideView(service: TokenService())
+        QRGuideView(service: TokenService(StorageManager()))
     }
 }
