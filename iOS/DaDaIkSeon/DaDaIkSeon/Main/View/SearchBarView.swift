@@ -18,7 +18,7 @@ struct SearchBarView: View {
 
     var body: some View {
         HStack {
-            TextField("검색", text: $searchText)
+            TextField("검색", text: $searchText, onEditingChanged: changeSearchState)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -46,9 +46,6 @@ struct SearchBarView: View {
                 .onChange(of: searchText) { _ in
                     search(text: searchText)
                 }
-                .onTapGesture {
-                    search(text: searchText)
-                }
 
             if viewModel.state.isSearching {
                 // 취소 버튼
@@ -69,16 +66,23 @@ struct SearchBarView: View {
 
 private extension SearchBarView {
     
-    func search(text: String) {
+    func changeSearchState(changed: Bool) {
         withAnimation {
-            viewModel.trigger(.startSearch(text))
+            changed ? viewModel.trigger(.startSearch) : viewModel.trigger(.endSearch)
+        }
+    }
+    
+    func search(text: String) {
+        if !viewModel.state.isSearching { return }
+        withAnimation {
+            viewModel.trigger(.search(text))
         }
     }
     
     func endSearch() {
-        freshSearchBar()
         withAnimation {
             viewModel.trigger(.endSearch)
+            freshSearchBar()
         }
     }
     
