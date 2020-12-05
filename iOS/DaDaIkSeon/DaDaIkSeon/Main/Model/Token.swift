@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Token: Identifiable {
+struct Token: Identifiable, Codable {
     var id = UUID()
     var key: String?
     var tokenName: String?

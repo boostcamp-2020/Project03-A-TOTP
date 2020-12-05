@@ -18,6 +18,7 @@
 		7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* MainViewModel.swift */; };
 		7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */; };
 		7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE068525775E520051A1B5 /* NavigationLazyView.swift */; };
+		7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB524C0257BA2EF00302CAC /* StorageManager.swift */; };
 		7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB878352576A939002B1615 /* TokenEditViewModel.swift */; };
 		7CCDD28E256E45E000150565 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD28D256E45E000150565 /* Color+.swift */; };
 		7CCDD299256E940600150565 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD298256E940500150565 /* SearchBarView.swift */; };
@@ -80,6 +81,7 @@
 		7C7DC513256D75FE0089CD68 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = DaDaIkSeon/Main/ViewModel/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
 		7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellViewModel.swift; sourceTree = "<group>"; };
 		7CAE068525775E520051A1B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
+		7CB524C0257BA2EF00302CAC /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		7CB878352576A939002B1615 /* TokenEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditViewModel.swift; sourceTree = "<group>"; };
 		7CCDD28D256E45E000150565 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		7CCDD298256E940500150565 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				7CF48DD72572B775001E3639 /* ViewModel.swift */,
 				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
 				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
+				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
 				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
 				7C661939256CCAF10028E7C6 /* Info.plist */,
 			);
@@ -575,6 +578,7 @@
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
+				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,

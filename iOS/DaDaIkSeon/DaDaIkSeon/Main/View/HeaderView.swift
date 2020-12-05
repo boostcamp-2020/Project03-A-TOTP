@@ -105,7 +105,7 @@ struct HeaderView: View {
 struct HeaderView_Previews: PreviewProvider {
     
     static var previews: some View {
-        HeaderView(viewModel: AnyViewModel(MainViewModel(service: TokenService())))
+        HeaderView(viewModel: AnyViewModel(MainViewModel(service: TokenService(StorageManager()))))
     }
     
 }
