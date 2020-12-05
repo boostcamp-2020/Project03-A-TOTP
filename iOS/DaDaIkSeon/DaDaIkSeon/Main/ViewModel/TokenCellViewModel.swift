@@ -33,6 +33,7 @@ final class TokenCellViewModel: ViewModel {
         timeAmount = countTimeBy30 + 1
         
         TOTPTimer.shared.start(
+            tokenID: token.id,
             subscriber: initTimer(key: token.key ?? ""))
         
     }

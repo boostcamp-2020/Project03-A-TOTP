@@ -17,7 +17,7 @@ final class TOTPTimer {
     
     static var shared = TOTPTimer()
     
-    var subscribers = [(TimerPublisher) -> Void]()
+    
     
     let timer: TimerPublisher
     
@@ -27,18 +27,24 @@ final class TOTPTimer {
             .autoconnect()
     }
     
-    func start(subscriber: @escaping (TimerPublisher) -> Void) {
-        subscribers.append(subscriber)
+    var subscribers = [UUID:(TimerPublisher) -> Void]()
+    
+    func start(tokenID: UUID, subscriber: @escaping (TimerPublisher) -> Void) {
+        subscribers.updateValue(subscriber, forKey: tokenID)
         subscriber(timer)
     }
     
     func startAll() { // 클로저에 있는 모든 액션 실행
-        subscribers.forEach { $0(timer) }
+        subscribers.forEach { $0.value(timer) }
         print(subscribers.count)
     }
     
     func cancel() { // 타이머의 upstream을 닫음. 모든 subscriber 구독 중지.
         timer.upstream.connect().cancel()
+    }
+    
+    func deleteSubscriber(tokenID: UUID) {
+        subscribers.removeValue(forKey: tokenID)
     }
     
 }
