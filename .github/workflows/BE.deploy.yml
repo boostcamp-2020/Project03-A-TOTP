@@ -64,5 +64,11 @@ jobs:
           host: ${{ secrets.BE_HOST }}
           username: ${{ secrets.BE_USERNAME }}
           key: ${{ secrets.BE_KEY }}
-          port: ${{ secrets.PORT }}
+          port: ${{ secrets.BE_PORT }}
           script: forever restartall
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: 'DDIS Bot'
