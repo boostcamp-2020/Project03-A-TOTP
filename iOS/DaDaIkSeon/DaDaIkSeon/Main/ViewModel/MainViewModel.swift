@@ -130,11 +130,11 @@ private extension MainViewModel {
     }
     
     func deleteSelectedTokens() {
-        state.service.removeTokens(
-            state.selectedTokens
-                .filter { $0.value == true}
-                .map { $0.key })
-        state.selectedCount = 0
+        let deletedTokens = state.selectedTokens
+            .filter { $0.value == true}
+            .map { $0.key }
+        TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
+        state.service.removeTokens(deletedTokens)
     }
     
     func startSetting() {
