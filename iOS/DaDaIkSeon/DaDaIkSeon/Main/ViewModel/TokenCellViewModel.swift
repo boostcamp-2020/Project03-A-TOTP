@@ -75,7 +75,7 @@ extension TokenCellViewModel {
     
     func updatePassword(seconds: Int, key: String) {
         if lastSecond != seconds {
-            leftTime = "\(seconds + 1)"
+            leftTime = "\(seconds)"
             if seconds == 0 {
                 password
                     = TOTPGenerator.generate(from: key) ?? "000000"
