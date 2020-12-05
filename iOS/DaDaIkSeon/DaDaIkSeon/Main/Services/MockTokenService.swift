@@ -45,6 +45,11 @@ final class MockTokenService: TokenServiceable {
         tokens.append(token)
     }
     
+    func update(token: Token) {
+        guard let index = tokens.firstIndex(where: { $0.id == token.id }) else { return }
+        tokens[index] = token
+    }
+    
     func mainToken() -> Token? {
         var token: Token?
         tokens.forEach {

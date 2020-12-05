@@ -78,80 +78,82 @@ struct TokenEditView: View {
                 Spacer()
                 
                 VStack(spacing: isSmallDevice ? 20 : 40) {
-                    Picker("palette", selection: $segmentedMode) {
-                        Text(segmentList[0]).tag(0)
-                        Text(segmentList[1]).tag(1)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .onTapGesture {
-                        withAnimation {
-                            segmentedMode = segmentedMode == 0 ? 1 : 0
-                        }
-                    }
-                    
-                    segmentedMode == 0 ? ColorView(
-                        action: { name in
-                            changeColor(name)
-                        },
-                        geometryWidth: geometryWidth
-                    ) : nil
-
-                    segmentedMode == 1 ? IconView(action: { name in
-                        changeIcon(name)
-                    }) : nil
+                    paletteView
+                    segmentedMode == 0 ? ColorView(action: { name in changeColor(name) },
+                                                   geometryWidth: geometryWidth) : nil
+                    segmentedMode == 1 ? IconView(action: { name in changeIcon(name) }) : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
 
                 isSmallDevice ? nil : Spacer()
                 
-                Button(action: {
-                    showingAlert = text.isEmpty || text.count > 17
-                    if !showingAlert {
-                        dismiss()
-                        addToken()
-                    }
-                }, label: {
-                    HStack {
-                        Spacer()
-                        Text("저장")
-                            .foregroundColor(.white)
-                        Spacer()
-                    }
-                })
-                .modifier(AlertModifier(isShowing: $showingAlert))
-                .frame(width: 85)
-                .padding(.vertical, 10)
-                .background(viewModel.state.token.color?.linearGradientColor()
-                                ?? LinearGradient.mint)
-                .cornerRadius(15)
+                saveButton
+                    .foregroundColor(.white)
+                    .frame(width: 85)
+                    .padding(.vertical, 10)
+                    .background(viewModel.state.token.color?.linearGradientColor()
+                                    ?? LinearGradient.mint)
+                    .cornerRadius(15)
             }
             .navigationBarHidden(false)
             .navigationBarTitle("토큰 추가", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
-                leading: Button(action: {
-                    dismiss()
-                }, label: {
-                    Text("취소").foregroundColor(.black)
-                }),
-                trailing: Button(action: {
-                    showingAlert = text.isEmpty || text.count > 17
-                    if !showingAlert {
-                        dismiss()
-                        addToken()
-                    }
-                }, label: {
-                    Text("저장").foregroundColor(.black)
-                })
-                .modifier(AlertModifier(isShowing: $showingAlert))
+                leading: cancelButton,
+                trailing: saveButton.foregroundColor(.black)
             )
             .background(Color.white)
             .onTapGesture {
                 hideKeyboard()
             }
+            .onAppear {
+                text = viewModel.state.token.tokenName ?? ""
+            }
         }
         Spacer()
     }
+}
+
+extension TokenEditView {
+    
+    var paletteView: some View {
+        Picker("palette", selection: $segmentedMode) {
+            Text(segmentList[0]).tag(0)
+            Text(segmentList[1]).tag(1)
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .onTapGesture {
+            withAnimation {
+                segmentedMode = segmentedMode == 0 ? 1 : 0
+            }
+        }
+    }
+    
+    var saveButton: some View {
+        Button(action: {
+            showingAlert = text.isEmpty || text.count > 17
+            if !showingAlert {
+                dismiss()
+                addToken()
+            }
+        }, label: {
+            HStack {
+                Spacer()
+                Text("저장")
+                Spacer()
+            }
+        })
+        .modifier(AlertModifier(isShowing: $showingAlert))
+    }
+    
+    var cancelButton: some View {
+        Button(action: {
+            dismiss()
+        }, label: {
+            Text("취소").foregroundColor(.black)
+        })
+    }
+    
 }
 
 // MARK: Methods

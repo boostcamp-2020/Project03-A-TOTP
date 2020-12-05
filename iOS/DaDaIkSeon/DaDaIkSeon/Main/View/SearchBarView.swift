@@ -40,6 +40,7 @@ struct SearchBarView: View {
                 cancelButton
             }
         }
+        .padding(.top, 12)
     }
 
 }

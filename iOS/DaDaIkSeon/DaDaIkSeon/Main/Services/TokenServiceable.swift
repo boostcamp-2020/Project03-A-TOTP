@@ -19,6 +19,8 @@ protocol TokenServiceable {
     
     func add(token: Token)
     
+    func update(token: Token)
+    
     func mainToken() -> Token?
     
     func excludeMainCell() -> [Token]
@@ -28,4 +30,5 @@ protocol TokenServiceable {
     func removeTokens(_ idList: [UUID])
     
     func removeToken(_ id: UUID)
+    
 }

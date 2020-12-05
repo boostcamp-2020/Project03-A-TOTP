@@ -35,13 +35,20 @@ struct TokenCellView: View {
     
     var isMainCell: Bool
     
-    init(service: TokenServiceable, token: Token,
-         isMain: Bool, checkBoxMode: Binding<Bool>, isSelected: Bool?) {
-        viewModel = AnyViewModel(
-            TokenCellViewModel(service: service, token: token, isMainCell: isMain))
+    init(service: TokenServiceable,
+         token: Token,
+         isMain: Bool,
+         checkBoxMode: Binding<Bool>,
+         isSelected: Bool?,
+         refreshAction: (() -> Void)? = nil) {
+        
+        viewModel = AnyViewModel(TokenCellViewModel(service: service,
+                                                    token: token,
+                                                    isMainCell: isMain,
+                                                    refreshAction: refreshAction))
         self.isMainCell = isMain
-        _checkBoxMode = checkBoxMode
         self.isSelected = isSelected ?? false
+        _checkBoxMode = checkBoxMode
     }
     
     // MARK: Body
@@ -57,11 +64,10 @@ struct TokenCellView: View {
                     token: viewModel.state.token,
                     isChecked: isSelected,
                     action: {
-                        checkBoxMode ?
-                            nil : viewModel.trigger(.showEditView)
+                        checkBoxMode ? nil : showEditView()
                     })
                     .sheet(isPresented: $viewModel.state.isShownEditView,
-                           onDismiss: { viewModel.trigger(.hideEditView) },
+                           onDismiss: { hideEditView() },
                            content: { 
                             TokenEditView(service: viewModel.state.service,
                                           token: viewModel.state.token,
@@ -74,7 +80,7 @@ struct TokenCellView: View {
                     TokenPasswordView(password: viewModel.state.password, isMain: isMainCell)
                 } else {
                     CopyButtonView {
-                        //mainCellViewModel.copyButtonDidTab()
+                        copyPassword()
                     }
                 }
             }
@@ -99,14 +105,18 @@ struct TokenCellView: View {
     }
 }
 
-//
-//struct TokenCellView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        let service = TokenService()
-//        TokenCellView(service: service,
-//                      token: Token(),
-//                      isMain: true)
-//    }
-//
-//}
+private extension TokenCellView {
+    
+    func copyPassword() {
+        UIPasteboard.general.string = viewModel.state.password
+    }
+    
+    func showEditView() {
+        viewModel.trigger(.showEditView)
+    }
+    
+    func hideEditView() {
+        viewModel.trigger(.hideEditView)
+    }
+    
+}

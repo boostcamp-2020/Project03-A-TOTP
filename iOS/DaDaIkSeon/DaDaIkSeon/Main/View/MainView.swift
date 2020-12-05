@@ -68,16 +68,22 @@ struct MainView: View {
             VStack(spacing: 12) {
                 viewModel.state.isSearching ?
                     nil : HeaderView(viewModel: viewModel)
+                    .padding(.top, 12)
+                    .padding(.bottom, -6)
                 if !viewModel.state.checkBoxMode {
                     SearchBarView(viewModel: viewModel)
                 }
                 ScrollView {
-                    mainCellView.frame(height: 200)
-                    gridView.padding(.top, 6)
+                    VStack(spacing: 12) {
+                        mainCellView.frame(height: 200)
+                            .padding(.horizontal, 12)
+                            .padding(.top, 6)
+                        gridView
+                            .padding(.horizontal, 12)
+                            .padding(.bottom, 12)
+                    }
                 }
                 .navigationBarHidden(true)
-                .padding(.horizontal, 12)
-                .padding(.top, 6)
             }
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
@@ -102,12 +108,14 @@ struct MainView: View {
             } else {
                 let mainTokenId = viewModel.state.mainToken.id
                 viewModel.state.isSearching ?
-                    nil : TokenCellView(
-                        service: viewModel.state.service,
-                        token: viewModel.state.mainToken,
-                        isMain: true,
-                        checkBoxMode: $viewModel.state.checkBoxMode,
-                        isSelected: viewModel.state.selectedTokens[mainTokenId]
+                    nil : TokenCellView(service: viewModel.state.service,
+                                        token: viewModel.state.mainToken,
+                                        isMain: true,
+                                        checkBoxMode: $viewModel.state.checkBoxMode,
+                                        isSelected: viewModel.state.selectedTokens[mainTokenId],
+                                        refreshAction: {
+                                            viewModel.trigger(.refreshTokens)
+                                        }
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .onTapGesture {
@@ -115,6 +123,7 @@ struct MainView: View {
                             viewModel.trigger(.selectCell(mainTokenId))
                         }
                     }
+                    
             }
         }
     }
@@ -128,18 +137,20 @@ struct MainView: View {
                     if viewModel.state.checkBoxMode {
                         viewModel.trigger(.selectCell(token.id))
                     } else {
-                        withAnimation(.spring(response: 0.5)) {
+                        withAnimation {
                             viewModel.trigger(.moveToken(token.id))
                             hideKeyboard()
                         }
                     }
                 }, label: {
-                    TokenCellView(
-                        service: viewModel.state.service,
-                        token: token,
-                        isMain: false,
-                        checkBoxMode: $viewModel.state.checkBoxMode,
-                        isSelected: viewModel.state.selectedTokens[token.id]
+                    TokenCellView(service: viewModel.state.service,
+                                  token: token,
+                                  isMain: false,
+                                  checkBoxMode: $viewModel.state.checkBoxMode,
+                                  isSelected: viewModel.state.selectedTokens[token.id],
+                                  refreshAction: {
+                                      viewModel.trigger(.refreshTokens)
+                                  }
                     )
                 })
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
