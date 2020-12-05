@@ -57,3 +57,12 @@ jobs:
           remote_user: ${{ secrets.BE_USERNAME }}
           remote_key: ${{ secrets.BE_KEY }}
           remote_port: ${{ secrets.BE_PORT }}
+
+    - name: Restart Forever
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.BE_HOST }}
+        username: ${{ secrets.BE_USERNAME }}
+        key: ${{ secrets.BE_KEY }}
+        port: ${{ secrets.PORT }}
+        script: forever restartall
