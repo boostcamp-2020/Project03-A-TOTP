@@ -12,7 +12,6 @@
 		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
 		7C661938256CCAF10028E7C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */; };
-		7C661943256CCAF20028E7C6 /* DaDaIkSeonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661942256CCAF20028E7C6 /* DaDaIkSeonTests.swift */; };
 		7C66194E256CCAF20028E7C6 /* DaDaIkSeonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */; };
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
 		7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* MainViewModel.swift */; };
@@ -30,6 +29,7 @@
 		7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFFFFBD2575FA780056F827 /* Image+.swift */; };
 		8826F672257BB25D00A16244 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F671257BB25D00A16244 /* TokenServiceable.swift */; };
 		8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F676257BB5D300A16244 /* MockTokenService.swift */; };
+		8826F686257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
@@ -74,7 +74,6 @@
 		7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7C661939256CCAF10028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C66193E256CCAF20028E7C6 /* DaDaIkSeonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaDaIkSeonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C661942256CCAF20028E7C6 /* DaDaIkSeonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonTests.swift; sourceTree = "<group>"; };
 		7C661944256CCAF20028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C661949256CCAF20028E7C6 /* DaDaIkSeonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaDaIkSeonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonUITests.swift; sourceTree = "<group>"; };
@@ -95,6 +94,7 @@
 		7CFFFFBD2575FA780056F827 /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
 		8826F671257BB25D00A16244 /* TokenServiceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
 		8826F676257BB5D300A16244 /* MockTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
+		8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISTOTPGeneratorTests.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
@@ -187,8 +187,7 @@
 		7C661941256CCAF20028E7C6 /* DaDaIkSeonTests */ = {
 			isa = PBXGroup;
 			children = (
-				7C661942256CCAF20028E7C6 /* DaDaIkSeonTests.swift */,
-				88697B5D25729682008DA21B /* TOTPGenerationTests.swift */,
+				8826F681257BF5C600A16244 /* TOTPGenerator */,
 				7C661944256CCAF20028E7C6 /* Info.plist */,
 			);
 			path = DaDaIkSeonTests;
@@ -231,6 +230,15 @@
 				8826F676257BB5D300A16244 /* MockTokenService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		8826F681257BF5C600A16244 /* TOTPGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				88697B5D25729682008DA21B /* TOTPGenerationTests.swift */,
+				8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */,
+			);
+			path = TOTPGenerator;
 			sourceTree = "<group>";
 		};
 		882D44A7256D0B72001901F9 /* View */ = {
@@ -604,7 +612,7 @@
 			files = (
 				88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */,
 				88697B7625729B5F008DA21B /* TOTPGenerator.swift in Sources */,
-				7C661943256CCAF20028E7C6 /* DaDaIkSeonTests.swift in Sources */,
+				8826F686257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
