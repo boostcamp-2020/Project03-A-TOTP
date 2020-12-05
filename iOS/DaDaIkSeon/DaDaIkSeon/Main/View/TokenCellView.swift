@@ -64,11 +64,10 @@ struct TokenCellView: View {
                     token: viewModel.state.token,
                     isChecked: isSelected,
                     action: {
-                        checkBoxMode ?
-                            nil : viewModel.trigger(.showEditView)
+                        checkBoxMode ? nil : showEditView()
                     })
                     .sheet(isPresented: $viewModel.state.isShownEditView,
-                           onDismiss: { viewModel.trigger(.hideEditView) },
+                           onDismiss: { hideEditView() },
                            content: { 
                             TokenEditView(service: viewModel.state.service,
                                           token: viewModel.state.token,
@@ -81,7 +80,7 @@ struct TokenCellView: View {
                     TokenPasswordView(password: viewModel.state.password, isMain: isMainCell)
                 } else {
                     CopyButtonView {
-                        //mainCellViewModel.copyButtonDidTab()
+                        copyPassword()
                     }
                 }
             }
@@ -104,4 +103,20 @@ struct TokenCellView: View {
             
         }
     }
+}
+
+private extension TokenCellView {
+    
+    func copyPassword() {
+        UIPasteboard.general.string = viewModel.state.password
+    }
+    
+    func showEditView() {
+        viewModel.trigger(.showEditView)
+    }
+    
+    func hideEditView() {
+        viewModel.trigger(.hideEditView)
+    }
+    
 }
