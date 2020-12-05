@@ -56,7 +56,7 @@ final class MockTokenService: TokenServiceable {
         }
     }
     
-    func updateMainTokenIndex(id: UUID) {
+    func updateMainToken(id: UUID) {
         tokens.insert(tokens.remove(at: mainTokenIndex), at: 0)
         if let index = tokens.firstIndex(where: { $0.id == id }) {
             mainTokenIndex = index

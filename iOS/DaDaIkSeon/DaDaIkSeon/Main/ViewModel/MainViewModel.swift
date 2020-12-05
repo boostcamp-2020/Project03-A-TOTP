@@ -96,7 +96,7 @@ private extension MainViewModel {
     }
     
     func moveToken(_ id: UUID) {
-        state.service.updateMainTokenIndex(id: id)
+        state.service.updateMainToken(id: id)
         if state.isSearching {
             endSearch()
             showMainScene()

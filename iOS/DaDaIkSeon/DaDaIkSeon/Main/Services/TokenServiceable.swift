@@ -11,9 +11,9 @@ protocol TokenServiceable {
     
     var tokenCount: Int { get }
     
-    func token(id: UUID) -> Token?
-    
     func loadTokens() -> [Token]
+    
+    func token(id: UUID) -> Token?
     
     func tokenList() -> [Token]
     
@@ -23,7 +23,7 @@ protocol TokenServiceable {
     
     func excludeMainCell() -> [Token]
     
-    func updateMainTokenIndex(id: UUID)
+    func updateMainToken(id: UUID)
     
     func removeTokens(_ idList: [UUID])
     

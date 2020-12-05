@@ -13,6 +13,7 @@ struct Token: Identifiable, Codable {
     var tokenName: String?
     var color: String?
     var icon: String?
+    var isMain: Bool?
     
     static func dummy() -> [Token] {
         [
