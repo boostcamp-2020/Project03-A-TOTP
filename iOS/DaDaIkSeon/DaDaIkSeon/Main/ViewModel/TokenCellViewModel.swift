@@ -33,9 +33,8 @@ final class TokenCellViewModel: ViewModel {
                                leftTime: "1",
                                timeAmount: 0.0,
                                isShownEditView: false)
-        TOTPTimer.shared.start(
-            tokenID: token.id,
-            subscriber: initTimer(key: token.key ?? ""))
+        TOTPTimer.shared.start(tokenID: token.id,
+                               subscriber: initTimer(key: token.key ?? ""))
     }
     
     // MARK: Methods
@@ -57,22 +56,21 @@ final class TokenCellViewModel: ViewModel {
 extension TokenCellViewModel {
     
     func initTimer(key: String) -> ((TOTPTimer.TimerPublisher) -> Void) {
-        return {[weak self] timer in
-            guard let `self` = self else { return }
+        return { [weak self] timer in
+            guard let self = self else { return }
             timer.map({ (output) in
                 output.timeIntervalSince1970
             })
             .map({ [weak self] (timeInterval) -> Int in
-                guard let `self` = self else { return 0 }
-                return Int(
-                    timeInterval.truncatingRemainder(dividingBy: `self`.totalTime))
+                guard let self = self else { return 0 }
+                return Int(timeInterval.truncatingRemainder(dividingBy: self.totalTime))
             })
             .sink { [weak self] (seconds) in
-                guard let `self` = self else { return }
-                `self`.momentOfSecondsChanged(seconds: seconds, key: key)
-                if `self`.isMainCell { `self`.updateTimeAmount() }
+                guard let self = self else { return }
+                self.momentOfSecondsChanged(seconds: seconds, key: key)
+                if self.isMainCell { self.updateTimeAmount() }
             }
-            .store(in: &`self`.subscriptions)
+            .store(in: &self.subscriptions)
         }
     }
     
