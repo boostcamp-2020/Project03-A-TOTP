@@ -6,3 +6,26 @@
 //
 
 import Foundation
+
+protocol TokenServiceable {
+    
+    var tokenCount: Int { get }
+    
+    func token(id: UUID) -> Token?
+    
+    func loadTokens() -> [Token]
+    
+    func tokenList() -> [Token]
+    
+    func add(token: Token)
+    
+    func mainToken() -> Token?
+    
+    func excludeMainCell() -> [Token]
+    
+    func updateMainTokenIndex(id: UUID)
+    
+    func removeTokens(_ idList: [UUID])
+    
+    func removeToken(_ id: UUID)
+}

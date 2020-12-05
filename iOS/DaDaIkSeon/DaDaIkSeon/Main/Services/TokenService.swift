@@ -7,21 +7,6 @@
 
 import Foundation
 
-protocol TokenServiceable {
-    
-    var tokenCount: Int { get }
-    
-    func loadTokens() -> [Token]
-    func tokenList() -> [Token]
-    func token(id: UUID) -> Token?
-    func add(token: Token)
-    func excludeMainCell() -> [Token]
-    func updateMainTokenIndex(id: UUID)
-    func mainToken() -> Token?
-    func removeTokens(_ idList: [UUID])
-    func removeToken(_ id: UUID)
-}
-
 final class TokenService: TokenServiceable {
     
     // MARK: Property
@@ -44,12 +29,16 @@ final class TokenService: TokenServiceable {
     
     // MARK: Methods
     
+    func token(id: UUID) -> Token? {
+        tokens.first(where: { $0.id == id })
+    }
+    
     func tokenList() -> [Token] {
         return tokens
     }
     
-    func token(id: UUID) -> Token? {
-        tokens.first(where: { $0.id == id })
+    func loadTokens() -> [Token] {
+        return storageManager.loadTokens() ?? []
     }
     
     func add(token: Token) {
@@ -75,10 +64,6 @@ final class TokenService: TokenServiceable {
         if let index = tokens.firstIndex(where: { $0.id == id }) {
             mainTokenIndex = index
         }
-    }
-    
-    func loadTokens() -> [Token] {
-        return storageManager.loadTokens() ?? []
     }
     
     func removeTokens(_ idList: [UUID]) {
