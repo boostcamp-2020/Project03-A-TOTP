@@ -16,7 +16,6 @@ final class MainViewModel: ViewModel {
     init(service: TokenServiceable) {
         state = MainState(service: service,
                           filteredTokens: [],
-                          searchText: "",
                           isSearching: false,
                           mainToken: Token(),
                           checkBoxMode: false,
@@ -32,55 +31,30 @@ final class MainViewModel: ViewModel {
     
     func trigger(_ input: MainInput) {
         switch input {
-        case .startSearch(let text):
-            state.searchText = text
-            state.isSearching = true
-            state.filteredTokens = state.service.tokenList().filter {
-                $0.tokenName?.contains(text) ?? false || text.isEmpty
-            }
+        case .search(let text):
+            search(text)
+        case .startSearch:
+            startSearch()
         case .endSearch:
             endSearch()
             showMainScene()
         case .moveToken(let id):
-            state.service.updateMainTokenIndex(id: id)
-            if state.isSearching {
-                endSearch()
-                showMainScene()
-                return
-            }
+            moveToken(id)
             showMainScene()
         case .showCheckBox:
-            state.checkBoxMode = true
-            state.service.tokenList().forEach {
-                state.selectedTokens[$0.id] = false
-            }
+            showCheckBox()
         case .hideCheckBox:
-            state.checkBoxMode = false
-            state.selectedTokens.removeAll()
-            state.selectedCount = 0
+            hideCheckBox()
         case .selectCell(let id):
-            if let token = state.selectedTokens[id] {
-                if token {
-                    state.selectedCount -= 1
-                    state.selectedTokens[id] = false
-                } else {
-                    state.selectedCount += 1
-                    state.selectedTokens[id] = true
-                }
-            }
+            selectCell(id)
         case .deleteSelectedTokens:
-            let deletedTokens = state.selectedTokens
-                .filter { $0.value == true}
-                .map { $0.key }
-            TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
-            state.service.removeTokens(deletedTokens)
-            trigger(.hideCheckBox)
-            state.selectedCount = 0
+            deleteSelectedTokens()
+            hideCheckBox()
             showMainScene()
         case .startSetting:
-            state.settingMode = true
+            startSetting()
         case .endSetting:
-            state.settingMode = false
+            endSetting()
         case .refreshTokens:
             showMainScene()
         }
@@ -88,11 +62,21 @@ final class MainViewModel: ViewModel {
 
 }
 
-extension MainViewModel {
+private extension MainViewModel {
+    
+    func search(_ text: String) {
+        state.filteredTokens = state.service.tokenList().filter {
+            $0.tokenName?.contains(text) ?? false || text.isEmpty
+        }
+    }
     
     func endSearch() {
-        state.searchText = ""
         state.isSearching = false
+    }
+    
+    func startSearch() {
+        state.isSearching = true
+        state.filteredTokens = state.service.tokenList()
     }
     
     func showMainScene() {
@@ -109,6 +93,56 @@ extension MainViewModel {
                 return
             }
         }
+    }
+    
+    func moveToken(_ id: UUID) {
+        state.service.updateMainTokenIndex(id: id)
+        if state.isSearching {
+            endSearch()
+            showMainScene()
+            return
+        }
+    }
+    
+    func showCheckBox() {
+        state.checkBoxMode = true
+        state.service.tokenList().forEach {
+            state.selectedTokens[$0.id] = false
+        }
+    }
+    
+    func hideCheckBox() {
+        state.checkBoxMode = false
+        state.selectedTokens.removeAll()
+        state.selectedCount = 0
+    }
+    
+    func selectCell(_ id: UUID) {
+        if let token = state.selectedTokens[id] {
+            if token {
+                state.selectedCount -= 1
+                state.selectedTokens[id] = false
+            } else {
+                state.selectedCount += 1
+                state.selectedTokens[id] = true
+            }
+        }
+    }
+    
+    func deleteSelectedTokens() {
+        let deletedTokens = state.selectedTokens
+            .filter { $0.value == true}
+            .map { $0.key }
+        TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
+        state.service.removeTokens(deletedTokens)
+    }
+    
+    func startSetting() {
+        state.settingMode = true
+    }
+    
+    func endSetting() {
+        state.settingMode = false
     }
     
     func excludeMainCell(mainId: UUID) -> [Token] {

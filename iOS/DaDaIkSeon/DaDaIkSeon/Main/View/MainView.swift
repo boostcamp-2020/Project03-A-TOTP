@@ -10,7 +10,6 @@ import SwiftUI
 struct MainState {
     var service: TokenServiceable
     var filteredTokens: [Token]
-    var searchText: String
     var isSearching: Bool
     var mainToken: Token
     var checkBoxMode: Bool
@@ -21,7 +20,8 @@ struct MainState {
 }
 
 enum MainInput {
-    case startSearch(_ text: String)
+    case search(_ text: String)
+    case startSearch
     case endSearch
     case moveToken(_ id: UUID)
     case showCheckBox

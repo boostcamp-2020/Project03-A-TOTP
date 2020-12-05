@@ -18,27 +18,16 @@ struct SearchBarView: View {
 
     var body: some View {
         HStack {
-            TextField("검색", text: $searchText)
+            TextField("검색", text: $searchText, onEditingChanged: changeSearchState)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .overlay(
                     HStack {
-                        Image.search
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
-
+                        searchImage
                         if viewModel.state.isSearching {
-                            // X버튼
-                            Button(action: {
-                                freshSearchBar()
-                            }, label: {
-                                Image.cancel
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 8)
-                            })
+                            xButton
                         }
                     }
                 )
@@ -46,39 +35,71 @@ struct SearchBarView: View {
                 .onChange(of: searchText) { _ in
                     search(text: searchText)
                 }
-                .onTapGesture {
-                    search(text: searchText)
-                }
 
             if viewModel.state.isSearching {
-                // 취소 버튼
-                Button(action: {
-                    endSearch()
-                    hideKeyboard()
-                }, label: {
-                    Text("취소")
-                        .foregroundColor(.black)
-                })
-                .padding(.trailing, 10)
-                .transition(.move(edge: .trailing))
+                cancelButton
             }
         }
     }
 
 }
 
+// MARK: SubViews
+
 private extension SearchBarView {
     
-    func search(text: String) {
+    var searchImage: some View {
+        Image.search
+            .foregroundColor(.gray)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 8)
+    }
+    
+    var cancelButton: some View {
+        Button(action: {
+            endSearch()
+            hideKeyboard()
+        }, label: {
+            Text("취소")
+                .foregroundColor(.black)
+        })
+        .padding(.trailing, 10)
+        .transition(.move(edge: .trailing))
+    }
+    
+    var xButton: some View {
+        Button(action: {
+            freshSearchBar()
+        }, label: {
+            Image.cancel
+                .foregroundColor(.gray)
+                .padding(.trailing, 8)
+        })
+    }
+    
+}
+
+// MARK: Methods
+
+private extension SearchBarView {
+    
+    func changeSearchState(changed: Bool) {
         withAnimation {
-            viewModel.trigger(.startSearch(text))
+            changed ? viewModel.trigger(.startSearch) : viewModel.trigger(.endSearch)
+        }
+    }
+    
+    func search(text: String) {
+        if !viewModel.state.isSearching { return }
+        withAnimation {
+            viewModel.trigger(.search(text))
         }
     }
     
     func endSearch() {
-        freshSearchBar()
         withAnimation {
             viewModel.trigger(.endSearch)
+            freshSearchBar()
         }
     }
     
