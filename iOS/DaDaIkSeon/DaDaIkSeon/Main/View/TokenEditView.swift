@@ -32,10 +32,8 @@ struct TokenEditView: View {
     @State private var showingAlert: Bool = false
     
     init(service: TokenServiceable, token: Token?, qrCode: String?) {
-        viewModel = AnyViewModel(TokenEditViewModel(service: service,
-                                                    token: token,
-                                                    qrCode: qrCode))
-        print("token: \(String(describing: token)), qrCode Key : \(String(describing: qrCode))")
+        viewModel = AnyViewModel(
+            TokenEditViewModel(service: service, token: token, qrCode: qrCode))
     }
     
     // MARK: Body
