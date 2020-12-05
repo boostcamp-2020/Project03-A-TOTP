@@ -23,6 +23,9 @@ final class TokenService: TokenServiceable {
     init(_ storageManager: StorageManager) {
         self.storageManager = storageManager
         tokens = loadTokens()
+        for index in tokens.indices where tokens[index].isMain == true { return }
+        if tokens.count == 0 { return }
+        tokens[0].isMain = true
     }
     
     // MARK: Methods
