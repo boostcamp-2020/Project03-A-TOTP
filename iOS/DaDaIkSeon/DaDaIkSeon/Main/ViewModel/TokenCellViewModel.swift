@@ -21,9 +21,12 @@ final class TokenCellViewModel: ViewModel {
     
     var lastSecond: Int = 1
     
+    var isMainCell: Bool
+    
     // MARK: init
     
-    init(service: TokenServiceable, token: Token) {
+    init(service: TokenServiceable, token: Token, isMainCell: Bool) {
+        self.isMainCell = isMainCell
         state = TokenCellState(service: service,
                                token: token,
                                password: TOTPGenerator.generate(from: token.key ?? "") ?? "000000",
@@ -66,16 +69,16 @@ extension TokenCellViewModel {
             })
             .sink { [weak self] (seconds) in
                 guard let `self` = self else { return }
-                `self`.updatePassword(seconds: seconds, key: key)
-                `self`.updateTimeAmount()
+                `self`.momentOfSecondsChanged(seconds: seconds, key: key)
+                if `self`.isMainCell { `self`.updateTimeAmount() }
             }
             .store(in: &`self`.subscriptions)
         }
     }
     
-    func updatePassword(seconds: Int, key: String) {
+    func momentOfSecondsChanged(seconds: Int, key: String) {
         if lastSecond != seconds {
-            leftTime = "\(seconds)"
+            if isMainCell { leftTime = "\(seconds)" }
             if seconds == 0 {
                 password
                     = TOTPGenerator.generate(from: key) ?? "000000"
