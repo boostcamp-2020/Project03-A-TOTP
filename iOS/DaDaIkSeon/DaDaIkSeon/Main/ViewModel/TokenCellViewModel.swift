@@ -55,8 +55,7 @@ final class TokenCellViewModel: ViewModel {
 
 extension TokenCellViewModel {
     
-    // key를 TokenCellViewModel의 프로퍼티로 두지 말고 커링으로 timer 시작함수에 넣어놓자.
-    func initTimer(key: String) -> ((Publishers.Autoconnect<Timer.TimerPublisher>) -> Void) {
+    func initTimer(key: String) -> ((TOTPTimer.TimerPublisher) -> Void) {
         return {[weak self] timer in
             guard let `self` = self else { return }
             timer.map({ (output) in

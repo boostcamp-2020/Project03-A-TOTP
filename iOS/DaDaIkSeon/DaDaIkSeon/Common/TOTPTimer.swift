@@ -10,14 +10,16 @@ import Combine
 
 final class TOTPTimer {
     
+    typealias TimerPublisher = Publishers.Autoconnect<Timer.TimerPublisher>
+    
     let totalTime = 30.0
     let timerInterval = 0.01
     
     static var shared = TOTPTimer()
     
-    var subscribers = [(Publishers.Autoconnect<Timer.TimerPublisher>) -> Void]()
+    var subscribers = [(TimerPublisher) -> Void]()
     
-    let timer: Publishers.Autoconnect<Timer.TimerPublisher>
+    let timer: TimerPublisher
     
     private init() {
         timer = Timer
@@ -25,13 +27,14 @@ final class TOTPTimer {
             .autoconnect()
     }
     
-    func start(subscriber: @escaping (Publishers.Autoconnect<Timer.TimerPublisher>) -> Void) {
+    func start(subscriber: @escaping (TimerPublisher) -> Void) {
         subscribers.append(subscriber)
         subscriber(timer)
     }
     
     func startAll() { // 클로저에 있는 모든 액션 실행
         subscribers.forEach { $0(timer) }
+        print(subscribers.count)
     }
     
     func cancel() { // 타이머의 upstream을 닫음. 모든 subscriber 구독 중지.
