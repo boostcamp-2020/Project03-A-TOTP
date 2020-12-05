@@ -35,13 +35,20 @@ struct TokenCellView: View {
     
     var isMainCell: Bool
     
-    init(service: TokenServiceable, token: Token,
-         isMain: Bool, checkBoxMode: Binding<Bool>, isSelected: Bool?) {
-        viewModel = AnyViewModel(
-            TokenCellViewModel(service: service, token: token, isMainCell: isMain))
+    init(service: TokenServiceable,
+         token: Token,
+         isMain: Bool,
+         checkBoxMode: Binding<Bool>,
+         isSelected: Bool?,
+         refreshAction: (() -> Void)? = nil) {
+        
+        viewModel = AnyViewModel(TokenCellViewModel(service: service,
+                                                    token: token,
+                                                    isMainCell: isMain,
+                                                    refreshAction: refreshAction))
         self.isMainCell = isMain
-        _checkBoxMode = checkBoxMode
         self.isSelected = isSelected ?? false
+        _checkBoxMode = checkBoxMode
     }
     
     // MARK: Body
@@ -98,15 +105,3 @@ struct TokenCellView: View {
         }
     }
 }
-
-//
-//struct TokenCellView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        let service = TokenService()
-//        TokenCellView(service: service,
-//                      token: Token(),
-//                      isMain: true)
-//    }
-//
-//}

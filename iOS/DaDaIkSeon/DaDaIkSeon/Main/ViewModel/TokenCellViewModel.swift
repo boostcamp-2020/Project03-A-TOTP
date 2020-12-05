@@ -14,18 +14,19 @@ final class TokenCellViewModel: ViewModel {
     
     @Published var state: TokenCellState
     
-    var totalTime = TOTPTimer.shared.totalTime
     let timerInterval = TOTPTimer.shared.timerInterval
-    
+    var totalTime = TOTPTimer.shared.totalTime
     var subscriptions = Set<AnyCancellable>()
-    
     var lastSecond: Int = 1
-    
     var isMainCell: Bool
+    var refreshAction: (() -> Void)?
     
     // MARK: init
     
-    init(service: TokenServiceable, token: Token, isMainCell: Bool) {
+    init(service: TokenServiceable,
+         token: Token, isMainCell: Bool,
+         refreshAction: (() -> Void)? = nil) {
+        
         self.isMainCell = isMainCell
         state = TokenCellState(service: service,
                                token: token,
@@ -35,6 +36,7 @@ final class TokenCellViewModel: ViewModel {
                                isShownEditView: false)
         TOTPTimer.shared.start(tokenID: token.id,
                                subscriber: initTimer(key: token.key ?? ""))
+        self.refreshAction = refreshAction
     }
     
     // MARK: Methods
@@ -47,6 +49,7 @@ final class TokenCellViewModel: ViewModel {
         case .hideEditView:
             TOTPTimer.shared.startAll()
             state.isShownEditView = false
+            refreshAction?()
         }
         
     }

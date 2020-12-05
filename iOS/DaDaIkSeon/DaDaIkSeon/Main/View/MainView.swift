@@ -102,12 +102,14 @@ struct MainView: View {
             } else {
                 let mainTokenId = viewModel.state.mainToken.id
                 viewModel.state.isSearching ?
-                    nil : TokenCellView(
-                        service: viewModel.state.service,
-                        token: viewModel.state.mainToken,
-                        isMain: true,
-                        checkBoxMode: $viewModel.state.checkBoxMode,
-                        isSelected: viewModel.state.selectedTokens[mainTokenId]
+                    nil : TokenCellView(service: viewModel.state.service,
+                                        token: viewModel.state.mainToken,
+                                        isMain: true,
+                                        checkBoxMode: $viewModel.state.checkBoxMode,
+                                        isSelected: viewModel.state.selectedTokens[mainTokenId],
+                                        refreshAction: {
+                                            viewModel.trigger(.refreshTokens)
+                                        }
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .onTapGesture {
@@ -115,6 +117,7 @@ struct MainView: View {
                             viewModel.trigger(.selectCell(mainTokenId))
                         }
                     }
+                    
             }
         }
     }
@@ -134,12 +137,14 @@ struct MainView: View {
                         }
                     }
                 }, label: {
-                    TokenCellView(
-                        service: viewModel.state.service,
-                        token: token,
-                        isMain: false,
-                        checkBoxMode: $viewModel.state.checkBoxMode,
-                        isSelected: viewModel.state.selectedTokens[token.id]
+                    TokenCellView(service: viewModel.state.service,
+                                  token: token,
+                                  isMain: false,
+                                  checkBoxMode: $viewModel.state.checkBoxMode,
+                                  isSelected: viewModel.state.selectedTokens[token.id],
+                                  refreshAction: {
+                                      viewModel.trigger(.refreshTokens)
+                                  }
                     )
                 })
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
