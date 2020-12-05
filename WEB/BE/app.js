@@ -24,6 +24,24 @@ const corsOptions = {
   origin: 'http://dadaikseon.com/',
   optionsSuccessStatus: 200,
 };
+const sessionOptions = {
+  store: new RedisStore({
+    client: redis(),
+    prefix: 'session:',
+  }),
+  saveUninitialized: false,
+  resave: false,
+  secret: process.env.SESSIONKEY,
+  cookie: {
+    maxAge: 7200000,
+  },
+};
+
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+  sessionOptions.cookie.httpOnly = true;
+  sessionOptions.cookie.sameSite = true;
+}
 
 sequelizeWEB.sync();
 sequelizeIOS.sync();
@@ -33,31 +51,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
 app.use(csrf.checkHeader);
-
-app.use(
-  session({
-    store: new RedisStore({
-      client: redis(),
-      prefix: 'session:',
-    }),
-    saveUninitialized: false,
-    resave: false,
-    secret: process.env.SESSIONKEY,
-    cookie: {
-      maxAge: 7200000,
-      // secure: true,
-      // httpOnly: true,
-      // sameSite: true,
-    },
-  })
-);
-
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-  session.cookie.secure = true;
-  session.cookie.httpOnly = true;
-  session.cookie.sameSite = true;
-}
+app.use(session(sessionOptions));
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
