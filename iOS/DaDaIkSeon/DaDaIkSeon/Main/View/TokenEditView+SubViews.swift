@@ -18,9 +18,9 @@ struct IconView: View {
                            GridItem(.flexible())]
     
     var icons: [String] = [
-        "mail", "message", "game",
+        "search", "message", "game",
         "book", "creditcard", "play",
-        "search", "thumbsup", "calendar",
+        "mail", "thumbsup", "calendar",
         "musicNote", "cart", "heart",
         "pin", "bolt", "globe"
     ]
@@ -47,7 +47,6 @@ struct IconView: View {
                 }
                 .padding(3)
                 .colorMultiply(pressedIndex == index ? Color.black : Color.shadow)
-//              .listRowBackground(pressedIndex == index ?  Color.black : Color(.systemGray6))
             }
 
         }
