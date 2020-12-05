@@ -80,7 +80,6 @@ final class MockTokenService: TokenServiceable {
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
-        // 삭제 대상 중에 메인이 있으면 0번을 메인 인덱스로
         if tokens.count == 0 { return }
         updateMainWithFirstToken()
     }
