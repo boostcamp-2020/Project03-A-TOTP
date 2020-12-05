@@ -26,6 +26,7 @@ struct TopButtonViews: View {
                     isChecked ?
                         Image(systemName: "checkmark.circle.fill")
                         :Image(systemName: "circle")
+                    // TODO: 이미지 셋에 추가하기 
                 } else {
                     Button(
                         action: { action() },

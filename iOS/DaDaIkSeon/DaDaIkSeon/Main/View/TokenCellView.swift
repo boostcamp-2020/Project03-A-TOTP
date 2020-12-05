@@ -33,12 +33,13 @@ struct TokenCellView: View {
     @Binding var checkBoxMode: Bool
     var isSelected: Bool
     
-    var isMain: Bool
+    var isMainCell: Bool
     
     init(service: TokenServiceable, token: Token,
          isMain: Bool, checkBoxMode: Binding<Bool>, isSelected: Bool?) {
-        viewModel = AnyViewModel(TokenCellViewModel(service: service, token: token))
-        self.isMain = isMain
+        viewModel = AnyViewModel(
+            TokenCellViewModel(service: service, token: token, isMainCell: isMain))
+        self.isMainCell = isMain
         _checkBoxMode = checkBoxMode
         self.isSelected = isSelected ?? false
     }
@@ -62,16 +63,15 @@ struct TokenCellView: View {
                     .sheet(isPresented: $viewModel.state.isShownEditView,
                            onDismiss: { viewModel.trigger(.hideEditView) },
                            content: { 
-                               TokenEditView(service: viewModel.state.service, 
-                                             token: viewModel.state.token, 
-                                             qrCode: nil) 
+                            TokenEditView(service: viewModel.state.service,
+                                          token: viewModel.state.token,
+                                          qrCode: nil)
                            })
-                
                 Spacer()
                 
-                if !isMain {
+                if !isMainCell {
                     TokenNameView(tokenName: viewModel.state.token.tokenName)
-                    TokenPasswordView(password: viewModel.state.password, isMain: isMain)
+                    TokenPasswordView(password: viewModel.state.password, isMain: isMainCell)
                 } else {
                     CopyButtonView {
                         //mainCellViewModel.copyButtonDidTab()
@@ -82,7 +82,7 @@ struct TokenCellView: View {
             .cornerRadius(15)
             .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
             
-            if isMain {
+            if isMainCell {
                 // MARK: 프로그레스 바
                 CircularProgressBar(
                     progressAmount: viewModel.state.timeAmount,
