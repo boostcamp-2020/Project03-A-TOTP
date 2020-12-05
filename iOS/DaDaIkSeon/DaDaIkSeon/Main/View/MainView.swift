@@ -10,7 +10,6 @@ import SwiftUI
 struct MainState {
     var service: TokenServiceable
     var filteredTokens: [Token]
-    var searchText: String
     var isSearching: Bool
     var mainToken: Token
     var checkBoxMode: Bool
