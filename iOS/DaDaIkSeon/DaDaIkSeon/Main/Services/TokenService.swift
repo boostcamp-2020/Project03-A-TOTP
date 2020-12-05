@@ -7,8 +7,6 @@
 
 import Foundation
 
-// Tokens(Token) Entity's CRUD
-
 protocol TokenServiceable {
     
     var tokenCount: Int { get }
@@ -56,6 +54,7 @@ final class TokenService: TokenServiceable {
     
     func add(token: Token) {
         tokens.append(token)
+        _ = storageManager.storeTokens(tokens)
     }
   
     func mainToken() -> Token? {
@@ -79,24 +78,27 @@ final class TokenService: TokenServiceable {
     }
     
     func loadTokens() -> [Token] {
-        return Token.dummy()
+        return storageManager.loadTokens() ?? []
     }
     
     func removeTokens(_ idList: [UUID]) {
-      
         let oldTokenId = tokens[mainTokenIndex].id
 
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
-        for index in tokens.indices // 남아있는 토큰 중에 메인이 있으면 그 인덱스를 메인 인덱스로
-        where tokens[index].id == oldTokenId {
+        
+        // 남아있는 토큰 중에 메인이 있으면 그 인덱스를 메인 인덱스로
+        for index in tokens.indices where tokens[index].id == oldTokenId {
             mainTokenIndex = index
         }
-        if idList.contains(oldTokenId) { // 삭제 대상 중에 메인이 있으면 0번을 메인 인덱스로
+        
+        // 삭제 대상 중에 메인이 있으면 0번을 메인 인덱스로
+        if idList.contains(oldTokenId) {
             mainTokenIndex = 0
         }
         
+        _ = storageManager.storeTokens(tokens)
     }
     
     func removeToken(_ id: UUID) {
