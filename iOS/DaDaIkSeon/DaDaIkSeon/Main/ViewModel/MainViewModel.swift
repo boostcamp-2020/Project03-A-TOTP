@@ -46,27 +46,15 @@ final class MainViewModel: ViewModel {
         case .hideCheckBox:
             hideCheckBox()
         case .selectCell(let id):
-            if let token = state.selectedTokens[id] {
-                if token {
-                    state.selectedCount -= 1
-                    state.selectedTokens[id] = false
-                } else {
-                    state.selectedCount += 1
-                    state.selectedTokens[id] = true
-                }
-            }
+            selectCell(id)
         case .deleteSelectedTokens:
-            state.service.removeTokens(
-                state.selectedTokens
-                    .filter { $0.value == true}
-                    .map { $0.key })
-            trigger(.hideCheckBox)
-            state.selectedCount = 0
+            deleteSelectedTokens()
+            hideCheckBox()
             showMainScene()
         case .startSetting:
-            state.settingMode = true
+            startSetting()
         case .endSetting:
-            state.settingMode = false
+            endSetting()
         case .refreshTokens:
             showMainScene()
         }
@@ -74,7 +62,7 @@ final class MainViewModel: ViewModel {
 
 }
 
-extension MainViewModel {
+private extension MainViewModel {
     
     func search(_ text: String) {
         state.filteredTokens = state.service.tokenList().filter {
@@ -127,6 +115,34 @@ extension MainViewModel {
         state.checkBoxMode = false
         state.selectedTokens.removeAll()
         state.selectedCount = 0
+    }
+    
+    func selectCell(_ id: UUID) {
+        if let token = state.selectedTokens[id] {
+            if token {
+                state.selectedCount -= 1
+                state.selectedTokens[id] = false
+            } else {
+                state.selectedCount += 1
+                state.selectedTokens[id] = true
+            }
+        }
+    }
+    
+    func deleteSelectedTokens() {
+        state.service.removeTokens(
+            state.selectedTokens
+                .filter { $0.value == true}
+                .map { $0.key })
+        state.selectedCount = 0
+    }
+    
+    func startSetting() {
+        state.settingMode = true
+    }
+    
+    func endSetting() {
+        state.settingMode = false
     }
     
     func excludeMainCell(mainId: UUID) -> [Token] {
