@@ -30,12 +30,9 @@ final class TokenCellViewModel: ViewModel {
                                leftTime: "1",
                                timeAmount: 0.0,
                                isShownEditView: false)
-        timeAmount = countTimeBy30 + 1
-        
         TOTPTimer.shared.start(
             tokenID: token.id,
             subscriber: initTimer(key: token.key ?? ""))
-        
     }
     
     // MARK: Methods
@@ -93,7 +90,7 @@ extension TokenCellViewModel {
     }
     
     func updateTimeAmount() {
-        timeAmount += timerInterval
+        timeAmount = countTimeBy30 + timerInterval
     }
     
     var countTimeBy30: Double {
