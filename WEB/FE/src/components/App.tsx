@@ -20,7 +20,7 @@ const Hello = () => (
       <Button text={<Link to='/findId'>Find ID</Link>} />
       <br />
       <br />
-      <Button text={<Link to='/findPassword'>Find Password</Link>} />
+      <Button text={<Link to='/findPassword'>Find Password?</Link>} />
       <br />
       <br />
     </Modal>
