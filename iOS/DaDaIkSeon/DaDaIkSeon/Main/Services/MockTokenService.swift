@@ -12,7 +12,6 @@ final class MockTokenService: TokenServiceable {
     // MARK: Property
     
     private var tokens: [Token] = []
-    private var mainTokenIndex: Int
     
     var tokenCount: Int {
         tokens.count
@@ -21,7 +20,6 @@ final class MockTokenService: TokenServiceable {
     // MARK: Init
     
     init() {
-        mainTokenIndex = 0 // 나중에 수정 - UserDefault.get
         tokens = loadTokens()
     }
     
@@ -40,48 +38,69 @@ final class MockTokenService: TokenServiceable {
     }
     
     func add(token: Token) {
+        var token = token
+        if tokens.count == 0 {
+            token.isMain = true
+        }
         tokens.append(token)
     }
-  
+    
     func mainToken() -> Token? {
-        if tokenCount == 0 { return nil }
-        return tokens[mainTokenIndex]
+        var token: Token?
+        tokens.forEach {
+            if $0.isMain == true {
+                token = $0
+                return
+            }
+        }
+        return token
     }
     
     func excludeMainCell() -> [Token] {
-        (0..<tokens.count).filter {
-            $0 != mainTokenIndex
-        }.map {
-            tokens[$0]
+        tokens.filter {
+            guard let isMain = $0.isMain else { return true }
+            return !isMain
         }
     }
     
-    func updateMainToken(id: UUID) {
-        tokens.insert(tokens.remove(at: mainTokenIndex), at: 0)
+    func updateMainToken(id: UUID) { // main id가 없는 경우 에러다.
+        guard let mainTokenIndex = tokens.firstIndex(where: {
+            guard let isMain = $0.isMain else { return false }
+            return isMain
+        }) else { return }
+        var oldMainToken = tokens.remove(at: mainTokenIndex)
+        oldMainToken.isMain = false
+        tokens.insert(oldMainToken, at: 0)
         if let index = tokens.firstIndex(where: { $0.id == id }) {
-            mainTokenIndex = index
+            tokens[index].isMain = true
         }
     }
     
     func removeTokens(_ idList: [UUID]) {
-      
-        let oldTokenId = tokens[mainTokenIndex].id
-
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
-        for index in tokens.indices // 남아있는 토큰 중에 메인이 있으면 그 인덱스를 메인 인덱스로
-        where tokens[index].id == oldTokenId {
-            mainTokenIndex = index
-        }
-        if idList.contains(oldTokenId) { // 삭제 대상 중에 메인이 있으면 0번을 메인 인덱스로
-            mainTokenIndex = 0
-        }
-        
+        // 삭제 대상 중에 메인이 있으면 0번을 메인 인덱스로
+        if tokens.count == 0 { return }
+        updateMainWithFirstToken()
     }
     
     func removeToken(_ id: UUID) {
         tokens.removeAll(where: { $0.id == id })
+        if tokens.count == 0 { return }
+        updateMainWithFirstToken()
+    }
+    
+}
+
+extension MockTokenService {
+    
+    func updateMainWithFirstToken() {
+        if nil !=  mainToken() {
+            return
+        } else {
+            tokens[0].isMain = true
+        }
     }
     
 }
