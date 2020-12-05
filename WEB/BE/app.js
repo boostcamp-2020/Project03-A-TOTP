@@ -43,10 +43,12 @@ const swaggerOptions = {
   apis: ['./routes/**/*.js'],
 };
 
-if (process.env.NODE_ENV === 'production') {
+// production 환경에서 추가 설정
+if (!dev) {
   app.set('trust proxy', 1);
   sessionOptions.cookie.httpOnly = true;
   sessionOptions.cookie.sameSite = true;
+  app.use(csrf.checkHeader);
 }
 
 sequelizeWEB.sync();
@@ -55,11 +57,10 @@ app.use(logger(dev ? 'dev' : 'combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));
 app.use(dev ? cors() : cors(corsOptions));
-app.use(csrf.checkHeader);
 app.use(session(sessionOptions));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 
