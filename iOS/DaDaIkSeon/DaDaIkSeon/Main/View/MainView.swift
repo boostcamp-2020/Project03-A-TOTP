@@ -80,7 +80,11 @@ struct MainView: View {
                 .padding(.top, 6)
             }
             .onAppear(perform: {
+                TOTPTimer.shared.startAll()
                 viewModel.trigger(.refreshTokens)
+            })
+            .onDisappear(perform: {
+                TOTPTimer.shared.cancel()
             })
         }
         .onTapGesture {
@@ -153,9 +157,6 @@ struct MainView: View {
                 isActive: $navigationFlow.isActive,
                 label: {
                     TokenAddCellView()
-                        .onTapGesture {
-                            navigationFlow.isActive = true
-                        }
                 }
                 
             )
