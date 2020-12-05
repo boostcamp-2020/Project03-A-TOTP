@@ -39,3 +39,9 @@ jobs:
           remote_user: ${{ secrets.FE_USERNAME }}
           remote_key: ${{ secrets.FE_KEY }}
           remote_port: ${{ secrets.FE_PORT }}
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: 'DDIS Bot'
