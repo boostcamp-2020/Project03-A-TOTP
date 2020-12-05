@@ -25,20 +25,9 @@ struct SearchBarView: View {
                 .cornerRadius(8)
                 .overlay(
                     HStack {
-                        Image.search
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
-
+                        searchImage
                         if viewModel.state.isSearching {
-                            // X버튼
-                            Button(action: {
-                                freshSearchBar()
-                            }, label: {
-                                Image.cancel
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 8)
-                            })
+                            xButton
                         }
                     }
                 )
@@ -48,21 +37,49 @@ struct SearchBarView: View {
                 }
 
             if viewModel.state.isSearching {
-                // 취소 버튼
-                Button(action: {
-                    endSearch()
-                    hideKeyboard()
-                }, label: {
-                    Text("취소")
-                        .foregroundColor(.black)
-                })
-                .padding(.trailing, 10)
-                .transition(.move(edge: .trailing))
+                cancelButton
             }
         }
     }
 
 }
+
+// MARK: SubViews
+
+private extension SearchBarView {
+    
+    var searchImage: some View {
+        Image.search
+            .foregroundColor(.gray)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 8)
+    }
+    
+    var cancelButton: some View {
+        Button(action: {
+            endSearch()
+            hideKeyboard()
+        }, label: {
+            Text("취소")
+                .foregroundColor(.black)
+        })
+        .padding(.trailing, 10)
+        .transition(.move(edge: .trailing))
+    }
+    
+    var xButton: some View {
+        Button(action: {
+            freshSearchBar()
+        }, label: {
+            Image.cancel
+                .foregroundColor(.gray)
+                .padding(.trailing, 8)
+        })
+    }
+    
+}
+
+// MARK: Methods
 
 private extension SearchBarView {
     
