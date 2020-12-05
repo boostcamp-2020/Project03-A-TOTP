@@ -69,10 +69,11 @@ final class MainViewModel: ViewModel {
                 }
             }
         case .deleteSelectedTokens:
-            state.service.removeTokens(
-                state.selectedTokens
-                    .filter { $0.value == true}
-                    .map { $0.key })
+            let deletedTokens = state.selectedTokens
+                .filter { $0.value == true}
+                .map { $0.key }
+            TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
+            state.service.removeTokens(deletedTokens)
             trigger(.hideCheckBox)
             state.selectedCount = 0
             showMainScene()
