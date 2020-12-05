@@ -85,7 +85,12 @@ private extension SearchBarView {
     
     func changeSearchState(changed: Bool) {
         withAnimation {
-            changed ? viewModel.trigger(.startSearch) : viewModel.trigger(.endSearch)
+            if changed {
+                viewModel.trigger(.startSearch)
+            } else {
+                viewModel.trigger(.endSearch)
+                freshSearchBar()
+            }
         }
     }
     
@@ -99,7 +104,6 @@ private extension SearchBarView {
     func endSearch() {
         withAnimation {
             viewModel.trigger(.endSearch)
-            freshSearchBar()
         }
     }
     
