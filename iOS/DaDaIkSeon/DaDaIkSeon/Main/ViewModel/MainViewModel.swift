@@ -32,12 +32,14 @@ final class MainViewModel: ViewModel {
     
     func trigger(_ input: MainInput) {
         switch input {
-        case .startSearch(let text):
+        case .search(let text):
             state.searchText = text
             state.isSearching = true
             state.filteredTokens = state.service.tokenList().filter {
                 $0.tokenName?.contains(text) ?? false || text.isEmpty
             }
+        case .startSearch:
+            startSearch()
         case .endSearch:
             endSearch()
             showMainScene()
@@ -92,6 +94,10 @@ extension MainViewModel {
     func endSearch() {
         state.searchText = ""
         state.isSearching = false
+    }
+    
+    func startSearch() {
+        state.isSearching = true
     }
     
     func showMainScene() {

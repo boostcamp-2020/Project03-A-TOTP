@@ -21,7 +21,8 @@ struct MainState {
 }
 
 enum MainInput {
-    case startSearch(_ text: String)
+    case search(_ text: String)
+    case startSearch
     case endSearch
     case moveToken(_ id: UUID)
     case showCheckBox
