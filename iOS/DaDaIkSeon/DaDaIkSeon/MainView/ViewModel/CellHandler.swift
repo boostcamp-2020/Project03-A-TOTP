@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CellHandler: CommonHandler {
+final class CellHandler: CommonHandler {
     
     private let input: CellInput
     

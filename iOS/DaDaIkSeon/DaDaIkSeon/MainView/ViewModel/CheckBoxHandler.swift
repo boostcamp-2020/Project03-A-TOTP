@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CheckBoxHandler: CommonHandler {
+final class CheckBoxHandler: CommonHandler {
     
     private let input: CheckBoxInput
     
