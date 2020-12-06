@@ -31,9 +31,8 @@ struct TokenCellView: View {
     // MARK: Property
     
     @Binding var checkBoxMode: Bool
-    var isSelected: Bool
-    
-    var isMainCell: Bool
+    private var isSelected: Bool
+    private var isMainCell: Bool
     
     init(service: TokenServiceable,
          token: Token,
@@ -103,11 +102,10 @@ struct TokenCellView: View {
             
         }
         .animation(nil)
-        .rotationEffect(.degrees(checkBoxMode ? 1.5 : 0))
+        .rotationEffect(.degrees(rotaionDegree(checkBoxMode: checkBoxMode)))
         .animation(checkBoxMode ?
-                    Animation.easeInOut(duration: 0.15).repeatForever(autoreverses: true)
-                    : Animation.default)
-        
+                    Animation.easeInOut(duration: Double().randomDgree())
+                    .repeatForever(autoreverses: true) : Animation.default)
     }
 }
 
@@ -123,6 +121,10 @@ private extension TokenCellView {
     
     func hideEditView() {
         viewModel.trigger(.hideEditView)
+    }
+    
+    func rotaionDegree(checkBoxMode: Bool) -> Double {
+        checkBoxMode ? 1.5 : 0
     }
     
 }

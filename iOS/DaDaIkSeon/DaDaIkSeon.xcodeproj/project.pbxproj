@@ -34,6 +34,7 @@
 		882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */; };
 		882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A23257D108300B066F3 /* MainUsecase.swift */; };
 		882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */; };
+		882E9A3A257D171500B066F3 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A39257D171500B066F3 /* Double+.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
@@ -102,6 +103,7 @@
 		882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFlowObject.swift; sourceTree = "<group>"; };
 		882E9A23257D108300B066F3 /* MainUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsecase.swift; sourceTree = "<group>"; };
 		882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDropDelegate.swift; sourceTree = "<group>"; };
+		882E9A39257D171500B066F3 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				7CCDD28D256E45E000150565 /* Color+.swift */,
 				7CE395A02570968F00F3C813 /* View+.swift */,
 				7CFFFFBD2575FA780056F827 /* Image+.swift */,
+				882E9A39257D171500B066F3 /* Double+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882E9A3A257D171500B066F3 /* Double+.swift in Sources */,
 				7CCDD299256E940600150565 /* SearchBarView.swift in Sources */,
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
