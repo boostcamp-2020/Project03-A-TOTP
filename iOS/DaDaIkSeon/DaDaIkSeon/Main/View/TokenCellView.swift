@@ -102,23 +102,12 @@ struct TokenCellView: View {
             }
             
         }
-        .modifier( Shake(animatableData: checkBoxMode ?  5 : 0) )
+        .animation(nil)
+        .rotationEffect(.degrees(checkBoxMode ? 1.5 : 0))
+        .animation(checkBoxMode ?
+                    Animation.easeInOut(duration: 0.15).repeatForever(autoreverses: true)
+                    : Animation.default)
         
-    }
-}
-
-struct Shake: GeometryEffect {
-    var amount: CGFloat = 3
-    var shakesPerUnit = 3
-    var animatableData: CGFloat
-    
-    var sinValue: CGFloat {
-        sin(animatableData * .pi * CGFloat(shakesPerUnit))
-    }
-
-    func effectValue(size: CGSize) -> ProjectionTransform {
-        ProjectionTransform(
-            CGAffineTransform(translationX: amount * sinValue, y: 0))
     }
 }
 
