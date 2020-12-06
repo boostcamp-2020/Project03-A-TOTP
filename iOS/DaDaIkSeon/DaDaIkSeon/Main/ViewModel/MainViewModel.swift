@@ -55,9 +55,9 @@ final class MainViewModel: ViewModel {
         case .refreshTokens:
             showMainScene()
         case .startDragging(let token):
-            state.tokenOnDrag = token
+            startDragging(token: token)
         case .endDragging:
-            state.tokenOnDrag = nil
+            endDragging()
         case .moveToMain(let id):
             moveToMain(id)
             showMainScene()
@@ -150,6 +150,14 @@ private extension MainViewModel {
             showMainScene()
             return
         }
+    }
+    
+    func startDragging(token: Token) {
+        state.tokenOnDrag = token
+    }
+    
+    func endDragging() {
+        state.tokenOnDrag = nil
     }
     
     func move(from: Int, target: Int) {
