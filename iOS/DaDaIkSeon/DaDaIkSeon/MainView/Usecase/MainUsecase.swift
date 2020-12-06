@@ -41,11 +41,11 @@ enum SearchInput {
 enum CheckBoxInput {
     case showCheckBox
     case hideCheckBox
+    case selectCell(_ id: UUID)
     case deleteSelectedTokens
 }
 
 enum CellInput {
-    case selectCell(_ id: UUID)
     case moveToMain(_ id: UUID)
     case move(_ from: Int, _ target: Int)
     case startDragging(_ token: Token)

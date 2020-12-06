@@ -48,8 +48,6 @@ final class MainViewModel: ViewModel {
     
     func handleCellInput(_ input: CellInput) {
         switch input {
-        case .selectCell(let id):
-            selectCell(id)
         case .startDragging(let token):
             startDragging(token: token)
         case .endDragging:
@@ -126,19 +124,18 @@ private extension MainViewModel {
     
     // MARK: Cell
     
-    func selectCell(_ id: UUID) {
-        if let token = state.selectedTokens[id] {
-            if token {
-                state.selectedCount -= 1
-                state.selectedTokens[id] = false
-            } else {
-                state.selectedCount += 1
-                state.selectedTokens[id] = true
-            }
-        }
-    }
-    
-    
+//    func selectCell(_ id: UUID) {
+//        if let token = state.selectedTokens[id] {
+//            if token {
+//                state.selectedCount -= 1
+//                state.selectedTokens[id] = false
+//            } else {
+//                state.selectedCount += 1
+//                state.selectedTokens[id] = true
+//            }
+//        }
+//    }
+
     func moveToMain(_ id: UUID) {
         state.service.updateMainToken(id: id)
         if state.isSearching {
@@ -147,8 +144,6 @@ private extension MainViewModel {
             return
         }
     }
-    
-    
     
     func startDragging(token: Token) {
         state.tokenOnDrag = token

@@ -60,6 +60,8 @@ class CheckBoxHandler: MainHandler {
             showCheckBox()
         case .hideCheckBox:
             hideCheckBox()
+        case .selectCell(let id):
+            selectCell(id)
         case .deleteSelectedTokens:
             deleteSelectedTokens()
             hideCheckBox()
@@ -78,6 +80,18 @@ class CheckBoxHandler: MainHandler {
         state.checkBoxMode = false
         state.selectedTokens.removeAll()
         state.selectedCount = 0
+    }
+    
+    func selectCell(_ id: UUID) {
+        if let token = state.selectedTokens[id] {
+            if token {
+                state.selectedCount -= 1
+                state.selectedTokens[id] = false
+            } else {
+                state.selectedCount += 1
+                state.selectedTokens[id] = true
+            }
+        }
     }
     
     func deleteSelectedTokens() {

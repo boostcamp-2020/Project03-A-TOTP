@@ -92,7 +92,7 @@ struct MainView: View {
                     .onTapGesture {
                         if viewModel.state.checkBoxMode {
                             viewModel.trigger(
-                                .cellInput(.moveToMain(mainTokenId)))
+                                .checkBoxInput(.selectCell((mainTokenId))))
                         }
                     }
             }
@@ -115,7 +115,7 @@ struct MainView: View {
                 )
                 .onTapGesture {
                     if viewModel.state.checkBoxMode {
-                        viewModel.trigger(.cellInput(.selectCell(token.id)))
+                        viewModel.trigger(.checkBoxInput(.selectCell(token.id)))
                     } else {
                         withAnimation {
                             viewModel.trigger(.cellInput(.moveToMain(token.id)))
