@@ -133,7 +133,16 @@ struct MainView: View {
         LazyVGrid(columns: columns,
                   spacing: 12) {
             ForEach(viewModel.state.filteredTokens) { token in
-                Button(action: {
+                TokenCellView(service: viewModel.state.service,
+                              token: token,
+                              isMain: false,
+                              checkBoxMode: $viewModel.state.checkBoxMode,
+                              isSelected: viewModel.state.selectedTokens[token.id],
+                              refreshAction: {
+                                  viewModel.trigger(.refreshTokens)
+                              }
+                )
+                .onTapGesture {
                     if viewModel.state.checkBoxMode {
                         viewModel.trigger(.selectCell(token.id))
                     } else {
@@ -142,19 +151,10 @@ struct MainView: View {
                             hideKeyboard()
                         }
                     }
-                }, label: {
-                    TokenCellView(service: viewModel.state.service,
-                                  token: token,
-                                  isMain: false,
-                                  checkBoxMode: $viewModel.state.checkBoxMode,
-                                  isSelected: viewModel.state.selectedTokens[token.id],
-                                  refreshAction: {
-                                      viewModel.trigger(.refreshTokens)
-                                  }
-                    )
-                })
+                }
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
             }
+            
             addTokenView.frame(minHeight: 100)
         }
     }
