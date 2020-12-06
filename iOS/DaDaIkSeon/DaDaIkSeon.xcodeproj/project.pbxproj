@@ -150,6 +150,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C3131DC257D1C1600A19319 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		7C661924256CCAED0028E7C6 = {
 			isa = PBXGroup;
 			children = (
@@ -178,9 +185,10 @@
 			children = (
 				882D44A9256D0B7D001901F9 /* Model */,
 				7CF48DD62572B728001E3639 /* Services */,
-				882E99FB257D089C00B066F3 /* MainView */,
-				882E99FE257D08F200B066F3 /* TokenCellView */,
-				882E9A00257D093300B066F3 /* TokenEditView */,
+				882E99FB257D089C00B066F3 /* Main */,
+				882E99FE257D08F200B066F3 /* TokenCell */,
+				882E9A00257D093300B066F3 /* TokenEdit */,
+				7C3131DC257D1C1600A19319 /* Login */,
 				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
@@ -251,14 +259,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		882E99FB257D089C00B066F3 /* MainView */ = {
+		882E99FB257D089C00B066F3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				882E9A22257D107000B066F3 /* Usecase */,
 				882E99FC257D08D600B066F3 /* ViewModel */,
 				882E99FD257D08EA00B066F3 /* View */,
 			);
-			path = MainView;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		882E99FC257D08D600B066F3 /* ViewModel */ = {
@@ -283,22 +291,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		882E99FE257D08F200B066F3 /* TokenCellView */ = {
+		882E99FE257D08F200B066F3 /* TokenCell */ = {
 			isa = PBXGroup;
 			children = (
 				882E9A07257D09B600B066F3 /* ViewModel */,
 				882E9A08257D09BB00B066F3 /* View */,
 			);
-			path = TokenCellView;
+			path = TokenCell;
 			sourceTree = "<group>";
 		};
-		882E9A00257D093300B066F3 /* TokenEditView */ = {
+		882E9A00257D093300B066F3 /* TokenEdit */ = {
 			isa = PBXGroup;
 			children = (
 				882E9A10257D09CD00B066F3 /* ViewModel */,
 				882E9A0F257D09C800B066F3 /* View */,
 			);
-			path = TokenEditView;
+			path = TokenEdit;
 			sourceTree = "<group>";
 		};
 		882E9A07257D09B600B066F3 /* ViewModel */ = {
