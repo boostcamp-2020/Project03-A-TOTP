@@ -41,7 +41,6 @@ interface loginWithPasswordParams {
 }
 
 interface loginWithPasswordResponse {
-  id: string;
   authToken: string;
 }
 
