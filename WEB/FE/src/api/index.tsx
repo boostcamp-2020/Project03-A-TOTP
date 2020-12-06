@@ -1,4 +1,4 @@
-import axios, { Method } from 'axios';
+import axios from 'axios';
 
 axios.defaults.headers['X-CSRF'] = 'X-CSRF';
 
@@ -13,49 +13,25 @@ interface UserInfo {
 }
 
 export const confirmEmailAPI = (query: string): void => {
-  try {
-    axios.get(`/api/user/confirm-email?user=${query}`);
-  } catch (e) {
-    /**
-     * @TODO 처리 필요
-     */
-  }
+  axios.get(`/api/user/confirm-email?user=${query}`);
 };
 
-export const checkIDDuplicateAPI = async (data: { id: string }): boolean => {
-  try {
-    const apiurl = `/api/auth/dup-id`;
-    const res = await axios.post(apiurl, data);
-    return res.data.result;
-  } catch (e) {
-    /**
-     * @TODO 처리 필요
-     */
-  }
+export const checkIDDuplicateAPI = async ({ id }: { id: string }): Promise<boolean> => {
+  const apiurl = `/api/auth/dup-id`;
+  const { data } = await axios.post(apiurl, { id });
+  return data.result;
 };
 
-export const checkEmailDuplicateAPI = async (data: { email: string }): boolean => {
-  try {
-    const apiurl = `/api/user/dup-email`;
-    const res = await axios.post(apiurl, data);
-    return res.data.result;
-  } catch (e) {
-    /**
-     * @TODO 처리 필요
-     */
-  }
+export const checkEmailDuplicateAPI = async ({ email }: { email: string }): Promise<boolean> => {
+  const apiurl = `/api/user/dup-email`;
+  const { data } = await axios.post(apiurl, { email });
+  return data.result;
 };
 
-export const registerUserAPI = async (data: UserInfo): string => {
-  try {
-    const apiurl = `/api/user/`;
-    const res = await axios.post(apiurl, data);
-    return res.data.url;
-  } catch (e) {
-    /**
-     * @TODO 처리 필요
-     */
-  }
+export const registerUserAPI = async (params: UserInfo): Promise<string> => {
+  const apiurl = `/api/user/`;
+  const { data } = await axios.post(apiurl, params);
+  return data.url;
 };
 
 interface loginParams {
@@ -98,8 +74,8 @@ interface findIdParams {
   reCaptchaToken: string;
 }
 
-export const findId = async ({ email, name, birth, reCaptchaToken }: findIdParams): Promise<any> => {
-  const { data } = await axios.post('/api/user/find-id', { email, name, birth, reCaptchaToken });
+export const findId = async (params: findIdParams): Promise<any> => {
+  const { data } = await axios.post('/api/user/find-id', params);
   return data;
 };
 
@@ -110,29 +86,12 @@ interface findPasswordParams {
   reCaptchaToken: string;
 }
 
-export const findPassword = async ({ id, name, birth, reCaptchaToken }: findPasswordParams): Promise<any> => {
-  const { data } = await axios.post('/api/auth/password/email', { id, name, birth, reCaptchaToken });
+export const findPassword = async (params: findPasswordParams): Promise<any> => {
+  const { data } = await axios.post('/api/auth/password/email', params);
   return data;
 };
 
-interface option {
-  method: Method;
-  url: string;
-  params: any;
-  data: any;
-}
-
 export const changePass = async (query: string, password: string): Promise<any> => {
-  const option: option = {
-    method: 'PATCH',
-    url: '/api/auth/password/email',
-    params: {
-      user: query,
-    },
-    data: {
-      password,
-    },
-  };
-  const { data } = await axios(option);
+  const { data } = await axios.patch(`/api/auth/password/email?user=${query}`, { password });
   return data;
 };
