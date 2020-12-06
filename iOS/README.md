@@ -17,13 +17,13 @@
 
 저희는 개발 과정을 매일 적기로 했습니다. 개발일지에는 개인 회고도 포함되어 있습니다.
 
-||월|화|수|목|
-|---|---|---|---|---|
-|Week1|[Day 01](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-01-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80---iOS)|[Day 02](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 03](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 04](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|
-|Week2|[Day 08](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-08-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 09](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-09-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 10](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-10-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 11](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-11-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|
-|Week3|[Day 15](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-15-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 16](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-16-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 17](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-17-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 18](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-18-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|
-|Week4|[Day 22]()|[Day 23]()|[Day 24]()|[Day 25]()|
-|Week5|[Day 29]()|[Day 30]()|[Day 31]()|[Day 32]()|
+||월|화|수|목|금|토|일|
+|---|---|---|---|---|---|---|---|
+|Week1|[Day 01](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-01-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80---iOS)|[Day 02](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-02-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 03](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-03-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 04](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-04-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)||||
+|Week2|[Day 08](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-08-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 09](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-09-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 10](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-10-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 11](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-11-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)||||
+|Week3|[Day 15](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-15-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 16](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-16-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 17](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-17-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 18](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-18-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 19](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-19-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 20](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-20-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 21](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-21-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|
+|Week4|[Day 22](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-22-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 23](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-23-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 24](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-24-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 25](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-25-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 26](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-26-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 27](https://github.com/boostcamp-2020/Project03-A-TOTP/wiki/Day-27-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-iOS)|[Day 28]()|
+|Week5|[Day 29]()|[Day 30]()|[Day 31]()|[Day 32]()|||
 
 
 
