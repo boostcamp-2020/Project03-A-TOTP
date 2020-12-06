@@ -26,6 +26,7 @@ final class TokenService: TokenServiceable {
         for index in tokens.indices where tokens[index].isMain == true { return }
         if tokens.count == 0 { return }
         tokens[0].isMain = true
+        _ = storageManager.storeTokens(tokens)
     }
     
     // MARK: Methods
@@ -85,6 +86,7 @@ final class TokenService: TokenServiceable {
         if let index = tokens.firstIndex(where: { $0.id == id }) {
             tokens[index].isMain = true
         }
+        _ = storageManager.storeTokens(tokens)
     }
     
     func removeTokens(_ idList: [UUID]) {
@@ -98,6 +100,12 @@ final class TokenService: TokenServiceable {
     
     func removeToken(_ id: UUID) {
         tokens.removeAll(where: { $0.id == id })
+        _ = storageManager.storeTokens(tokens)
+    }
+    
+    func moveCell(from: Int, target: Int) {
+        tokens.move(fromOffsets: IndexSet(integer: from),
+                      toOffset: target > from ? target + 1 : target)
         _ = storageManager.storeTokens(tokens)
     }
     

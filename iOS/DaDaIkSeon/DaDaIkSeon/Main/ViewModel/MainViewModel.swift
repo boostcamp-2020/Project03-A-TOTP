@@ -57,6 +57,9 @@ final class MainViewModel: ViewModel {
             endSetting()
         case .refreshTokens:
             showMainScene()
+        case .moveCell(let from, let target):
+            state.service.moveCell(from: from, target: target)
+            showMainScene()
         }
     }
 
@@ -150,3 +153,4 @@ private extension MainViewModel {
     }
     
 }
+

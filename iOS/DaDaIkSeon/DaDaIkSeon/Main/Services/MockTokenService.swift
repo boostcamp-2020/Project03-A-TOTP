@@ -95,6 +95,11 @@ final class MockTokenService: TokenServiceable {
         updateMainWithFirstToken()
     }
     
+    func moveCell(from: Int, target: Int) {
+        tokens.move(fromOffsets: IndexSet(integer: from),
+                      toOffset: target > from ? target + 1 : target)
+    }
+    
 }
 
 extension MockTokenService {
