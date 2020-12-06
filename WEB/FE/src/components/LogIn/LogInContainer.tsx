@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { LogInForm } from '@components/LogIn/LogInForm';
 import { TOTPModal } from '@components/TOTPModal/TOTPModal';
 import { loginWithOTP } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
+import { TokenContext, SetTokenContext } from '@layouts/TokenContext';
+import { message } from '@utils/message';
 
 const TOTP_LEN = 6;
 
 interface LogInContainerProps {}
 
 const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
+  const setCSRFTOKEN = useContext(SetTokenContext);
   const history = useHistory();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,9 +43,15 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setModalDisabled(true);
     executeRecaptcha('LogInWithOTP')
       .then((reCaptchaToken: string) => loginWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
-      .then(() => history.replace('/'))
+      .then((data: Promise<any>) => successLoginHandler(data))
       .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
       .finally(() => setModalDisabled(false));
+  };
+
+  const successLoginHandler = (data: any) => {
+    setCSRFTOKEN(data.CSRFTOKEN);
+    alert(message.SIGNINSUCCESS);
+    history.replace('/');
   };
 
   return (
