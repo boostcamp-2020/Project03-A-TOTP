@@ -14,7 +14,6 @@
 		7C661938256CCAF10028E7C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */; };
 		7C66194E256CCAF20028E7C6 /* DaDaIkSeonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */; };
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
-		7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7DC513256D75FE0089CD68 /* MainViewModel.swift */; };
 		7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */; };
 		7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE068525775E520051A1B5 /* NavigationLazyView.swift */; };
 		7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB524C0257BA2EF00302CAC /* StorageManager.swift */; };
@@ -31,6 +30,10 @@
 		8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F676257BB5D300A16244 /* MockTokenService.swift */; };
 		8826F686257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
+		882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A11257D0A5200B066F3 /* MainViewModel.swift */; };
+		882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */; };
+		882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A23257D108300B066F3 /* MainUsecase.swift */; };
+		882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
@@ -79,7 +82,6 @@
 		7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonUITests.swift; sourceTree = "<group>"; };
 		7C66194F256CCAF20028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		7C7DC513256D75FE0089CD68 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = DaDaIkSeon/Main/ViewModel/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
 		7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellViewModel.swift; sourceTree = "<group>"; };
 		7CAE068525775E520051A1B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		7CB524C0257BA2EF00302CAC /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -96,6 +98,10 @@
 		8826F676257BB5D300A16244 /* MockTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
 		8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISTOTPGeneratorTests.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
+		882E9A11257D0A5200B066F3 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFlowObject.swift; sourceTree = "<group>"; };
+		882E9A23257D108300B066F3 /* MainUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsecase.swift; sourceTree = "<group>"; };
+		882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDropDelegate.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
@@ -168,8 +174,11 @@
 		7C66192F256CCAED0028E7C6 /* DaDaIkSeon */ = {
 			isa = PBXGroup;
 			children = (
-				88937013256CFB3A00337E2C /* Main */,
-				7CCDD28C256E45D000150565 /* Extensions */,
+				882D44A9256D0B7D001901F9 /* Model */,
+				7CF48DD62572B728001E3639 /* Services */,
+				882E99FB257D089C00B066F3 /* MainView */,
+				882E99FE257D08F200B066F3 /* TokenCellView */,
+				882E9A00257D093300B066F3 /* TokenEditView */,
 				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
@@ -202,16 +211,6 @@
 			path = DaDaIkSeonUITests;
 			sourceTree = "<group>";
 		};
-		7CCDD24F256DE8CF00150565 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				7C7DC513256D75FE0089CD68 /* MainViewModel.swift */,
-				7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */,
-				7CB878352576A939002B1615 /* TokenEditViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		7CCDD28C256E45D000150565 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,23 +240,6 @@
 			path = TOTPGenerator;
 			sourceTree = "<group>";
 		};
-		882D44A7256D0B72001901F9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7C661932256CCAED0028E7C6 /* MainView.swift */,
-				7CCDD2A1256E99F400150565 /* HeaderView.swift */,
-				7CCDD298256E940500150565 /* SearchBarView.swift */,
-				882D44B2256D0BB6001901F9 /* TokenCellView.swift */,
-				88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */,
-				8835E10825701CD700838FDF /* TokenAddCellView.swift */,
-				889CEABB256FDE2B001A1D6F /* QRGuideView.swift */,
-				8835E0FD256FEF0200838FDF /* TokenEditView.swift */,
-				7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */,
-				88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		882D44A9256D0B7D001901F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,26 +248,117 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		88937013256CFB3A00337E2C /* Main */ = {
+		882E99FB257D089C00B066F3 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				882D44A9256D0B7D001901F9 /* Model */,
-				7CF48DD62572B728001E3639 /* Services */,
-				7CCDD24F256DE8CF00150565 /* ViewModel */,
-				882D44A7256D0B72001901F9 /* View */,
+				882E9A22257D107000B066F3 /* Usecase */,
+				882E99FC257D08D600B066F3 /* ViewModel */,
+				882E99FD257D08EA00B066F3 /* View */,
 			);
-			path = Main;
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		882E99FC257D08D600B066F3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				882E9A11257D0A5200B066F3 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		882E99FD257D08EA00B066F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C661932256CCAED0028E7C6 /* MainView.swift */,
+				7CCDD2A1256E99F400150565 /* HeaderView.swift */,
+				7CCDD298256E940500150565 /* SearchBarView.swift */,
+				8835E10825701CD700838FDF /* TokenAddCellView.swift */,
+				889CEABB256FDE2B001A1D6F /* QRGuideView.swift */,
+				88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */,
+				882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		882E99FE257D08F200B066F3 /* TokenCellView */ = {
+			isa = PBXGroup;
+			children = (
+				882E9A07257D09B600B066F3 /* ViewModel */,
+				882E9A08257D09BB00B066F3 /* View */,
+			);
+			path = TokenCellView;
+			sourceTree = "<group>";
+		};
+		882E9A00257D093300B066F3 /* TokenEditView */ = {
+			isa = PBXGroup;
+			children = (
+				882E9A10257D09CD00B066F3 /* ViewModel */,
+				882E9A0F257D09C800B066F3 /* View */,
+			);
+			path = TokenEditView;
+			sourceTree = "<group>";
+		};
+		882E9A07257D09B600B066F3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		882E9A08257D09BB00B066F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				882D44B2256D0BB6001901F9 /* TokenCellView.swift */,
+				88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		882E9A0F257D09C800B066F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8835E0FD256FEF0200838FDF /* TokenEditView.swift */,
+				7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		882E9A10257D09CD00B066F3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7CB878352576A939002B1615 /* TokenEditViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		882E9A16257D0FD900B066F3 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				7CAE068525775E520051A1B5 /* NavigationLazyView.swift */,
+				882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		882E9A22257D107000B066F3 /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				882E9A23257D108300B066F3 /* MainUsecase.swift */,
+			);
+			path = Usecase;
 			sourceTree = "<group>";
 		};
 		88937017256CFB6500337E2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
-				7CAE068525775E520051A1B5 /* NavigationLazyView.swift */,
 				7CF48DD72572B775001E3639 /* ViewModel.swift */,
 				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
 				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
 				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
+				7CCDD28C256E45D000150565 /* Extensions */,
+				882E9A16257D0FD900B066F3 /* Util */,
 				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
 				7C661939256CCAF10028E7C6 /* Info.plist */,
 			);
@@ -582,20 +655,23 @@
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
+				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
+				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
 				88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
+				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
+				882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */,
-				7C7DC514256D75FE0089CD68 /* MainViewModel.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CF48DC82572B690001E3639 /* TokenService.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
