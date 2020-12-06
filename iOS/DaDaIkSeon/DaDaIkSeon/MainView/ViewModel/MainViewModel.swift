@@ -32,11 +32,9 @@ final class MainViewModel: ViewModel {
     func trigger(_ input: MainInput) {
         switch input {
         case .searchInput(let searchInput):
-            //handleSearchInput(searchInput)
             SearchHandler(searchInput, _state).trigger()
         case .checkBoxInput(let checkBoxInput):
-            handleCheckBoxInput(checkBoxInput)
-            
+            CheckBoxHandler(checkBoxInput, _state).trigger()
         case .cellInput(let cellInput):
             handleCellInput(cellInput)
             
@@ -44,31 +42,6 @@ final class MainViewModel: ViewModel {
             handleSettingInput(settingInput)
             
         case .refreshTokens:
-            showMainScene()
-        }
-    }
-    
-//    func handleSearchInput(_ input: SearchInput) {
-//        switch input {
-//        case .search(let text):
-//            search(text)
-//        case .startSearch:
-//            startSearch()
-//        case .endSearch:
-//            endSearch()
-//            showMainScene()
-//        }
-//    }
-    
-    func handleCheckBoxInput(_ input: CheckBoxInput) {
-        switch input {
-        case .showCheckBox:
-            showCheckBox()
-        case .hideCheckBox:
-            hideCheckBox()
-        case .deleteSelectedTokens:
-            deleteSelectedTokens()
-            hideCheckBox()
             showMainScene()
         }
     }
@@ -124,20 +97,32 @@ private extension MainViewModel {
         state.service.excludeMainCell()
     }
     
+    func endSearch() {
+        state.isSearching = false
+    }
+    
     // MARK: CheckBox
     
-    func showCheckBox() {
-        state.checkBoxMode = true
-        state.service.tokenList().forEach {
-            state.selectedTokens[$0.id] = false
-        }
-    }
-    
-    func hideCheckBox() {
-        state.checkBoxMode = false
-        state.selectedTokens.removeAll()
-        state.selectedCount = 0
-    }
+//    func showCheckBox() {
+//        state.checkBoxMode = true
+//        state.service.tokenList().forEach {
+//            state.selectedTokens[$0.id] = false
+//        }
+//    }
+//
+//    func hideCheckBox() {
+//        state.checkBoxMode = false
+//        state.selectedTokens.removeAll()
+//        state.selectedCount = 0
+//    }
+//
+//    func deleteSelectedTokens() {
+//        let deletedTokens = state.selectedTokens
+//            .filter { $0.value == true}
+//            .map { $0.key }
+//        TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
+//        state.service.removeTokens(deletedTokens)
+//    }
     
     // MARK: Cell
     
@@ -153,22 +138,17 @@ private extension MainViewModel {
         }
     }
     
-    func deleteSelectedTokens() {
-        let deletedTokens = state.selectedTokens
-            .filter { $0.value == true}
-            .map { $0.key }
-        TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
-        state.service.removeTokens(deletedTokens)
-    }
     
     func moveToMain(_ id: UUID) {
         state.service.updateMainToken(id: id)
         if state.isSearching {
-            state.isSearching = false
+            endSearch()
             showMainScene()
             return
         }
     }
+    
+    
     
     func startDragging(token: Token) {
         state.tokenOnDrag = token
@@ -191,6 +171,5 @@ private extension MainViewModel {
     func endSetting() {
         state.settingMode = false
     }
-    
     
 }
