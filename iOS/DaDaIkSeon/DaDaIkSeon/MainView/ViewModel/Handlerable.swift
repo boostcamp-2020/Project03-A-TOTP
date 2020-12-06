@@ -12,6 +12,7 @@ protocol Handlerable {
 }
 
 class CommonHandler: Handlerable {
+    
     private var input: CommonInput?
     @Published var state: MainState
     

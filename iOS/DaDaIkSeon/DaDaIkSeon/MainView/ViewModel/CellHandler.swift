@@ -8,6 +8,7 @@
 import Foundation
 
 class CellHandler: CommonHandler {
+    
     private let input: CellInput
     
     init(_ searchInput: CellInput, _ state: Published<MainState>) {
