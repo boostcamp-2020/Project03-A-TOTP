@@ -25,7 +25,7 @@ struct MainState {
 // MARK: Input
 
 enum MainInput {
-    case serchInput(_ input: SearchInput)
+    case searchInput(_ input: SearchInput)
     case checkBoxInput(_ input: CheckBoxInput)
     case cellInput(_ input: CellInput)
     case settingInput(_ input: SettingInput)
