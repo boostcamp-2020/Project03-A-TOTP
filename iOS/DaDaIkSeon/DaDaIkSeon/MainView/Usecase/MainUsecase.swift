@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: State
+
 struct MainState {
     var service: TokenServiceable
     var filteredTokens: [Token]
@@ -19,35 +21,42 @@ struct MainState {
     var zeroTokenState: Bool
     var tokenOnDrag: Token?
 }
-//
-//enum SearchInput {
-//    case search(_ text: String)
-//    case startSearch
-//    case endSearch
-//}
+
+// MARK: Input
 
 enum MainInput {
-    // searchInput
+    case searchInput(_ input: SearchInput)
+    case checkBoxInput(_ input: CheckBoxInput)
+    case cellInput(_ input: CellInput)
+    case settingInput(_ input: SettingInput)
+    case commonInput(_ input: CommonInput)
+}
+
+enum CommonInput {
+    case refreshTokens
+}
+
+enum SearchInput {
     case search(_ text: String)
     case startSearch
     case endSearch
-    
-    // checkBoxInput
+}
+
+enum CheckBoxInput {
     case showCheckBox
     case hideCheckBox
-    case deleteSelectedTokens
-    
-    // cellInput
     case selectCell(_ id: UUID)
+    case deleteSelectedTokens
+}
+
+enum CellInput {
     case moveToMain(_ id: UUID)
     case move(_ from: Int, _ target: Int)
     case startDragging(_ token: Token)
     case endDragging
-    
-    // settingInput
+}
+
+enum SettingInput {
     case startSetting
     case endSetting
-    
-    // mainInput
-    case refreshTokens
 }
