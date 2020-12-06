@@ -131,7 +131,7 @@ const authController = {
     }
   },
 
-  async sendSecretKeyEmail(req, res, next) {
+  async sendSecretKeyEmail(req, res) {
     // 이전에 id와 secretKey를 저장했다고 가정
     const { id, secretKey } = req.body;
     const { user } = await authService.getUserById({ id });
