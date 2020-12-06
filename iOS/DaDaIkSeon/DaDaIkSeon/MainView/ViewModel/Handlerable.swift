@@ -11,15 +11,25 @@ protocol Handlerable {
     func trigger()
 }
 
-class MainHandler: Handlerable {
+class CommonHandler: Handlerable {
+    private var input: CommonInput?
     @Published var state: MainState
+    
+    init(_ input: CommonInput? = nil, _ state: Published<MainState>) {
+        self.input = input
+        self._state = state
+    }
     
     init(_ state: Published<MainState>) {
         self._state = state
     }
     
     func trigger() {
-        showMainScene()
+        guard let input = input else { return }
+        switch input {
+        case .refreshTokens:
+            showMainScene()
+        }
     }
     
     func showMainScene() {
@@ -44,52 +54,6 @@ class MainHandler: Handlerable {
     
     func endSearch() {
         state.isSearching = false
-    }
-    
-}
-
-class CellHandler: MainHandler {
-    private let input: CellInput
-    
-    init(_ searchInput: CellInput, _ state: Published<MainState>) {
-        self.input = searchInput
-        super.init(state)
-    }
-    
-    override func trigger() {
-        switch input {
-        case .startDragging(let token):
-            startDragging(token: token)
-        case .endDragging:
-            endDragging()
-        case .moveToMain(let id):
-            moveToMain(id)
-            showMainScene()
-        case .move(let from, let target):
-            move(from: from, target: target)
-            showMainScene()
-        }
-    }
-    
-    func moveToMain(_ id: UUID) {
-        state.service.updateMainToken(id: id)
-        if state.isSearching {
-            endSearch()
-            showMainScene()
-            return
-        }
-    }
-    
-    func startDragging(token: Token) {
-        state.tokenOnDrag = token
-    }
-    
-    func endDragging() {
-        state.tokenOnDrag = nil
-    }
-    
-    func move(from: Int, target: Int) {
-        state.service.updateTokenPosition(from: from, target: target)
     }
     
 }

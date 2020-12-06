@@ -24,13 +24,15 @@ final class MainViewModel: ViewModel {
                           selectedCount: 0,
                           zeroTokenState: service.tokenCount == 0
         )
-        MainHandler(_state).trigger()
+        trigger(.commonInput(.refreshTokens))
     }
     
     // MARK: Methods
     
     func trigger(_ input: MainInput) {
         switch input {
+        case .commonInput(let commonInput):
+            CommonHandler(commonInput, _state).trigger()
         case .searchInput(let searchInput):
             SearchHandler(searchInput, _state).trigger()
         case .checkBoxInput(let checkBoxInput):
@@ -39,8 +41,6 @@ final class MainViewModel: ViewModel {
             CellHandler(cellInput, _state).trigger()
         case .settingInput(let settingInput):
             handleSettingInput(settingInput)
-        case .refreshTokens:
-            MainHandler(_state).trigger()
         }
     }
     

@@ -38,6 +38,7 @@
 		882E9A48257D236700B066F3 /* Handlerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A47257D236700B066F3 /* Handlerable.swift */; };
 		882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A52257D2F1000B066F3 /* CheckBoxHandler.swift */; };
 		882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A57257D2F2A00B066F3 /* SearchHandler.swift */; };
+		882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A5C257D30EE00B066F3 /* CellHandler.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
@@ -110,6 +111,7 @@
 		882E9A47257D236700B066F3 /* Handlerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlerable.swift; sourceTree = "<group>"; };
 		882E9A52257D2F1000B066F3 /* CheckBoxHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxHandler.swift; sourceTree = "<group>"; };
 		882E9A57257D2F2A00B066F3 /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
+		882E9A5C257D30EE00B066F3 /* CellHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellHandler.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				882E9A47257D236700B066F3 /* Handlerable.swift */,
 				882E9A52257D2F1000B066F3 /* CheckBoxHandler.swift */,
 				882E9A57257D2F2A00B066F3 /* SearchHandler.swift */,
+				882E9A5C257D30EE00B066F3 /* CellHandler.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				8826F672257BB25D00A16244 /* TokenServiceable.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
+				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

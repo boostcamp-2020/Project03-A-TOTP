@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CheckBoxHandler: MainHandler {
+class CheckBoxHandler: CommonHandler {
     private let input: CheckBoxInput
     
     init(_ searchInput: CheckBoxInput, _ state: Published<MainState>) {

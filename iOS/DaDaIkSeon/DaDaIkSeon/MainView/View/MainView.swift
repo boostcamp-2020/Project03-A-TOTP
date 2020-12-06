@@ -58,7 +58,7 @@ struct MainView: View {
             }
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
-                viewModel.trigger(.refreshTokens)
+                viewModel.trigger(.commonInput(.refreshTokens))
             })
             .onDisappear(perform: {
                 TOTPTimer.shared.cancel()
@@ -85,14 +85,13 @@ struct MainView: View {
                                         checkBoxMode: $viewModel.state.checkBoxMode,
                                         isSelected: viewModel.state.selectedTokens[mainTokenId],
                                         refreshAction: {
-                                            viewModel.trigger(.refreshTokens)
+                                            viewModel.trigger(.commonInput(.refreshTokens))
                                         }
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .onTapGesture {
                         if viewModel.state.checkBoxMode {
-                            viewModel.trigger(
-                                .checkBoxInput(.selectCell((mainTokenId))))
+                            viewModel.trigger(.checkBoxInput(.selectCell((mainTokenId))))
                         }
                     }
             }
@@ -110,7 +109,7 @@ struct MainView: View {
                               checkBoxMode: $viewModel.state.checkBoxMode,
                               isSelected: viewModel.state.selectedTokens[token.id],
                               refreshAction: {
-                                viewModel.trigger(.refreshTokens)
+                                viewModel.trigger(.commonInput(.refreshTokens))
                               }
                 )
                 .onTapGesture {

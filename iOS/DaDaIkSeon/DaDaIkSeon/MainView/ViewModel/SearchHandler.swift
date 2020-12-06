@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchHandler: MainHandler {
+class SearchHandler: CommonHandler {
     
     private let input: SearchInput
     

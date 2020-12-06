@@ -29,6 +29,10 @@ enum MainInput {
     case checkBoxInput(_ input: CheckBoxInput)
     case cellInput(_ input: CellInput)
     case settingInput(_ input: SettingInput)
+    case commonInput(_ input: CommonInput)
+}
+
+enum CommonInput {
     case refreshTokens
 }
 
