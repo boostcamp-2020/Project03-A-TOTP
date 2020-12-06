@@ -54,6 +54,10 @@ final class MainViewModel: ViewModel {
             endSetting()
         case .refreshTokens:
             showMainScene()
+        case .startDragging(let token):
+            state.tokenOnDrag = token
+        case .endDragging:
+            state.tokenOnDrag = nil
         case .moveToMain(let id):
             moveToMain(id)
             showMainScene()

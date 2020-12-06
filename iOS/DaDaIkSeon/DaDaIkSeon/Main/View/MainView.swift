@@ -18,6 +18,7 @@ struct MainState {
     var settingMode: Bool
     var selectedCount: Int
     var zeroTokenState: Bool
+    var tokenOnDrag: Token?
 }
 
 enum MainInput {
@@ -33,6 +34,8 @@ enum MainInput {
     case refreshTokens
     case moveToMain(_ id: UUID)
     case move(_ from: Int, _ target: Int)
+    case startDragging(_ token: Token)
+    case endDragging
 }
 
 class NavigationFlowObject: ObservableObject {
@@ -125,7 +128,6 @@ struct MainView: View {
                             viewModel.trigger(.selectCell(mainTokenId))
                         }
                     }
-                
             }
         }
     }
@@ -156,16 +158,19 @@ struct MainView: View {
                 }
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                 .onDrag { () -> NSItemProvider in
-                    tokenOnDrag = token
+                    viewModel.trigger(.startDragging(token))
                     return NSItemProvider()
                 }
                 .onDrop(of: [UTType.text],
                         delegate: TokenDropDelegate(
                             item: token,
-                            tokenOnDrag: $tokenOnDrag,
+                            tokenOnDrag: $viewModel.state.tokenOnDrag,
                             service: viewModel.state.service,
-                            action: { from, target in
+                            moveAction: { from, target in
                                 viewModel.trigger(.move(from, target))
+                            },
+                            endAction: {
+                                viewModel.trigger(.endDragging)
                             }
                         )
                 )
@@ -174,8 +179,6 @@ struct MainView: View {
             addTokenView.frame(minHeight: 100)
         }
     }
-    
-    @State var tokenOnDrag: Token?
     
     var addTokenView: some View {
         viewModel.state.isSearching ?
@@ -204,20 +207,23 @@ struct MainView_Previews: PreviewProvider {
 
 struct TokenDropDelegate: DropDelegate {
     
-    let item: Token
+    private let item: Token
     @Binding private var tokenOnDrag: Token?
-    var service: TokenServiceable
-    var action: (Int, Int) -> Void
-    var listData: [Token] { service.tokenList() }
+    private var service: TokenServiceable
+    private var moveAction: (Int, Int) -> Void
+    private var endAction: () -> Void
+    private var listData: [Token] { service.tokenList() }
     
     init(item: Token,
          tokenOnDrag: Binding<Token?>,
          service: TokenServiceable,
-         action: @escaping (Int, Int) -> Void) {
+         moveAction: @escaping (Int, Int) -> Void,
+         endAction: @escaping () -> Void) {
         self.item = item
         self._tokenOnDrag = tokenOnDrag
         self.service = service
-        self.action = action
+        self.moveAction = moveAction
+        self.endAction = endAction
     }
     
     func dropEntered(info: DropInfo) {
@@ -231,7 +237,7 @@ struct TokenDropDelegate: DropDelegate {
                 $0 == item
             }) else { return }
             if listData[target].id != listData[from].id {
-                action(from, target)
+                moveAction(from, target)
             }
         }
     }
@@ -241,7 +247,7 @@ struct TokenDropDelegate: DropDelegate {
     }
     
     func performDrop(info: DropInfo) -> Bool {
-        tokenOnDrag = nil
+        endAction()
         return true
     }
 }
