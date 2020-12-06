@@ -87,9 +87,9 @@ private extension SearchBarView {
     func changeSearchState(changed: Bool) {
         withAnimation {
             if changed {
-                viewModel.trigger(.startSearch)
+                viewModel.trigger(.serchInput(.startSearch))
             } else {
-                viewModel.trigger(.endSearch)
+                viewModel.trigger(.serchInput(.endSearch))
                 freshSearchBar()
             }
         }
@@ -98,13 +98,13 @@ private extension SearchBarView {
     func search(text: String) {
         if !viewModel.state.isSearching { return }
         withAnimation {
-            viewModel.trigger(.search(text))
+            viewModel.trigger(.serchInput(.search(text)))
         }
     }
     
     func endSearch() {
         withAnimation {
-            viewModel.trigger(.endSearch)
+            viewModel.trigger(.serchInput(.endSearch))
         }
     }
     

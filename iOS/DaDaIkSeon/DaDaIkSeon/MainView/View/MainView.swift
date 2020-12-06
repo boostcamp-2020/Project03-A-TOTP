@@ -91,7 +91,8 @@ struct MainView: View {
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .onTapGesture {
                         if viewModel.state.checkBoxMode {
-                            viewModel.trigger(.selectCell(mainTokenId))
+                            viewModel.trigger(
+                                .cellInput(.moveToMain(mainTokenId)))
                         }
                     }
             }
@@ -114,17 +115,17 @@ struct MainView: View {
                 )
                 .onTapGesture {
                     if viewModel.state.checkBoxMode {
-                        viewModel.trigger(.selectCell(token.id))
+                        viewModel.trigger(.cellInput(.selectCell(token.id)))
                     } else {
                         withAnimation {
-                            viewModel.trigger(.moveToMain(token.id))
+                            viewModel.trigger(.cellInput(.moveToMain(token.id)))
                             hideKeyboard()
                         }
                     }
                 }
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                 .onDrag { () -> NSItemProvider in
-                    viewModel.trigger(.startDragging(token))
+                    viewModel.trigger(.cellInput(.startDragging(token)))
                     return NSItemProvider()
                 }
                 .onDrop(of: [UTType.text],
@@ -133,10 +134,10 @@ struct MainView: View {
                             tokenOnDrag: $viewModel.state.tokenOnDrag,
                             service: viewModel.state.service,
                             moveAction: { from, target in
-                                viewModel.trigger(.move(from, target))
+                                viewModel.trigger(.cellInput(.move(from, target)))
                             },
                             endAction: {
-                                viewModel.trigger(.endDragging)
+                                viewModel.trigger(.cellInput(.endDragging))
                             }
                         )
                 )

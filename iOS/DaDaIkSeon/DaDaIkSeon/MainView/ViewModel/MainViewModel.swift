@@ -31,6 +31,21 @@ final class MainViewModel: ViewModel {
     
     func trigger(_ input: MainInput) {
         switch input {
+        case .serchInput(let searchInput):
+            handleSearchInput(searchInput)
+        case .checkBoxInput(let checkBoxInput):
+            handleCheckBoxInput(checkBoxInput)
+        case .cellInput(let cellInput):
+            handleCellInput(cellInput)
+        case .settingInput(let settingInput):
+            handleSettingInput(settingInput)
+        case .refreshTokens:
+            showMainScene()
+        }
+    }
+    
+    func handleSearchInput(_ input: SearchInput) {
+        switch input {
         case .search(let text):
             search(text)
         case .startSearch:
@@ -38,22 +53,26 @@ final class MainViewModel: ViewModel {
         case .endSearch:
             endSearch()
             showMainScene()
+        }
+    }
+    
+    func handleCheckBoxInput(_ input: CheckBoxInput) {
+        switch input {
         case .showCheckBox:
             showCheckBox()
         case .hideCheckBox:
             hideCheckBox()
-        case .selectCell(let id):
-            selectCell(id)
         case .deleteSelectedTokens:
             deleteSelectedTokens()
             hideCheckBox()
             showMainScene()
-        case .startSetting:
-            startSetting()
-        case .endSetting:
-            endSetting()
-        case .refreshTokens:
-            showMainScene()
+        }
+    }
+    
+    func handleCellInput(_ input: CellInput) {
+        switch input {
+        case .selectCell(let id):
+            selectCell(id)
         case .startDragging(let token):
             startDragging(token: token)
         case .endDragging:
@@ -66,7 +85,15 @@ final class MainViewModel: ViewModel {
             showMainScene()
         }
     }
-
+    
+    func handleSettingInput(_ settingInput: SettingInput) {
+        switch settingInput {
+        case .startSetting:
+            startSetting()
+        case .endSetting:
+            endSetting()
+        }
+    }
 }
 
 private extension MainViewModel {
