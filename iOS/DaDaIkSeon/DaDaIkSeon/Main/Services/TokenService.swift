@@ -76,13 +76,12 @@ final class TokenService: TokenServiceable {
     }
     
     func updateMainToken(id: UUID) {
-        guard let mainTokenIndex = tokens.firstIndex(where: {
+        guard let oldMainTokenIndex = tokens.firstIndex(where: {
             guard let isMain = $0.isMain else { return false }
             return isMain
         }) else { return }
-        var oldMainToken = tokens.remove(at: mainTokenIndex)
-        oldMainToken.isMain = false
-        tokens.insert(oldMainToken, at: 0)
+        tokens[oldMainTokenIndex].isMain = false
+        tokens.move(fromOffsets: IndexSet(integer: oldMainTokenIndex), toOffset: 0)
         if let index = tokens.firstIndex(where: { $0.id == id }) {
             tokens[index].isMain = true
         }
