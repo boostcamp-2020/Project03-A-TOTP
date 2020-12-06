@@ -6,36 +6,7 @@
 //
 
 import SwiftUI
-
-struct MainState {
-    var service: TokenServiceable
-    var filteredTokens: [Token]
-    var isSearching: Bool
-    var mainToken: Token
-    var checkBoxMode: Bool
-    var selectedTokens: [UUID: Bool]
-    var settingMode: Bool
-    var selectedCount: Int
-    var zeroTokenState: Bool
-}
-
-enum MainInput {
-    case search(_ text: String)
-    case startSearch
-    case endSearch
-    case moveToken(_ id: UUID)
-    case showCheckBox
-    case hideCheckBox
-    case selectCell(_ id: UUID)
-    case startSetting
-    case endSetting
-    case deleteSelectedTokens
-    case refreshTokens
-}
-
-class NavigationFlowObject: ObservableObject {
-    @Published var isActive = false
-}
+import UniformTypeIdentifiers
 
 struct MainView: View {
     
@@ -123,7 +94,6 @@ struct MainView: View {
                             viewModel.trigger(.selectCell(mainTokenId))
                         }
                     }
-                    
             }
         }
     }
@@ -133,28 +103,46 @@ struct MainView: View {
         LazyVGrid(columns: columns,
                   spacing: 12) {
             ForEach(viewModel.state.filteredTokens) { token in
-                Button(action: {
+                TokenCellView(service: viewModel.state.service,
+                              token: token,
+                              isMain: false,
+                              checkBoxMode: $viewModel.state.checkBoxMode,
+                              isSelected: viewModel.state.selectedTokens[token.id],
+                              refreshAction: {
+                                viewModel.trigger(.refreshTokens)
+                              }
+                )
+                .onTapGesture {
                     if viewModel.state.checkBoxMode {
                         viewModel.trigger(.selectCell(token.id))
                     } else {
                         withAnimation {
-                            viewModel.trigger(.moveToken(token.id))
+                            viewModel.trigger(.moveToMain(token.id))
                             hideKeyboard()
                         }
                     }
-                }, label: {
-                    TokenCellView(service: viewModel.state.service,
-                                  token: token,
-                                  isMain: false,
-                                  checkBoxMode: $viewModel.state.checkBoxMode,
-                                  isSelected: viewModel.state.selectedTokens[token.id],
-                                  refreshAction: {
-                                      viewModel.trigger(.refreshTokens)
-                                  }
-                    )
-                })
+                }
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
+                .onDrag { () -> NSItemProvider in
+                    viewModel.trigger(.startDragging(token))
+                    return NSItemProvider()
+                }
+                .onDrop(of: [UTType.text],
+                        delegate: TokenDropDelegate(
+                            item: token,
+                            tokenOnDrag: $viewModel.state.tokenOnDrag,
+                            service: viewModel.state.service,
+                            moveAction: { from, target in
+                                viewModel.trigger(.move(from, target))
+                            },
+                            endAction: {
+                                viewModel.trigger(.endDragging)
+                            }
+                        )
+                )
+                //.opacity(viewModel.state.tokenOnDrag == token ? 0.0 : 1.0)
             }
+            
             addTokenView.frame(minHeight: 100)
         }
     }
@@ -172,7 +160,7 @@ struct MainView: View {
                 
             )
     }
-    
+
 }
 
 struct MainView_Previews: PreviewProvider {

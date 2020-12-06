@@ -38,9 +38,6 @@ final class MainViewModel: ViewModel {
         case .endSearch:
             endSearch()
             showMainScene()
-        case .moveToken(let id):
-            moveToken(id)
-            showMainScene()
         case .showCheckBox:
             showCheckBox()
         case .hideCheckBox:
@@ -56,6 +53,16 @@ final class MainViewModel: ViewModel {
         case .endSetting:
             endSetting()
         case .refreshTokens:
+            showMainScene()
+        case .startDragging(let token):
+            startDragging(token: token)
+        case .endDragging:
+            endDragging()
+        case .moveToMain(let id):
+            moveToMain(id)
+            showMainScene()
+        case .move(let from, let target):
+            move(from: from, target: target)
             showMainScene()
         }
     }
@@ -92,15 +99,6 @@ private extension MainViewModel {
                 state.filteredTokens = excludeMainCell()
                 return
             }
-        }
-    }
-    
-    func moveToken(_ id: UUID) {
-        state.service.updateMainToken(id: id)
-        if state.isSearching {
-            endSearch()
-            showMainScene()
-            return
         }
     }
     
@@ -143,6 +141,27 @@ private extension MainViewModel {
     
     func endSetting() {
         state.settingMode = false
+    }
+    
+    func moveToMain(_ id: UUID) {
+        state.service.updateMainToken(id: id)
+        if state.isSearching {
+            endSearch()
+            showMainScene()
+            return
+        }
+    }
+    
+    func startDragging(token: Token) {
+        state.tokenOnDrag = token
+    }
+    
+    func endDragging() {
+        state.tokenOnDrag = nil
+    }
+    
+    func move(from: Int, target: Int) {
+        state.service.updateTokenPosition(from: from, target: target)
     }
     
     func excludeMainCell() -> [Token] {

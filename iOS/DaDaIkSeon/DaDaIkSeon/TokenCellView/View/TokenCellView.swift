@@ -31,9 +31,8 @@ struct TokenCellView: View {
     // MARK: Property
     
     @Binding var checkBoxMode: Bool
-    var isSelected: Bool
-    
-    var isMainCell: Bool
+    private var isSelected: Bool
+    private var isMainCell: Bool
     
     init(service: TokenServiceable,
          token: Token,
@@ -102,23 +101,11 @@ struct TokenCellView: View {
             }
             
         }
-        .modifier( Shake(animatableData: checkBoxMode ?  5 : 0) )
-        
-    }
-}
-
-struct Shake: GeometryEffect {
-    var amount: CGFloat = 3
-    var shakesPerUnit = 3
-    var animatableData: CGFloat
-    
-    var sinValue: CGFloat {
-        sin(animatableData * .pi * CGFloat(shakesPerUnit))
-    }
-
-    func effectValue(size: CGSize) -> ProjectionTransform {
-        ProjectionTransform(
-            CGAffineTransform(translationX: amount * sinValue, y: 0))
+        .animation(nil)
+        .rotationEffect(.degrees(rotaionDegree(checkBoxMode: checkBoxMode)))
+        .animation(checkBoxMode ?
+                    Animation.easeInOut(duration: Double().randomDgree())
+                    .repeatForever(autoreverses: true) : Animation.default)
     }
 }
 
@@ -134,6 +121,10 @@ private extension TokenCellView {
     
     func hideEditView() {
         viewModel.trigger(.hideEditView)
+    }
+    
+    func rotaionDegree(checkBoxMode: Bool) -> Double {
+        checkBoxMode ? 1.5 : 0
     }
     
 }

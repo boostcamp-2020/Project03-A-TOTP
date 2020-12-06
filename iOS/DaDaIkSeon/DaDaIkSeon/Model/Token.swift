@@ -7,13 +7,17 @@
 
 import Foundation
 
-struct Token: Identifiable, Codable {
+struct Token: Identifiable, Codable, Equatable {
     var id = UUID()
     var key: String?
     var tokenName: String?
     var color: String?
     var icon: String?
     var isMain: Bool?
+    
+    static func == (lhs: Token, rhs: Token) -> Bool {
+        lhs.id == rhs.id
+    }
     
     static func dummy() -> [Token] {
         [
