@@ -24,7 +24,6 @@ enum MainInput {
     case search(_ text: String)
     case startSearch
     case endSearch
-    case moveToken(_ id: UUID)
     case showCheckBox
     case hideCheckBox
     case selectCell(_ id: UUID)
@@ -32,7 +31,8 @@ enum MainInput {
     case endSetting
     case deleteSelectedTokens
     case refreshTokens
-    case moveCell(_ from: Int, _ to: Int)
+    case moveToMain(_ id: UUID)
+    case move(_ from: Int, _ target: Int)
 }
 
 class NavigationFlowObject: ObservableObject {
@@ -149,7 +149,7 @@ struct MainView: View {
                         viewModel.trigger(.selectCell(token.id))
                     } else {
                         withAnimation {
-                            viewModel.trigger(.moveToken(token.id))
+                            viewModel.trigger(.moveToMain(token.id))
                             hideKeyboard()
                         }
                     }
@@ -165,7 +165,7 @@ struct MainView: View {
                             tokenOnDrag: $tokenOnDrag,
                             service: viewModel.state.service,
                             action: { from, target in
-                                viewModel.trigger(.moveCell(from, target))
+                                viewModel.trigger(.move(from, target))
                             }
                         )
                 )

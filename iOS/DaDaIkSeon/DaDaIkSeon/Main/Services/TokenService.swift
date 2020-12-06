@@ -103,7 +103,7 @@ final class TokenService: TokenServiceable {
         _ = storageManager.storeTokens(tokens)
     }
     
-    func moveCell(from: Int, target: Int) {
+    func updateTokenPosition(from: Int, target: Int) {
         tokens.move(fromOffsets: IndexSet(integer: from),
                       toOffset: target > from ? target + 1 : target)
         _ = storageManager.storeTokens(tokens)

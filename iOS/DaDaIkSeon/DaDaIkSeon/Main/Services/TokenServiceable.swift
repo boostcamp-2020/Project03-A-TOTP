@@ -31,6 +31,6 @@ protocol TokenServiceable {
     
     func removeToken(_ id: UUID)
     
-    func moveCell(from: Int, target: Int)
+    func updateTokenPosition(from: Int, target: Int)
     
 }
