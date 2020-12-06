@@ -2,8 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const userController = require('@controllers/user');
-const { validator } = require('@middlewares/validator');
-const reCAPTCHA = require('@middlewares/reCAPTCHA');
+const { validator, reCAPTCHA, sessionAuthentication } = require('@middlewares');
 
 router.post(
   '/',
@@ -14,4 +13,7 @@ router.post(
 router.post('/dup-email', userController.dupEmail);
 router.get('/confirm-email', userController.confirmEmail);
 router.post('/find-id', reCAPTCHA.verify, validator(['email', 'name', 'birth']), userController.findID);
+
+router.use(sessionAuthentication.sessionCheck);
+
 module.exports = router;
