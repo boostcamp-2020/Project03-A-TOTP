@@ -34,13 +34,20 @@ export const registerUserAPI = async (params: UserInfo): Promise<string> => {
   return data.url;
 };
 
-interface loginParams {
+interface loginWithPasswordParams {
   id: string;
   password: string;
   reCaptchaToken: string;
 }
 
-export const loginWithPassword = async (params: loginParams): Promise<any> => {
+interface loginWithPasswordResponse {
+  id: string;
+  authToken: string;
+}
+
+export const loginWithPassword = async (
+  params: loginWithPasswordParams,
+): Promise<loginWithPasswordResponse> => {
   const { data } = await axios.post('/api/auth', params);
   return data;
 };
@@ -51,7 +58,11 @@ interface loginWithOTPParams {
   reCaptchaToken: string;
 }
 
-export const loginWithOTP = async (params: loginWithOTPParams): Promise<any> => {
+interface loginWithOTPResponse {
+  result: boolean;
+}
+
+export const loginWithOTP = async (params: loginWithOTPParams): Promise<loginWithOTPResponse> => {
   const { data } = await axios.put('/api/auth', params);
   return data;
 };
