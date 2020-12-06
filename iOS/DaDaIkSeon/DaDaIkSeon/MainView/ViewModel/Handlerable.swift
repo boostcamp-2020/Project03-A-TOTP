@@ -18,7 +18,9 @@ class MainHandler: Handlerable {
         self._state = state
     }
     
-    func trigger() { }
+    func trigger() {
+        showMainScene()
+    }
     
     func showMainScene() {
         if state.service.tokenCount == 0 {
@@ -46,93 +48,48 @@ class MainHandler: Handlerable {
     
 }
 
-class CheckBoxHandler: MainHandler {
-    private let input: CheckBoxInput
+class CellHandler: MainHandler {
+    private let input: CellInput
     
-    init(_ searchInput: CheckBoxInput, _ state: Published<MainState>) {
+    init(_ searchInput: CellInput, _ state: Published<MainState>) {
         self.input = searchInput
         super.init(state)
     }
     
     override func trigger() {
         switch input {
-        case .showCheckBox:
-            showCheckBox()
-        case .hideCheckBox:
-            hideCheckBox()
-        case .selectCell(let id):
-            selectCell(id)
-        case .deleteSelectedTokens:
-            deleteSelectedTokens()
-            hideCheckBox()
+        case .startDragging(let token):
+            startDragging(token: token)
+        case .endDragging:
+            endDragging()
+        case .moveToMain(let id):
+            moveToMain(id)
+            showMainScene()
+        case .move(let from, let target):
+            move(from: from, target: target)
             showMainScene()
         }
     }
     
-    func showCheckBox() {
-        state.checkBoxMode = true
-        state.service.tokenList().forEach {
-            state.selectedTokens[$0.id] = false
-        }
-    }
-    
-    func hideCheckBox() {
-        state.checkBoxMode = false
-        state.selectedTokens.removeAll()
-        state.selectedCount = 0
-    }
-    
-    func selectCell(_ id: UUID) {
-        if let token = state.selectedTokens[id] {
-            if token {
-                state.selectedCount -= 1
-                state.selectedTokens[id] = false
-            } else {
-                state.selectedCount += 1
-                state.selectedTokens[id] = true
-            }
-        }
-    }
-    
-    func deleteSelectedTokens() {
-        let deletedTokens = state.selectedTokens
-            .filter { $0.value == true}
-            .map { $0.key }
-        TOTPTimer.shared.deleteSubscribers(tokenIDs: deletedTokens)
-        state.service.removeTokens(deletedTokens)
-    }
-}
-
-class SearchHandler: MainHandler {
-    
-    private let input: SearchInput
-    
-    init(_ searchInput: SearchInput, _ state: Published<MainState>) {
-        self.input = searchInput
-        super.init(state)
-    }
-    
-    override func trigger() {
-        switch input {
-        case .search(let text):
-            search(text)
-        case .startSearch:
-            startSearch()
-        case .endSearch:
+    func moveToMain(_ id: UUID) {
+        state.service.updateMainToken(id: id)
+        if state.isSearching {
             endSearch()
             showMainScene()
+            return
         }
     }
     
-    func search(_ text: String) {
-        state.filteredTokens = state.service.tokenList().filter {
-            $0.tokenName?.contains(text) ?? false || text.isEmpty
-        }
+    func startDragging(token: Token) {
+        state.tokenOnDrag = token
     }
     
-    func startSearch() {
-        state.isSearching = true
-        state.filteredTokens = state.service.tokenList()
+    func endDragging() {
+        state.tokenOnDrag = nil
+    }
+    
+    func move(from: Int, target: Int) {
+        state.service.updateTokenPosition(from: from, target: target)
     }
     
 }

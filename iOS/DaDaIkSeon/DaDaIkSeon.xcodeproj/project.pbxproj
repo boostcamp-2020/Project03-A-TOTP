@@ -36,6 +36,8 @@
 		882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */; };
 		882E9A3A257D171500B066F3 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A39257D171500B066F3 /* Double+.swift */; };
 		882E9A48257D236700B066F3 /* Handlerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A47257D236700B066F3 /* Handlerable.swift */; };
+		882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A52257D2F1000B066F3 /* CheckBoxHandler.swift */; };
+		882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A57257D2F2A00B066F3 /* SearchHandler.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
@@ -106,6 +108,8 @@
 		882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDropDelegate.swift; sourceTree = "<group>"; };
 		882E9A39257D171500B066F3 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		882E9A47257D236700B066F3 /* Handlerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlerable.swift; sourceTree = "<group>"; };
+		882E9A52257D2F1000B066F3 /* CheckBoxHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxHandler.swift; sourceTree = "<group>"; };
+		882E9A57257D2F2A00B066F3 /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 			children = (
 				882E9A11257D0A5200B066F3 /* MainViewModel.swift */,
 				882E9A47257D236700B066F3 /* Handlerable.swift */,
+				882E9A52257D2F1000B066F3 /* CheckBoxHandler.swift */,
+				882E9A57257D2F2A00B066F3 /* SearchHandler.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -663,6 +669,7 @@
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
+				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
 				882E9A48257D236700B066F3 /* Handlerable.swift in Sources */,
 				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
 				88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */,
@@ -677,6 +684,7 @@
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
+				882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */,
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */,
