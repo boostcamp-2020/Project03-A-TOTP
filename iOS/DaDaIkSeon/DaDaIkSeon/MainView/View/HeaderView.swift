@@ -54,14 +54,14 @@ struct HeaderView: View {
         })
         .alert(isPresented: $showingAlert) {
             Alert(
-                title: Text("TOTP 토큰 삭제"),
-                message: Text("선택한 \(count)개의 토큰을 삭제하시려구요?"),
+                title: Text("선택한 \(count)개의 토큰을 삭제하시려구요?"),
+                message: Text("토큰을 삭제해도 2단계 인증 사용이 중지 되지 않습니다. \\삭제하기 전에 2단계 인증 사용을 중지하거나 비밀번호를 생성할 수 있는 대체 수단을 마련하세요."),
                 primaryButton: .destructive(
-                    Text("응"), action: {
+                    Text("네"), action: {
                         withAnimation {
                             viewModel.trigger(.checkBoxInput(.deleteSelectedTokens))
                         }}),
-                secondaryButton: .cancel(Text("좀 더 생각을..")))
+                secondaryButton: .cancel(Text("취소")))
         }
     }
     
