@@ -10,7 +10,7 @@ import Foundation
 struct Token: Identifiable, Codable, Equatable {
     var id = UUID()
     var key: String?
-    var tokenName: String?
+    var name: String?
     var color: String?
     var icon: String?
     var isMain: Bool?
@@ -23,37 +23,37 @@ struct Token: Identifiable, Codable, Equatable {
         [
             Token(id: UUID(),
                   key: "WEJ3NLTTYHF4XVXG",
-                  tokenName: "배고파",
+                  name: "배고파",
                   color: "pink",
                   icon: "mail",
                   isMain: true),
             Token(id: UUID(),
                   key: "nv66p42pcv4f2fbgetakq6clottovx7z",
-                  tokenName: "네이버2",
+                  name: "네이버2",
                   color: "salmon",
                   icon: "creditcard",
                   isMain: false),
             Token(id: UUID(),
                   key: "WEJ3NLTTYHF4XVXG",
-                  tokenName: "네이버",
+                  name: "네이버",
                   color: "navy",
                   icon: "heart",
                   isMain: false),
             Token(id: UUID(),
                   key: "WEJ3NLTTYHF4XVXG",
-                  tokenName: "구글",
+                  name: "구글",
                   color: "blue",
                   icon: "globe",
                   isMain: false),
             Token(id: UUID(),
                   key: "nv66p42pcv4f2fbgetakq6clottovx7z",
-                  tokenName: "배아파",
+                  name: "배아파",
                   color: "brown",
                   icon: "pin",
                   isMain: false),
             Token(id: UUID(),
                   key: "nv66p42pcv4f2fbgetakq6clottovx7z",
-                  tokenName: "배아파",
+                  name: "배아파",
                   color: "mint",
                   icon: "musicNote",
                   isMain: false)

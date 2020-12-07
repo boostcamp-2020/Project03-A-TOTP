@@ -30,7 +30,7 @@ final class SearchHandler: CommonHandler {
     
     func search(_ text: String) {
         state.filteredTokens = state.service.tokenList().filter {
-            $0.tokenName?.contains(text) ?? false || text.isEmpty
+            $0.name?.contains(text) ?? false || text.isEmpty
         }
     }
     
