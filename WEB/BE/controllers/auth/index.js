@@ -1,11 +1,13 @@
 const totp = require('@/utils/totp');
 const authService = require('@services/auth');
 const userService = require('@services/user');
+const logService = require('@services/log');
 const { comparePassword, getEncryptedPassword } = require('@utils/bcrypt');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { emailSender } = require('@/utils/emailSender');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
+const { makeRandom } = require('@utils/random');
 
 const TEN_MINUTES = '10m';
 const ACIONS = {
@@ -42,13 +44,18 @@ const authController = {
     const { action, id } = req.body;
 
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
-
-    req.session.key = id;
-    /**
-     * @TODO Log 에 저장하기
-     * `session:${session.id}`
-     */
-    res.json({ result: true });
+    try {
+      req.session.key = id; // 아이디 생성 방식 변경
+      const csrfToken = makeRandom();
+      res.cookie('csrfToken', csrfToken, {
+        maxAge: 2 * 60 * 60 * 1000,
+      });
+      req.session.CSRF_TOKEN = csrfToken;
+      await logService.insert({ sid: id, status: '1' });
+      res.json({ result: true, csrfToken });
+    } catch (e) {
+      next(e);
+    }
   },
 
   async sendPasswordToken(req, res, next) {

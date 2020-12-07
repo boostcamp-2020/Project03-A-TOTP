@@ -4,6 +4,7 @@ import { TOTPModal } from '@components/TOTPModal/TOTPModal';
 import { findPasswordWithOTP } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
+import { message } from '../../utils/message';
 
 const TOTP_LEN = 6;
 
@@ -40,9 +41,14 @@ const FindPasswordContainer = ({}: FindPasswordContainerProps): JSX.Element => {
     setModalDisabled(true);
     executeRecaptcha('findPasswordWithOTP')
       .then((reCaptchaToken: string) => findPasswordWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
-      .then(() => history.replace('/'))
+      .then(() => findPasswordSuccess())
       .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
       .finally(() => setModalDisabled(false));
+  };
+
+  const findPasswordSuccess = () => {
+    alert(message.FINDPASSWORDSUCCESS);
+    history.replace('/');
   };
 
   return (

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { LogInForm } from '@components/LogIn/LogInForm';
 import { TOTPModal } from '@components/TOTPModal/TOTPModal';
 import { loginWithOTP } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
+import { message } from '@utils/message';
 
 const TOTP_LEN = 6;
 
@@ -40,9 +41,15 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setModalDisabled(true);
     executeRecaptcha('LogInWithOTP')
       .then((reCaptchaToken: string) => loginWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
-      .then(() => history.replace('/'))
+      .then(() => successLoginHandler())
       .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
       .finally(() => setModalDisabled(false));
+  };
+
+  const successLoginHandler = () => {
+    alert(message.SIGNINSUCCESS);
+    console.log(document.cookie);
+    history.replace('/');
   };
 
   return (
