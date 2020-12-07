@@ -59,7 +59,7 @@ struct HeaderView: View {
                 primaryButton: .destructive(
                     Text("응"), action: {
                         withAnimation {
-                            viewModel.trigger(.deleteSelectedTokens)
+                            viewModel.trigger(.checkBoxInput(.deleteSelectedTokens))
                         }}),
                 secondaryButton: .cancel(Text("좀 더 생각을..")))
         }
@@ -67,7 +67,7 @@ struct HeaderView: View {
     
     var settingButton: some View {
         Button(action: {
-            viewModel.trigger(.startSetting)
+            viewModel.trigger(.settingInput(.startSetting))
         }, label: {
             Image.person.resizable()
                 .frame(width: 25)
@@ -79,7 +79,7 @@ struct HeaderView: View {
     var cancelButton: some View {
         Button(action: {
             withAnimation {
-                viewModel.trigger(.hideCheckBox)
+                viewModel.trigger(.checkBoxInput(.hideCheckBox))
             }
         }, label: {
             Text("취소")
@@ -91,7 +91,7 @@ struct HeaderView: View {
     var selectButton: some View {
         Button(action: {
             withAnimation {
-                viewModel.trigger(.showCheckBox)
+                viewModel.trigger(.checkBoxInput(.showCheckBox))
             }
         }, label: {
             Text("선택")

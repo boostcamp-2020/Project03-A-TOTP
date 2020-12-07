@@ -58,7 +58,7 @@ struct MainView: View {
             }
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
-                viewModel.trigger(.refreshTokens)
+                viewModel.trigger(.commonInput(.refreshTokens))
             })
             .onDisappear(perform: {
                 TOTPTimer.shared.cancel()
@@ -85,13 +85,13 @@ struct MainView: View {
                                         checkBoxMode: $viewModel.state.checkBoxMode,
                                         isSelected: viewModel.state.selectedTokens[mainTokenId],
                                         refreshAction: {
-                                            viewModel.trigger(.refreshTokens)
+                                            viewModel.trigger(.commonInput(.refreshTokens))
                                         }
                     )
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .onTapGesture {
                         if viewModel.state.checkBoxMode {
-                            viewModel.trigger(.selectCell(mainTokenId))
+                            viewModel.trigger(.checkBoxInput(.selectCell((mainTokenId))))
                         }
                     }
             }
@@ -109,22 +109,22 @@ struct MainView: View {
                               checkBoxMode: $viewModel.state.checkBoxMode,
                               isSelected: viewModel.state.selectedTokens[token.id],
                               refreshAction: {
-                                viewModel.trigger(.refreshTokens)
+                                viewModel.trigger(.commonInput(.refreshTokens))
                               }
                 )
                 .onTapGesture {
                     if viewModel.state.checkBoxMode {
-                        viewModel.trigger(.selectCell(token.id))
+                        viewModel.trigger(.checkBoxInput(.selectCell(token.id)))
                     } else {
                         withAnimation {
-                            viewModel.trigger(.moveToMain(token.id))
+                            viewModel.trigger(.cellInput(.moveToMain(token.id)))
                             hideKeyboard()
                         }
                     }
                 }
                 .matchedGeometryEffect(id: token.id, in: namespace, isSource: false)
                 .onDrag { () -> NSItemProvider in
-                    viewModel.trigger(.startDragging(token))
+                    viewModel.trigger(.cellInput(.startDragging(token)))
                     return NSItemProvider()
                 }
                 .onDrop(of: [UTType.text],
@@ -133,10 +133,10 @@ struct MainView: View {
                             tokenOnDrag: $viewModel.state.tokenOnDrag,
                             service: viewModel.state.service,
                             moveAction: { from, target in
-                                viewModel.trigger(.move(from, target))
+                                viewModel.trigger(.cellInput(.move(from, target)))
                             },
                             endAction: {
-                                viewModel.trigger(.endDragging)
+                                viewModel.trigger(.cellInput(.endDragging))
                             }
                         )
                 )
