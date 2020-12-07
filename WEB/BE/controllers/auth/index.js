@@ -36,7 +36,6 @@ const authController = {
       expiresIn: TEN_MINUTES,
     });
 
-    
     res.json({ authToken: token });
   },
 
