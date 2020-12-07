@@ -43,7 +43,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setModalDisabled(true);
     executeRecaptcha('LogInWithOTP')
       .then((reCaptchaToken: string) => loginWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
-      .then((data: Promise<any>) => successLoginHandler(data))
+      .then((data: any) => successLoginHandler(data))
       .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
       .finally(() => setModalDisabled(false));
   };
