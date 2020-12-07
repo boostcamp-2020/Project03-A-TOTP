@@ -70,6 +70,7 @@ const TOTPModal = ({
   onChange,
   onSubmit,
   onClose,
+  onClick,
   hasErrored,
   disabled,
   errorMsg,
@@ -103,7 +104,7 @@ const TOTPModal = ({
             />
             <Button text='취소' onClick={onClose} type='text' disabled={disabled} />
             <br />
-            <Link to='/'>QR코드 재등록</Link>
+            <Button text='QR코드 재등록' onClick={onClick} type='text' />
           </ButtonContainer>
         </Modal>
       ) : (
