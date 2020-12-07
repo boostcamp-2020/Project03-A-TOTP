@@ -28,6 +28,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
+      sid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       ip_address: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -41,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'logs',
       timestamps: false,
-    },
+    }
   );
   return LOGS;
 };
