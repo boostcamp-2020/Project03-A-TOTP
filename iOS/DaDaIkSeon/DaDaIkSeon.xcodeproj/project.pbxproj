@@ -215,7 +215,7 @@
 			children = (
 				882D44A9256D0B7D001901F9 /* Model */,
 				7CF48DD62572B728001E3639 /* Services */,
-				882E99FB257D089C00B066F3 /* MainView */,
+				882E99FB257D089C00B066F3 /* Main */,
 				882E99FE257D08F200B066F3 /* TokenCell */,
 				882E9A00257D093300B066F3 /* TokenEdit */,
 				7C3131DC257D1C1600A19319 /* Login */,
@@ -289,14 +289,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		882E99FB257D089C00B066F3 /* MainView */ = {
+		882E99FB257D089C00B066F3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				882E9A22257D107000B066F3 /* Usecase */,
 				882E99FC257D08D600B066F3 /* ViewModel */,
 				882E99FD257D08EA00B066F3 /* View */,
 			);
-			path = MainView;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		882E99FC257D08D600B066F3 /* ViewModel */ = {
@@ -891,6 +891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
@@ -900,10 +901,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = eojine.DaDaIkSeon;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TOTP.DaDaIkSeon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -914,6 +916,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
@@ -923,10 +926,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = eojine.DaDaIkSeon;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TOTP.DaDaIkSeon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

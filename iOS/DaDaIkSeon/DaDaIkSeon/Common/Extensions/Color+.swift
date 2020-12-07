@@ -21,6 +21,7 @@ extension Color {
     static let navy1 = Color("navy1")
     static let navy2 = Color("navy2")
     static let shadow = Color("shadow")
+    static let darkNavy = Color("darkNavy")
 }
 
 extension LinearGradient {
