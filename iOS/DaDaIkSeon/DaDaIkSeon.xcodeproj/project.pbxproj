@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
+		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
+		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
 		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
@@ -75,6 +77,8 @@
 		3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3CF060568D9EE8E2331D44 /* Pods-DaDaIkSeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.release.xcconfig"; sourceTree = "<group>"; };
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
+		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
 		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -161,8 +165,26 @@
 		7C3131DC257D1C1600A19319 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				7C3131EB257D33B100A19319 /* ViewModel */,
+				7C3131EC257D33B700A19319 /* View */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		7C3131EB257D33B100A19319 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7C3131ED257D33CD00A19319 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7C3131EC257D33B700A19319 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C3131E6257D1D4B00A19319 /* LoginView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7C661924256CCAED0028E7C6 = {
@@ -193,7 +215,7 @@
 			children = (
 				882D44A9256D0B7D001901F9 /* Model */,
 				7CF48DD62572B728001E3639 /* Services */,
-				882E99FB257D089C00B066F3 /* Main */,
+				882E99FB257D089C00B066F3 /* MainView */,
 				882E99FE257D08F200B066F3 /* TokenCell */,
 				882E9A00257D093300B066F3 /* TokenEdit */,
 				7C3131DC257D1C1600A19319 /* Login */,
@@ -267,14 +289,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		882E99FB257D089C00B066F3 /* Main */ = {
+		882E99FB257D089C00B066F3 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
 				882E9A22257D107000B066F3 /* Usecase */,
 				882E99FC257D08D600B066F3 /* ViewModel */,
 				882E99FD257D08EA00B066F3 /* View */,
 			);
-			path = Main;
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		882E99FC257D08D600B066F3 /* ViewModel */ = {
@@ -698,6 +720,8 @@
 				882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */,
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
+				7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */,
+				7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */,
 				8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CF48DC82572B690001E3639 /* TokenService.swift in Sources */,
