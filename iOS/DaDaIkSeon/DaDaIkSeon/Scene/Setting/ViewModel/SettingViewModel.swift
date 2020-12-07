@@ -7,14 +7,6 @@
 
 import Foundation
 
-struct SettingState {
-    
-}
-
-enum SettingInput {
-    
-}
-
 class SettingViewModel: ViewModel {
     
     @Published var state = SettingState()
