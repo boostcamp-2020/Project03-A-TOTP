@@ -16,7 +16,6 @@ struct MainState {
     var mainToken: Token
     var checkBoxMode: Bool
     var selectedTokens: [UUID: Bool]
-    var settingMode: Bool
     var selectedCount: Int
     var zeroTokenState: Bool
     var tokenOnDrag: Token?
@@ -28,7 +27,6 @@ enum MainInput {
     case searchInput(_ input: SearchInput)
     case checkBoxInput(_ input: CheckBoxInput)
     case cellInput(_ input: CellInput)
-    case settingInput(_ input: SettingInput)
     case commonInput(_ input: CommonInput)
 }
 
@@ -54,9 +52,4 @@ enum CellInput {
     case move(_ from: Int, _ target: Int)
     case startDragging(_ token: Token)
     case endDragging
-}
-
-enum SettingInput {
-    case startSetting
-    case endSetting
 }

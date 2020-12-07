@@ -20,7 +20,6 @@ final class MainViewModel: ViewModel {
                           mainToken: Token(),
                           checkBoxMode: false,
                           selectedTokens: [UUID: Bool](),
-                          settingMode: false,
                           selectedCount: 0,
                           zeroTokenState: service.tokenCount == 0
         )
@@ -39,29 +38,6 @@ final class MainViewModel: ViewModel {
             CheckBoxHandler(checkBoxInput, _state).trigger()
         case .cellInput(let cellInput):
             CellHandler(cellInput, _state).trigger()
-        case .settingInput(let settingInput):
-            handleSettingInput(settingInput)
         }
     }
-    
-    func handleSettingInput(_ settingInput: SettingInput) {
-        switch settingInput {
-        case .startSetting:
-            startSetting()
-        case .endSetting:
-            endSetting()
-        }
-    }
-}
-
-private extension MainViewModel {
-   
-    func startSetting() {
-        state.settingMode = true
-    }
-    
-    func endSetting() {
-        state.settingMode = false
-    }
-    
 }
