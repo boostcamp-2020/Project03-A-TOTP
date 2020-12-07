@@ -20,7 +20,7 @@ final class TokenEditViewModel: ViewModel {
         } else {
             defaultToken = Token(id: UUID(),
                                  key: qrCode,
-                                 tokenName: nil,
+                                 name: nil,
                                  color: "mint",
                                  icon: "search")
         }
@@ -62,7 +62,7 @@ private extension TokenEditViewModel {
     }
     
     func change(name: String) {
-        state.token.tokenName = name
+        state.token.name = name
     }
     
 }

@@ -63,7 +63,7 @@ struct TokenEditView: View {
                         .foregroundColor(.white)
                         .cornerRadius(15)
                     
-                    TextField(viewModel.state.token.tokenName ?? "토큰이름을 입력하세요",
+                    TextField(viewModel.state.token.name ?? "토큰이름을 입력하세요",
                               text: $text)
                         .padding(6)
                         .font(.system(size: 15))
@@ -107,7 +107,7 @@ struct TokenEditView: View {
                 hideKeyboard()
             }
             .onAppear {
-                text = viewModel.state.token.tokenName ?? ""
+                text = viewModel.state.token.name ?? ""
             }
         }
         Spacer()

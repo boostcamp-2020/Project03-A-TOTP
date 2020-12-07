@@ -75,7 +75,7 @@ struct TokenCellView: View {
                 Spacer()
                 
                 if !isMainCell {
-                    TokenNameView(tokenName: viewModel.state.token.tokenName)
+                    TokenNameView(tokenName: viewModel.state.token.name)
                     TokenPasswordView(password: viewModel.state.password, isMain: isMainCell)
                 } else {
                     CopyButtonView {
@@ -95,7 +95,7 @@ struct TokenCellView: View {
                     .frame(height: 170)
                 
                 // MARK: 이름, 비밀번호, 시간 텍스트 뷰
-                TokenInfoViews(name: viewModel.state.token.tokenName ?? "",
+                TokenInfoViews(name: viewModel.state.token.name ?? "",
                                password: viewModel.state.password,
                                leftTime: viewModel.state.leftTime)
             }
