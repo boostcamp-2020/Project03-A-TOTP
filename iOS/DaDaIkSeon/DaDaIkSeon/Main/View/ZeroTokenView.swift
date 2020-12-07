@@ -10,7 +10,7 @@ import SwiftUI
 struct ZeroTokenView: View {
     
     var body: some View {
-        ZStack{
+        ZStack {
             VStack(alignment: .center) {
                 Spacer()
                 Text("TOTP 토큰이 없으시네요!")
