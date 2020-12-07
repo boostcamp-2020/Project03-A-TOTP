@@ -51,10 +51,10 @@ const authController = {
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
     try {
       req.session.key = id; // 아이디 생성 방식 변경
-      const CSRFTOKEN = makeRandom();
-      req.session.CSRF_TOKEN = CSRFTOKEN;
+      const csrfToken = makeRandom();
+      req.session.CSRF_TOKEN = csrfToken;
       await logService.insert({ sid: id, status: '1' });
-      res.json({ result: true, CSRFTOKEN });
+      res.json({ result: true, csrfToken });
     } catch (e) {
       next(e);
     }

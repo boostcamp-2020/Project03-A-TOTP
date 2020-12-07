@@ -10,11 +10,11 @@ export const TokenContext = createContext<string>('');
 export const SetTokenContext = createContext({} as React.Dispatch<React.SetStateAction<string>>);
 
 const TokenProvider = ({ children }: TokenProviderProps): JSX.Element => {
-  const [CSRFTOKEN, setCSRFTOKEN] = useState('');
+  const [csrfToken, setcsrfToken] = useState('');
 
   return (
-    <TokenContext.Provider value={CSRFTOKEN}>
-      <SetTokenContext.Provider value={setCSRFTOKEN}>{children}</SetTokenContext.Provider>
+    <TokenContext.Provider value={csrfToken}>
+      <SetTokenContext.Provider value={setcsrfToken}>{children}</SetTokenContext.Provider>
     </TokenContext.Provider>
   );
 };

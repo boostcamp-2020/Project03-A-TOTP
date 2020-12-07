@@ -2,8 +2,7 @@ const createError = require('http-errors');
 
 const sessionAuthentication = {
   sessionCheck(req, res, next) {
-    const { CSRFTOKEN } = req.body;
-    console.log(req.session.id);
+    const { csrfToken } = req.body;
     // if (!req.session.key && req.session.CSRF_TOKEN !== CSRFTOKEN) {
     if (!req.session.key) {
       next(createError(401, '권한이 없습니다'));

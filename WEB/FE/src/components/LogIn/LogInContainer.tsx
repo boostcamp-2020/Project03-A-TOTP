@@ -12,7 +12,7 @@ const TOTP_LEN = 6;
 interface LogInContainerProps {}
 
 const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
-  const setCSRFTOKEN = useContext(SetTokenContext);
+  const setcsrfToken = useContext(SetTokenContext);
   const history = useHistory();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,7 +49,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   };
 
   const successLoginHandler = (data: any) => {
-    setCSRFTOKEN(data.CSRFTOKEN);
+    setcsrfToken(data.CSRFTOKEN);
     alert(message.SIGNINSUCCESS);
     history.replace('/');
   };
