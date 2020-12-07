@@ -12,16 +12,16 @@ struct DaDaIkSeonApp: App {
     
     var body: some Scene {
         
-        #if DEBUG
-
-        let service = MockTokenService()
-
-        #else
-        
+//        #if DEBUG
+//
+//        let service = MockTokenService()
+//
+//        #else
+//
         let storageManager = StorageManager()
         let service = TokenService(storageManager)
         
-        #endif
+        //#endif
         
         WindowGroup {
             MainView(service: service).environmentObject(NavigationFlowObject())
