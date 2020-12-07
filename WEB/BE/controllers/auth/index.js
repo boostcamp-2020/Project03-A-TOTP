@@ -50,7 +50,7 @@ const authController = {
         maxAge: 2 * 60 * 60 * 1000,
       });
       req.session.CSRF_TOKEN = csrfToken;
-      await logService.insert({ sid: id, status: '1' });
+      // await logService.insert({ sid: id, status: '1' });
       res.json({ result: true, csrfToken });
     } catch (e) {
       next(e);
@@ -117,10 +117,13 @@ const authController = {
   },
 
   async sendSecretKeyEmail(req, res) {
-    // 이전에 id와 secretKey를 저장했다고 가정
-    const { id, secretKey } = req.body;
+    const { authToken } = req.body;
+    const { id } = JWT.verify(authToken, process.env.ENCRYPTIONKEY);
     const { user } = await authService.getUserById({ id });
+    const secretKey = totp.makeSecretKey();
+    console.log(secretKey);
 
+    await authService.updateSecretKey({ id, secretKey });
     await emailSender.sendSecretKey({
       id,
       email: decryptWithAES256({ encryptedText: user.email }),
