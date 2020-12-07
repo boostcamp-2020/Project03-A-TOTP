@@ -52,6 +52,9 @@ const authController = {
     try {
       req.session.key = id; // 아이디 생성 방식 변경
       const csrfToken = makeRandom();
+      res.cookie('csrfToken', csrfToken, {
+        maxAge: 2 * 60 * 60 * 1000,
+      });
       req.session.CSRF_TOKEN = csrfToken;
       await logService.insert({ sid: id, status: '1' });
       res.json({ result: true, csrfToken });
