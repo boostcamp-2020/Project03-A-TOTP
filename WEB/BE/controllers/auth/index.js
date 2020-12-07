@@ -39,7 +39,7 @@ const authController = {
         expiresIn: TEN_MINUTES,
       });
 
-      res.json({ id: user.id, authToken: token });
+      res.json({ authToken: token });
     } catch (e) {
       next(createError(e));
     }
