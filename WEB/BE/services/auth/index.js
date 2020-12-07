@@ -2,59 +2,39 @@ const authsModel = require('@models/sequelizeWEB.js').auths;
 const { users } = require('@models/sequelizeWEB.js');
 
 const authService = {
-  async check({ id, next }) {
+  async check({ id }) {
     const query = {};
     query.where = { id };
-    try {
-      const result = await authsModel.findAll(query);
-      return result.length === 0;
-    } catch (e) {
-      next(e);
-    }
+    const result = await authsModel.findAll(query);
+    return result.length === 0;
   },
 
-  async insert({ idx, id, password, state, secretKey, next }) {
+  async insert({ idx, id, password, state, secretKey }) {
     const query = { id, password, state, secret_key: secretKey, user_idx: idx };
-    try {
-      const result = await authsModel.create(query);
-      return result;
-    } catch (e) {
-      next(e);
-    }
+    const result = await authsModel.create(query);
+    return result;
   },
 
-  async update({ info, next }) {
+  async update({ info }) {
     const query = {
       state: info.state,
     };
     const where = {
       user_idx: info.idx,
     };
-    try {
-      const result = await authsModel.update(query, { where });
+    const result = await authsModel.update(query, { where });
 
-      return result;
-    } catch (e) {
-      next(e);
-    }
+    return result;
   },
 
   async getAuthById({ id }) {
-    try {
-      const result = await authsModel.findOne({ where: { id } });
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
+    const result = await authsModel.findOne({ where: { id } });
+    return result;
   },
 
   async getAuth(where) {
-    try {
-      const result = await authsModel.findOne({ where });
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
+    const result = await authsModel.findOne({ where });
+    return result;
   },
 
   async getUserById({ id }) {
@@ -70,28 +50,15 @@ const authService = {
         id,
       },
     };
-    try {
-      const result = await authsModel.findOne(query);
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
+    const result = await authsModel.findOne(query);
+    return result;
   },
 
   async updatePassword(password, id) {
-    const query = {
-      password,
-    };
-    const where = {
-      id,
-    };
-
-    try {
-      const result = await authsModel.update(query, { where });
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
+    const query = { password };
+    const where = { id };
+    const result = await authsModel.update(query, { where });
+    return result;
   },
 };
 
