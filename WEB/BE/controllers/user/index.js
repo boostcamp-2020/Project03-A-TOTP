@@ -2,11 +2,11 @@ const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
-const { emailSender } = require('@utils/email');
+const { emailSender } = require('@/utils/emailSender');
 const totp = require('@utils/totp');
 
 const userController = {
-  async signUp(req, res, next) {
+  async signUp(req, res) {
     let userInfo = {
       email: req.body.email,
       name: req.body.name,
@@ -15,38 +15,29 @@ const userController = {
     };
     const { id, password } = req.body;
 
-    try {
-      userInfo = encrypUserInfo({ userInfo });
-      const secretKey = totp.makeSecretKey();
-      const url = totp.makeURL({ secretKey, email: req.body.email });
-      const encryptPassword = await getEncryptedPassword(password);
-      const insertResult = await userService.insert({ userInfo, next });
-      const result = await authService.insert({
-        idx: insertResult.dataValues.idx,
-        id,
-        password: encryptPassword,
-        state: '0',
-        secretKey,
-        next,
-      });
-      emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
-      res.json({ result, url });
-    } catch (e) {
-      next(e);
-    }
+    userInfo = encrypUserInfo({ userInfo });
+    const secretKey = totp.makeSecretKey();
+    const url = totp.makeURL({ secretKey, email: req.body.email });
+    const encryptPassword = await getEncryptedPassword(password);
+    const insertResult = await userService.insert({ userInfo });
+    const result = await authService.insert({
+      idx: insertResult.dataValues.idx,
+      id,
+      password: encryptPassword,
+      state: '0',
+      secretKey,
+    });
+    emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
+    res.json({ result, url });
   },
 
-  async dupEmail(req, res, next) {
+  async dupEmail(req, res) {
     const email = encryptWithAES256({ Text: req.body.email });
-    try {
-      const result = await userService.check({ email, next });
-      res.json({ result });
-    } catch (e) {
-      next(e);
-    }
+    const result = await userService.check({ email });
+    res.json({ result });
   },
 
-  async confirmEmail(req, res, next) {
+  async confirmEmail(req, res) {
     const user = decryptWithAES256({ encryptedText: req.query.user }).split(' ');
     const time = user[1];
     const idx = user[2];
@@ -58,32 +49,23 @@ const userController = {
       state: 1,
       idx,
     };
-    try {
-      await authService.update({ info, next });
-      res.json({ result: true });
-    } catch (e) {
-      next(e);
-    }
+
+    await authService.update({ info });
+    res.json({ result: true });
   },
 
-  async findID(req, res, next) {
+  async findID(req, res) {
     const { email, name } = req.body;
     // let userIdx = '';
 
     const userInfo = encrypUserInfo({ userInfo: req.body });
-    try {
-      const user = await userService.findAuthByUser({ userInfo });
-      if (!user) {
-        // 유저 없음
-        res.status(400).json({ msg: '없는 사용자' });
-      }
-      emailSender.sendId(email, name, user.auth.id);
-      res.json(true);
-    } catch (e) {
-      /**
-       * @TODO 에러 처리
-       */
+    const user = await userService.findAuthByUser({ userInfo });
+    if (!user) {
+      // 유저 없음
+      res.status(400).json({ msg: '없는 사용자' });
     }
+    emailSender.sendId(email, name, user.auth.id);
+    res.json(true);
   },
 };
 
