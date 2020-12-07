@@ -105,3 +105,13 @@ export const changePass = async (query: string, password: string): Promise<any> 
   const { data } = await axios.patch(`/api/auth/password/email?user=${query}`, { password });
   return data;
 };
+
+interface sendSecretKeyEmailParams {
+  authToken: string;
+  reCaptchaToken: string;
+}
+
+export const sendSecretKeyEmail = async (params: sendSecretKeyEmailParams): Promise<any> => {
+  const { data } = await axios.put(`/api/auth/secret-key/email`, params);
+  return data;
+};
