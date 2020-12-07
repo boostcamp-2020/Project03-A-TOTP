@@ -2,7 +2,7 @@ const authService = require('@services/auth');
 const userService = require('@services/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
-const { emailSender } = require('@utils/email');
+const { emailSender } = require('@/utils/emailSender');
 const totp = require('@utils/totp');
 
 const userController = {

@@ -10,10 +10,12 @@ const debug = require('debug')('server:server');
 const authRouter = require('@routes/auth');
 const userRouter = require('@routes/user');
 const csrf = require('@middlewares/csrf');
-// const infoRouter = require('@routes/info');
 const redis = require('@models/redis');
 const sequelizeWEB = require('@models/sequelizeIOS').sequelize;
 const sequelizeIOS = require('@models/sequelizeWEB').sequelize;
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerDefinition = require('@config/swagger');
 
 require('dotenv').config();
 
@@ -36,11 +38,17 @@ const sessionOptions = {
     maxAge: 7200000,
   },
 };
+const swaggerOptions = {
+  swaggerDefinition,
+  apis: ['./routes/**/*.js'],
+};
 
-if (process.env.NODE_ENV === 'production') {
+// production 환경에서 추가 설정
+if (!dev) {
   app.set('trust proxy', 1);
   sessionOptions.cookie.httpOnly = true;
   sessionOptions.cookie.sameSite = true;
+  app.use(csrf.checkHeader);
 }
 
 sequelizeWEB.sync();
@@ -50,12 +58,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
-app.use(csrf.checkHeader);
 app.use(session(sessionOptions));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-// app.use('/api/info', infoRouter);
 
 // handle 404
 app.use((req, res, next) => {

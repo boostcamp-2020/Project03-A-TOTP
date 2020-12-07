@@ -14,7 +14,8 @@
     "@models": "models",
     "@routes": "routes",
     "@services": "services",
-    "@middlewares": "middlewares"
+    "@middlewares": "middlewares",
+    "@config": "config"
   },
   "author": "",
   "license": "ISC",
@@ -41,7 +42,9 @@
     "qrcode": "^1.4.4",
     "redis": "^3.0.2",
     "sequelize": "^6.3.5",
-    "speakeasy": "^2.0.0"
+    "speakeasy": "^2.0.0",
+    "swagger-jsdoc": "^6.0.0-rc.3",
+    "swagger-ui-express": "^4.1.5"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
