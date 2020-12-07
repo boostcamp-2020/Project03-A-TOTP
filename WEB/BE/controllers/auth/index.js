@@ -1,8 +1,9 @@
+const totp = require('@/utils/totp');
 const authService = require('@services/auth');
 const userService = require('@services/user');
 const { comparePassword, getEncryptedPassword } = require('@utils/bcrypt');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
-const { emailSender } = require('@utils/email');
+const { emailSender } = require('@/utils/emailSender');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 
@@ -128,6 +129,21 @@ const authController = {
     } catch (e) {
       next(createError(e));
     }
+  },
+
+  async sendSecretKeyEmail(req, res) {
+    // 이전에 id와 secretKey를 저장했다고 가정
+    const { id, secretKey } = req.body;
+    const { user } = await authService.getUserById({ id });
+
+    await emailSender.sendSecretKey({
+      id,
+      email: decryptWithAES256({ encryptedText: user.email }),
+      name: decryptWithAES256({ encryptedText: user.name }),
+      totpURL: totp.makeURL({ secretKey, email: user.email }),
+    });
+
+    res.json({ message: 'ok' });
   },
 };
 

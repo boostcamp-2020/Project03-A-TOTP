@@ -17,4 +17,6 @@ router
   .put(reCAPTCHA.verify, verifyJWT.verifyTOTP, authController.sendPasswordEmail)
   .patch(validator(['password']), authController.changePassword);
 
+router.put('/secret-key/email', authController.sendSecretKeyEmail);
+
 module.exports = router;
