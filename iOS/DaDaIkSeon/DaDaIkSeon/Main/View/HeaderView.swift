@@ -67,7 +67,9 @@ struct HeaderView: View {
     
     var settingButton: some View {
         Button(action: {
-            viewModel.trigger(.settingInput(.startSetting))
+            
+            //
+            
         }, label: {
             Image.person.resizable()
                 .frame(width: 25)
