@@ -55,6 +55,17 @@ const emailSender = {
       throw new Error(e);
     }
   },
+
+  sendSecretKey({ id, name, email, totpURL }) {
+    const qrCodeQuery = encodeURIComponent(Buffer.from(totpURL).toString('base64'));
+    /** @TODO option 수정 필요 */
+    const axiosOptions = makeOption(2373, email, name, {
+      userName: name,
+      URL: `https://dadaikseon.com/QRCode/${qrCodeQuery}`,
+    });
+
+    return axios(axiosOptions);
+  },
 };
 
 const makeOption = (templateSid, address, name, parameters) => {

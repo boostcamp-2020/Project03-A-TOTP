@@ -4,7 +4,6 @@ import * as Pages from '@pages/index';
 import { PrivateRoute } from '@/components/PrivateRoute/PrivateRoute';
 import ComfirmEmail from '@components/confirmEmail/index';
 import Button from '@components/common/Button';
-import TokenProvider from '@layouts/TokenContext';
 import { Modal } from './common/Modal';
 
 interface AppProps {}
@@ -21,7 +20,7 @@ const Hello = () => (
       <Button text={<Link to='/findId'>Find ID</Link>} />
       <br />
       <br />
-      <Button text={<Link to='/findPassword'>Find Password</Link>} />
+      <Button text={<Link to='/findPassword'>Find Password?</Link>} />
       <br />
       <br />
     </Modal>
@@ -31,21 +30,19 @@ const Hello = () => (
 const App: React.FC<AppProps> = () => {
   return (
     <>
-      <TokenProvider>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path='/' component={Hello} />
-            <Route exact path='/confirm-email' component={ComfirmEmail} />
-            <Route exact path='/signup' component={Pages.SignUpPage} />
-            <Route exact path='/login' component={Pages.LogInPage} />
-            <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
-            <Route exact path='/findId' component={Pages.findIDPage} />
-            <Route exact path='/findPassword' component={Pages.FindPasswordPage} />
-            <Route exact path='/changePassword' component={Pages.ChangePasswordPage} />
-            <Route component={Pages.NotFoundPage} />
-          </Switch>
-        </BrowserRouter>
-      </TokenProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={Hello} />
+          <Route exact path='/confirm-email' component={ComfirmEmail} />
+          <Route exact path='/signup' component={Pages.SignUpPage} />
+          <Route exact path='/login' component={Pages.LogInPage} />
+          <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
+          <Route exact path='/findId' component={Pages.findIDPage} />
+          <Route exact path='/findPassword' component={Pages.FindPasswordPage} />
+          <Route exact path='/changePassword' component={Pages.ChangePasswordPage} />
+          <Route component={Pages.NotFoundPage} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 };

@@ -1,33 +1,25 @@
-const authService = require('../auth');
-
 const usersModel = require('@models/sequelizeWEB.js').users;
 const { auths } = require('@models/sequelizeWEB.js');
 
 const userService = {
-  async check({ email, next }) {
+  async check({ email }) {
     const query = {};
     query.where = { email };
-    try {
-      const result = await usersModel.findAll(query);
-      return result.length === 0;
-    } catch (e) {
-      next(e);
-    }
+    const result = await usersModel.findAll(query);
+    return result.length === 0;
   },
-  async insert({ userInfo, next }) {
+
+  async insert({ userInfo }) {
     const query = {
       email: userInfo.email,
       name: userInfo.name,
       birth: userInfo.birth,
       phone: userInfo.phone,
     };
-    try {
-      const result = await usersModel.create(query);
-      return result;
-    } catch (e) {
-      next(e);
-    }
+    const result = await usersModel.create(query);
+    return result;
   },
+
   async findAuthByUser({ userInfo }) {
     const query = {
       attributes: [],
@@ -43,21 +35,14 @@ const userService = {
         birth: userInfo.birth,
       },
     };
-    try {
-      const result = await usersModel.findOne(query);
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
+
+    const result = await usersModel.findOne(query);
+    return result;
   },
 
   async getUserByIdx({ idx }) {
-    try {
-      const result = await usersModel.findOne({ where: { idx } });
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
+    const result = await usersModel.findOne({ where: { idx } });
+    return result;
   },
 };
 module.exports = userService;
