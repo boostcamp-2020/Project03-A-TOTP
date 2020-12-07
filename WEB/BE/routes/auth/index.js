@@ -2,10 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const authController = require('@controllers/auth');
-const { validator } = require('@middlewares/validator');
-const reCAPTCHA = require('@middlewares/reCAPTCHA');
-const { verifyJWT } = require('@middlewares/verifyJWT');
-const { catchErrors } = require('@utils/util');
+const { validator, reCAPTCHA, verifyJWT, sessionAuthentication } = require('@middlewares');
 
 /**
  * @swagger
@@ -128,5 +125,7 @@ router
   .patch(validator(['password']), catchErrors(authController.changePassword));
 
 router.put('/secret-key/email', authController.sendSecretKeyEmail);
+
+router.use(sessionAuthentication.sessionCheck);
 
 module.exports = router;

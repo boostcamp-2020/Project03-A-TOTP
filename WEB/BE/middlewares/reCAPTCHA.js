@@ -18,4 +18,4 @@ const reCAPTCHA = {
   },
 };
 
-module.exports = reCAPTCHA;
+module.exports = { reCAPTCHA };
