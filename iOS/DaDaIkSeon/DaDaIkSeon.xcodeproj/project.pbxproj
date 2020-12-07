@@ -219,11 +219,7 @@
 			children = (
 				882D44A9256D0B7D001901F9 /* Model */,
 				7CF48DD62572B728001E3639 /* Services */,
-				882E99FB257D089C00B066F3 /* Main */,
-				882E99FE257D08F200B066F3 /* TokenCell */,
-				882E9A00257D093300B066F3 /* TokenEdit */,
-				7C3131DC257D1C1600A19319 /* Login */,
-				883C2148257E70780094FFAA /* Setting */,
+				883C215C257E757F0094FFAA /* Scene */,
 				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
@@ -422,6 +418,18 @@
 				883C2150257E71680094FFAA /* SettingView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		883C215C257E757F0094FFAA /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				882E99FB257D089C00B066F3 /* Main */,
+				882E99FE257D08F200B066F3 /* TokenCell */,
+				882E9A00257D093300B066F3 /* TokenEdit */,
+				7C3131DC257D1C1600A19319 /* Login */,
+				883C2148257E70780094FFAA /* Setting */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		88937017256CFB6500337E2C /* Common */ = {
