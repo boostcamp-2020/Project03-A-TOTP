@@ -24,8 +24,7 @@ struct DaDaIkSeonApp: App {
         #endif
         
         WindowGroup {
-            //MainView(service: service).environmentObject(NavigationFlowObject())
-            SettingView()
+            MainView(service: service).environmentObject(NavigationFlowObject())
         }
     }
     

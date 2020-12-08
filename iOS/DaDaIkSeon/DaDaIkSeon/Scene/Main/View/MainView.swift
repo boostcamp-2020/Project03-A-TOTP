@@ -18,12 +18,12 @@ struct MainView: View {
     
     @EnvironmentObject var navigationFlow: NavigationFlowObject
     
+    @Namespace var namespace
+    
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
-    
-    @Namespace var namespace
     
     // MARK: Initialization
     

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SettingViewWrapper<Content: View>: View {
+    
+    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
+    
     private var destinationView: Content
     
     init(@ViewBuilder content: @escaping () -> Content) {
@@ -22,14 +25,12 @@ struct SettingViewWrapper<Content: View>: View {
                     .navigationBarHidden(false)
                     .navigationTitle("설정")
                     .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarBackButtonHidden(true)
                     .navigationBarItems(
                         leading: Button(action: {
-                            // 이전 화면으로 돌아가기 - Object 어쩌구 쓰면 될 듯
+                            mode.wrappedValue.dismiss()
                         }, label: {
                             Text("완료").foregroundColor(.black)
-                                .onTapGesture {
-                                    print("완료, 이전화면으로 기기")
-                                }
                         }),
                         trailing: Button(action: {
                         }, label: {
