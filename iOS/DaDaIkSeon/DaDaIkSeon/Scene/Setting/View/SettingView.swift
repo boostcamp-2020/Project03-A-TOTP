@@ -9,21 +9,13 @@ import SwiftUI
 
 struct SettingView: View {
     
-    // MARK: 뷰모델
+    // MARK: ViewModel
     @ObservedObject var viewModel = SettingViewModel()
     
+    // MARK: Property
     @ObservedObject var settingTrsnsion = SettingTransition()
     
-    // 서비스가 갖도록
-    @State var user = DDISUser.dummy()
     
-    func isLastDivice(udid: String?) -> Bool {
-        guard let udid = udid else { return true }
-        guard let device = viewModel.state.devices.last else {
-            return true
-        }
-        return device.udid == udid
-    }
     
     var body: some View {
         SettingViewWrapper(action: {
@@ -35,9 +27,9 @@ struct SettingView: View {
             SettingGridView(title: "내 정보", titleColor: .white) {
                 NavigationLink(
                     destination: NavigationLazyView(TestView()),
-                    label: {
-                        SettingRow(title: "✉️ " + (user.email ?? ""),
-                                   isLast: true) { Image.chevron }
+                    label: { SettingRow(
+                        title: "✉️ " + (viewModel.state.email),
+                        isLast: true) { Image.chevron }
                     })
                     .foregroundColor(.black)
                 //                    NavigationLink(
@@ -83,7 +75,7 @@ struct SettingView: View {
                             viewModel.trigger(.multiDeviceToggle)
                         })
                 }
-                ForEach(user.device!, id: \.udid) { device in
+                ForEach(viewModel.state.devices, id: \.udid) { device in
                     NavigationLink(
                         destination: NavigationLazyView(TestView()),
                         label: {
@@ -103,6 +95,18 @@ struct SettingView: View {
         .background(Color(UIColor.systemGray6))
         .edgesIgnoringSafeArea(.bottom)
     }
+}
+
+extension SettingView {
+    
+    func isLastDivice(udid: String?) -> Bool {
+        guard let udid = udid else { return true }
+        guard let device = viewModel.state.devices.last else {
+            return true
+        }
+        return device.udid == udid
+    }
+    
 }
 
 struct TestView: View {

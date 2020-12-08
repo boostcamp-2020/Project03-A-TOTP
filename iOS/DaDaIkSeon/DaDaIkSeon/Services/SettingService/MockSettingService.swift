@@ -11,7 +11,11 @@ class MockSettingService: SettingServiceable {
     
     private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
     
-    func loadUser() {
+    init() {
+        loadUser()
+    }
+
+    private func loadUser() { // 유저 디폴트에서 가져와야한다.
         user = DDISUser.dummy()
     }
     

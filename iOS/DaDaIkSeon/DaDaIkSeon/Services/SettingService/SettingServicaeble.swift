@@ -13,7 +13,6 @@ protocol SettingServiceable {
     // 네트워크 CRUD
     // UserDefault CRUD
 
-    func loadUser() // 유저 디폴트에서 가져오기
     func refresh() // 네트워크에서 가져오기
     
     func readEmail() -> String?
