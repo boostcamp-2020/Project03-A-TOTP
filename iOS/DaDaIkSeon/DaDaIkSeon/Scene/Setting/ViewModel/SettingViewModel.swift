@@ -24,15 +24,32 @@ class SettingViewModel: ViewModel {
   
     func trigger(_ input: SettingInput) {
         switch input {
-        case .backupToggle:
-            state.service.updateBackupMode()
-            print("백업할래")
-        case .multiDeviceToggle:
-            state.service.updateMultiDeviceMode()
-            print("기기 여러개 쓸래")
+        
         case .refresh:
             state.service.refresh()
-            print("백업할래")
+            print("refresh")
+            
+        case .editEmail(let email):
+            state.service.updateEmail(email)
+            print("email")
+            
+        case .backupToggle:
+            state.service.updateBackupMode()
+            print("backupToggle")
+        case .editBackupPassword(let password):
+            state.service.updateBackupPassword(password)
+        
+        case .multiDeviceToggle:
+            state.service.updateMultiDeviceMode()
+            print("multiDeviceToggle")
+            
+        case .editDevice(let device):
+            state.service.updateDevice(device)
+            print("editDevice")
+            
+        case .deleteDevice(let deviceID):
+            state.service.deleteDevice(deviceID)
+            print("deleteDevice")
         }
     }
     

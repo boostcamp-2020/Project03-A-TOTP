@@ -31,6 +31,12 @@ class MockSettingService: SettingServicable {
         self.user.backup?.toggle()
     }
     
+    func updateBackupPassword(_ password: String) {
+        // 백업 패스워드는 User 구조체에 들어가지 않는다.
+        // 따로 UserDefault로 읽고 쓰고 변경해야 한다.
+        // 나중에 토큰 가져올 때 이 비밀번호를 사용하여 복호화하게 된다. 
+    }
+    
     func updateMultiDeviceMode() {
         self.user.multiDevice?.toggle()
     }
