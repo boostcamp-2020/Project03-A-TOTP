@@ -41,7 +41,7 @@ class MockSettingService: SettingServicable {
     
     func updateDevice(_ newDevice: Device) {
         guard let devices = user.device else { return }
-        if let index = devices.firstIndex(where: { newDevice.udid == $0.udid }){
+        if let index = devices.firstIndex(where: { newDevice.udid == $0.udid }) {
             user.device?[index] = newDevice
         }
     }

@@ -10,6 +10,8 @@ import SwiftUI
 struct SettingState {
     //var user: DDISUser // 로드해서 받아온다.
     var service: SettingServicable
+    var email: String
+    var devices: [Device]
 }
 
 enum SettingInput {

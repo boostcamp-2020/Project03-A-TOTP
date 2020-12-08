@@ -437,9 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				883C2150257E71680094FFAA /* SettingView.swift */,
-				889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */,
-				889F67D8257F455500CFFFB0 /* SettingGridView.swift */,
-				88B3C547257F59840048DA86 /* SettingRow.swift */,
+				88AA33D9257F6F44008F02F5 /* SettingViewComponents */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -478,6 +476,16 @@
 				7C661939256CCAF10028E7C6 /* Info.plist */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		88AA33D9257F6F44008F02F5 /* SettingViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */,
+				889F67D8257F455500CFFFB0 /* SettingGridView.swift */,
+				88B3C547257F59840048DA86 /* SettingRow.swift */,
+			);
+			path = SettingViewComponents;
 			sourceTree = "<group>";
 		};
 		918DA9EA5A293782B2E04F6F /* Pods */ = {
