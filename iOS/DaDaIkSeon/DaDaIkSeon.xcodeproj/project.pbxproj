@@ -16,6 +16,7 @@
 		7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D343D257F73F40013AD65 /* TokenEditUsecase.swift */; };
 		7C2D344D257FA5050013AD65 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D344C257FA5050013AD65 /* EndpointType.swift */; };
 		7C2D3455257FA5310013AD65 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3454257FA5310013AD65 /* HTTPMethod.swift */; };
+		7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D345C257FA60A0013AD65 /* Requestable.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
@@ -96,6 +97,7 @@
 		7C2D343D257F73F40013AD65 /* TokenEditUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditUsecase.swift; sourceTree = "<group>"; };
 		7C2D344C257FA5050013AD65 /* EndpointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
 		7C2D3454257FA5310013AD65 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		7C2D345C257FA60A0013AD65 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,6 +231,7 @@
 		7C2D344B257FA4FA0013AD65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7C2D345B257FA5F00013AD65 /* Reqeust */,
 				7C2D3459257FA5BA0013AD65 /* Endpoint */,
 			);
 			path = Network;
@@ -241,6 +244,14 @@
 				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
 			);
 			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		7C2D345B257FA5F00013AD65 /* Reqeust */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D345C257FA60A0013AD65 /* Requestable.swift */,
+			);
+			path = Reqeust;
 			sourceTree = "<group>";
 		};
 		7C3131DC257D1C1600A19319 /* Login */ = {
@@ -833,6 +844,7 @@
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
+				7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */,
 				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
 				882E9A48257D236700B066F3 /* Handlerable.swift in Sources */,
 				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
