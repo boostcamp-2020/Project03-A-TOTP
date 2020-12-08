@@ -9,7 +9,11 @@ import SwiftUI
 
 struct SettingView: View {
     
-    @State var tokens = Token.dummy()
+    // 뷰모델
+    //@ObservedObject viewModel: SettingViewModel
+    
+    @State var devices = Device.dummy()
+    
     var columns = [GridItem(.flexible())]
     
     var body: some View {
@@ -32,8 +36,8 @@ struct SettingView: View {
                             Rectangle().fill(Color.red)
                             VStack {
                                 Divider().padding(0)
-                                ForEach(tokens) { token in
-                                    SettingRow(token: token)
+                                ForEach(devices, id: \.udid) { device in
+                                    SettingRow(device: device)
                                 }
                             }
                             .padding(.horizontal)
@@ -72,12 +76,12 @@ struct SettingView: View {
 }
 
 struct SettingRow: View {
-    var token: Token
+    var device: Device
     
     var body: some View {
         VStack {
             HStack {
-                Text("\(token.name ?? "dd")")
+                Text("\(device.name ?? "dd")")
                 Spacer()
                 Image(systemName: "chevron.right")
             }
