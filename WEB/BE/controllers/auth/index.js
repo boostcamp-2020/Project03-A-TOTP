@@ -8,6 +8,8 @@ const { emailSender } = require('@/utils/emailSender');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 const { makeRandom } = require('@utils/random');
+const UAParser = require('ua-parser-js');
+const axios = require('axios');
 
 const TEN_MINUTES = '10m';
 const ACIONS = {
@@ -44,13 +46,17 @@ const authController = {
 
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
     try {
-      req.session.key = id; // 아이디 생성 방식 변경
+      req.session.user = id; // 아이디 생성 방식 변경
       const csrfToken = makeRandom();
       res.cookie('csrfToken', csrfToken, {
         maxAge: 2 * 60 * 60 * 1000,
       });
       req.session.CSRF_TOKEN = csrfToken;
-      // await logService.insert({ sid: id, status: '1' });
+      const userAgent = UAParser(req.headers['user-agent']);
+      const { ip } = req;
+      const params = await makeLogData({ ip, userAgent, id, sid: req.session.id });
+      console.log(params);
+      await logService.insert({ params });
       res.json({ result: true, csrfToken });
     } catch (e) {
       next(e);
@@ -146,6 +152,23 @@ const authController = {
 
     res.json({ result: true });
   },
+};
+
+const makeLogData = async ({ ip, userAgent, id, sid }) => {
+  const device = userAgent.device.model
+    ? userAgent.device.model + userAgent.os.name
+    : userAgent.os.name + userAgent.browser.name;
+  let location = await axios(`http://ip-api.com/json/${ip}`);
+  location = location.data.status === 'fail' ? '알 수 없는 지역' : location.regionName;
+  return {
+    access_time: new Date(),
+    status: 0,
+    ip_address: ip,
+    device,
+    location,
+    auth_id: id,
+    sid,
+  };
 };
 
 module.exports = authController;
