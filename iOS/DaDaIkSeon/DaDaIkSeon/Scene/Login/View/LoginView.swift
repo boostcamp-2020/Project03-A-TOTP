@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     
     @ObservedObject var viewModel: AnyViewModel<LoginState, LoginInput>
-    @State var emailText = ""
+    @State private var emailText = ""
     
     init(service: LoginServiceable) {
         viewModel = AnyViewModel(LoginViewModel(service: service))
