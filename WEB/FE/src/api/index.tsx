@@ -117,7 +117,6 @@ export const sendSecretKeyEmail = async (params: sendSecretKeyEmailParams): Prom
 };
 
 interface sendPasswordParams {
-  id: string;
   password: string;
 }
 

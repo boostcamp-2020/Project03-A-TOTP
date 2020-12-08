@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { useInput } from '../../hooks/useInput';
 
 interface PasswordModalProps {
+  password: string;
+  setPassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isOpen: boolean;
   onSubmit: () => any;
   onClose: () => void;
@@ -65,6 +67,8 @@ const ErrorStyle: CSS.Properties = {
 };
 
 const PasswordModal = ({
+  password,
+  setPassword,
   isOpen,
   onSubmit,
   onClose,
@@ -72,7 +76,6 @@ const PasswordModal = ({
   disabled,
   errorMsg,
 }: PasswordModalProps): JSX.Element => {
-  const [password, setPassword] = useInput('');
   return (
     <>
       {isOpen ? (
