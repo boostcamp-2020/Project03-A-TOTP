@@ -9,6 +9,7 @@ const cors = require('cors');
 const debug = require('debug')('server:server');
 const authRouter = require('@routes/auth');
 const userRouter = require('@routes/user');
+const logRouter = require('@routes/log');
 const csrf = require('@middlewares/csrf');
 const redis = require('@models/redis');
 const sequelizeWEB = require('@models/sequelizeIOS').sequelize;
@@ -63,6 +64,7 @@ app.use(session(sessionOptions));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/log', logRouter);
 
 // handle 404
 app.use((req, res, next) => {
