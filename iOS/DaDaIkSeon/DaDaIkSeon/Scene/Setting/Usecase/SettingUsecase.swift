@@ -8,7 +8,9 @@
 import Foundation
 
 struct SettingState {
-    // 토글 - 상태값으로 관리 가능?
+    
+   // var service: TokenServiceable
+    
     
 }
 
