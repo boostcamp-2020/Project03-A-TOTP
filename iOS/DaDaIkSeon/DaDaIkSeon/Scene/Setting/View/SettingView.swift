@@ -10,25 +10,31 @@ import SwiftUI
 // Toggle Observable
 // Transition Observable 만들기
 
+class SettingTransition: ObservableObject {
+    // MARK: 화면 전환 또는 토글? - 새로운 화면에서 설정 해야 하는 것들
+    // 생체 인식, 핀넘버 사용 화면 전환
+    @State var securitySetting: Bool = false
+    // 이메일 변경 화면 전환
+    @State var emailSetting: Bool = false
+    // 백업 On/off 토글
+    @Published var backupToggle: Bool = false
+    // 멀티 디바이스 On/off 토글
+    @Published var multiDeviceToggle: Bool = false
+    // 비밀 번호 변경하기 화면 전환
+    @Published var passwordSetting: Bool = false
+    // 디바이스 정보 변경 화면 전환
+    @Published var deviceSetting: Bool = false
+}
+
 struct SettingView: View {
     
     // MARK: 뷰모델
     @ObservedObject var viewModel = SettingViewModel()
     
-    // MARK: 화면 전환 또는 토글? - 새로운 화면에서 설정 해야 하는 것들
-    // 생체 인식, 핀넘버 사용
-    @State var securitySetting: Bool = false
-    // 이메일 변경
-    @State var emailSetting: Bool = false
+    @ObservedObject var trsnsion = SettingTransition()
     
-    // 백업 On/off 토글
-    @State var backupToggle: Bool = false
-    // 멀티 디바이스 On/off 토글
-    @State var multiDeviceToggle: Bool = false
-    
-    // 비밀 번호 변경하기 화면 전환
     @State var passwordSetting: Bool = false
-    // 디바이스 정보 변경 화면 전환
+    
     @State var deviceSetting: Bool = false
     
     // MARK: 진짜 상태값 State
@@ -40,17 +46,20 @@ struct SettingView: View {
         
     var body: some View {
         SettingViewWrapper {
+            
+            // MARK: 내정보 관리
+            
             SettingGridView(title: "내 정보", titleColor: .white) {
                 VStack {
                     Divider().padding(0)
                     SettingRow(title: "✉️ " + (user.email ?? "")) {
-                        Image(systemName: "chevron.right")
+                        Image.chevron
                     }
                     .onTapGesture {
                         print("이메일 변경")
                     }
                     SettingRow(title: "보안 강화하기") {
-                        Image(systemName: "chevron.right")
+                        Image.chevron
                     }
                     .onTapGesture {
                         print("보안 강화하기")
@@ -60,22 +69,47 @@ struct SettingView: View {
             }
             .padding(.horizontal, 10)
                 
+            // MARK: 백업 관리
+            
             SettingGridView(title: "백업 관리", titleColor: .white) {
                 VStack {
                     Divider().padding(0)
                     SettingRow(title: "백업 할래?") {
-                        Toggle(isOn: $backupToggle, label: {
+                        Toggle(isOn: $trsnsion.backupToggle, label: {
                             Text("")
                         })
-                        .onChange(of: backupToggle, perform: { _ in
+                        .onChange(of: trsnsion.backupToggle, perform: { _ in
                             print("백업할래")
                         })
                     }
                     SettingRow(title: "비밀번호 변경하기?") {
-                        Image(systemName: "chevron.right")
+                        Image.chevron
                     }
                     .onTapGesture {
                         print("비밀번호 변경하기")
+                    }
+                }
+                .padding(.horizontal)
+            }
+            .padding(.horizontal, 10)
+            
+            // MARK: 기기 관리
+            
+            SettingGridView(title: "기기 관리", titleColor: .white) {
+                VStack {
+                    Divider().padding(0)
+                    SettingRow(title: "다른데서도 쓸거야?") {
+                        Toggle(isOn: $trsnsion.multiDeviceToggle, label: {
+                            Text("")
+                        })
+                        .onChange(of: trsnsion.multiDeviceToggle, perform: { _ in
+                            print("다른데서도 쓸거야?")
+                        })
+                    }
+                    ForEach(user.device!, id: \.udid) { device in
+                        SettingRow(title: device.name ?? "") {
+                            Image.chevron
+                        }
                     }
                 }
                 .padding(.horizontal)
