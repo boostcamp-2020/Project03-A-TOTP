@@ -1,5 +1,6 @@
 require('dotenv').config();
 const redis = require('redis');
+const logService = require('@services/log');
 
 const client = () => {
   const redisOption = {
@@ -7,19 +8,19 @@ const client = () => {
   };
 
   const client = redis.createClient(redisOption);
-  client.config('SET', 'notify-keyspace-events', 'Ex');
+  const rid = redis.createClient(redisOption);
+  rid.config('SET', 'notify-keyspace-events', 'Ex');
 
   const subscriber = redis.createClient(redisOption);
   client.on('error', (error) => {
     console.log(error);
   });
 
-  subscriber.on('pmessage', function (pattern, channel, message) {
-    /** @TODO log 변경 */
-    console.log(`pattern : ${pattern} channel: ${channel} message : ${message}`);
+  subscriber.on('pmessage', async function (pattern, channel, message) {
+    await logService.update({ sid: message, isLoggedOut: true });
   });
   subscriber.psubscribe('__key*__:*');
-  client.setex('string key', 10, 'string val', redis.print);
+  rid.setex('string key', 10, 'string val', redis.print);
   return client;
 };
 
