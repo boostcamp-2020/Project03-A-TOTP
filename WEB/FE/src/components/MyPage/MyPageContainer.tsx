@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { MyInfo } from '@components/MyPage/MyInfo';
 import { MyInfoEdit } from '@components/MyPage/MyInfoEdit';
 import { AccessLog } from '@components/MyPage/AccessLog';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { getUser, updateUser } from '@api/index';
 import 'react-tabs/style/react-tabs.css';
+import { AxiosError } from 'axios';
+
+const UNAUTHORIZED = 401;
+const LOGIN_URL = '/login';
 
 interface MyPageContainerProps {}
 
@@ -53,21 +58,34 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(10);
+  const history = useHistory();
+
+  const handleError = (err: AxiosError<any>): void => {
+    if (err.response?.status === UNAUTHORIZED) {
+      history.push(LOGIN_URL);
+      return;
+    }
+    alert(err.response?.data?.message || err.message);
+  };
 
   const onSaveInfo = () =>
     updateUser({ name, email: mail, birth, phone })
-      .catch(alert)
+      .catch(handleError)
       .finally(() => setIsEditInfo(false));
+
   const onCancelEdit = () => setIsEditInfo(false);
+
   const onPageChange = ({ selected }: { selected: number }) => setPage(selected + 1);
 
   useEffect(() => {
-    getUser().then(({ user: { name, email, birth, phone } }) => {
-      setName(name);
-      setMail(email);
-      setBirth(birth);
-      setPhone(phone);
-    });
+    getUser()
+      .then(({ user: { name, email, birth, phone } }) => {
+        setName(name);
+        setMail(email);
+        setBirth(birth);
+        setPhone(phone);
+      })
+      .catch(handleError);
   }, []);
 
   return (
