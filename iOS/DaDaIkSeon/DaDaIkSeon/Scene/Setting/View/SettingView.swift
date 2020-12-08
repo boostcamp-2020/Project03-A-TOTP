@@ -9,82 +9,105 @@ import SwiftUI
 
 struct SettingView: View {
     
-    @State var tokens = Token.dummy()
-    var columns = [GridItem(.flexible())]
+    // MARK: 뷰모델
+    @ObservedObject var viewModel = SettingViewModel()
+    
+    @ObservedObject var settingTrsnsion = SettingTransition()
+    
+    // 서비스가 갖도록
+    @State var user = DDISUser.dummy()
+    
+    func isLastDivice(udid: String?) -> Bool {
+        guard let udid = udid else { return true }
+        guard let device = viewModel.state.devices.last else {
+            return true
+        }
+        return device.udid == udid
+    }
     
     var body: some View {
-        VStack {
+        SettingViewWrapper(action: {
+            viewModel.trigger(.refresh)
+        }, content: {
+            Spacer().frame(height: 10)
             
-            ScrollView {
-                LazyVGrid(
-                    columns: columns,
-                    alignment: .center,
-                    spacing: 0
-                ) {
-                    Section(header:
-                                HStack {
-                                    Text("Section 1")
-                                        .foregroundColor(Color(UIColor.systemGray))
-                                    Spacer()
-                                }.padding()
-                    ) {
-                        ZStack {
-                            Rectangle().fill(Color.red)
-                            VStack {
-                                Divider().padding(0)
-                                ForEach(tokens) { token in
-                                    SettingRow(token: token)
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                    }
-                    
-                    Section(header: Text("Section 2").font(.title)) {
-                        ForEach(11...20, id: \.self) { index in
-                            HStack {
-                                Text("\(index)")
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-                Spacer()
-            }
-        }
-        .background(Color(UIColor.systemGray6))
-        .navigationBarHidden(false)
-        .navigationTitle("설정")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(
-            leading: Button(action: {
-                // 이전 화면으로 돌아가기 - Object 어쩌구 쓰면 될 듯
-            }, label: {
-                Text("완료").foregroundColor(.black)
-            }),
-            trailing: Button(action: {
-            }, label: {
-                Image(systemName: "arrow.counterclockwise")
+            // MARK: 내정보 관리
+            SettingGridView(title: "내 정보", titleColor: .white) {
+                NavigationLink(
+                    destination: NavigationLazyView(TestView()),
+                    label: {
+                        SettingRow(title: "✉️ " + (user.email ?? ""),
+                                   isLast: true) { Image.chevron }
+                    })
                     .foregroundColor(.black)
-            })
-        )
+                //                    NavigationLink(
+                //                        destination: NavigationLazyView(TestView()),
+                //                        label: {
+                //                            SettingRow(title: "보안 강화하기") { Image.chevron }
+                //                        })
+                //                        .foregroundColor(.black)
+                //                }
+                //                .padding(.horizontal)
+            }
+            .padding(.horizontal, 10)
+            
+            // MARK: 백업 관리
+            
+            SettingGridView(title: "백업 관리", titleColor: .white) {
+                SettingRow(title: "백업 할래?",
+                           isLast: false) {
+                    Toggle(isOn: $settingTrsnsion.backupToggle, label: {
+                        Text("")
+                    })
+                    .onChange(of: settingTrsnsion.backupToggle, perform: { _ in
+                        viewModel.trigger(.backupToggle)
+                    })
+                }
+                NavigationLink(
+                    destination: NavigationLazyView(TestView()),
+                    label: {
+                        SettingRow(
+                            title: "비밀번호 변경하기?",
+                            isLast: true) { Image.chevron }
+                    })
+                    .foregroundColor(.black)
+            }
+            .padding(.horizontal, 10)
+            
+            // MARK: 기기 관리
+            
+            SettingGridView(title: "기기 관리", titleColor: .white) {
+                SettingRow(title: "다른데서도 쓸거야?", isLast: false) {
+                    Toggle(isOn: $settingTrsnsion.multiDeviceToggle, label: {Text("")})
+                        .onChange(of: settingTrsnsion.multiDeviceToggle, perform: { _ in
+                            viewModel.trigger(.multiDeviceToggle)
+                        })
+                }
+                ForEach(user.device!, id: \.udid) { device in
+                    NavigationLink(
+                        destination: NavigationLazyView(TestView()),
+                        label: {
+                            SettingRow(
+                                title: device.name ?? "",
+                                isLast: isLastDivice(udid: device.udid)) {
+                                Image.chevron
+                            }})
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(.horizontal, 10)
+            .padding(.top, 10)
+            
+            Spacer()
+        })
+        .background(Color(UIColor.systemGray6))
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
-struct SettingRow: View {
-    var token: Token
-    
+struct TestView: View {
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(token.name ?? "dd")")
-                Spacer()
-                Image(systemName: "chevron.right")
-            }
-            .frame(height: 40)
-            Divider()
-                .padding(0)
-        }
+        Text("")
     }
 }
 

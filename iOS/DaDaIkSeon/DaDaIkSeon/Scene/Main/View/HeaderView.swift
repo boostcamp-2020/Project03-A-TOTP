@@ -66,14 +66,13 @@ struct HeaderView: View {
     }
     
     var settingButton: some View {
-        Button(action: {
-            
-            //
-            
-        }, label: {
-            Image.person.resizable()
-                .frame(width: 25)
-        })
+        NavigationLink(
+            destination: SettingView(),
+            label: {
+                Image.person.resizable()
+                    .frame(width: 25)
+            })
+            .foregroundColor(.black)
     }
     
     // MARK: 취소 선택 버튼
