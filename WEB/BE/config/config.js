@@ -28,6 +28,7 @@ module.exports = {
       password: process.env.DBPASS,
       database: process.env.DBDATABASEWEB,
       host: process.env.DBHOST,
+      logging: false,
       dialect: 'mysql',
     },
     test: {
@@ -42,6 +43,7 @@ module.exports = {
       password: process.env.DBPASS,
       database: process.env.DBDATABASEWEB,
       host: process.env.DBHOST,
+      logging: false,
       dialect: 'mysql',
     },
   },
@@ -51,6 +53,7 @@ module.exports = {
       password: process.env.DBPASS,
       database: process.env.DBDATABASEIOS,
       host: process.env.DBHOST,
+      logging: false,
       dialect: 'mysql',
     },
     test: {
@@ -65,6 +68,7 @@ module.exports = {
       password: process.env.DBPASS,
       database: process.env.DBDATABASEIOS,
       host: process.env.DBHOST,
+      logging: false,
       dialect: 'mysql',
     },
   },
