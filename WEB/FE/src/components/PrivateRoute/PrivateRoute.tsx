@@ -5,7 +5,7 @@ interface PrivateRouteProps extends RouteProps {}
 
 const PrivateRoute: React.FC<PrivateRouteProps> = (props) => {
   /** @TODO 로그인 조건 추가 */
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   return isAuthenticated ? (
     <Route {...props} />
