@@ -122,7 +122,7 @@ const authController = {
     const { user } = await authService.getUserById({ id });
     const secretKey = totp.makeSecretKey();
 
-    await authService.reissueSecretKey({ id, secretkey: secretKey });
+    await authService.reissueSecretKey({ id, secretKey });
     await emailSender.sendSecretKey({
       id,
       email: decryptWithAES256({ encryptedText: user.email }),
