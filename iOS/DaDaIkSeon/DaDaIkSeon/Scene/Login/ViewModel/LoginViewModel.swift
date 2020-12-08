@@ -24,13 +24,33 @@ final class LoginViewModel: ViewModel {
     func trigger(_ input: LoginInput) {
         switch input {
         case .check(let email):
-            state.checkText = email.count < 3 ? "올바르지 않은 이메일 형식입니다" : ""
+            checkEmailStyle(email)
         case .sendButtonInput:
-            print("send")
+            sendAuthEmail()
         case .showSendButton:
-            state.isEmail = true
+            showSendButton()
         case .hideSendButton:
             state.isEmail = false
         }
     }
+}
+
+private extension LoginViewModel {
+    
+    func checkEmailStyle(_ email: String) {
+        state.checkText = email.count < 3 ? "올바르지 않은 이메일 형식입니다" : ""
+    }
+    
+    func sendAuthEmail() {
+        print("send")
+    }
+    
+    func showSendButton() {
+        state.isEmail = true
+    }
+    
+    func hideSendButton() {
+        state.isEmail = false
+    }
+    
 }
