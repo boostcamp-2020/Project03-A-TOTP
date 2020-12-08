@@ -12,9 +12,6 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 interface MainPageLayoutProps {

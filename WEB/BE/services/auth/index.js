@@ -72,6 +72,13 @@ const authService = {
     const result = await authsModel.update(query, { where });
     return result;
   },
+
+  async reissueSecretKey({ id, secretkey }) {
+    const query = { secret_key: secretkey };
+    const where = { id };
+    const result = await authsModel.update(query, { where });
+    return result;
+  },
 };
 
 module.exports = authService;

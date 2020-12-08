@@ -40,6 +40,7 @@ const App: React.FC<AppProps> = () => {
           <Route exact path='/findId' component={Pages.findIDPage} />
           <Route exact path='/findPassword' component={Pages.FindPasswordPage} />
           <Route exact path='/changePassword' component={Pages.ChangePasswordPage} />
+          <PrivateRoute path='/me' component={Pages.MyPage} />
           <Route component={Pages.NotFoundPage} />
         </Switch>
       </BrowserRouter>

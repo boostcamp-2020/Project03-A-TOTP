@@ -123,12 +123,13 @@ const authController = {
     const secretKey = totp.makeSecretKey();
     console.log(secretKey);
 
-    await authService.updateSecretKey({ id, secretKey });
+    const newSecretKey = totp.makeSecretKey();
+    await authService.reissueSecretKey({ id, secretkey: newSecretKey });
     await emailSender.sendSecretKey({
       id,
       email: decryptWithAES256({ encryptedText: user.email }),
       name: decryptWithAES256({ encryptedText: user.name }),
-      totpURL: totp.makeURL({ secretKey, email: user.email }),
+      totpURL: totp.makeURL({ newSecretKey, email: user.email }),
     });
 
     res.json({ message: 'ok' });
