@@ -18,6 +18,8 @@
 		7C2D3455257FA5310013AD65 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3454257FA5310013AD65 /* HTTPMethod.swift */; };
 		7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D345C257FA60A0013AD65 /* Requestable.swift */; };
 		7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3461257FA66D0013AD65 /* NetworkResult.swift */; };
+		7C2D3467257FA70F0013AD65 /* ResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3466257FA70F0013AD65 /* ResponseArray.swift */; };
+		7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3471257FA7190013AD65 /* ResponseObject.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
@@ -100,6 +102,8 @@
 		7C2D3454257FA5310013AD65 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7C2D345C257FA60A0013AD65 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		7C2D3461257FA66D0013AD65 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		7C2D3466257FA70F0013AD65 /* ResponseArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArray.swift; sourceTree = "<group>"; };
+		7C2D3471257FA7190013AD65 /* ResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseObject.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +239,8 @@
 			children = (
 				7C2D345C257FA60A0013AD65 /* Requestable.swift */,
 				7C2D3461257FA66D0013AD65 /* NetworkResult.swift */,
+				7C2D3471257FA7190013AD65 /* ResponseObject.swift */,
+				7C2D3466257FA70F0013AD65 /* ResponseArray.swift */,
 				7C2D3459257FA5BA0013AD65 /* Endpoint */,
 			);
 			path = Network;
@@ -840,6 +846,7 @@
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
 				7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */,
+				7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */,
 				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
 				882E9A48257D236700B066F3 /* Handlerable.swift in Sources */,
 				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
@@ -864,6 +871,7 @@
 				882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */,
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
+				7C2D3467257FA70F0013AD65 /* ResponseArray.swift in Sources */,
 				7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */,
 				7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */,
 				8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */,
