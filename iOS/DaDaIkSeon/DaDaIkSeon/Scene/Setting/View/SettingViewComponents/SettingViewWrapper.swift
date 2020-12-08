@@ -12,9 +12,11 @@ struct SettingViewWrapper<Content: View>: View {
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     private var destinationView: Content
+    private var action: (() -> Void)?
     
-    init(@ViewBuilder content: @escaping () -> Content) {
+    init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
         self.destinationView = content()
+        self.action = action
     }
     
     var body : some View {
@@ -37,7 +39,7 @@ struct SettingViewWrapper<Content: View>: View {
                             Image(systemName: "arrow.counterclockwise")
                                 .foregroundColor(.black)
                                 .onTapGesture {
-                                    print("새로고침")
+                                    action?()
                                 }
                         })
                     )

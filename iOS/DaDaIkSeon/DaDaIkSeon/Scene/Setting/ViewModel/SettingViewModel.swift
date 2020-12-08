@@ -26,10 +26,13 @@ class SettingViewModel: ViewModel {
         switch input {
         case .backupToggle:
             state.service.updateBackupMode()
+            print("백업할래")
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode()
+            print("기기 여러개 쓸래")
         case .refresh:
             state.service.refresh()
+            print("백업할래")
         }
     }
     

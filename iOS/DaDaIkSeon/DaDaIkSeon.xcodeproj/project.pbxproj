@@ -285,8 +285,7 @@
 				8826F671257BB25D00A16244 /* TokenServiceable.swift */,
 				7CF48DC72572B690001E3639 /* TokenService.swift */,
 				8826F676257BB5D300A16244 /* MockTokenService.swift */,
-				8885FD5A257F36290013D794 /* SettingServicaeble.swift */,
-				8885FD55257F36120013D794 /* MockSettingService.swift */,
+				88AA33DD257F736F008F02F5 /* SettingService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -486,6 +485,15 @@
 				88B3C547257F59840048DA86 /* SettingRow.swift */,
 			);
 			path = SettingViewComponents;
+			sourceTree = "<group>";
+		};
+		88AA33DD257F736F008F02F5 /* SettingService */ = {
+			isa = PBXGroup;
+			children = (
+				8885FD5A257F36290013D794 /* SettingServicaeble.swift */,
+				8885FD55257F36120013D794 /* MockSettingService.swift */,
+			);
+			path = SettingService;
 			sourceTree = "<group>";
 		};
 		918DA9EA5A293782B2E04F6F /* Pods */ = {
