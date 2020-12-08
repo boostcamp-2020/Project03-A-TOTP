@@ -27,6 +27,18 @@ const authService = {
     return result;
   },
 
+  async updateSecretKey({ id, secretKey }) {
+    const query = {
+      secret_key: secretKey,
+    };
+    const where = {
+      id,
+    };
+    const result = await authsModel.update(query, { where });
+
+    return result;
+  },
+
   async getAuthById({ id }) {
     const result = await authsModel.findOne({ where: { id } });
     return result;

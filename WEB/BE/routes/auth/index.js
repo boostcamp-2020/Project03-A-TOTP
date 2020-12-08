@@ -125,7 +125,7 @@ router
   .put(reCAPTCHA.verify, verifyJWT.verifyTOTP, catchErrors(authController.sendPasswordEmail))
   .patch(validator(['password']), catchErrors(authController.changePassword));
 
-router.put('/secret-key/email', authController.sendSecretKeyEmail);
+router.put('/secret-key/email', reCAPTCHA.verify, authController.sendSecretKeyEmail);
 
 router.use(sessionAuthentication.sessionCheck);
 

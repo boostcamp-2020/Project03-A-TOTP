@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { LogInForm } from '@components/LogIn/LogInForm';
 import { TOTPModal } from '@components/TOTPModal/TOTPModal';
-import { loginWithOTP } from '@api/index';
+import { loginWithOTP, sendSecretKeyEmail } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
 import { message } from '@utils/message';
@@ -27,6 +27,14 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   const onCloseModal = () => {
     setTOTP('');
     setIsModalOpen(false);
+  };
+  const onClickModal = () => {
+    setHasTOTPModalError(false); // /secret-key/email
+    executeRecaptcha('sendSecretKeyEmail')
+      .then((reCaptchaToken: string) => sendSecretKeyEmail({ authToken, reCaptchaToken }))
+      .then(() => alert(message.EMAILSECRETKEYSUCCESS))
+      .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
+      .finally(() => setModalDisabled(false));
   };
   const onErrorWithOTP = (errMsg: string) => {
     setHasTOTPModalError(true);
@@ -61,6 +69,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
         onChange={setTOTP}
         onSubmit={onSubmitOTP}
         onClose={onCloseModal}
+        onClick={onClickModal}
         hasErrored={hasTOTPModalError}
         disabled={modalDisabled}
         errorMsg={errorMsg}
