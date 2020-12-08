@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+protocol LoginServiceable {
+//    func
+}
+
+final class LoginService: LoginServiceable {
+    
+}

@@ -9,10 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @ObservedObject var viewModel: AnyViewModel<LoginState, LoginInput>
     @State var emailText = ""
-    @State var isEmail = false
-    @State var checkText = ""
-    @State var showingAlert = false
+    
+    init(service: LoginServiceable) {
+        viewModel = AnyViewModel(LoginViewModel(service: service))
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,8 +41,7 @@ struct LoginView: View {
                         .padding(.bottom, 16)
                     
                     VStack(alignment: .trailing) {
-                        
-                        Text(checkText)
+                        Text(viewModel.state.checkText)
                             .font(.system(size: 11))
                             .foregroundColor(.gray)
                             .padding(.trailing, 8)
@@ -58,9 +59,9 @@ struct LoginView: View {
                                     checkTextChange()
                                 }
                             
-                            if isEmail {
+                            if viewModel.state.isEmail {
                                 Button(action: {
-                                    print("이메일로 전송한 x자리 코드를 입력하세요. alert")
+                                    sendButtonDidTap()
                                 }, label: {
                                     Text("인증")
                                         .font(.system(size: 11))
@@ -102,18 +103,23 @@ extension LoginView {
     
     func changeEmailState(changed: Bool) {
         withAnimation {
-            isEmail = changed
+            changed ? viewModel.trigger(.showSendButton) : viewModel.trigger(.hideSendButton)
         }
     }
     
     func checkTextChange() {
-        // 이메일 체크
-        checkText = emailText.count < 3 ? "올바르지 않은 이메일 형식입니다" : ""
+        viewModel.trigger(.check(emailText))
     }
+    
+    func sendButtonDidTap() {
+        viewModel.trigger(.sendButtonInput)
+    }
+    
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        let service = LoginService()
+        LoginView(service: service)
     }
 }
