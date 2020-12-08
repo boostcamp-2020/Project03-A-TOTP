@@ -40,14 +40,8 @@ const authService = {
   async getUserById({ id }) {
     const query = {
       attributes: [],
-      include: [
-        {
-          model: users,
-        },
-      ],
-      where: {
-        id,
-      },
+      include: [{ model: users }],
+      where: { id },
     };
     const result = await authsModel.findOne(query);
     return result;
