@@ -14,6 +14,8 @@
 		7C2D342A257F5C650013AD65 /* LoginCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3429257F5C650013AD65 /* LoginCodeView.swift */; };
 		7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3434257F73C00013AD65 /* TokenCellUsecase.swift */; };
 		7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D343D257F73F40013AD65 /* TokenEditUsecase.swift */; };
+		7C2D344D257FA5050013AD65 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D344C257FA5050013AD65 /* EndpointType.swift */; };
+		7C2D3455257FA5310013AD65 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3454257FA5310013AD65 /* HTTPMethod.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
@@ -92,6 +94,8 @@
 		7C2D3429257F5C650013AD65 /* LoginCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCodeView.swift; sourceTree = "<group>"; };
 		7C2D3434257F73C00013AD65 /* TokenCellUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellUsecase.swift; sourceTree = "<group>"; };
 		7C2D343D257F73F40013AD65 /* TokenEditUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditUsecase.swift; sourceTree = "<group>"; };
+		7C2D344C257FA5050013AD65 /* EndpointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
+		7C2D3454257FA5310013AD65 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +226,23 @@
 			path = Usecase;
 			sourceTree = "<group>";
 		};
+		7C2D344B257FA4FA0013AD65 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D3459257FA5BA0013AD65 /* Endpoint */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		7C2D3459257FA5BA0013AD65 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D344C257FA5050013AD65 /* EndpointType.swift */,
+				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
 		7C3131DC257D1C1600A19319 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +297,7 @@
 		7C66192F256CCAED0028E7C6 /* DaDaIkSeon */ = {
 			isa = PBXGroup;
 			children = (
+				7C2D344B257FA4FA0013AD65 /* Network */,
 				882D44A9256D0B7D001901F9 /* Model */,
 				7CF48DD62572B728001E3639 /* Services */,
 				883C215C257E757F0094FFAA /* Scene */,
@@ -807,6 +829,7 @@
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
 				883C214A257E70D90094FFAA /* SettingViewModel.swift in Sources */,
+				7C2D3455257FA5310013AD65 /* HTTPMethod.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
@@ -826,6 +849,7 @@
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
+				7C2D344D257FA5050013AD65 /* EndpointType.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
 				7C2D342A257F5C650013AD65 /* LoginCodeView.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
