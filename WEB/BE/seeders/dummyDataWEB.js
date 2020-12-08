@@ -31,7 +31,7 @@ module.exports = {
         status: false,
         ip_address: encryptWithAES256({ Text: '127.0.0.1' }),
         location: encryptWithAES256({ Text: 'Ko' }),
-        user_idx: 1,
+        auth_id: 'testId1234',
       },
       {
         idx: 2,
@@ -41,7 +41,7 @@ module.exports = {
         status: true,
         ip_address: encryptWithAES256({ Text: '127.0.0.1' }),
         location: encryptWithAES256({ Text: 'Ko' }),
-        user_idx: 1,
+        auth_id: 'testId1234',
       },
     ]);
   },

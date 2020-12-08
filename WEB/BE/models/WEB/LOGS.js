@@ -3,9 +3,9 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class LOGS extends Model {
     static associate(models) {
-      this.belongsTo(models.users, {
-        foreignKey: 'user_idx',
-        targetKey: 'idx',
+      this.belongsTo(models.auths, {
+        foreignKey: 'auth_id',
+        targetKey: 'id',
       });
     }
   }
