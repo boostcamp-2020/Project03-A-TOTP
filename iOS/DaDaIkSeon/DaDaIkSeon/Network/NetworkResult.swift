@@ -7,6 +7,6 @@
 
 enum NetworkResult<T> {
     case networkSuccess(T)
-    case networkError((resCode: Int, msg: String))
+    case networkError((responseCode: Int, message: String))
     case networkFail
 }

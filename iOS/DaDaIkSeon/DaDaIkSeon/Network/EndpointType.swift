@@ -19,4 +19,3 @@ extension EndpointType {
         return ""
     }
 }
-

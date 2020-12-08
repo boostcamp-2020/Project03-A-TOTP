@@ -9,8 +9,8 @@ import Foundation
 
 protocol Requestable {
     associatedtype NetworkData: Codable
-    typealias NetworkSuccessResult = (resCode: Int,
-                                      resResult: NetworkData)
+    typealias NetworkSuccessResult = (responseCode: Int,
+                                      responseResult: NetworkData)
     
     func request(_ endpoint: EndpointType,
                  completion: @escaping (NetworkResult<NetworkSuccessResult>) -> Void)
@@ -38,8 +38,8 @@ extension Requestable {
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else { return }
-            guard let response = response as? HTTPURLResponse else { return }
+            guard let data = data,
+                  let response = response as? HTTPURLResponse else { return }
             let responseCode = response.statusCode
             
             if error != nil {
