@@ -79,39 +79,10 @@ function AccessLog({ logs, page, maxPage, onPageChange }: AccessLogProps): JSX.E
       render: (sid: string) => (sid ? <Button text='로그아웃' onClick={() => console.log(sid)} /> : '-'),
     },
   ];
-  const data = [
-    {
-      key: '0',
-      time: '2020-20-10',
-      device: 'iPhone',
-      ip: '201.2.1.3',
-      location: '서울',
-      isLoggedIn: false,
-      sessionId: undefined,
-    },
-    {
-      key: '1',
-      time: '2020-20-11',
-      device: 'Mac',
-      ip: '201.2.1.4',
-      location: '서울',
-      isLoggedIn: false,
-      sessionId: undefined,
-    },
-    {
-      key: '2',
-      time: '2020-20-12',
-      device: 'Window 10',
-      ip: '201.2.1.5',
-      location: '부산',
-      isLoggedIn: true,
-      sessionId: '456',
-    },
-  ];
   return (
     <>
       <TableWrapper>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={logs} />
       </TableWrapper>
       <PaginationWrapper>
         <ReactPaginate
