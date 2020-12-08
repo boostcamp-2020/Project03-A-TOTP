@@ -25,8 +25,8 @@ final class LoginViewModel: ViewModel {
         switch input {
         case .check(let email):
             checkEmailStyle(email)
-        case .sendButtonInput:
-            sendAuthEmail()
+        case .sendButtonInput(let email):
+            sendAuthEmail(email)
         case .showSendButton:
             showSendButton()
         case .hideSendButton:
@@ -41,8 +41,8 @@ private extension LoginViewModel {
         state.checkText = email.count < 3 ? "올바르지 않은 이메일 형식입니다" : ""
     }
     
-    func sendAuthEmail() {
-        print("send")
+    func sendAuthEmail(_ emailText: String) {
+        state.service.sendEmail(email: emailText)
     }
     
     func showSendButton() {

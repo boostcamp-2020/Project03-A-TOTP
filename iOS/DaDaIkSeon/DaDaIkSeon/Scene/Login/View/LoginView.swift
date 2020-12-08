@@ -61,7 +61,7 @@ struct LoginView: View {
                             
                             if viewModel.state.isEmail {
                                 Button(action: {
-                                    sendButtonDidTap()
+                                    sendButtonDidTap(emailText)
                                 }, label: {
                                     Text("인증")
                                         .font(.system(size: 11))
@@ -111,8 +111,8 @@ extension LoginView {
         viewModel.trigger(.check(emailText))
     }
     
-    func sendButtonDidTap() {
-        viewModel.trigger(.sendButtonInput)
+    func sendButtonDidTap(_ emailText: String) {
+        viewModel.trigger(.sendButtonInput(emailText))
     }
     
 }

@@ -17,5 +17,5 @@ enum LoginInput {
     case showSendButton
     case hideSendButton
     case check(_ emailText: String)
-    case sendButtonInput
+    case sendButtonInput(_ emailText: String)
 }
