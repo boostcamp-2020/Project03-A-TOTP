@@ -12,6 +12,7 @@ interface TOTPModalProps {
   onChange: (otp: string) => any | React.Dispatch<React.SetStateAction<string>> | undefined;
   onSubmit: () => any;
   onClose: () => void;
+  onClick: () => void;
   hasErrored?: boolean;
   disabled?: boolean;
   errorMsg?: string | undefined;
