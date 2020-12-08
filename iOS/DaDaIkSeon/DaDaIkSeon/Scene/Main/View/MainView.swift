@@ -143,7 +143,10 @@ struct MainView: View {
                 //.opacity(viewModel.state.tokenOnDrag == token ? 0.0 : 1.0)
             }
             
-            addTokenView.frame(minHeight: 100)
+            if !viewModel.state.checkBoxMode {
+                addTokenView.frame(minHeight: 100)
+            }
+            
         }
     }
     

@@ -11,8 +11,15 @@ struct ZeroTokenView: View {
     
     var body: some View {
         ZStack {
+            Rectangle()
+                .fill(Color.white)
+                .cornerRadius(15)
+                .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
             VStack(alignment: .center) {
                 Spacer()
+                Image("ddLogo").resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 55)
                 Text("TOTP 토큰이 없으시네요!")
                     .fontWeight(.bold)
                     .foregroundColor(Color.darkNavy)
@@ -25,6 +32,7 @@ struct ZeroTokenView: View {
                 Spacer()
             }
         }
+        
     }
 }
 

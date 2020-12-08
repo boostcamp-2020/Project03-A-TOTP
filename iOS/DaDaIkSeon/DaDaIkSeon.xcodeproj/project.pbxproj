@@ -43,6 +43,9 @@
 		882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A5C257D30EE00B066F3 /* CellHandler.swift */; };
 		8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E0FD256FEF0200838FDF /* TokenEditView.swift */; };
 		8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835E10825701CD700838FDF /* TokenAddCellView.swift */; };
+		883C214A257E70D90094FFAA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883C2149257E70D90094FFAA /* SettingViewModel.swift */; };
+		883C2151257E71680094FFAA /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883C2150257E71680094FFAA /* SettingView.swift */; };
+		883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883C2161257E76CE0094FFAA /* SettingUsecase.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
 		88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
 		88697B7625729B5F008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
@@ -118,6 +121,9 @@
 		882E9A5C257D30EE00B066F3 /* CellHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellHandler.swift; sourceTree = "<group>"; };
 		8835E0FD256FEF0200838FDF /* TokenEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditView.swift; sourceTree = "<group>"; };
 		8835E10825701CD700838FDF /* TokenAddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAddCellView.swift; sourceTree = "<group>"; };
+		883C2149257E70D90094FFAA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		883C2150257E71680094FFAA /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		883C2161257E76CE0094FFAA /* SettingUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUsecase.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
 		88697B6E257298BD008DA21B /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
@@ -215,10 +221,7 @@
 			children = (
 				882D44A9256D0B7D001901F9 /* Model */,
 				7CF48DD62572B728001E3639 /* Services */,
-				882E99FB257D089C00B066F3 /* Main */,
-				882E99FE257D08F200B066F3 /* TokenCell */,
-				882E9A00257D093300B066F3 /* TokenEdit */,
-				7C3131DC257D1C1600A19319 /* Login */,
+				883C215C257E757F0094FFAA /* Scene */,
 				88937017256CFB6500337E2C /* Common */,
 				7C661936256CCAF10028E7C6 /* Preview Content */,
 			);
@@ -390,6 +393,52 @@
 			isa = PBXGroup;
 			children = (
 				882E9A23257D108300B066F3 /* MainUsecase.swift */,
+			);
+			path = Usecase;
+			sourceTree = "<group>";
+		};
+		883C2148257E70780094FFAA /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				883C2160257E76BD0094FFAA /* Usecase */,
+				883C214E257E71560094FFAA /* ViewModel */,
+				883C214F257E715B0094FFAA /* View */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		883C214E257E71560094FFAA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				883C2149257E70D90094FFAA /* SettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		883C214F257E715B0094FFAA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				883C2150257E71680094FFAA /* SettingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		883C215C257E757F0094FFAA /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				882E99FB257D089C00B066F3 /* Main */,
+				882E99FE257D08F200B066F3 /* TokenCell */,
+				882E9A00257D093300B066F3 /* TokenEdit */,
+				7C3131DC257D1C1600A19319 /* Login */,
+				883C2148257E70780094FFAA /* Setting */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		883C2160257E76BD0094FFAA /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				883C2161257E76CE0094FFAA /* SettingUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -699,6 +748,7 @@
 				7CCDD299256E940600150565 /* SearchBarView.swift in Sources */,
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
+				883C214A257E70D90094FFAA /* SettingViewModel.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
 				88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */,
 				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
@@ -723,11 +773,13 @@
 				7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */,
 				7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */,
 				8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */,
+				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CF48DC82572B690001E3639 /* TokenService.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8826F672257BB25D00A16244 /* TokenServiceable.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
+				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,

@@ -22,10 +22,18 @@ struct QRGuideView: View {
         
         VStack {
             Spacer()
+            Image("ddLogo").resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 70)
+                .padding(.bottom, 30)
+           
             Text("2FA 인증을 위해 웹사이트가 제공하는\nQR코드를 스캔해주세요!")
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
+            
             Spacer()
+            Spacer()
+            
             Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")
                 .multilineTextAlignment(.center)
             Spacer()
