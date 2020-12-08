@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      status: {
+      is_logged_out: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,

@@ -32,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      state: {
-        type: DataTypes.STRING,
+      is_verified: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: 0,
       },
