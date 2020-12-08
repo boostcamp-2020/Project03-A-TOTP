@@ -23,20 +23,24 @@ struct SettingGridView<Rows: View>: View {
     var body: some View {
         LazyVGrid(
             columns: columns,
-            alignment: .center,
             spacing: 0
         ) {
             Section(header: HStack {
                 Text(title)
                     .foregroundColor(Color(UIColor.systemGray))
                 Spacer()
-            }.padding(.bottom, 5)
+            }
+            .padding(.vertical, 5)
             ) {
                 ZStack {
                     backGround
                     VStack {
-                        Divider().padding(0)
-                        rows
+                        Divider()
+                            .padding(0)
+                            .opacity(0)
+
+                            rows
+                        
                     }
                     .padding(.horizontal)
                 }
