@@ -7,7 +7,7 @@ const sessionAuthentication = {
     if (!req.session.user) {
       return next(createError(401, '권한이 없습니다'));
     }
-
+    req.session.touch();
     return next();
   },
 
