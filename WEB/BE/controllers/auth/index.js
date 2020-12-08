@@ -50,7 +50,6 @@ const authController = {
 
     req.session.user = id;
     req.session.CSRF_TOKEN = csrfToken;
-
     const userAgent = UAParser(req.headers['user-agent']);
     const { ip } = req;
     const params = await makeLogData({ ip, userAgent, id, sid: req.session.id });
@@ -155,14 +154,15 @@ const authController = {
 
 const makeLogData = async ({ ip, userAgent, id, sid }) => {
   const device = userAgent.device.model
-    ? userAgent.device.model + userAgent.os.name
-    : userAgent.os.name + userAgent.browser.name;
-  let location = await axios(`http://ip-api.com/json/${ip}`);
-  location = location.data.status === 'fail' ? '알 수 없는 지역' : location.regionName;
+    ? `${userAgent.device.model} ${userAgent.os.name}`
+    : `${userAgent.os.name} ${userAgent.browser.name}`;
+  // let location = await axios(`http://ip-api.com/json/${'221.141.23.33'}`);
+  // location = location.data.status === 'fail' ? '알 수 없는 지역' : location.regionName;
+  const location = 'seoul';
   return {
     access_time: new Date(),
     status: 0,
-    ip_address: ip,
+    ip_address: ip.substring(7),
     device,
     location,
     auth_id: id,
