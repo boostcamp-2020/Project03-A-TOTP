@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
+		7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */; };
+		7C2D3420257F51360013AD65 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D341F257F51360013AD65 /* LoginService.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
@@ -80,6 +82,8 @@
 		3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3CF060568D9EE8E2331D44 /* Pods-DaDaIkSeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.release.xcconfig"; sourceTree = "<group>"; };
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
+		7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
+		7C2D341F257F51360013AD65 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,9 +172,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C2D3416257F4DCA0013AD65 /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */,
+			);
+			path = Usecase;
+			sourceTree = "<group>";
+		};
 		7C3131DC257D1C1600A19319 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				7C2D3416257F4DCA0013AD65 /* Usecase */,
 				7C3131EB257D33B100A19319 /* ViewModel */,
 				7C3131EC257D33B700A19319 /* View */,
 			);
@@ -271,6 +284,7 @@
 				8826F671257BB25D00A16244 /* TokenServiceable.swift */,
 				7CF48DC72572B690001E3639 /* TokenService.swift */,
 				8826F676257BB5D300A16244 /* MockTokenService.swift */,
+				7C2D341F257F51360013AD65 /* LoginService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -759,6 +773,8 @@
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,
+				7C2D3420257F51360013AD65 /* LoginService.swift in Sources */,
+				7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
