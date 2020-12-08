@@ -7,33 +7,25 @@
 
 import SwiftUI
 
-struct TokenEditState {
-    var service: TokenServiceable
-    var qrCode: String?
-    var token: Token
-}
-
-enum TokenEditInput {
-    case addToken
-    case changeName(_ name: String)
-    case changeColor(_ name: String)
-    case changeIcon(_ name: String)
-}
-
 struct TokenEditView: View {
     
     // MARK: Property
     
     @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     @EnvironmentObject var navigationFlow: NavigationFlowObject
-    @State private var text = ""
-    @State private var segmentedMode = 0
-    @State private var segmentList = ["색상", "아이콘"]
-    @State private var showingAlert: Bool = false
     
-    init(service: TokenServiceable, token: Token?, qrCode: String?) {
-        viewModel = AnyViewModel(
-            TokenEditViewModel(service: service, token: token, qrCode: qrCode))
+    @State private var text = ""
+    @State private var showingAlert = false
+    @State private var segmentedMode = 0
+    
+    private var segmentList = ["색상", "아이콘"]
+    
+    init(service: TokenServiceable,
+         token: Token?,
+         qrCode: String?) {
+        viewModel = AnyViewModel(TokenEditViewModel(service: service,
+                                                    token: token,
+                                                    qrCode: qrCode))
     }
     
     // MARK: Body
