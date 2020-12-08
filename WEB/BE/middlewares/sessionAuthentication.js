@@ -5,10 +5,10 @@ const sessionAuthentication = {
     const { csrfToken } = req.body;
     // if (!req.session.key && req.session.CSRF_TOKEN !== CSRFTOKEN) {
     if (!req.session.key) {
-      next(createError(401, '권한이 없습니다'));
-    } else {
-      return next();
+      return next(createError(401, '권한이 없습니다'));
     }
+
+    return next();
   },
 
   sessionLogout(req, res, next) {

@@ -43,7 +43,6 @@ const authService = {
       include: [
         {
           model: users,
-          attributes: ['email', 'name'],
         },
       ],
       where: {
