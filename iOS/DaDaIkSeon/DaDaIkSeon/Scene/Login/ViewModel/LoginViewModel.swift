@@ -15,7 +15,8 @@ final class LoginViewModel: ViewModel {
     
     init(service: LoginServiceable) {
         state = LoginState(service: service,
-                           checkText: "",
+                           checkEmailText: "",
+                           checkCodeText: "",
                            isTyping: false,
                            isEmailView: true)
     }
@@ -24,9 +25,11 @@ final class LoginViewModel: ViewModel {
     
     func trigger(_ input: LoginInput) {
         switch input {
-        case .check(let email):
-            changeCheckText(email)
-        case .sendButtonInput(let email):
+        case .checkEmail(let email):
+            changeCheckEmailText(email)
+        case .checkCode(let code):
+            changeCheckCodeText(code)
+        case .sendButton(let email):
             sendAuthEmail(email)
         case .showSendButton:
             showSendButton()
@@ -34,18 +37,28 @@ final class LoginViewModel: ViewModel {
             changeIsEmailView()
         case .hideSendButton:
             state.isTyping = false
+        case .authButton(let code):
+            sendAuthCode(code)
         }
     }
 }
 
 private extension LoginViewModel {
     
-    func changeCheckText(_ emailText: String) {
-        state.checkText = checkEmailStyle(emailText) ? "" : "올바르지 않은 이메일 형식입니다"
+    func changeCheckEmailText(_ emailText: String) {
+        state.checkEmailText = checkEmailStyle(emailText) ? "" : "올바르지 않은 이메일 형식입니다"
+    }
+    
+    func changeCheckCodeText(_ codeText: String) {
+        state.checkCodeText = checkCodeStyle(codeText) ? "" : "6자리수를 입력하세요"
     }
     
     func checkEmailStyle(_ emailText: String) -> Bool {
         return emailText.count > 3
+    }
+    
+    func checkCodeStyle(_ codeText: String) -> Bool {
+        return codeText.count == 6
     }
     
     func sendAuthEmail(_ emailText: String) {
@@ -54,6 +67,14 @@ private extension LoginViewModel {
         } else {
             state.service.sendEmail(email: emailText)
             state.isEmailView = false
+        }
+    }
+    
+    func sendAuthCode(_ codeText: String) {
+        if !checkCodeStyle(codeText) {
+            print("코드가 달라..")
+        } else {
+            state.service.requestAuthentication(code: codeText)
         }
     }
     
