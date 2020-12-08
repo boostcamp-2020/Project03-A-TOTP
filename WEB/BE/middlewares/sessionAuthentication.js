@@ -4,7 +4,7 @@ const sessionAuthentication = {
   sessionCheck(req, res, next) {
     const { csrfToken } = req.body;
     // if (!req.session.key && req.session.CSRF_TOKEN !== CSRFTOKEN) {
-    if (!req.session.key) {
+    if (!req.session.user) {
       return next(createError(401, '권한이 없습니다'));
     }
 

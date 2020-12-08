@@ -56,20 +56,19 @@ const userController = {
 
   async findID(req, res) {
     const { email, name } = req.body;
-    // let userIdx = '';
-
     const userInfo = encrypUserInfo({ userInfo: req.body });
     const user = await userService.findAuthByUser({ userInfo });
+
     if (!user) {
-      // 유저 없음
-      res.status(400).json({ msg: '없는 사용자' });
+      return res.status(400).json({ msg: '없는 사용자' });
     }
+
     emailSender.sendId(email, name, user.auth.id);
     res.json(true);
   },
 
   async getUser(req, res) {
-    const uid = req.session.key;
+    const uid = req.session.user;
     const {
       user: { birth, email, name, phone },
     } = await authService.getUserById({ id: uid });
@@ -85,7 +84,7 @@ const userController = {
   },
 
   async updateUser(req, res) {
-    const uid = req.session.key;
+    const uid = req.session.user;
     const { name, email, phone, birth } = req.body;
     const { user } = await authService.getUserById({ id: uid });
 
