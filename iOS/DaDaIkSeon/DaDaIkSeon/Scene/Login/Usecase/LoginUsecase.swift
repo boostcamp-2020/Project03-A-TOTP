@@ -10,12 +10,14 @@ import Foundation
 struct LoginState {
     var service: LoginServiceable
     var checkText: String
-    var isEmail: Bool
+    var isTyping: Bool
+    var isEmailView: Bool
 }
 
 enum LoginInput {
     case showSendButton
     case hideSendButton
+    case backButton
     case check(_ emailText: String)
     case sendButtonInput(_ emailText: String)
 }
