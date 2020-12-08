@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SettingServicable {
+protocol SettingServiceable {
     
     // 싱글톤 객체 사용
     // 네트워크 CRUD

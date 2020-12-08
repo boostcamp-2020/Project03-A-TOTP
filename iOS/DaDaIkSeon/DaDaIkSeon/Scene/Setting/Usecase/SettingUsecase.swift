@@ -8,7 +8,7 @@
 import Foundation
 
 struct SettingState {
-    var service: SettingServicable
+    var service: SettingServiceable
     var email: String
     var devices: [Device]
 }
