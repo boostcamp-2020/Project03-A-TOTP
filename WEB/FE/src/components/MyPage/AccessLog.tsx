@@ -51,13 +51,13 @@ const PaginationWrapper = styled.div`
     }
 
     .active {
-      background-color: ${({ theme }) => theme.color.GrayBrown};
+      background-color: ${({ theme }) => theme.color.primary};
       color: white;
     }
 
     .prev-link,
     .next-link {
-      background-color: #eee;
+      background-color: ${({ theme }) => theme.color.border};
     }
   }
 `;

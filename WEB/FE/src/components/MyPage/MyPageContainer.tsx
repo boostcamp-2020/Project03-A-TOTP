@@ -11,7 +11,7 @@ interface MyPageContainerProps {}
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 1440px;
+  max-width: ${({ theme }) => theme.size.pageWidth};
   padding: 2rem 1rem;
   margin: auto;
 
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   }
 
   .react-tabs__tab {
-    color: ${({ theme }) => theme.color.Black};
+    color: ${({ theme }) => theme.color.text};
     font-size: 1.125rem;
     border-radius: 0;
   }
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     background-color: transparent;
     font-weight: bold;
     border: 1px solid transparent;
-    border-bottom: 3px solid ${({ theme }) => theme.color.Black};
+    border-bottom: 3px solid ${({ theme }) => theme.color.primary};
   }
 `;
 
