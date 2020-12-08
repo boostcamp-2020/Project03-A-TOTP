@@ -55,7 +55,6 @@ const authController = {
       const userAgent = UAParser(req.headers['user-agent']);
       const { ip } = req;
       const params = await makeLogData({ ip, userAgent, id, sid: req.session.id });
-      console.log(params);
       await logService.insert({ params });
       res.json({ result: true, csrfToken });
     } catch (e) {
