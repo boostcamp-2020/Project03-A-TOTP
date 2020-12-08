@@ -44,5 +44,10 @@ const userService = {
     const result = await usersModel.findOne({ where: { idx } });
     return result;
   },
+
+  async updateUser({ idx, userInfo }) {
+    const result = await usersModel.update(userInfo, { where: { idx }, returning: true });
+    return result;
+  },
 };
 module.exports = userService;
