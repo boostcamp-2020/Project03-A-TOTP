@@ -11,7 +11,6 @@ struct SettingState {
     
    // var service: TokenServiceable
     
-    
 }
 
 enum SettingInput {
@@ -23,16 +22,25 @@ enum SettingInput {
     // 내정보
     // 이메일 - 터치하면 수정 가능 해야 함. - 수정 후 서버 요청
     
-    
     // 백업관리
     // 백업할래? - 토글 - 서버 요청 - on 하면 불러오기
     // 백업 비밀번호 변경 - '화면'필요
             // - 변경 후 요청
-    
     
     // 기기관리
     // 멀티디바이스 - 토글
     // 리스트 셀 터치 - 변경 가능해야함 - '화면'필요
     
     // 삭제는 어떻게 하지?
+}
+
+
+extension SettingView {
+    final class SettingTransition: ObservableObject {
+        // MARK: 화면 전환 또는 토글? - 새로운 화면에서 설정 해야 하는 것들
+        // 백업 On/off 토글
+        @Published var backupToggle: Bool = false
+        // 멀티 디바이스 On/off 토글
+        @Published var multiDeviceToggle: Bool = false
+    }
 }
