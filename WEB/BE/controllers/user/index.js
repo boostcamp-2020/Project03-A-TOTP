@@ -67,6 +67,39 @@ const userController = {
     emailSender.sendId(email, name, user.auth.id);
     res.json(true);
   },
+
+  async getUser(req, res) {
+    const uid = req.session.key;
+    const {
+      user: { birth, email, name, phone },
+    } = await authService.getUserById({ id: uid });
+
+    res.json({
+      user: {
+        birth: decryptWithAES256({ encryptedText: birth }),
+        email: decryptWithAES256({ encryptedText: email }),
+        name: decryptWithAES256({ encryptedText: name }),
+        phone: decryptWithAES256({ encryptedText: phone }),
+      },
+    });
+  },
+
+  async updateUser(req, res) {
+    const uid = req.session.key;
+    const { name, email, phone, birth } = req.body;
+    const { user } = await authService.getUserById({ id: uid });
+
+    const userInfo = {
+      name: name && encryptWithAES256({ Text: name }),
+      email: email && encryptWithAES256({ Text: email }),
+      phone: phone && encryptWithAES256({ Text: phone }),
+      birth: birth && encryptWithAES256({ Text: birth }),
+    };
+
+    await user.update(userInfo);
+
+    res.json({ message: 'ok' });
+  },
 };
 
 const encrypUserInfo = ({ userInfo }) => {
