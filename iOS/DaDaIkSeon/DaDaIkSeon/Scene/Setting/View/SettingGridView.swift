@@ -11,11 +11,13 @@ struct SettingGridView<Rows: View>: View {
     
     var rows: Rows
     var title: String
+    var titleColor: Color
     var columns = [GridItem(.flexible())]
     
-    init(title: String, @ViewBuilder rows: @escaping () -> Rows) {
+    init(title: String, titleColor: Color, @ViewBuilder rows: @escaping () -> Rows) {
         self.title = title
         self.rows = rows()
+        self.titleColor = titleColor
     }
     
     var body: some View {
@@ -28,10 +30,20 @@ struct SettingGridView<Rows: View>: View {
                 Text(title)
                     .foregroundColor(Color(UIColor.systemGray))
                 Spacer()
-            }.padding()
+            }
+            .padding()
             ) {
-                rows
+                ZStack {
+                    backGround
+                    rows
+                }
+                
             }
         }
+    }
+    
+    var backGround: some View {
+        Rectangle().fill(titleColor)
+            .cornerRadius(15)
     }
 }
