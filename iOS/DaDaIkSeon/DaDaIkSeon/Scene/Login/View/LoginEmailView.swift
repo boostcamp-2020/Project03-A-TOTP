@@ -29,7 +29,7 @@ struct LoginEmailView: View {
                 .padding(.bottom, 16)
             
             VStack(alignment: .trailing) {
-                Text(viewModel.state.checkText)
+                Text(viewModel.state.checkEmailText)
                     .font(.system(size: 11))
                     .foregroundColor(.gray)
                     .padding(.trailing, 8)
@@ -51,8 +51,7 @@ struct LoginEmailView: View {
                         Button(action: {
                             sendButtonDidTap(emailText)
                         }, label: {
-                            Text("인증")
-                                .font(.system(size: 11))
+                            Image.mail
                                 .foregroundColor(.white)
                         })
                         .padding(.horizontal, 12)
@@ -86,12 +85,12 @@ private extension LoginEmailView {
     }
     
     func checkTextChange() {
-        viewModel.trigger(.check(emailText))
+        viewModel.trigger(.checkEmail(emailText))
     }
     
     func sendButtonDidTap(_ emailText: String) {
         withAnimation {
-            viewModel.trigger(.sendButtonInput(emailText))
+            viewModel.trigger(.sendButton(emailText))
         }
     }
     
