@@ -132,6 +132,20 @@ const authController = {
 
     res.json({ message: 'ok' });
   },
+
+  async checkPassword(req, res, next) {
+    const { password } = req.body;
+    const id = req.session.user;
+    const user = await authService.getAuthById({ id });
+
+    if (!user) return next(createError(400, '존재하지 않는 유저입니다.'));
+
+    const isValidPassword = await comparePassword(password, user.password);
+
+    if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
+
+    res.json({ result: true });
+  },
 };
 
 module.exports = authController;
