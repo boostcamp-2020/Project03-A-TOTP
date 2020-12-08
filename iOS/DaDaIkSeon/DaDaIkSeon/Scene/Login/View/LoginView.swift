@@ -27,8 +27,8 @@ struct LoginView: View {
                                alignment: .center)
                         .foregroundColor(.white)
                         .cornerRadius(45)
-                        .shadow(color: Color.black.opacity(0.3),
-                                radius: 15,
+                        .shadow(color: Color.black.opacity(0.1),
+                                radius: 10,
                                 x: 0.0,
                                 y: 0.3)
                 }

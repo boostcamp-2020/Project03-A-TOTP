@@ -85,7 +85,10 @@ struct TokenCellView: View {
             }
             .background(viewModel.state.token.color?.linearGradientColor() ?? LinearGradient.pink)
             .cornerRadius(15)
-            .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
+            .shadow(color: Color.black.opacity(0.1),
+                    radius: 10,
+                    x: 0.0,
+                    y: 0.3)
             
             if isMainCell {
                 // MARK: 프로그레스 바

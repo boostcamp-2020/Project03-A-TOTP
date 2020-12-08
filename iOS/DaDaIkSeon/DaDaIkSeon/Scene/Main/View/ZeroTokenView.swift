@@ -14,7 +14,10 @@ struct ZeroTokenView: View {
             Rectangle()
                 .fill(Color.white)
                 .cornerRadius(15)
-                .shadow(color: Color.shadow, radius: 6, x: 0, y: 3.0)
+                .shadow(color: Color.black.opacity(0.1),
+                        radius: 10,
+                        x: 0.0,
+                        y: 0.3)
             VStack(alignment: .center) {
                 Spacer()
                 Image("ddLogo").resizable()
