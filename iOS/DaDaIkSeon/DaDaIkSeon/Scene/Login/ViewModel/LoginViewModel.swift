@@ -16,7 +16,8 @@ final class LoginViewModel: ViewModel {
     init(service: LoginServiceable) {
         state = LoginState(service: service,
                            checkText: "",
-                           isEmail: false)
+                           isTyping: false,
+                           isEmailView: true)
     }
     
     // MARK: Methods
@@ -24,33 +25,48 @@ final class LoginViewModel: ViewModel {
     func trigger(_ input: LoginInput) {
         switch input {
         case .check(let email):
-            checkEmailStyle(email)
+            changeCheckText(email)
         case .sendButtonInput(let email):
             sendAuthEmail(email)
         case .showSendButton:
             showSendButton()
+        case .backButton:
+            changeIsEmailView()
         case .hideSendButton:
-            state.isEmail = false
+            state.isTyping = false
         }
     }
 }
 
 private extension LoginViewModel {
     
-    func checkEmailStyle(_ email: String) {
-        state.checkText = email.count < 3 ? "올바르지 않은 이메일 형식입니다" : ""
+    func changeCheckText(_ emailText: String) {
+        state.checkText = checkEmailStyle(emailText) ? "" : "올바르지 않은 이메일 형식입니다"
+    }
+    
+    func checkEmailStyle(_ emailText: String) -> Bool {
+        return emailText.count > 3
     }
     
     func sendAuthEmail(_ emailText: String) {
-        state.service.sendEmail(email: emailText)
+        if !checkEmailStyle(emailText) {
+            print("올바르지 않아서 보낼 수 없어")
+        } else {
+            state.service.sendEmail(email: emailText)
+            state.isEmailView = false
+        }
     }
     
     func showSendButton() {
-        state.isEmail = true
+        state.isTyping = true
     }
     
     func hideSendButton() {
-        state.isEmail = false
+        state.isTyping = false
+    }
+    
+    func changeIsEmailView() {
+        state.isEmailView = true
     }
     
 }
