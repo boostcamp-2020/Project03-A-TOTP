@@ -34,7 +34,8 @@ const sessionOptions = {
     prefix: 'session:',
   }),
   saveUninitialized: false,
-  resave: false,
+  resave: true,
+  rolling: true,
   secret: process.env.SESSIONKEY,
   cookie: {
     maxAge: 7200000,
