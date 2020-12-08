@@ -8,20 +8,6 @@
 import SwiftUI
 import CryptoKit
 
-struct TokenCellState {
-    var service: TokenServiceable
-    var token: Token
-    var password: String
-    var leftTime: String
-    var timeAmount: Double
-    var isShownEditView: Bool
-}
-
-enum TokenCellInput {
-    case showEditView
-    case hideEditView
-}
-
 struct TokenCellView: View {
     
     // MARK: ViewModel

@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-struct TokenEditState {
-    var service: TokenServiceable
-    var qrCode: String?
-    var token: Token
-}
-
-enum TokenEditInput {
-    case addToken
-    case changeName(_ name: String)
-    case changeColor(_ name: String)
-    case changeIcon(_ name: String)
-}
-
 struct TokenEditView: View {
     
     // MARK: Property
