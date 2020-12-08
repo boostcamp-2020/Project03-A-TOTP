@@ -24,7 +24,7 @@ const userController = {
       idx: insertResult.dataValues.idx,
       id,
       password: encryptPassword,
-      state: '0',
+      isVerified: '0',
       secretKey,
     });
     emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
@@ -46,7 +46,7 @@ const userController = {
       return;
     }
     const info = {
-      state: 1,
+      isVerified: 1,
       idx,
     };
 

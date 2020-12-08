@@ -9,15 +9,15 @@ const authService = {
     return result.length === 0;
   },
 
-  async insert({ idx, id, password, state, secretKey }) {
-    const query = { id, password, state, secret_key: secretKey, user_idx: idx };
+  async insert({ idx, id, password, isVerified, secretKey }) {
+    const query = { id, password, is_verified: isVerified, secret_key: secretKey, user_idx: idx };
     const result = await authsModel.create(query);
     return result;
   },
 
   async update({ info }) {
     const query = {
-      state: info.state,
+      is_verified: info.isVerified,
     };
     const where = {
       user_idx: info.idx,
