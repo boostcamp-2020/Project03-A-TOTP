@@ -9,10 +9,10 @@ import Foundation
 
 class SettingViewModel: ViewModel {
     
-    @Published var state = SettingState()
+    @Published var state: SettingState
     
     init() {
-        
+        state = SettingState(service: MockSettingService())
     }
   
     func trigger(_ input: SettingInput) {

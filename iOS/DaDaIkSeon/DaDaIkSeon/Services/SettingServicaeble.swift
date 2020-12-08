@@ -9,28 +9,30 @@ import Foundation
 
 protocol SettingServicable {
     
-    // MARK: Property
-    
-    // UserDefault CRUD
+    // 싱글톤 객체 사용
     // 네트워크 CRUD
+    // UserDefault CRUD
+
+    func loadUser() // 유저 디폴트에서 가져오기
+    func refresh() // 네트워크에서 가져오기
     
-    // MARK: Authentication
-    
-    // 인증
-    // 유저 디폴트에 유저 정보가 없으면 유저 정보 생성 - 이 때 디바이스 정보 값 생성
-    
-    // MARK: Setting
-    
-    // 이메일 변경
+    // 이메일
+    func readEmail() -> String?
+    func updateEmail(_ email: String)
     
     // 백업 on/off
+    func updateBackupMode()
     
     // 멀티 디바이스 on/off
+    func updateMultiDeviceMode()
     
-    // 디바이스 CRUD - 디바이스 생성은 다른 디바이스에서 인증이 되었을 때 - 이건 로그인 화면에서 이루어지겠다!
+    // 디바이스 CRUD
+    // - 디바이스 생성은 다른 디바이스에서 인증이 되었을 때 - 이건 로그인 화면에서 이루어지겠다!
+    //func createDevice()
+    func readDevice() -> [Device]?
+    func updateDevice(_ newDevice: Device)
+    func deleteDevice(_ udid: String)
+    
     // 그럼 다른 디바이스에서 앱을 삭제하면?? - 이건 어쩔 도리가..
-    
-    
-    
     
 }

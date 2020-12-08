@@ -7,16 +7,41 @@
 
 import SwiftUI
 
+struct SettingState {
+    //var user: DDISUser // 로드해서 받아온다.
+    var service: SettingServicable
+}
+
+enum SettingInput {
+    // 완료 버튼
+    
+    // 리프레시 버튼
+    case refresh
+    // 누르면 정보 다 불러옴. - 라스트 데이트 검사 해서 최신 데이터로 업데이트
+    
+    // 내정보
+    // 이메일 - 터치하면 수정 가능 해야 함. - 수정 후 서버 요청
+    
+    // 백업관리
+    // 백업할래? - 토글 - 서버 요청 - on 하면 불러오기
+    case backupToggle
+    // 백업 비밀번호 변경 - '화면'필요
+            // - 변경 후 요청
+    
+    // 기기관리
+    // 멀티디바이스 - 토글
+    case multiDeviceToggle
+    // 리스트 셀 터치 - 변경 가능해야함 - '화면'필요
+    
+    // 삭제는 어떻게 하지?
+}
+
 struct SettingView: View {
     
     // MARK: 뷰모델
     @ObservedObject var viewModel = SettingViewModel()
     
     @ObservedObject var settingTrsnsion = SettingTransition()
-    
-    // MARK: 진짜 상태값 State
-    @State var backupMode: Bool = false
-    @State var multiDeviceMode: Bool = false
     
     // 서비스가 갖도록
     @State var user = DDISUser.dummy()
