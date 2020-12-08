@@ -17,12 +17,13 @@ struct LoginCodeView: View {
         VStack {
             Button {
                 backToEmailView()
-                
             } label: {
-                Text("뒤로가.")
+                Image.back
+                    .resizable()
+                    .frame(width: 33, height: 33)
+                    .foregroundColor(Color.navy2)
+                    .padding()
             }
-
-            Text("hi")
         }
     }
     
