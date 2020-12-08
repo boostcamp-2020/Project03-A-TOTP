@@ -9,12 +9,18 @@ import Foundation
 
 protocol LoginServiceable {
     func sendEmail(email: String)
+    func requestAuthentication(code: String)
 }
 
 final class LoginService: LoginServiceable {
     
     func sendEmail(email: String) {
         print("\(email) 에게 인증 요청을 보냈어요")
+    }
+    
+    func requestAuthentication(code: String) {
+        print("\(code) 코드 생성")
+        createDDISUser()
     }
     
 }
