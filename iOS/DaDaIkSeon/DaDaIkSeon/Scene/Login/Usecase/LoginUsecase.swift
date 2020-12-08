@@ -9,7 +9,8 @@ import Foundation
 
 struct LoginState {
     var service: LoginServiceable
-    var checkText: String
+    var checkEmailText: String
+    var checkCodeText: String
     var isTyping: Bool
     var isEmailView: Bool
 }
@@ -18,6 +19,8 @@ enum LoginInput {
     case showSendButton
     case hideSendButton
     case backButton
-    case check(_ emailText: String)
-    case sendButtonInput(_ emailText: String)
+    case checkCode(_ codeText: String)
+    case checkEmail(_ emailText: String)
+    case authButton(_ codeText: String)
+    case sendButton(_ emailText: String)
 }
