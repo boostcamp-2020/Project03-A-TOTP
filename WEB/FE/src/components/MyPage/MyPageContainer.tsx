@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MyInfo } from '@components/MyPage/MyInfo';
 import { MyInfoEdit } from '@components/MyPage/MyInfoEdit';
 import { AccessLog } from '@components/MyPage/AccessLog';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { getUser, updateUser } from '@api/index';
 import 'react-tabs/style/react-tabs.css';
 
 interface MyPageContainerProps {}
@@ -44,18 +45,30 @@ const TabWrapper = styled.div`
 `;
 
 function MyPageContainer({}: MyPageContainerProps): JSX.Element {
-  const [name, setName] = useState('jh');
-  const [mail, setMail] = useState('asd@naver.com');
-  const [birth, setBirth] = useState('2020-20-20');
-  const [phone, setPhone] = useState('010-2312-1234');
+  const [name, setName] = useState('');
+  const [mail, setMail] = useState('');
+  const [birth, setBirth] = useState('');
+  const [phone, setPhone] = useState('');
   const [isEditInfo, setIsEditInfo] = useState(false);
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(10);
 
-  const onSaveInfo = () => setIsEditInfo(false);
+  const onSaveInfo = () =>
+    updateUser({ name, email: mail, birth, phone })
+      .catch(alert)
+      .finally(() => setIsEditInfo(false));
   const onCancelEdit = () => setIsEditInfo(false);
   const onPageChange = ({ selected }: { selected: number }) => setPage(selected + 1);
+
+  useEffect(() => {
+    getUser().then(({ user: { name, email, birth, phone } }) => {
+      setName(name);
+      setMail(email);
+      setBirth(birth);
+      setPhone(phone);
+    });
+  }, []);
 
   return (
     <Wrapper>

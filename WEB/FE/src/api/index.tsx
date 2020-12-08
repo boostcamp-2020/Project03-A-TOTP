@@ -125,3 +125,20 @@ export const sendPassword = async (params: sendPasswordParams): Promise<any> => 
   const { data } = await axios.post(`api/auth/check-pw`, params);
   return data;
 };
+
+export const getUser = async (): Promise<any> => {
+  const { data } = await axios.get('api/user');
+  return data;
+};
+
+interface updateUserParmas {
+  name?: string;
+  email?: string;
+  phone?: string;
+  birth?: string;
+}
+
+export const updateUser = async (params: updateUserParmas): Promise<any> => {
+  const { data } = await axios.patch('api/user', params);
+  return data;
+};
