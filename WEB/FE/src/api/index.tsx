@@ -115,3 +115,13 @@ export const sendSecretKeyEmail = async (params: sendSecretKeyEmailParams): Prom
   const { data } = await axios.put(`/api/auth/secret-key/email`, params);
   return data;
 };
+
+interface sendPasswordParams {
+  password: string;
+}
+
+// MyPage에서 비밀번호 입력하여 확인할 때 사용
+export const sendPassword = async (params: sendPasswordParams): Promise<any> => {
+  const { data } = await axios.post(`api/auth/check-pw`, params);
+  return data;
+};
