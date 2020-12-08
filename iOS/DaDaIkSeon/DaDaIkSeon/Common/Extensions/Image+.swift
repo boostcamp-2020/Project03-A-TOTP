@@ -28,6 +28,7 @@ extension Image {
     static let ellipsis = Image(systemName: "ellipsis.circle.fill")
     static let copy = Image(systemName: "doc.on.doc")
     static let plus = Image(systemName: "plus.circle")
+    static let back = Image(systemName: "arrow.left.circle.fill")
 }
 
 extension String {
