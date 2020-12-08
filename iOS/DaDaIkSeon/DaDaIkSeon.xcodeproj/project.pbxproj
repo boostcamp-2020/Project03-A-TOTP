@@ -184,6 +184,24 @@
 			path = Usecase;
 			sourceTree = "<group>";
 		};
+		7C2D342E257F735F0013AD65 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				8826F671257BB25D00A16244 /* TokenServiceable.swift */,
+				7CF48DC72572B690001E3639 /* TokenService.swift */,
+				8826F676257BB5D300A16244 /* MockTokenService.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
+		7C2D342F257F736A0013AD65 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D341F257F51360013AD65 /* LoginService.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		7C3131DC257D1C1600A19319 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,10 +305,8 @@
 		7CF48DD62572B728001E3639 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8826F671257BB25D00A16244 /* TokenServiceable.swift */,
-				7CF48DC72572B690001E3639 /* TokenService.swift */,
-				8826F676257BB5D300A16244 /* MockTokenService.swift */,
-				7C2D341F257F51360013AD65 /* LoginService.swift */,
+				7C2D342E257F735F0013AD65 /* Token */,
+				7C2D342F257F736A0013AD65 /* Login */,
 			);
 			path = Services;
 			sourceTree = "<group>";
