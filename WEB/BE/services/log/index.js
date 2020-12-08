@@ -1,9 +1,9 @@
 // logs 테이블변경 후 적용해야합니다.
-const logsModel = require('@models/sequelizeWEB.js').testlogs;
+const logsModel = require('@models/sequelizeWEB.js').logs;
 
 const logService = {
-  async insert({ sid, status }) {
-    const query = { sid, status };
+  async insert({ params }) {
+    const query = params;
     try {
       const result = await logsModel.create(query);
       return result;
