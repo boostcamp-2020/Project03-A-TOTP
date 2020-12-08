@@ -30,12 +30,15 @@ struct SettingGridView<Rows: View>: View {
                 Text(title)
                     .foregroundColor(Color(UIColor.systemGray))
                 Spacer()
-            }
-            .padding()
+            }.padding(.bottom, 5)
             ) {
                 ZStack {
                     backGround
-                    rows
+                    VStack {
+                        Divider().padding(0)
+                        rows
+                    }
+                    .padding(.horizontal)
                 }
                 
             }

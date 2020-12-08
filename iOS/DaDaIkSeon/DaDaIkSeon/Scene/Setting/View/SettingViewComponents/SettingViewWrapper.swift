@@ -23,7 +23,6 @@ struct SettingViewWrapper<Content: View>: View {
         VStack {
             ScrollView {
                 destinationView
-                    .background(Color(UIColor.systemGray6))
                     .navigationBarHidden(false)
                     .navigationTitle("설정")
                     .navigationBarTitleDisplayMode(.inline)

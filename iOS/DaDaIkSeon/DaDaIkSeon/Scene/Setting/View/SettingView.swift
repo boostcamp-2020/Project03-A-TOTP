@@ -21,10 +21,10 @@ struct SettingView: View {
         SettingViewWrapper(action: {
             viewModel.trigger(.refresh)
         }, content: {
+            Spacer().frame(height: 10)
+            
             // MARK: 내정보 관리
             SettingGridView(title: "내 정보", titleColor: .white) {
-                VStack {
-                    Divider().padding(0)
                     NavigationLink(
                         destination: NavigationLazyView(TestView()),
                         label: {
@@ -37,16 +37,14 @@ struct SettingView: View {
 //                            SettingRow(title: "보안 강화하기") { Image.chevron }
 //                        })
 //                        .foregroundColor(.black)
-                }
-                .padding(.horizontal)
+//                }
+//                .padding(.horizontal)
             }
             .padding(.horizontal, 10)
                 
             // MARK: 백업 관리
             
             SettingGridView(title: "백업 관리", titleColor: .white) {
-                VStack {
-                    Divider().padding(0)
                     SettingRow(title: "백업 할래?") {
                         Toggle(isOn: $settingTrsnsion.backupToggle, label: {
                             Text("")
@@ -61,16 +59,12 @@ struct SettingView: View {
                             SettingRow(title: "비밀번호 변경하기?") { Image.chevron }
                         })
                         .foregroundColor(.black)
-                }
-                .padding(.horizontal)
             }
             .padding(.horizontal, 10)
             
             // MARK: 기기 관리
             
             SettingGridView(title: "기기 관리", titleColor: .white) {
-                VStack {
-                    Divider().padding(0)
                     SettingRow(title: "다른데서도 쓸거야?") {
                         Toggle(isOn: $settingTrsnsion.multiDeviceToggle, label: {Text("")})
                         .onChange(of: settingTrsnsion.multiDeviceToggle, perform: { _ in
@@ -85,14 +79,14 @@ struct SettingView: View {
                             })
                             .foregroundColor(.black)
                     }
-                }
-                .padding(.horizontal)
             }
             .padding(.horizontal, 10)
+            .padding(.top, 10)
             
             Spacer()
-        }
-        )
+        })
+        .background(Color(UIColor.systemGray6))
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
