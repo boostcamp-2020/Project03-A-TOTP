@@ -9,69 +9,63 @@ import SwiftUI
 
 struct SettingView: View {
     
-    // 뷰모델
-    //@ObservedObject viewModel: SettingViewModel
+    // MARK: 뷰모델
+    @ObservedObject var viewModel = SettingViewModel()
     
-    @State var devices = Device.dummy()
+    // MARK: 화면 전환 또는 토글? - 새로운 화면에서 설정 해야 하는 것들
+    // 생체 인식, 핀넘버 사용
+    @State var securitySetting: Bool = false
+    // 이메일 변경
+    @State var emailSetting: Bool = false
+    // 디바이스 정보 변경
+    @State var deviceSetting: Bool = false
     
-    var columns = [GridItem(.flexible())]
+    // MARK: 진짜 상태값 State
+    @State var backupMode: Bool = false
+    @State var multiDeviceMode: Bool = false
+    @State var devices = Device.dummy() // 서비스가 가지고 있다.
     
     var body: some View {
-        VStack {
-            
-            ScrollView {
-                LazyVGrid(
-                    columns: columns,
-                    alignment: .center,
-                    spacing: 0
-                ) {
-                    Section(header:
-                                HStack {
-                                    Text("Section 1")
-                                        .foregroundColor(Color(UIColor.systemGray))
-                                    Spacer()
-                                }.padding()
-                    ) {
-                        ZStack {
-                            Rectangle().fill(Color.red)
-                            VStack {
-                                Divider().padding(0)
-                                ForEach(devices, id: \.udid) { device in
-                                    SettingRow(device: device)
-                                }
-                            }
-                            .padding(.horizontal)
+        SettingViewWrapper {
+            SettingGridView(title: "내 정보") {
+                ZStack {
+                    Rectangle().fill(Color.red)
+                    VStack {
+                        Divider().padding(0)
+                        ForEach(devices, id: \.udid) { device in
+                            SettingRow(device: device)
                         }
                     }
-                    
-                    Section(header: Text("Section 2").font(.title)) {
-                        ForEach(11...20, id: \.self) { index in
-                            HStack {
-                                Text("\(index)")
-                                Spacer()
-                            }
-                        }
-                    }
+                    .padding(.horizontal)
                 }
-                Spacer()
             }
+            SettingGridView(title: "백업 관리") {
+                ZStack {
+                    Rectangle().fill(Color.red)
+                    VStack {
+                        Divider().padding(0)
+                        ForEach(devices, id: \.udid) { device in
+                            SettingRow(device: device)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            SettingGridView(title: "기기 관리") {
+                ZStack {
+                    Rectangle().fill(Color.red)
+                    VStack {
+                        Divider().padding(0)
+                        ForEach(devices, id: \.udid) { device in
+                            SettingRow(device: device)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            
+            Spacer()
         }
-        .background(Color(UIColor.systemGray6))
-        .navigationBarHidden(false)
-        .navigationTitle("설정")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(
-            leading: Button(action: {
-                // 이전 화면으로 돌아가기 - Object 어쩌구 쓰면 될 듯
-            }, label: {
-                Text("완료").foregroundColor(.black)
-            }),
-            trailing: Button(action: {
-            }, label: {
-                Image(systemName: "arrow.counterclockwise")
-                    .foregroundColor(.black)
-            })
-        )
     }
 }
 
