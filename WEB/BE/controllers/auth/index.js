@@ -45,21 +45,21 @@ const authController = {
     const { action, id } = req.body;
 
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
-    try {
-      req.session.user = id; // 아이디 생성 방식 변경
-      const csrfToken = makeRandom();
-      res.cookie('csrfToken', csrfToken, {
-        maxAge: 2 * 60 * 60 * 1000,
-      });
-      req.session.CSRF_TOKEN = csrfToken;
-      const userAgent = UAParser(req.headers['user-agent']);
-      const { ip } = req;
-      const params = await makeLogData({ ip, userAgent, id, sid: req.session.id });
-      await logService.insert({ params });
-      res.json({ result: true, csrfToken });
-    } catch (e) {
-      next(e);
-    }
+
+    const csrfToken = makeRandom();
+
+    req.session.user = id;
+    req.session.CSRF_TOKEN = csrfToken;
+
+    const userAgent = UAParser(req.headers['user-agent']);
+    const { ip } = req;
+    const params = await makeLogData({ ip, userAgent, id, sid: req.session.id });
+    await logService.insert({ params });
+
+    res.cookie('csrfToken', csrfToken, {
+      maxAge: 2 * 60 * 60 * 1000,
+    });
+    res.json({ result: true, csrfToken });
   },
 
   async sendPasswordToken(req, res, next) {
