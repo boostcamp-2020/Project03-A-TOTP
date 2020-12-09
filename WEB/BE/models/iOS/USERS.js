@@ -27,16 +27,20 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false,
       },
-      name: {
-        type: DataTypes.STRING,
+      multi_device: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      last_update: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
       sequelize,
       modelName: 'users',
       timestamps: false,
-    },
+    }
   );
   return USERS;
 };
