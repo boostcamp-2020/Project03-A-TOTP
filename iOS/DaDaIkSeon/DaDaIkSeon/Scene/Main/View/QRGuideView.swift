@@ -59,7 +59,7 @@ struct QRGuideView: View {
                                   qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
                 isActive: $isShownEditView
             )
-            .isDetailLink(false)
+
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)

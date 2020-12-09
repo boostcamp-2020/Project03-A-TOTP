@@ -70,6 +70,9 @@
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
 		889F67D9257F455500CFFFB0 /* SettingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D8257F455500CFFFB0 /* SettingGridView.swift */; };
+		88AA33E7257FB4B9008F02F5 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA33E4257FB4B9008F02F5 /* TokenServiceable.swift */; };
+		88AA33E8257FB4B9008F02F5 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA33E5257FB4B9008F02F5 /* MockTokenService.swift */; };
+		88AA33E9257FB4B9008F02F5 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA33E6257FB4B9008F02F5 /* TokenService.swift */; };
 		88B3C548257F59840048DA86 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3C547257F59840048DA86 /* SettingRow.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
 		88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */; };
@@ -166,6 +169,9 @@
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewWrapper.swift; sourceTree = "<group>"; };
 		889F67D8257F455500CFFFB0 /* SettingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingGridView.swift; sourceTree = "<group>"; };
+		88AA33E4257FB4B9008F02F5 /* TokenServiceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
+		88AA33E5257FB4B9008F02F5 /* MockTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
+		88AA33E6257FB4B9008F02F5 /* TokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
 		88B3C547257F59840048DA86 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroTokenView.swift; sourceTree = "<group>"; };
@@ -884,6 +890,7 @@
 				7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */,
 				7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */,
 				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
+				88AA33E7257FB4B9008F02F5 /* TokenServiceable.swift in Sources */,
 				882E9A48257D236700B066F3 /* Handlerable.swift in Sources */,
 				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
 				7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */,
@@ -898,6 +905,7 @@
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
+				88AA33E8257FB4B9008F02F5 /* MockTokenService.swift in Sources */,
 				8885FD56257F36120013D794 /* MockSettingService.swift in Sources */,
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */,
@@ -915,6 +923,7 @@
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
+				88AA33E9257FB4B9008F02F5 /* TokenService.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,

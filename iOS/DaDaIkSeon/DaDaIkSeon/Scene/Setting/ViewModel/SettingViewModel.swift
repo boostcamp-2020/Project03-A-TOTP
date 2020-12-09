@@ -18,21 +18,86 @@ class SettingViewModel: ViewModel {
         state = SettingState(
             service: service,
             email: email,
+            emailEditMode: false,
+            emailValidation: true,
+            backupPasswordEditMode: false,
+            backupPasswordEditCheckMode: false,
+            editErrorMessage: .none,
+            deviceID: "",
+            deviceInfoMode: false,
             devices: devices
         )
     }
   
     func trigger(_ input: SettingInput) {
         switch input {
-        case .backupToggle:
-            state.service.updateBackupMode()
-            print("백업할래")
-        case .multiDeviceToggle:
-            state.service.updateMultiDeviceMode()
-            print("기기 여러개 쓸래")
         case .refresh:
             state.service.refresh()
-            print("백업할래")
+            print("refresh")
+        case .editEmailMode:
+            state.emailEditMode.toggle()
+            state.emailValidation = true
+        case .editEmail(let email):
+            if email.count > 5 && email.contains("@") {
+                state.service.updateEmail(email)
+                state.email = state.service.readEmail() ?? ""
+                state.emailEditMode = false
+                state.emailValidation = true
+            } else {
+                state.emailValidation = false
+            }
+        case .backupToggle:
+            state.service.updateBackupMode()
+            
+        case .editBackupPasswordMode:
+            state.backupPasswordEditMode.toggle()
+            state.backupPasswordEditCheckMode = false
+            state.editErrorMessage = .none
+        case .editBackupPassword(let password):
+            if password.count > 5 {
+                state.service.updateBackupPassword(password)
+                state.backupPasswordEditMode = false
+                state.backupPasswordEditCheckMode = true
+                state.editErrorMessage = .none
+            } else {
+                state.backupPasswordEditCheckMode = false
+                state.editErrorMessage = .stringSize
+            }
+        case .checkPassword(let last, let check):
+            if last == check {
+                state.service.updateBackupPassword(last)
+                state.backupPasswordEditCheckMode = false
+                state.editErrorMessage = .none
+            } else {
+                state.editErrorMessage = .different
+            }
+        case .multiDeviceToggle:
+            state.service.updateMultiDeviceMode()
+            print("multiDeviceToggle")
+            
+        case .editDevice(let device):
+            guard let name = device.name else { return }
+            if name.count > 3 {
+                state.deviceInfoMode = false
+                state.deviceID = ""
+                state.editErrorMessage = .none
+                state.service.updateDevice(device)
+                state.devices = state.service.readDevice() ?? Device.dummy()
+            } else {
+                state.editErrorMessage = .stringSize
+            }
+        
+        case .deleteDevice(let deviceID): break
+            // alert 띄워서 확인 후 삭제
+            //state.service.deleteDevice(deviceID)
+        case .deviceInfoMode(let udid):
+            state.deviceInfoMode.toggle()
+            state.editErrorMessage = .none
+            if state.deviceInfoMode {
+                state.deviceID = udid
+            } else {
+                state.deviceID = ""
+            }
         }
     }
     
