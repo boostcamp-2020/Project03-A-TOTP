@@ -40,14 +40,14 @@ struct SettingView: View {
                                    isLast: true) { Image.chevron }
                     })
                     .foregroundColor(.black)
-                //                    NavigationLink(
-                //                        destination: NavigationLazyView(TestView()),
-                //                        label: {
-                //                            SettingRow(title: "보안 강화하기") { Image.chevron }
-                //                        })
-                //                        .foregroundColor(.black)
-                //                }
-                //                .padding(.horizontal)
+                
+                NavigationLink(
+                    destination: NavigationLazyView(PinCodeView()),
+                    label: {
+                        SettingRow(title: "보안 강화하기",
+                                   isLast: true) { Image.chevron }
+                    })
+                    .foregroundColor(.black)
             }
             .padding(.horizontal, 10)
             
