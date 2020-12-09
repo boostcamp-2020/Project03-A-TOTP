@@ -7,9 +7,10 @@ const RedisStore = require('connect-redis')(session);
 const logger = require('morgan');
 const cors = require('cors');
 const debug = require('debug')('server:server');
-const authRouter = require('@routes/auth');
-const userRouter = require('@routes/user');
-const logRouter = require('@routes/log');
+const authRouter = require('@/routes/web/auth');
+const userRouter = require('@/routes/web/user');
+const logRouter = require('@/routes/web/log');
+const iOSRouter = require('@routes/iOS');
 const csrf = require('@middlewares/csrf');
 const redis = require('@models/redis');
 const sequelizeWEB = require('@models/sequelizeIOS').sequelize;
@@ -46,14 +47,6 @@ const swaggerOptions = {
   apis: ['./routes/**/*.js'],
 };
 
-// production 환경에서 추가 설정
-if (!dev) {
-  app.set('trust proxy', 1);
-  sessionOptions.cookie.httpOnly = true;
-  sessionOptions.cookie.sameSite = true;
-  app.use(csrf.checkHeader);
-}
-
 sequelizeWEB.sync();
 sequelizeIOS.sync();
 app.use(logger(dev ? 'dev' : 'combined'));
@@ -61,6 +54,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
+
+app.use('/api/app', iOSRouter);
+
+if (!dev) {
+  app.set('trust proxy', 1);
+  sessionOptions.cookie.httpOnly = true;
+  sessionOptions.cookie.sameSite = true;
+  app.use(csrf.checkHeader);
+}
+
 app.use(session(sessionOptions));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));

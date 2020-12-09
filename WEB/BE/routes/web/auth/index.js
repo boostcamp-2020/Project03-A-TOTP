@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const authController = require('@controllers/auth');
+const authController = require('@/controllers/web/auth');
 const { validator, reCAPTCHA, verifyJWT, sessionAuthentication } = require('@middlewares');
 const { catchErrors } = require('@utils/util');
 

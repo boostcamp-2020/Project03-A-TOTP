@@ -1,6 +1,6 @@
 require('dotenv').config();
 const redis = require('redis');
-const logService = require('@services/log');
+const logService = require('@/services/web/log');
 
 const redisOption = {
   host: process.env.DBHOST,
