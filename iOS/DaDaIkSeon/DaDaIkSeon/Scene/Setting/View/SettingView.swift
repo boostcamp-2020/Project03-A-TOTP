@@ -54,7 +54,7 @@ struct SettingView: View {
                     destination: NavigationLazyView(PinCodeView()),
                     label: {
                         SettingRow(title: "보안 강화하기",
-                                   isLast: true) { Image.chevron }
+                                   isLast: true) { Image.chevronRight }
                     })
                     .foregroundColor(.black)
             }
