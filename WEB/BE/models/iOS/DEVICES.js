@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       backup: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
     },
     {
