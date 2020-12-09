@@ -30,6 +30,7 @@ extension Image {
     static let plus = Image(systemName: "plus.circle")
     static let chevron = Image(systemName: "chevron.right")
     static let back = Image(systemName: "arrow.left.circle.fill")
+    static let logo = Image("ddLogo")
 }
 
 extension String {

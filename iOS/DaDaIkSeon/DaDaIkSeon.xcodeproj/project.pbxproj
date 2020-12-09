@@ -20,6 +20,10 @@
 		7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3461257FA66D0013AD65 /* NetworkResult.swift */; };
 		7C2D3467257FA70F0013AD65 /* ResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3466257FA70F0013AD65 /* ResponseArray.swift */; };
 		7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3471257FA7190013AD65 /* ResponseObject.swift */; };
+		7C2D3496257FB4F40013AD65 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3493257FB4F40013AD65 /* MockTokenService.swift */; };
+		7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3494257FB4F40013AD65 /* TokenService.swift */; };
+		7C2D3498257FB4F40013AD65 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3495257FB4F40013AD65 /* TokenServiceable.swift */; };
+		7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D349C257FC0B10013AD65 /* PinCodeView.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
@@ -36,12 +40,9 @@
 		7CCDD299256E940600150565 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD298256E940500150565 /* SearchBarView.swift */; };
 		7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD2A1256E99F400150565 /* HeaderView.swift */; };
 		7CE395A12570968F00F3C813 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE395A02570968F00F3C813 /* View+.swift */; };
-		7CF48DC82572B690001E3639 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF48DC72572B690001E3639 /* TokenService.swift */; };
 		7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF48DD72572B775001E3639 /* ViewModel.swift */; };
 		7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */; };
 		7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFFFFBD2575FA780056F827 /* Image+.swift */; };
-		8826F672257BB25D00A16244 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F671257BB25D00A16244 /* TokenServiceable.swift */; };
-		8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F676257BB5D300A16244 /* MockTokenService.swift */; };
 		8826F686257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
 		882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E9A11257D0A5200B066F3 /* MainViewModel.swift */; };
@@ -111,6 +112,10 @@
 		7C2D3461257FA66D0013AD65 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		7C2D3466257FA70F0013AD65 /* ResponseArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArray.swift; sourceTree = "<group>"; };
 		7C2D3471257FA7190013AD65 /* ResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseObject.swift; sourceTree = "<group>"; };
+		7C2D3493257FB4F40013AD65 /* MockTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
+		7C2D3494257FB4F40013AD65 /* TokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
+		7C2D3495257FB4F40013AD65 /* TokenServiceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
+		7C2D349C257FC0B10013AD65 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,12 +138,9 @@
 		7CCDD298256E940500150565 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		7CCDD2A1256E99F400150565 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		7CE395A02570968F00F3C813 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
-		7CF48DC72572B690001E3639 /* TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
 		7CF48DD72572B775001E3639 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenEditView+SubViews.swift"; sourceTree = "<group>"; };
 		7CFFFFBD2575FA780056F827 /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
-		8826F671257BB25D00A16244 /* TokenServiceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
-		8826F676257BB5D300A16244 /* MockTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
 		8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISTOTPGeneratorTests.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
 		882E9A11257D0A5200B066F3 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -217,9 +219,9 @@
 		7C2D342E257F735F0013AD65 /* Token */ = {
 			isa = PBXGroup;
 			children = (
-				8826F671257BB25D00A16244 /* TokenServiceable.swift */,
-				7CF48DC72572B690001E3639 /* TokenService.swift */,
-				8826F676257BB5D300A16244 /* MockTokenService.swift */,
+				7C2D3493257FB4F40013AD65 /* MockTokenService.swift */,
+				7C2D3494257FB4F40013AD65 /* TokenService.swift */,
+				7C2D3495257FB4F40013AD65 /* TokenServiceable.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -365,9 +367,6 @@
 		7CF48DD62572B728001E3639 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8826F671257BB25D00A16244 /* TokenServiceable.swift */,
-				7CF48DC72572B690001E3639 /* TokenService.swift */,
-				8826F676257BB5D300A16244 /* MockTokenService.swift */,
 				88AA33DD257F736F008F02F5 /* SettingService */,
 				7C2D342E257F735F0013AD65 /* Token */,
 				7C2D342F257F736A0013AD65 /* Login */,
@@ -523,6 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				883C2150257E71680094FFAA /* SettingView.swift */,
+				7C2D349C257FC0B10013AD65 /* PinCodeView.swift */,
 				88AA33D9257F6F44008F02F5 /* SettingViewComponents */,
 			);
 			path = View;
@@ -873,6 +873,7 @@
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
 				889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */,
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
+				7C2D3498257FB4F40013AD65 /* TokenServiceable.swift in Sources */,
 				883C214A257E70D90094FFAA /* SettingViewModel.swift in Sources */,
 				7C2D3455257FA5310013AD65 /* HTTPMethod.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
@@ -893,6 +894,7 @@
 				7C2D3420257F51360013AD65 /* LoginService.swift in Sources */,
 				7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */,
 				7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */,
+				7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
@@ -912,18 +914,17 @@
 				7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */,
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
-				8826F677257BB5D300A16244 /* MockTokenService.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
-				7CF48DC82572B690001E3639 /* TokenService.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
-				8826F672257BB25D00A16244 /* TokenServiceable.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
+				7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */,
 				7C2D3425257F5C4D0013AD65 /* LoginEmailView.swift in Sources */,
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				88B3C548257F59840048DA86 /* SettingRow.swift in Sources */,
+				7C2D3496257FB4F40013AD65 /* MockTokenService.swift in Sources */,
 				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
 			);
