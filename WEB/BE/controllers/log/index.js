@@ -11,7 +11,7 @@ const logController = {
     logService.update({ sid, isLoggedOut: true });
     res.json({ result: true });
   },
-    async get(req, res) {
+  async get(req, res) {
     const id = req.session.user;
     const num = Number(req.params.num);
     const result = await logService.getlogsByid({ id, num });

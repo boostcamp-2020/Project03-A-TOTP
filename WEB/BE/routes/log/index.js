@@ -8,6 +8,6 @@ const { catchErrors } = require('@utils/util');
 router.use(sessionAuthentication.sessionCheck);
 
 router.get('/:num', catchErrors(logController.get));
-router.delete('/session', logContoller.delSession);
+router.delete('/session', catchErrors(logController.delSession));
 
 module.exports = router;
