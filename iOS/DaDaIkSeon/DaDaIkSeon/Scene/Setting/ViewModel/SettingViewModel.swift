@@ -18,6 +18,8 @@ class SettingViewModel: ViewModel {
         state = SettingState(
             service: service,
             email: email,
+            emailEditMode: false,
+            emailValidation: true,
             devices: devices
         )
     }
@@ -28,11 +30,18 @@ class SettingViewModel: ViewModel {
         case .refresh:
             state.service.refresh()
             print("refresh")
-            
+        case .editEmailMode:
+            state.emailEditMode.toggle()
         case .editEmail(let email):
-            state.service.updateEmail(email)
-            print("email")
-            
+            if email.count > 5 && email.contains("@") {
+                // 참
+                state.service.updateEmail(email)
+                state.email = state.service.readEmail() ?? ""
+                state.emailEditMode = false
+                state.emailValidation = true
+            } else {
+                state.emailValidation = false
+            }
         case .backupToggle:
             state.service.updateBackupMode()
             print("backupToggle")

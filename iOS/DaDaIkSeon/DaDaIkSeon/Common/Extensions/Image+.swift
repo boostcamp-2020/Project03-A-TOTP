@@ -28,7 +28,8 @@ extension Image {
     static let ellipsis = Image(systemName: "ellipsis.circle.fill")
     static let copy = Image(systemName: "doc.on.doc")
     static let plus = Image(systemName: "plus.circle")
-    static let chevron = Image(systemName: "chevron.right")
+    static let chevronRight = Image(systemName: "chevron.right")
+    static let chevronDown = Image(systemName: "chevron.down")
     static let back = Image(systemName: "arrow.left.circle.fill")
 }
 

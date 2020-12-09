@@ -15,8 +15,6 @@ struct SettingView: View {
     // MARK: Property
     @ObservedObject var settingTrsnsion = SettingTransition()
     
-    
-    
     var body: some View {
         SettingViewWrapper(action: {
             viewModel.trigger(.refresh)
@@ -25,21 +23,35 @@ struct SettingView: View {
             
             // MARK: 내정보 관리
             SettingGridView(title: "내 정보", titleColor: .white) {
-                NavigationLink(
-                    destination: NavigationLazyView(TestView()),
-                    label: { SettingRow(
-                        title: "✉️ " + (viewModel.state.email),
-                        isLast: true) { Image.chevron }
-                    })
-                    .foregroundColor(.black)
-                //                    NavigationLink(
-                //                        destination: NavigationLazyView(TestView()),
-                //                        label: {
-                //                            SettingRow(title: "보안 강화하기") { Image.chevron }
-                //                        })
-                //                        .foregroundColor(.black)
-                //                }
-                //                .padding(.horizontal)
+                
+                SettingRow(title: "✉️ " + (viewModel.state.email),
+                           isLast: viewModel.state.emailEditMode ? false : true) {
+                    viewModel.state.emailEditMode ?
+                        Image.chevronDown : Image.chevronRight
+                }
+                .onTapGesture {
+                    withAnimation { // 애니메이션 좀 더 생각해보기
+                        settingTrsnsion.emailTextField = ""
+                        viewModel.trigger(.editEmailMode)
+                    }
+                }
+                
+                if viewModel.state.emailEditMode {
+                    HStack {
+                        TextField(viewModel.state.email, text: $settingTrsnsion.emailTextField)
+                            .padding(.leading)
+                        Divider()
+                        Button(action: {
+                            viewModel.trigger(.editEmail(settingTrsnsion.emailTextField))
+                        }, label: {
+                            Text("변경하기").foregroundColor(Color.navy1)
+                        })
+                    }
+                    Text( viewModel.state.emailValidation ? "" : "이메일 형식이 잘못되었습니다." )
+                    Divider().opacity(0)
+                }
+                
+//                SettingRow(title: "보안 강화하기") { Image.chevron }
             }
             .padding(.horizontal, 10)
             
@@ -60,7 +72,7 @@ struct SettingView: View {
                     label: {
                         SettingRow(
                             title: "비밀번호 변경하기?",
-                            isLast: true) { Image.chevron }
+                            isLast: true) { Image.chevronRight }
                     })
                     .foregroundColor(.black)
             }
@@ -82,7 +94,7 @@ struct SettingView: View {
                             SettingRow(
                                 title: device.name ?? "",
                                 isLast: isLastDivice(udid: device.udid)) {
-                                Image.chevron
+                                Image.chevronRight
                             }})
                         .foregroundColor(.black)
                 }

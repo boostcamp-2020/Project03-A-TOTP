@@ -10,12 +10,16 @@ import Foundation
 struct SettingState {
     var service: SettingServiceable
     var email: String
+    var emailEditMode: Bool
+    var emailValidation: Bool
+    
     var devices: [Device]
 }
 
 enum SettingInput {
     case refresh
     
+    case editEmailMode
     case editEmail(_ email: String)
     
     case backupToggle
@@ -31,6 +35,7 @@ extension SettingView {
     final class SettingTransition: ObservableObject {
         @Published var backupToggle: Bool = false
         @Published var multiDeviceToggle: Bool = false
+        @Published var emailTextField: String = ""
     }
     
 }
