@@ -18,7 +18,8 @@ struct LoginEmailView: View {
     var body: some View {
         VStack {
             Spacer()
-            Image("ddLogo").resizable()
+            Image.logo
+                .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: geometryWidth * 0.27)
             Spacer()
