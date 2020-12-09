@@ -57,6 +57,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   const successLoginHandler = () => {
     alert(message.SIGNINSUCCESS);
     console.log(document.cookie);
+    localStorage.user = 'in';
     history.replace('/');
   };
 
