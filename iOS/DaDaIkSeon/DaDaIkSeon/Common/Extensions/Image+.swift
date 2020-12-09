@@ -31,6 +31,7 @@ extension Image {
     static let chevron = Image(systemName: "chevron.right")
     static let back = Image(systemName: "arrow.left.circle.fill")
     static let logo = Image("ddLogo")
+    static let delete = Image(systemName: "delete.left.fill")
 }
 
 extension String {
@@ -66,6 +67,10 @@ extension String {
             return Image.search
         case "thumbsup":
             return Image.thumbsup
+        case "delete":
+            return Image.delete
+        case "cancel":
+            return Image.cancel
         default:
             return Image.heart
         }

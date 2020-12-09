@@ -46,10 +46,21 @@ struct PinCodeView: View {
     }
 }
 
+struct NumberType: Identifiable {
+    var id: Int
+    var row: [NumberRow]
+}
+
+struct NumberRow: Identifiable {
+    var id: Int
+    var value: String
+}
+
 struct NumberPad: View {
     
     @Binding var codes: [String]
     
+    var deleteImageName = "delete"
     var datas = [
         NumberType(id: 0, row: [NumberRow(id: 0, value: "1"),
                                 NumberRow(id: 1, value: "2"),
@@ -62,12 +73,11 @@ struct NumberPad: View {
                                 NumberRow(id: 2, value: "9")]),
         NumberType(id: 3, row: [NumberRow(id: 0, value: ""),
                                 NumberRow(id: 1, value: "0"),
-                                NumberRow(id: 2, value: "delete.left.fill")])
+                                NumberRow(id: 2, value: "delete")])
     ]
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            
             ForEach(datas) { data in
                 HStack(spacing: getspacing()) {
                     ForEach(data.row) { row in
@@ -75,7 +85,6 @@ struct NumberPad: View {
                     }
                 }
             }
-            
         }
         .foregroundColor(.black)
     }
@@ -85,51 +94,42 @@ private extension NumberPad {
     
     func makeNumberButton(value: String) -> some View {
         Button(action: {
-            if value == "delete.left.fill" {
+            if value == deleteImageName {
                 codes.removeLast()
             } else {
-                codes.append(value)
+                if !value.isEmpty { codes.append(value) }
                 if codes.count == 4 {
-                    print(getCode())
-                    NotificationCenter.default.post(name: NSNotification.Name("Success"),
-                                                    object: nil)
+                    print(getCode()) // 입력을 다 했을 때의 로직은 여기에...
                     codes.removeAll()
                 }
             }
         }, label: {
-            if value == "delete.left.fill" {
-                Image(systemName: value)
-                    .padding(.vertical)
-            } else {
-                Text(value)
-                    .font(.title)
-                    .fontWeight(.semibold)
+            if value == deleteImageName {
+                value.toImage()
                     .padding(.vertical)
                     .frame(width: 20)
+            } else {
+                Text(value)
+                    .font(.system(size: 22))
+                    .padding(.vertical)
+                    .frame(width: 20)
+                    .background(
+                        Rectangle()
+                            .foregroundColor(value.isEmpty
+                                                ? Color.clear : Color(.tertiarySystemFill))
+                            .frame(width: 40, height: 40, alignment: .center)
+                            .cornerRadius(10)
+                    )
             }
         })
     }
     
     func getspacing() -> CGFloat {
-        return UIScreen.main.bounds.width / 3
+        return UIScreen.main.bounds.width / 4
     }
     
     func getCode() -> String {
-        var allCode = ""
-        for code in codes {
-            allCode += code
-        }
-        return allCode.replacingOccurrences(of: " ", with: "")
+        return codes.joined()
     }
     
-}
-
-struct NumberType: Identifiable {
-    var id: Int
-    var row: [NumberRow]
-}
-
-struct NumberRow: Identifiable {
-    var id: Int
-    var value: String
 }
