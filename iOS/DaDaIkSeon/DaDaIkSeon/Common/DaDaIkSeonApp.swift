@@ -21,16 +21,11 @@ struct DaDaIkSeonApp: App {
         
         let storageManager = StorageManager()
         let service = TokenService(storageManager)
-        let loginService = LoginService()
         
         #endif
         
         WindowGroup {
             MainView(service: service).environmentObject(NavigationFlowObject())
-//            LoginView(service: loginService)
-//            NavigationView {
-//                SettingView()
-//            }
         }
     }
     

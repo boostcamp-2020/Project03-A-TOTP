@@ -33,10 +33,14 @@ struct HeaderView: View {
                 Spacer()
                 cancelButton
             } else {
+                #if DEBUG
+                                
                 settingButton
                     .frame(height: 25)
                     .foregroundColor(.black)
                     .padding(.leading, 4)
+                
+                #endif
                 Spacer()
                 selectButton
             }
