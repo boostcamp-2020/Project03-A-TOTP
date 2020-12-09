@@ -142,3 +142,8 @@ export const updateUser = async (params: updateUserParmas): Promise<any> => {
   const { data } = await axios.patch('api/user', params);
   return data;
 };
+
+export const receiveLogs = async (num: number): Promise<any> => {
+  const { data } = await axios.get(`api/log/${num}`);
+  return data;
+};

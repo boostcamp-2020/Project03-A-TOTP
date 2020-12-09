@@ -1,4 +1,6 @@
-// logs 테이블변경 후 적용해야합니다.
+const Sequelize = require('sequelize');
+
+const { Op } = Sequelize;
 const logsModel = require('@models/sequelizeWEB.js').logs;
 
 const logService = {
@@ -23,9 +25,28 @@ const logService = {
       throw new Error(e);
     }
   },
-  async getlogsByid({ id }) {
+  async getlogsByid({ id, num }) {
     try {
-      const result = await logsModel.findOne({ where: { id } });
+      const offset = 6 * (num - 1);
+      const result = await logsModel.findAndCountAll({
+        where: {
+          auth_id: {
+            [Op.like]: id,
+          },
+        },
+        order: [['access_time', 'DESC']],
+        limit: 6,
+        offset,
+        attributes: [
+          ['idx', 'key'],
+          ['access_time', 'time'],
+          'device',
+          ['ip_address', 'ip'],
+          'location',
+          ['is_logged_out', 'isLoggedIn'],
+          ['sid', 'sessionId'],
+        ],
+      });
       return result;
     } catch (e) {
       throw new Error(e);

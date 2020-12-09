@@ -5,12 +5,10 @@ import { MyInfo } from '@components/MyPage/MyInfo';
 import { MyInfoEdit } from '@components/MyPage/MyInfoEdit';
 import { AccessLog } from '@components/MyPage/AccessLog';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { getUser, updateUser } from '@api/index';
 import 'react-tabs/style/react-tabs.css';
 import { AxiosError } from 'axios';
 import { PasswordModal } from '@components/PasswordModal/PasswordModal';
-import { useInput } from '../../hooks/useInput';
-import { sendPassword } from '../../api/index';
+import { getUser, updateUser, sendPassword, receiveLogs } from '@api/index';
 
 const UNAUTHORIZED = 401;
 const LOGIN_URL = '/login';
@@ -110,6 +108,15 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
       })
       .catch(handleError);
   }, []);
+
+  useEffect(() => {
+    receiveLogs(page)
+      .then((data: any) => {
+        setLogs(data.result.rows);
+        setMaxPage(Math.ceil(data.result.count / 6));
+      })
+      .catch((err: any) => alert('로그를 받아오는데 실패했습니다.'));
+  }, [page]);
 
   return (
     <Wrapper>

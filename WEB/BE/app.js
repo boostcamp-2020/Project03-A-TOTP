@@ -67,6 +67,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOption
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/log', logRouter);
+
 // handle 404
 app.use((req, res, next) => {
   next(createError(404));
