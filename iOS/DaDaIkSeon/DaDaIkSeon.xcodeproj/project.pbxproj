@@ -20,9 +20,7 @@
 		7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3461257FA66D0013AD65 /* NetworkResult.swift */; };
 		7C2D3467257FA70F0013AD65 /* ResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3466257FA70F0013AD65 /* ResponseArray.swift */; };
 		7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3471257FA7190013AD65 /* ResponseObject.swift */; };
-		7C2D3496257FB4F40013AD65 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3493257FB4F40013AD65 /* MockTokenService.swift */; };
 		7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3494257FB4F40013AD65 /* TokenService.swift */; };
-		7C2D3498257FB4F40013AD65 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3495257FB4F40013AD65 /* TokenServiceable.swift */; };
 		7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D349C257FC0B10013AD65 /* PinCodeView.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
@@ -35,6 +33,8 @@
 		7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */; };
 		7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE068525775E520051A1B5 /* NavigationLazyView.swift */; };
 		7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB524C0257BA2EF00302CAC /* StorageManager.swift */; };
+		7CB7BF1E25812574000CABA1 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7BF1D25812572000CABA1 /* TokenServiceable.swift */; };
+		7CB7BF26258125C8000CABA1 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7BF25258125C6000CABA1 /* MockTokenService.swift */; };
 		7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB878352576A939002B1615 /* TokenEditViewModel.swift */; };
 		7CCDD28E256E45E000150565 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD28D256E45E000150565 /* Color+.swift */; };
 		7CCDD299256E940600150565 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDD298256E940500150565 /* SearchBarView.swift */; };
@@ -70,9 +70,6 @@
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
 		889F67D9257F455500CFFFB0 /* SettingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D8257F455500CFFFB0 /* SettingGridView.swift */; };
-		88AA33E7257FB4B9008F02F5 /* TokenServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA33E4257FB4B9008F02F5 /* TokenServiceable.swift */; };
-		88AA33E8257FB4B9008F02F5 /* MockTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA33E5257FB4B9008F02F5 /* MockTokenService.swift */; };
-		88AA33E9257FB4B9008F02F5 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA33E6257FB4B9008F02F5 /* TokenService.swift */; };
 		88B3C548257F59840048DA86 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3C547257F59840048DA86 /* SettingRow.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
 		88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */; };
@@ -115,9 +112,7 @@
 		7C2D3461257FA66D0013AD65 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		7C2D3466257FA70F0013AD65 /* ResponseArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArray.swift; sourceTree = "<group>"; };
 		7C2D3471257FA7190013AD65 /* ResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseObject.swift; sourceTree = "<group>"; };
-		7C2D3493257FB4F40013AD65 /* MockTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
 		7C2D3494257FB4F40013AD65 /* TokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
-		7C2D3495257FB4F40013AD65 /* TokenServiceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
 		7C2D349C257FC0B10013AD65 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -136,6 +131,8 @@
 		7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellViewModel.swift; sourceTree = "<group>"; };
 		7CAE068525775E520051A1B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		7CB524C0257BA2EF00302CAC /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		7CB7BF1D25812572000CABA1 /* TokenServiceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
+		7CB7BF25258125C6000CABA1 /* MockTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
 		7CB878352576A939002B1615 /* TokenEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEditViewModel.swift; sourceTree = "<group>"; };
 		7CCDD28D256E45E000150565 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		7CCDD298256E940500150565 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -225,9 +222,9 @@
 		7C2D342E257F735F0013AD65 /* Token */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D3493257FB4F40013AD65 /* MockTokenService.swift */,
+				7CB7BF1D25812572000CABA1 /* TokenServiceable.swift */,
+				7CB7BF25258125C6000CABA1 /* MockTokenService.swift */,
 				7C2D3494257FB4F40013AD65 /* TokenService.swift */,
-				7C2D3495257FB4F40013AD65 /* TokenServiceable.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -307,6 +304,7 @@
 				7C66192E256CCAED0028E7C6 /* Products */,
 				918DA9EA5A293782B2E04F6F /* Pods */,
 				C368E37368B8F499A76A4829 /* Frameworks */,
+				7CB7BF1625812541000CABA1 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,6 +355,16 @@
 				7C66194F256CCAF20028E7C6 /* Info.plist */,
 			);
 			path = DaDaIkSeonUITests;
+			sourceTree = "<group>";
+		};
+		7CB7BF1625812541000CABA1 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				88AA33E4257FB4B9008F02F5 /* TokenServiceable.swift */,
+				88AA33E5257FB4B9008F02F5 /* MockTokenService.swift */,
+				88AA33E6257FB4B9008F02F5 /* TokenService.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		7CCDD28C256E45D000150565 /* Extensions */ = {
@@ -879,7 +887,6 @@
 				889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */,
 				889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */,
 				7CB878362576A939002B1615 /* TokenEditViewModel.swift in Sources */,
-				7C2D3498257FB4F40013AD65 /* TokenServiceable.swift in Sources */,
 				883C214A257E70D90094FFAA /* SettingViewModel.swift in Sources */,
 				7C2D3455257FA5310013AD65 /* HTTPMethod.swift in Sources */,
 				88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */,
@@ -890,11 +897,11 @@
 				7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */,
 				7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */,
 				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
-				88AA33E7257FB4B9008F02F5 /* TokenServiceable.swift in Sources */,
 				882E9A48257D236700B066F3 /* Handlerable.swift in Sources */,
 				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
 				7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */,
 				88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */,
+				7CB7BF1E25812574000CABA1 /* TokenServiceable.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,
@@ -903,9 +910,9 @@
 				7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */,
 				7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
+				7CB7BF26258125C8000CABA1 /* MockTokenService.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
-				88AA33E8257FB4B9008F02F5 /* MockTokenService.swift in Sources */,
 				8885FD56257F36120013D794 /* MockSettingService.swift in Sources */,
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */,
@@ -923,7 +930,6 @@
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
-				88AA33E9257FB4B9008F02F5 /* TokenService.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
@@ -933,7 +939,6 @@
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				88B3C548257F59840048DA86 /* SettingRow.swift in Sources */,
-				7C2D3496257FB4F40013AD65 /* MockTokenService.swift in Sources */,
 				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
 			);
