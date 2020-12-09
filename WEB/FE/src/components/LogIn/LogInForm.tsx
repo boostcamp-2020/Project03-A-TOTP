@@ -4,6 +4,17 @@ import DefaultInput from '@components/common/Input/DefaultInput';
 import { loginWithPassword } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useInput } from '@hooks/useInput';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const TextWrapper = styled.div`
+  text-align: center;
+  margin-top: 4%;
+  a {
+    margin-left: 3%;
+    color: ${({ theme }) => theme.color?.link};
+  }
+`;
 
 interface LogInFormProps {
   onSuccess: (authToken: string) => any;
@@ -27,7 +38,7 @@ const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
 
   return (
     <AuthForm
-      title='LogIn'
+      title='LOGIN'
       action='/api/auth'
       onSubmit={onSubmit}
       submitButtonText={isSubmitting ? '로그인 중' : '로그인'}
@@ -35,6 +46,16 @@ const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
     >
       <DefaultInput value={id} type='text' placeholder='ID' onChange={setId} />
       <DefaultInput value={password} type='password' placeholder='Password' onChange={setPassword} />
+      <TextWrapper>
+        <span>계정이 없나요?</span>
+        <span>
+          <Link to='/signup'>회원가입</Link>
+        </span>
+      </TextWrapper>
+      <TextWrapper>
+        <Link to='/findId'>아이디찾기</Link>
+        <Link to='/findPassword'>비밀번호찾기</Link>
+      </TextWrapper>
     </AuthForm>
   );
 };
