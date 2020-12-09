@@ -10,7 +10,7 @@ interface Log {
   device: string;
   ip: string;
   location: string;
-  isLoggedIn: boolean;
+  isLoggedOut: boolean;
   sessionId: string | undefined;
 }
 
@@ -71,7 +71,7 @@ function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProp
       newLogs = newLogs.map((log: Log) => {
         if (log.sessionId === sid) {
           log.sessionId = '';
-          log.isLoggedIn = true;
+          log.isLoggedOut = true;
         }
         return log;
       });
@@ -88,8 +88,8 @@ function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProp
     { title: '위치', key: 'location' },
     {
       title: '상태',
-      key: 'isLoggedIn',
-      render: (isLoggedIn: boolean) => (isLoggedIn ? '로그아웃' : '로그인'),
+      key: 'isLoggedOut',
+      render: (isLoggedOut: boolean) => (isLoggedOut ? '로그아웃' : '로그인'),
     },
     {
       title: '접속차단',

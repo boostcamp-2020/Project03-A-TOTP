@@ -46,7 +46,7 @@ const logService = {
           'device',
           ['ip_address', 'ip'],
           'location',
-          ['is_logged_out', 'isLoggedIn'],
+          ['is_logged_out', 'isLoggedOut'],
           ['sid', 'sessionId'],
         ],
       });
