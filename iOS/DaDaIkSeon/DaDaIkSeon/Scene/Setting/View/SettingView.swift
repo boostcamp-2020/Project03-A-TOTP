@@ -129,20 +129,19 @@ struct SettingView: View {
                     SettingRow(
                         title: device.name ?? "",
                         isLast: isLastDivice(udid: device.udid)
-                            && !isSelectedDevice(deviceName: device.name)
+                            && !isSelectedDevice(deviceID: device.udid)
                     ) {
-                        isSelectedDevice(deviceName: device.name) ?
+                        isSelectedDevice(deviceID: device.udid) ?
                             Image.chevronDown : Image.chevronRight
                     }
                     .onTapGesture {
                         withAnimation {
                             stateManager.newDeviceName = ""
-                            viewModel.trigger(.deviceInfoMode(device.name ?? ""))
+                            viewModel.trigger(.deviceInfoMode(device.udid ?? ""))
                         }
                     }
                     
-                    if viewModel.state.deviceInfoMode &&
-                        viewModel.state.deviceName == device.name {
+                    if isSelectedDevice(deviceID: device.udid) {
                         
                         HStack {
                             TextField(device.name ?? "", text: $stateManager.newDeviceName)
@@ -193,9 +192,9 @@ extension SettingView {
         return device.udid == udid
     }
     
-    func isSelectedDevice(deviceName: String?) -> Bool {
+    func isSelectedDevice(deviceID: String?) -> Bool {
         viewModel.state.deviceInfoMode
-            && viewModel.state.deviceName == deviceName
+            && viewModel.state.deviceID == deviceID
     }
     
 }

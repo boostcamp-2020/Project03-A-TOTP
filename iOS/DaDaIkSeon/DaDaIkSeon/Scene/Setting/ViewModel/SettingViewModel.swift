@@ -23,7 +23,7 @@ class SettingViewModel: ViewModel {
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
             backupPasswordErrorMessage: .none,
-            deviceName: "",
+            deviceID: "",
             deviceInfoMode: false,
             devices: devices
         )
@@ -84,12 +84,12 @@ class SettingViewModel: ViewModel {
             state.service.deleteDevice(deviceID)
             print("deleteDevice")
         
-        case .deviceInfoMode(let name):
+        case .deviceInfoMode(let udid):
             state.deviceInfoMode.toggle()
             if state.deviceInfoMode {
-                state.deviceName = name
+                state.deviceID = udid
             } else {
-                state.deviceName = ""
+                state.deviceID = ""
             }
         }
     }

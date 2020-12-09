@@ -17,7 +17,7 @@ struct SettingState {
     var backupPasswordEditCheckMode: Bool
     var backupPasswordErrorMessage: PasswordErrorMessage
     
-    var deviceName: String
+    var deviceID: String
     var deviceInfoMode: Bool
     
     var devices: [Device]
@@ -36,7 +36,7 @@ enum SettingInput {
     
     case multiDeviceToggle
     
-    case deviceInfoMode(_ name: String)
+    case deviceInfoMode(_ udid: String)
     
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
