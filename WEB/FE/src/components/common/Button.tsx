@@ -23,40 +23,40 @@ const ButtonTag = styled.button`
   }
   &.text:not(:disabled):not(.danger):hover {
     filter: none;
-    color: ${({ theme }) => theme.color.GrayBrown};
+    color: ${({ theme }) => theme.color.primary};
   }
 
   &.primary {
-    background-color: ${({ theme }) => theme.color.GrayBrown};
-    color: ${({ theme }) => theme.color.White};
-    border: 1px solid ${({ theme }) => theme.color.GrayBrown};
+    background-color: ${({ theme }) => theme.color.primary};
+    color: ${({ theme }) => theme.color.white};
+    border: 1px solid ${({ theme }) => theme.color.primary};
   }
   &.secondary {
-    background-color: ${({ theme }) => theme.color.White};
-    color: ${({ theme }) => theme.color.Black};
-    border: 1px solid ${({ theme }) => theme.color.Gray};
+    background-color: ${({ theme }) => theme.color.white};
+    color: ${({ theme }) => theme.color.text};
+    border: 1px solid ${({ theme }) => theme.color.gray};
   }
   &.text {
-    background-color: ${({ theme }) => theme.color.White};
-    color: ${({ theme }) => theme.color.Black};
-    border: 1px solid ${({ theme }) => theme.color.White};
+    background-color: ${({ theme }) => theme.color.white};
+    color: ${({ theme }) => theme.color.text};
+    border: 1px solid ${({ theme }) => theme.color.white};
   }
 
   &.danger {
     &.primary {
       background-color: ${({ theme }) => theme.color.danger};
-      color: ${({ theme }) => theme.color.White};
+      color: ${({ theme }) => theme.color.white};
       border: 1px solid ${({ theme }) => theme.color.danger};
     }
     &.secondary {
-      background-color: ${({ theme }) => theme.color.White};
+      background-color: ${({ theme }) => theme.color.white};
       color: ${({ theme }) => theme.color.danger};
       border: 1px solid ${({ theme }) => theme.color.danger};
     }
     &.text {
-      background-color: ${({ theme }) => theme.color.White};
+      background-color: ${({ theme }) => theme.color.white};
       color: ${({ theme }) => theme.color.danger};
-      border: 1px solid ${({ theme }) => theme.color.White};
+      border: 1px solid ${({ theme }) => theme.color.white};
     }
   }
 `;

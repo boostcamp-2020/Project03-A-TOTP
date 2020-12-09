@@ -6,10 +6,10 @@ const Wrapper = styled.footer`
 `;
 
 const Inner = styled.div`
-  max-width: 1280px;
+  max-width: ${({ theme }) => theme.size.pageWidth};
   height: 100%;
   margin: auto;
-  border-top: 1px solid ${({ theme }) => theme.color.borderColor};
+  border-top: 1px solid ${({ theme }) => theme.color.border};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ const Footer: React.FC<FooterProps> = () => {
   return (
     <Wrapper>
       <Inner>
-        <span>Boostcamp</span>
+        <span>&copy; {new Date().getFullYear()} Boostcamp. All right reserved</span>
       </Inner>
     </Wrapper>
   );
