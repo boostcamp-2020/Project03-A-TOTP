@@ -8,34 +8,15 @@ import { Modal } from './common/Modal';
 
 interface AppProps {}
 
-const Hello = () => (
-  <>
-    <Modal>
-      <Button text={<Link to='/signup'>Sign up</Link>} />
-      <br />
-      <br />
-      <Button text={<Link to='/login'>Log in</Link>} />
-      <br />
-      <br />
-      <Button text={<Link to='/findId'>Find ID</Link>} />
-      <br />
-      <br />
-      <Button text={<Link to='/findPassword'>Find Password?</Link>} />
-      <br />
-      <br />
-    </Modal>
-  </>
-);
-
 const App: React.FC<AppProps> = () => {
   return (
     <>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Hello} />
+          <Route exact path='/' component={Pages.MyPage} />
+          <Route exact path='/login' component={Pages.LogInPage} />
           <Route exact path='/confirm-email' component={ComfirmEmail} />
           <Route exact path='/signup' component={Pages.SignUpPage} />
-          <Route exact path='/login' component={Pages.LogInPage} />
           <Route exact path='/QRCode/:url' component={Pages.QRCodePage} />
           <Route exact path='/findId' component={Pages.findIDPage} />
           <Route exact path='/findPassword' component={Pages.FindPasswordPage} />
