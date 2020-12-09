@@ -20,6 +20,9 @@ class SettingViewModel: ViewModel {
             email: email,
             emailEditMode: false,
             emailValidation: true,
+            backupPasswordEditMode: false,
+            backupPasswordEditCheckMode: false,
+            backupPasswordErrorMessage: .none,
             devices: devices
         )
     }
@@ -32,9 +35,9 @@ class SettingViewModel: ViewModel {
             print("refresh")
         case .editEmailMode:
             state.emailEditMode.toggle()
+            state.emailValidation = false
         case .editEmail(let email):
             if email.count > 5 && email.contains("@") {
-                // 참
                 state.service.updateEmail(email)
                 state.email = state.service.readEmail() ?? ""
                 state.emailEditMode = false
@@ -44,10 +47,30 @@ class SettingViewModel: ViewModel {
             }
         case .backupToggle:
             state.service.updateBackupMode()
-            print("backupToggle")
+            
+        case .editBackupPasswordMode:
+            state.backupPasswordEditMode.toggle()
+            state.backupPasswordEditCheckMode = false
+            state.backupPasswordErrorMessage = .none
         case .editBackupPassword(let password):
-            state.service.updateBackupPassword(password)
-        
+            if password.count > 5 {
+                state.service.updateBackupPassword(password)
+                state.backupPasswordEditMode = false
+                state.backupPasswordEditCheckMode = true
+                state.backupPasswordErrorMessage = .none
+                // 얘랑 패스워드 모드 전부 해제해야 한다.
+            } else {
+                state.backupPasswordEditCheckMode = false
+                state.backupPasswordErrorMessage = .stringSize
+            }
+        case .checkPassword(let last, let check):
+            if last == check {
+                state.service.updateBackupPassword(last)
+                state.backupPasswordEditCheckMode = false
+                state.backupPasswordErrorMessage = .none
+            } else {
+                state.backupPasswordErrorMessage = .different
+            }
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode()
             print("multiDeviceToggle")

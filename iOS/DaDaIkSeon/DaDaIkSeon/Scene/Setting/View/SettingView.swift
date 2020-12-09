@@ -13,7 +13,7 @@ struct SettingView: View {
     @ObservedObject var viewModel = SettingViewModel()
     
     // MARK: Property
-    @ObservedObject var settingTrsnsion = SettingTransition()
+    @ObservedObject var stateManager = SettingTransition()
     
     var body: some View {
         SettingViewWrapper(action: {
@@ -31,18 +31,18 @@ struct SettingView: View {
                 }
                 .onTapGesture {
                     withAnimation { // 애니메이션 좀 더 생각해보기
-                        settingTrsnsion.emailTextField = ""
+                        stateManager.newEmail = ""
                         viewModel.trigger(.editEmailMode)
                     }
                 }
                 
                 if viewModel.state.emailEditMode {
                     HStack {
-                        TextField(viewModel.state.email, text: $settingTrsnsion.emailTextField)
+                        TextField(viewModel.state.email, text: $stateManager.newEmail)
                             .padding(.leading)
                         Divider()
                         Button(action: {
-                            viewModel.trigger(.editEmail(settingTrsnsion.emailTextField))
+                            viewModel.trigger(.editEmail(stateManager.newEmail))
                         }, label: {
                             Text("변경하기").foregroundColor(Color.navy1)
                         })
@@ -51,39 +51,77 @@ struct SettingView: View {
                     Divider().opacity(0)
                 }
                 
-//                SettingRow(title: "보안 강화하기") { Image.chevron }
+                //                SettingRow(title: "보안 강화하기") { Image.chevron }
             }
             .padding(.horizontal, 10)
             
             // MARK: 백업 관리
             
             SettingGridView(title: "백업 관리", titleColor: .white) {
-                SettingRow(title: "백업 할래?",
+                SettingRow(title: "백업 사용하기",
                            isLast: false) {
-                    Toggle(isOn: $settingTrsnsion.backupToggle, label: {
+                    Toggle(isOn: $stateManager.backupToggle, label: {
                         Text("")
                     })
-                    .onChange(of: settingTrsnsion.backupToggle, perform: { _ in
+                    .onChange(of: stateManager.backupToggle, perform: { _ in
                         viewModel.trigger(.backupToggle)
                     })
                 }
-                NavigationLink(
-                    destination: NavigationLazyView(TestView()),
-                    label: {
-                        SettingRow(
-                            title: "비밀번호 변경하기?",
-                            isLast: true) { Image.chevronRight }
-                    })
-                    .foregroundColor(.black)
+                
+                SettingRow(
+                    title: "백업 비밀번호 변경하기", isLast: true) {
+                    viewModel.state.backupPasswordEditMode ?
+                        Image.chevronDown : Image.chevronRight
+                }
+                .onTapGesture {
+                    withAnimation {
+                        stateManager.newPassword = ""
+                        stateManager.newPasswordCheck = ""
+                        viewModel.trigger(.editBackupPasswordMode)
+                    }
+                }
+                
+                // enum 값으로 비밀번호 에러 관리
+                
+                if viewModel.state.backupPasswordEditMode {
+                    HStack {
+                        TextField("새 비밀번호를 입력해주세요.", text: $stateManager.newPassword)
+                            .padding(.leading)
+                        Divider()
+                        Button(action: {
+                            viewModel.trigger(.editBackupPassword(stateManager.newPassword))
+                        }, label: {
+                            Text("확인").foregroundColor(Color.navy1)
+                        })
+                    }
+                    Text( "\(viewModel.state.backupPasswordErrorMessage.rawValue)" )
+                    Divider().opacity(0)
+                } else if viewModel.state.backupPasswordEditCheckMode {
+                    HStack {
+                        TextField("비밀번호를 한 번 더 입력해주세요.", text: $stateManager.newPasswordCheck)
+                            .padding(.leading)
+                        Divider()
+                        Button(action: {
+                            viewModel.trigger(.checkPassword(
+                                                stateManager.newPassword,
+                                                stateManager.newPasswordCheck))
+                        }, label: {
+                            Text("확인").foregroundColor(Color.navy1)
+                        })
+                    }
+                    Text( "\(viewModel.state.backupPasswordErrorMessage.rawValue)" )
+                    Divider().opacity(0)
+                }
+                
             }
             .padding(.horizontal, 10)
             
             // MARK: 기기 관리
             
             SettingGridView(title: "기기 관리", titleColor: .white) {
-                SettingRow(title: "다른데서도 쓸거야?", isLast: false) {
-                    Toggle(isOn: $settingTrsnsion.multiDeviceToggle, label: {Text("")})
-                        .onChange(of: settingTrsnsion.multiDeviceToggle, perform: { _ in
+                SettingRow(title: "여러 기기 사용하기", isLast: false) {
+                    Toggle(isOn: $stateManager.multiDeviceToggle, label: {Text("")})
+                        .onChange(of: stateManager.multiDeviceToggle, perform: { _ in
                             viewModel.trigger(.multiDeviceToggle)
                         })
                 }

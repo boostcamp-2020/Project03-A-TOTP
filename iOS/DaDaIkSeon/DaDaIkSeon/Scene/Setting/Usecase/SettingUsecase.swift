@@ -13,6 +13,10 @@ struct SettingState {
     var emailEditMode: Bool
     var emailValidation: Bool
     
+    var backupPasswordEditMode: Bool
+    var backupPasswordEditCheckMode: Bool
+    var backupPasswordErrorMessage: PasswordErrorMessage
+    
     var devices: [Device]
 }
 
@@ -23,11 +27,19 @@ enum SettingInput {
     case editEmail(_ email: String)
     
     case backupToggle
+    case editBackupPasswordMode
     case editBackupPassword(_ password: String)
+    case checkPassword(_ last: String, _ check: String )
     
     case multiDeviceToggle
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
+}
+
+enum PasswordErrorMessage: String {
+    case none = ""
+    case stringSize = "글자 수가 모자랍니다."
+    case different = "입력한 비밀번호와 일치하지 않습니다."
 }
 
 extension SettingView {
@@ -35,7 +47,9 @@ extension SettingView {
     final class SettingTransition: ObservableObject {
         @Published var backupToggle: Bool = false
         @Published var multiDeviceToggle: Bool = false
-        @Published var emailTextField: String = ""
+        @Published var newEmail: String = ""
+        @Published var newPassword: String = ""
+        @Published var newPasswordCheck: String = ""
     }
     
 }
