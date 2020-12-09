@@ -94,7 +94,7 @@ struct SettingView: View {
                             Text("확인").foregroundColor(Color.navy1)
                         })
                     }
-                    Text( "\(viewModel.state.backupPasswordErrorMessage.rawValue)" )
+                    Text( "\(viewModel.state.editErrorMessage.rawValue)" )
                     Divider().opacity(0)
                 } else if viewModel.state.backupPasswordEditCheckMode {
                     HStack {
@@ -109,7 +109,7 @@ struct SettingView: View {
                             Text("확인").foregroundColor(Color.navy1)
                         })
                     }
-                    Text( "\(viewModel.state.backupPasswordErrorMessage.rawValue)" )
+                    Text( "\(viewModel.state.editErrorMessage.rawValue)" )
                     Divider().opacity(0)
                 }
                 
@@ -147,16 +147,21 @@ struct SettingView: View {
                             TextField(device.name ?? "", text: $stateManager.newDeviceName)
                             Divider()
                             Button(action: {
-                                viewModel.trigger(.editBackupPassword(stateManager.newPassword))
+                                viewModel.trigger(.deleteDevice(device.udid ?? ""))
                             }, label: {
                                 Text("삭제").foregroundColor(Color.pink)
                             })
                             Button(action: {
-                                viewModel.trigger(.editBackupPassword(stateManager.newPassword))
+                                var newDevice = device
+                                newDevice.name = stateManager.newDeviceName
+                                viewModel.trigger(.editDevice(newDevice))
                             }, label: {
                                 Text("확인").foregroundColor(Color.navy1)
                             })
                         }
+                        
+                        Text("\(viewModel.state.editErrorMessage.rawValue)")
+                        
                         Divider()
                         HStack {
                             Text("디바이스 아이디:")

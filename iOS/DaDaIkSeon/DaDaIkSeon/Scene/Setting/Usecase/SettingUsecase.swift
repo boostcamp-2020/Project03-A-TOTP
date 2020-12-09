@@ -15,7 +15,8 @@ struct SettingState {
     
     var backupPasswordEditMode: Bool
     var backupPasswordEditCheckMode: Bool
-    var backupPasswordErrorMessage: PasswordErrorMessage
+    
+    var editErrorMessage: SettingEditErrorMessage
     
     var deviceID: String
     var deviceInfoMode: Bool
@@ -43,7 +44,7 @@ enum SettingInput {
     
 }
 
-enum PasswordErrorMessage: String {
+enum SettingEditErrorMessage: String {
     case none = ""
     case stringSize = "글자 수가 모자랍니다."
     case different = "입력한 비밀번호와 일치하지 않습니다."

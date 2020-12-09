@@ -22,7 +22,7 @@ class SettingViewModel: ViewModel {
             emailValidation: true,
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
-            backupPasswordErrorMessage: .none,
+            editErrorMessage: .none,
             deviceID: "",
             deviceInfoMode: false,
             devices: devices
@@ -31,7 +31,6 @@ class SettingViewModel: ViewModel {
   
     func trigger(_ input: SettingInput) {
         switch input {
-        
         case .refresh:
             state.service.refresh()
             print("refresh")
@@ -53,39 +52,47 @@ class SettingViewModel: ViewModel {
         case .editBackupPasswordMode:
             state.backupPasswordEditMode.toggle()
             state.backupPasswordEditCheckMode = false
-            state.backupPasswordErrorMessage = .none
+            state.editErrorMessage = .none
         case .editBackupPassword(let password):
             if password.count > 5 {
                 state.service.updateBackupPassword(password)
                 state.backupPasswordEditMode = false
                 state.backupPasswordEditCheckMode = true
-                state.backupPasswordErrorMessage = .none
+                state.editErrorMessage = .none
             } else {
                 state.backupPasswordEditCheckMode = false
-                state.backupPasswordErrorMessage = .stringSize
+                state.editErrorMessage = .stringSize
             }
         case .checkPassword(let last, let check):
             if last == check {
                 state.service.updateBackupPassword(last)
                 state.backupPasswordEditCheckMode = false
-                state.backupPasswordErrorMessage = .none
+                state.editErrorMessage = .none
             } else {
-                state.backupPasswordErrorMessage = .different
+                state.editErrorMessage = .different
             }
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode()
             print("multiDeviceToggle")
             
         case .editDevice(let device):
-            state.service.updateDevice(device)
-            print("editDevice")
-            
-        case .deleteDevice(let deviceID):
-            state.service.deleteDevice(deviceID)
-            print("deleteDevice")
+            guard let name = device.name else { return }
+            if name.count > 3 {
+                state.deviceInfoMode = false
+                state.deviceID = ""
+                state.editErrorMessage = .none
+                state.service.updateDevice(device)
+                state.devices = state.service.readDevice() ?? Device.dummy()
+            } else {
+                state.editErrorMessage = .stringSize
+            }
         
+        case .deleteDevice(let deviceID): break
+            // alert 띄워서 확인 후 삭제
+            //state.service.deleteDevice(deviceID)
         case .deviceInfoMode(let udid):
             state.deviceInfoMode.toggle()
+            state.editErrorMessage = .none
             if state.deviceInfoMode {
                 state.deviceID = udid
             } else {
