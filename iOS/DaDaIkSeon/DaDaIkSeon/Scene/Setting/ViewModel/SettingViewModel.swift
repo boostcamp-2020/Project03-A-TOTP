@@ -35,7 +35,7 @@ class SettingViewModel: ViewModel {
             print("refresh")
         case .editEmailMode:
             state.emailEditMode.toggle()
-            state.emailValidation = false
+            state.emailValidation = true
         case .editEmail(let email):
             if email.count > 5 && email.contains("@") {
                 state.service.updateEmail(email)
@@ -82,6 +82,9 @@ class SettingViewModel: ViewModel {
         case .deleteDevice(let deviceID):
             state.service.deleteDevice(deviceID)
             print("deleteDevice")
+        
+        case .deviceInfoMode:
+            return
         }
     }
     

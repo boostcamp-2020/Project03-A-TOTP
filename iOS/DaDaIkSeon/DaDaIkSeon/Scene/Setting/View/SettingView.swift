@@ -126,15 +126,11 @@ struct SettingView: View {
                         })
                 }
                 ForEach(viewModel.state.devices, id: \.udid) { device in
-                    NavigationLink(
-                        destination: NavigationLazyView(TestView()),
-                        label: {
-                            SettingRow(
-                                title: device.name ?? "",
-                                isLast: isLastDivice(udid: device.udid)) {
-                                Image.chevronRight
-                            }})
-                        .foregroundColor(.black)
+                    SettingRow(
+                        title: device.name ?? "",
+                        isLast: isLastDivice(udid: device.udid)) {
+                        Image.chevronRight
+                    }
                 }
             }
             .padding(.horizontal, 10)

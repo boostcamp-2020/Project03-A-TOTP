@@ -32,8 +32,12 @@ enum SettingInput {
     case checkPassword(_ last: String, _ check: String )
     
     case multiDeviceToggle
+    
+    case deviceInfoMode
+    
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
+    
 }
 
 enum PasswordErrorMessage: String {
