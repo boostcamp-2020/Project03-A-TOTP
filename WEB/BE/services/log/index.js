@@ -16,7 +16,10 @@ const logService = {
 
   async update({ sid, isLoggedOut }) {
     try {
-      const query = { is_logged_out: isLoggedOut };
+      const query = {
+        is_logged_out: isLoggedOut,
+        sid: null,
+      };
       const where = { sid };
 
       const result = await logsModel.update(query, { where });
