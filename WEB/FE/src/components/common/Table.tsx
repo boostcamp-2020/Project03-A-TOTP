@@ -28,7 +28,7 @@ const TBody = styled.tbody``;
 
 const TH = styled.th`
   padding: 1rem 0.7rem;
-  background-color: ${({ theme }) => theme.color.borderColor};
+  background-color: ${({ theme }) => theme.color.tableHeader};
   text-align: left;
 `;
 

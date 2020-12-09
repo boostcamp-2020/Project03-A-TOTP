@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { MyInfo } from '@components/MyPage/MyInfo';
 import { MyInfoEdit } from '@components/MyPage/MyInfoEdit';
 import { AccessLog } from '@components/MyPage/AccessLog';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { AxiosError } from 'axios';
 import { PasswordModal } from '@components/PasswordModal/PasswordModal';
 import { getUser, updateUser, sendPassword, receiveLogs } from '@api/index';
+
+const UNAUTHORIZED = 401;
+const LOGIN_URL = '/login';
 
 interface MyPageContainerProps {}
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 1440px;
+  max-width: ${({ theme }) => theme.size.pageWidth};
   padding: 2rem 1rem;
   margin: auto;
 
@@ -24,7 +29,7 @@ const Wrapper = styled.div`
   }
 
   .react-tabs__tab {
-    color: ${({ theme }) => theme.color.Black};
+    color: ${({ theme }) => theme.color.text};
     font-size: 1.125rem;
     border-radius: 0;
   }
@@ -33,7 +38,7 @@ const Wrapper = styled.div`
     background-color: transparent;
     font-weight: bold;
     border: 1px solid transparent;
-    border-bottom: 3px solid ${({ theme }) => theme.color.Black};
+    border-bottom: 3px solid ${({ theme }) => theme.color.primary};
   }
 `;
 
@@ -58,12 +63,23 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [hasErrored, setHasErrored] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const history = useHistory();
+  
+  const handleError = (err: AxiosError<any>): void => {
+    if (err.response?.status === UNAUTHORIZED) {
+      history.push(LOGIN_URL);
+      return;
+    }
+    alert(err.response?.data?.message || err.message);
+  };
 
   const onSaveInfo = () =>
     updateUser({ name, email: mail, birth, phone })
-      .catch(alert)
+      .catch(handleError)
       .finally(() => setIsEditInfo(false));
+
   const onCancelEdit = () => setIsEditInfo(false);
+
   const onPageChange = ({ selected }: { selected: number }) => setPage(selected + 1);
   const onClosePassword = () => {
     setIsOpen(false);
@@ -83,12 +99,14 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   };
 
   useEffect(() => {
-    getUser().then(({ user: { name, email, birth, phone } }) => {
-      setName(name);
-      setMail(email);
-      setBirth(birth);
-      setPhone(phone);
-    });
+    getUser()
+      .then(({ user: { name, email, birth, phone } }) => {
+        setName(name);
+        setMail(email);
+        setBirth(birth);
+        setPhone(phone);
+      })
+      .catch(handleError);
   }, []);
 
   useEffect(() => {

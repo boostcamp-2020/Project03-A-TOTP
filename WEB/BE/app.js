@@ -23,17 +23,19 @@ require('dotenv').config();
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const app = express();
+redis.notifyEvent();
 const corsOptions = {
   origin: 'http://dadaikseon.com/',
   optionsSuccessStatus: 200,
 };
 const sessionOptions = {
   store: new RedisStore({
-    client: redis(),
+    client: redis.client(),
     prefix: 'session:',
   }),
   saveUninitialized: false,
-  resave: false,
+  resave: true,
+  rolling: true,
   secret: process.env.SESSIONKEY,
   cookie: {
     maxAge: 7200000,

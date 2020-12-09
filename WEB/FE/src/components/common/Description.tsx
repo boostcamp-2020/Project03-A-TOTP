@@ -16,7 +16,7 @@ const TH = styled.th`
   border: 1px solid ${({ theme }) => theme.color.border};
   padding: 1.5rem 2rem;
   text-align: left;
-  background-color: ${({ theme }) => theme.color.borderColor};
+  background-color: ${({ theme }) => theme.color.tableHeader};
   width: 20%;
 `;
 
