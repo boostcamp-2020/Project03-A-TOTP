@@ -30,9 +30,15 @@ module.exports = (sequelize, DataTypes) => {
       multi_device: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       last_update: {
         type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: DataTypes.NOW,
+      },
+      email_code: {
+        type: DataTypes.STRING(6),
         allowNull: true,
       },
     },
