@@ -22,7 +22,8 @@ struct QRGuideView: View {
         
         VStack {
             Spacer()
-            Image("ddLogo").resizable()
+            Image.logo
+                .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70)
                 .padding(.bottom, 30)

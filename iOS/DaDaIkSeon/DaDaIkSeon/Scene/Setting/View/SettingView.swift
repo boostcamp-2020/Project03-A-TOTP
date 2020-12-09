@@ -23,7 +23,6 @@ struct SettingView: View {
             
             // MARK: 내정보 관리
             SettingGridView(title: "내 정보", titleColor: .white) {
-                
                 SettingRow(title: "✉️ " + (viewModel.state.email),
                            isLast: viewModel.state.emailEditMode ? false : true) {
                     viewModel.state.emailEditMode ?
@@ -51,7 +50,13 @@ struct SettingView: View {
                     Divider().opacity(0)
                 }
                 
-                //                SettingRow(title: "보안 강화하기") { Image.chevron }
+                NavigationLink(
+                    destination: NavigationLazyView(PinCodeView()),
+                    label: {
+                        SettingRow(title: "보안 강화하기",
+                                   isLast: true) { Image.chevron }
+                    })
+                    .foregroundColor(.black)
             }
             .padding(.horizontal, 10)
             

@@ -20,7 +20,8 @@ struct ZeroTokenView: View {
                         y: 0.3)
             VStack(alignment: .center) {
                 Spacer()
-                Image("ddLogo").resizable()
+                Image.logo
+                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 55)
                 Text("TOTP 토큰이 없으시네요!")
