@@ -8,6 +8,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { getUser, updateUser } from '@api/index';
 import 'react-tabs/style/react-tabs.css';
 import { AxiosError } from 'axios';
+import { PasswordModal } from '@components/PasswordModal/PasswordModal';
+import { useInput } from '../../hooks/useInput';
+import { sendPassword } from '../../api/index';
 
 const UNAUTHORIZED = 401;
 const LOGIN_URL = '/login';
@@ -58,8 +61,12 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(10);
+  const [password, setPassword] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [hasErrored, setHasErrored] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
-
+  
   const handleError = (err: AxiosError<any>): void => {
     if (err.response?.status === UNAUTHORIZED) {
       history.push(LOGIN_URL);
@@ -76,6 +83,22 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   const onCancelEdit = () => setIsEditInfo(false);
 
   const onPageChange = ({ selected }: { selected: number }) => setPage(selected + 1);
+  const onClosePassword = () => {
+    setIsOpen(false);
+  };
+  const onErrorWithPassword = (message: string) => {
+    setHasErrored(true);
+    setErrorMsg(message);
+  };
+  const onSubmitPassword = async () => {
+    await sendPassword({ password })
+      .then(() => {
+        setIsOpen(false);
+        setIsEditInfo(true);
+      })
+      .catch((err: any) => onErrorWithPassword(err.response?.data?.message || err.message))
+      .finally(() => setPassword(''));
+  };
 
   useEffect(() => {
     getUser()
@@ -110,8 +133,17 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
                 onCancel={onCancelEdit}
               />
             ) : (
-              <MyInfo info={{ name, mail, birth, phone }} onEdit={() => setIsEditInfo(true)} />
+              <MyInfo info={{ name, mail, birth, phone }} onEdit={() => setIsOpen(true)} />
             )}
+            <PasswordModal
+              password={password}
+              setPassword={(e) => setPassword(e.target.value)}
+              isOpen={isOpen}
+              onSubmit={onSubmitPassword}
+              onClose={onClosePassword}
+              hasErrored={hasErrored}
+              errorMsg={errorMsg}
+            />
           </TabPanel>
           <TabPanel>
             <AccessLog logs={logs} page={page} maxPage={maxPage} onPageChange={onPageChange} />

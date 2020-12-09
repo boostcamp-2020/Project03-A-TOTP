@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import OtpInput from 'react-otp-input';
 import { Modal } from '@components/common/Modal';
 import { PasswordInput } from '@components/common';
 import Button from '@components/common/Button';
 import CSS from 'csstype';
-import { Link } from 'react-router-dom';
-import { useInput } from '../../hooks/useInput';
 
 interface PasswordModalProps {
   password: string;
@@ -52,19 +49,6 @@ const ButtonContainer = styled.div`
     margin: 1rem 0;
   }
 `;
-
-const InputStyle: CSS.Properties = {
-  width: '4rem',
-  height: '4rem',
-  margin: '0 0.3rem',
-  fontSize: '20px',
-  borderRadius: '4px',
-  border: '1px solid #ccc',
-};
-
-const ErrorStyle: CSS.Properties = {
-  border: '1px solid #ff4d4f',
-};
 
 const PasswordModal = ({
   password,
