@@ -17,6 +17,9 @@ struct SettingState {
     var backupPasswordEditCheckMode: Bool
     var backupPasswordErrorMessage: PasswordErrorMessage
     
+    var deviceName: String
+    var deviceInfoMode: Bool
+    
     var devices: [Device]
 }
 
@@ -33,7 +36,7 @@ enum SettingInput {
     
     case multiDeviceToggle
     
-    case deviceInfoMode
+    case deviceInfoMode(_ name: String)
     
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
@@ -54,6 +57,7 @@ extension SettingView {
         @Published var newEmail: String = ""
         @Published var newPassword: String = ""
         @Published var newPasswordCheck: String = ""
+        @Published var newDeviceName: String = ""
     }
     
 }

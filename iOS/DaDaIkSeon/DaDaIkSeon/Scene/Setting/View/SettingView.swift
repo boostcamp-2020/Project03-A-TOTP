@@ -128,8 +128,48 @@ struct SettingView: View {
                 ForEach(viewModel.state.devices, id: \.udid) { device in
                     SettingRow(
                         title: device.name ?? "",
-                        isLast: isLastDivice(udid: device.udid)) {
-                        Image.chevronRight
+                        isLast: isLastDivice(udid: device.udid)
+                            && !isSelectedDevice(deviceName: device.name)
+                    ) {
+                        isSelectedDevice(deviceName: device.name) ?
+                            Image.chevronDown : Image.chevronRight
+                    }
+                    .onTapGesture {
+                        withAnimation {
+                            stateManager.newDeviceName = ""
+                            viewModel.trigger(.deviceInfoMode(device.name ?? ""))
+                        }
+                    }
+                    
+                    if viewModel.state.deviceInfoMode &&
+                        viewModel.state.deviceName == device.name {
+                        
+                        HStack {
+                            TextField(device.name ?? "", text: $stateManager.newDeviceName)
+                            Divider()
+                            Button(action: {
+                                viewModel.trigger(.editBackupPassword(stateManager.newPassword))
+                            }, label: {
+                                Text("삭제").foregroundColor(Color.pink)
+                            })
+                            Button(action: {
+                                viewModel.trigger(.editBackupPassword(stateManager.newPassword))
+                            }, label: {
+                                Text("확인").foregroundColor(Color.navy1)
+                            })
+                        }
+                        Divider()
+                        HStack {
+                            Text("디바이스 아이디:")
+                            Spacer()
+                            Text("\(device.udid ?? "")")
+                        }
+                        HStack {
+                            Text("모델 이름:")
+                            Spacer()
+                            Text("\(device.modelName ?? "")")
+                        }
+                        Divider().padding(0)
                     }
                 }
             }
@@ -151,6 +191,11 @@ extension SettingView {
             return true
         }
         return device.udid == udid
+    }
+    
+    func isSelectedDevice(deviceName: String?) -> Bool {
+        viewModel.state.deviceInfoMode
+            && viewModel.state.deviceName == deviceName
     }
     
 }

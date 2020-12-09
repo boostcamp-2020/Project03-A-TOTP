@@ -23,6 +23,8 @@ class SettingViewModel: ViewModel {
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
             backupPasswordErrorMessage: .none,
+            deviceName: "",
+            deviceInfoMode: false,
             devices: devices
         )
     }
@@ -58,7 +60,6 @@ class SettingViewModel: ViewModel {
                 state.backupPasswordEditMode = false
                 state.backupPasswordEditCheckMode = true
                 state.backupPasswordErrorMessage = .none
-                // 얘랑 패스워드 모드 전부 해제해야 한다.
             } else {
                 state.backupPasswordEditCheckMode = false
                 state.backupPasswordErrorMessage = .stringSize
@@ -83,8 +84,13 @@ class SettingViewModel: ViewModel {
             state.service.deleteDevice(deviceID)
             print("deleteDevice")
         
-        case .deviceInfoMode:
-            return
+        case .deviceInfoMode(let name):
+            state.deviceInfoMode.toggle()
+            if state.deviceInfoMode {
+                state.deviceName = name
+            } else {
+                state.deviceName = ""
+            }
         }
     }
     
