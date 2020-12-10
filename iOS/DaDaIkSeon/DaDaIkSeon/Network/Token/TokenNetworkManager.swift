@@ -45,5 +45,19 @@ final class TokenNetworkManager: Requestable {
         }
     }
     
-    
+    func syncTokens(lastUpdate: String,
+                    tokens: [Token],
+                    completion: @escaping([Token]) -> Void) {
+        request(tokenEndpoint) { result in
+            switch result {
+            case .networkSuccess(let data):
+                guard let tokens = data.responseResult.data else { return }
+                completion(tokens)
+            case .networkError(let error):
+                print(error)
+            case .networkFail:
+                print("Network Fail!!!!")
+            }
+        }
+    }
 }
