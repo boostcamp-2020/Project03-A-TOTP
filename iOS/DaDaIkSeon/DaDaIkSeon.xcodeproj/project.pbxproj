@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
+		7C1DC3A72581F301008D9550 /* BiometricIDAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */; };
 		7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */; };
 		7C2D3420257F51360013AD65 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D341F257F51360013AD65 /* LoginService.swift */; };
 		7C2D3425257F5C4D0013AD65 /* LoginEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3424257F5C4D0013AD65 /* LoginEmailView.swift */; };
@@ -100,6 +101,7 @@
 		3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3CF060568D9EE8E2331D44 /* Pods-DaDaIkSeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.release.xcconfig"; sourceTree = "<group>"; };
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
+		7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricIDAuthManager.swift; sourceTree = "<group>"; };
 		7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
 		7C2D341F257F51360013AD65 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		7C2D3424257F5C4D0013AD65 /* LoginEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailView.swift; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
 				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
 				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
+				7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */,
 				7CCDD28C256E45D000150565 /* Extensions */,
 				882E9A16257D0FD900B066F3 /* Util */,
 				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
@@ -925,6 +928,7 @@
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
 				7C2D3467257FA70F0013AD65 /* ResponseArray.swift in Sources */,
+				7C1DC3A72581F301008D9550 /* BiometricIDAuthManager.swift in Sources */,
 				7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */,
 				7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */,
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
@@ -1100,8 +1104,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1115,7 +1119,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.DaDaIkSeon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "DaDaIkSeon Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
