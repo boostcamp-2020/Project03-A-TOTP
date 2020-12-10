@@ -8,10 +8,10 @@ const tokenController = require('@controllers/iOS/token');
 const { catchErrors } = require('@utils/util');
 
 // router.use(catchErrors(userController.getUserFromJWT));
-router.get('/', tokenController.getTokenList);
-router.post('/', tokenController.addTokenList);
+router.get('/', catchErrors(tokenController.getTokenList));
+router.post('/', catchErrors(tokenController.addTokenList));
 
-router.patch('/:id', tokenController.updateToken);
-router.delete('/:id', tokenController.delToken);
+router.patch('/:id', catchErrors(tokenController.updateToken));
+router.delete('/:id', catchErrors(tokenController.delToken));
 
 module.exports = router;
