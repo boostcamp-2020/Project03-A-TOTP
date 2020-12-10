@@ -13,7 +13,7 @@ enum UserEndpoint {
     case postCode(code: String, email: String, device: Device)
     case patchEmail(email: String)
     case patchBackup(isBackup: Bool, udid: String)
-//    case patchMultiDevice(isMultiDevice: Bool)
+    case patchMultiDevice(isMultiDevice: Bool)
 //    case
 //
 }
@@ -32,6 +32,8 @@ extension UserEndpoint: EndpointType {
             return basePath + "/confirm-email"
         case .patchBackup(let id, _):
             return basePath + "/backup/\(id)"
+        case .patchMultiDevice:
+            return basePath + "/multi"
         }
     }
     
@@ -41,7 +43,7 @@ extension UserEndpoint: EndpointType {
             return .GET
         case .postEmail, .postCode:
             return .POST
-        case .patchEmail, .patchBackup:
+        case .patchEmail, .patchBackup, .patchMultiDevice:
             return .PATCH
         }
     }
@@ -60,6 +62,8 @@ extension UserEndpoint: EndpointType {
             ]
         case .patchBackup(_, let backup):
             return ["backup": backup]
+        case .patchMultiDevice(let multiDevice):
+            return ["multiDevice": multiDevice]
         }
     }
     

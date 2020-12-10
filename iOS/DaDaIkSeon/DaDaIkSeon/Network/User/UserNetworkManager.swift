@@ -78,4 +78,19 @@ final class UserNetworkManager: Requestable {
         }
     }
 
+    func changeMultiDevice(multiDevice: Bool,
+                           completion: @escaping () -> Void) {
+        
+        userEndpoint = .patchMultiDevice(isMultiDevice: multiDevice)
+        request(userEndpoint) { result in
+            switch result {
+            case .networkSuccess:
+                completion()
+            case .networkError(let error):
+                print(error)
+            case .networkFail:
+                print("Network Fail!!!!")
+            }
+        }
+    }
 }
