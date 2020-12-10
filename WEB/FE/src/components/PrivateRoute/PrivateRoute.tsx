@@ -4,8 +4,7 @@ import { Redirect, Route, RouteProps } from 'react-router-dom';
 interface PrivateRouteProps extends RouteProps {}
 
 const PrivateRoute: React.FC<PrivateRouteProps> = (props) => {
-  /** @TODO 로그인 조건 추가 */
-  const isAuthenticated = true;
+  const isAuthenticated = localStorage.user;
 
   return isAuthenticated ? (
     <Route {...props} />
@@ -16,7 +15,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = (props) => {
       render={({ location }) => (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: '/login',
             state: { from: location },
           }}
         />
