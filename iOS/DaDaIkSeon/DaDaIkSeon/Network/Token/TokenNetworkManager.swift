@@ -48,6 +48,9 @@ final class TokenNetworkManager: Requestable {
     func syncTokens(lastUpdate: String,
                     tokens: [Token],
                     completion: @escaping([Token]) -> Void) {
+        
+        tokenEndpoint = .putTokens(lastUpdate: lastUpdate, tokens: tokens)
+        
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
@@ -60,4 +63,6 @@ final class TokenNetworkManager: Requestable {
             }
         }
     }
+    
+    
 }
