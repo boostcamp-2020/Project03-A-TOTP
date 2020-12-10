@@ -12,6 +12,7 @@ enum TokenEndpoint {
     case postToken(lastUpdate: String, tokens: [Token])
     case putTokens(lastUpdate: String, tokens: [Token])
     case patch(id: String, token: Token)
+    case delete(id: String)
 }
 
 extension TokenEndpoint: EndpointType {
@@ -20,7 +21,7 @@ extension TokenEndpoint: EndpointType {
         switch self {
         case .get, .postToken, .putTokens:
             return baseUrl
-        case .patch(let id, _):
+        case .patch(let id, _), .delete(let id):
             return baseUrl + "\(id)"
         }
     }
@@ -35,12 +36,14 @@ extension TokenEndpoint: EndpointType {
             return .PUT
         case .patch:
             return .PATCH
+        case .delete:
+            return .DELETE
         }
     }
     
     var params: [String: Any]? {
         switch self {
-        case .get:
+        case .get, .delete:
             return nil
         case .postToken(let lastUpdate, let tokens),
              .putTokens(let lastUpdate, let tokens):

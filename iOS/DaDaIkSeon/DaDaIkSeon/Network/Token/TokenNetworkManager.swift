@@ -14,6 +14,7 @@ final class TokenNetworkManager: Requestable {
     var tokenEndpoint: TokenEndpoint = .get
     
     func loadToken(completion: @escaping ([Token]) -> Void) {
+        
         tokenEndpoint = .get
         request(tokenEndpoint) { result in
             switch result {
@@ -32,7 +33,8 @@ final class TokenNetworkManager: Requestable {
                      token: Token,
                      completion: @escaping() -> Void) {
         
-        tokenEndpoint = .postToken(lastUpdate: lastUpdate, tokens: [token])
+        tokenEndpoint = .postToken(lastUpdate: lastUpdate,
+                                   tokens: [token])
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess:
@@ -49,8 +51,8 @@ final class TokenNetworkManager: Requestable {
                     tokens: [Token],
                     completion: @escaping([Token]) -> Void) {
         
-        tokenEndpoint = .putTokens(lastUpdate: lastUpdate, tokens: tokens)
-        
+        tokenEndpoint = .putTokens(lastUpdate: lastUpdate,
+                                   tokens: tokens)
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
@@ -68,7 +70,25 @@ final class TokenNetworkManager: Requestable {
     func modifyToken(id: String,
                      token: Token,
                      completion: @escaping() -> Void) {
-        tokenEndpoint = .patch(id: id, token: token)
+        
+        tokenEndpoint = .patch(id: id,
+                               token: token)
+        request(tokenEndpoint) { result in
+            switch result {
+            case .networkSuccess:
+                completion()
+            case .networkError(let error):
+                print(error)
+            case .networkFail:
+                print("Network Fail!!!!")
+            }
+        }
+    }
+    
+    func delete(id: String,
+                completion: @escaping() -> Void) {
+        
+        tokenEndpoint = .delete(id: id)
         
         request(tokenEndpoint) { result in
             switch result {
