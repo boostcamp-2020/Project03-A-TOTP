@@ -17,6 +17,7 @@ struct QRGuideView: View {
     @State private var isShownScanner = false
     @State private var isShownEditView: Bool = false
     @State private var isShownCameraCheck: Bool = false
+    @State private var isShownQrCodeCheck: Bool = false
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     // MARK: Body
@@ -29,11 +30,18 @@ struct QRGuideView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70)
                 .padding(.bottom, 30)
-            
-            Text("2FA 인증을 위해 웹사이트가 제공하는\nQR코드를 스캔해주세요!")
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
-                .padding()
+            if isShownQrCodeCheck {
+                Text("QR 코드 인식을 할 수 없습니다.\n다시 한 번 확인해주세요.")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.pink)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            } else {
+                Text("2FA 인증을 위해 웹사이트가 제공하는\nQR코드를 스캔해주세요!")
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
             
             Image.dadaikseonQR.resizable()
                 .frame(width: 200, height: 200)
@@ -79,6 +87,7 @@ struct QRGuideView: View {
         )
         .sheet(isPresented: $isShownScanner) {
             QRScannerView(isShownEditView: $isShownEditView,
+                          isShownQrCodeCheck: $isShownQrCodeCheck,
                           qrCodeURL: $qrCodeURL)
         }
         .alert(isPresented: $isShownCameraCheck, content: {
@@ -101,6 +110,7 @@ struct QRGuideView: View {
 struct QRScannerView: View {
     
     @Binding var isShownEditView: Bool
+    @Binding var isShownQrCodeCheck: Bool
     @Binding var qrCodeURL: String
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
@@ -110,13 +120,12 @@ struct QRScannerView: View {
                 CodeScannerView(codeTypes: [.qr], simulatedData: "-") { result in
                     switch result {
                     case .success(let url):
-                        if nil == TOTPGenerator.extractKey(from: qrCodeURL) {
-                            // alert
-                        } else {
+                        if let secretKey = TOTPGenerator.extractKey(from: url) {
+                            qrCodeURL = secretKey
                             isShownEditView = true
-                            qrCodeURL = url
+                        } else {
+                            isShownQrCodeCheck = true
                         }
-                        
                     case .failure(let error):
                         print(error)
                     }
