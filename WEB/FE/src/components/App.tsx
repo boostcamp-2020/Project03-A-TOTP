@@ -13,7 +13,7 @@ const App: React.FC<AppProps> = () => {
     <>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Pages.MyPage} />
+          <PrivateRoute exact path='/' component={Pages.MyPage} />
           <Route exact path='/login' component={Pages.LogInPage} />
           <Route exact path='/confirm-email' component={ComfirmEmail} />
           <Route exact path='/signup' component={Pages.SignUpPage} />
@@ -21,7 +21,6 @@ const App: React.FC<AppProps> = () => {
           <Route exact path='/findId' component={Pages.findIDPage} />
           <Route exact path='/findPassword' component={Pages.FindPasswordPage} />
           <Route exact path='/changePassword' component={Pages.ChangePasswordPage} />
-          <PrivateRoute path='/me' component={Pages.MyPage} />
           <Route component={Pages.NotFoundPage} />
         </Switch>
       </BrowserRouter>
