@@ -1,6 +1,5 @@
 const tokenService = require('@services/iOS/token');
-const { updateDateTimeByNow } = require('@services/iOS/user');
-const toeknService = require('@services/iOS/token');
+const userService = require('@services/iOS/user');
 
 const tokenController = {
   async addTokenList(req, res, next) {
@@ -15,14 +14,14 @@ const tokenController = {
     console.log(tokens);
     /** @TODO 트랜젝션 */
     await tokenService.addTokens(tokens);
-    await updateDateTimeByNow({ idx: user.idx });
+    await userService.updateDateTimeByNow({ idx: user.idx });
 
     res.json({ message: 'ok' });
   },
 
   async getTokenList(req, res, next) {
     const { user } = req;
-    const result = await toeknService.getTokens({ user_idx: user.idx });
+    const result = await tokenService.getTokens({ user_idx: user.idx });
     const data = {
       message: 'ok',
       data: {
@@ -35,9 +34,13 @@ const tokenController = {
 
   async updateToken(req, res, next) {
     const { id } = req.params;
+    const { user } = req;
     const { token } = req.body.data;
     const result = await tokenService.updateToken(token, id);
+
     if (result !== 0) {
+      /** @TODO 트랜젝션 */
+      await userService.updateDateTimeByNow({ idx: user.idx });
       res.json({ message: 'ok' });
     } else res.status(400).json({ mgessage: 'There is no token' });
   },
@@ -46,8 +49,10 @@ const tokenController = {
     const { id } = req.params;
     const { user } = req;
     const result = await tokenService.delToken({ id });
-    await updateDateTimeByNow({ idx: user.idx });
+
     if (result !== 0) {
+      /** @TODO 트랜젝션 */
+      await userService.updateDateTimeByNow({ idx: user.idx });
       res.json(result);
     } else res.status(400).json({ mgessage: 'There is no token' });
   },
