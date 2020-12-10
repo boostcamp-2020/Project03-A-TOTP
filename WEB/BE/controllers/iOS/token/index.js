@@ -47,13 +47,31 @@ const tokenController = {
   async delToken(req, res, next) {
     const { id } = req.params;
     const { user } = req;
-    const result = await tokenService.delToken({ id });
+    const result = await tokenService.delTokenByTokenId({ id });
 
     if (result !== 0) {
       /** @TODO 트랜젝션 */
       await userService.updateDateTimeByNow({ idx: user.idx });
       res.json(result);
     } else res.status(400).json({ mgessage: 'There is no token' });
+  },
+
+  async replaceToken(req, res, next) {
+    const { user } = req;
+    const { lastUpdate } = req.body.data;
+    let { tokens } = req.body.data;
+    tokens = tokens.map((token) => {
+      token.user_idx = user.idx;
+      token.is_main = token.isMain;
+      delete token.isMain;
+      return token;
+    });
+    /** @TODO 트랜젝션 */
+    await tokenService.delTokenByUserId({ userIdx: user.idx });
+    await tokenService.addTokens(tokens);
+    await userService.updateDateTime({ lastUpdate, idx: user.idx });
+
+    res.json('ok');
   },
 };
 module.exports = tokenController;
