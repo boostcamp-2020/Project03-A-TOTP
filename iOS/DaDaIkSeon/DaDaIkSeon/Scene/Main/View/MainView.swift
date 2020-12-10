@@ -50,8 +50,7 @@ struct MainView: View {
                             .padding(.horizontal, 12)
                             .padding(.top, 6)
                         gridView
-                            .padding(.horizontal, 12)
-                            .padding(.bottom, 12)
+                            .padding([.horizontal, .bottom], 12)
                     }
                 }
                 .navigationBarHidden(true)

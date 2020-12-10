@@ -15,7 +15,7 @@ struct ZeroTokenView: View {
                 .fill(Color.white)
                 .cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.1),
-                        radius: 10,
+                        radius: 5,
                         x: 0.0,
                         y: 0.3)
             VStack(alignment: .center) {

@@ -20,6 +20,7 @@ class SettingViewModel: ViewModel {
             email: email,
             emailEditMode: false,
             emailValidation: true,
+            authEditMode: false,
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
             editErrorMessage: .none,
@@ -98,6 +99,8 @@ class SettingViewModel: ViewModel {
             } else {
                 state.deviceID = ""
             }
+        case .editAuthMode:
+            state.authEditMode.toggle()
         }
     }
     

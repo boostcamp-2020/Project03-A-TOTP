@@ -95,7 +95,7 @@ private extension NumberPad {
     func makeNumberButton(value: String) -> some View {
         Button(action: {
             if value == deleteImageName {
-                codes.removeLast()
+                if !codes.isEmpty { codes.removeLast() }
             } else {
                 if !value.isEmpty { codes.append(value) }
                 if codes.count == 4 {
