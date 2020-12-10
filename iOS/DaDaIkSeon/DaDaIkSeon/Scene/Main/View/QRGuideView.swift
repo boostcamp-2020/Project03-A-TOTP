@@ -29,11 +29,27 @@ struct QRGuideView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70)
                 .padding(.bottom, 30)
+            
             Text("2FA 인증을 위해 웹사이트가 제공하는\nQR코드를 스캔해주세요!")
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-            Spacer()
-            Spacer()
+                .padding()
+            
+            Image.dadaikseonQR.resizable()
+                .frame(width: 200, height: 200)
+                .overlay(
+                    Rectangle()
+                        .stroke(Color.black, lineWidth: 10)
+                        .opacity(0)
+                        .frame(width: 200, height: 200)
+                )
+                .padding()
+            
+            Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")
+                .fontWeight(.heavy)
+                .multilineTextAlignment(.center)
+                .padding()
+            
             Spacer()
             Button(action: {
                 authoriztionCapture()
@@ -47,14 +63,6 @@ struct QRGuideView: View {
             })
             .background(Color(.systemGray6))
             .cornerRadius(15)
-            
-            
-            
-            
-            
-            Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")
-                .fontWeight(.heavy)
-                .multilineTextAlignment(.center)
             
             gotoTokenEditView
         }
@@ -127,7 +135,7 @@ struct QRGuideLineView: View {
                 .padding(.bottom, 30)
             RoundedRectangle(cornerRadius: 20)
                 .stroke(style: StrokeStyle(lineWidth: 10, dash: [11]))
-                .foregroundColor(Color.pink)
+                .foregroundColor(Color(UIColor.systemGray6))
                 .frame(width: 200, height: 200)
                 .padding()
             Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")

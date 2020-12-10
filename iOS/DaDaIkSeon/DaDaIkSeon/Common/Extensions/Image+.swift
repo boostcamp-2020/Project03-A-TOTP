@@ -34,6 +34,7 @@ extension Image {
     static let logo = Image("ddLogo")
     static let delete = Image(systemName: "delete.left.fill")
     static let camera = Image(systemName: "camera.fill")
+    static let dadaikseonQR = Image("dadaikseonQR")
 }
 
 extension String {
