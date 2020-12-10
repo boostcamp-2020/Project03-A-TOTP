@@ -86,7 +86,14 @@ function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProp
     });
   };
   const columns = [
-    { title: '시간', key: 'time' },
+    {
+      title: '시간',
+      key: 'time',
+      render: (time: Date) => {
+        const show = new Date(time);
+        return <>{show.toLocaleString()}</>;
+      },
+    },
     { title: '디바이스', key: 'device' },
     { title: 'IP', key: 'ip' },
     { title: '위치', key: 'location' },
