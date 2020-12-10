@@ -13,7 +13,7 @@ final class UserNetworkManager: Requestable {
     
     var userEndpoint: UserEndpoint = .get
     
-    func loadUser(completion: @escaping (DDISUser) -> Void) {
+    func load(completion: @escaping (DDISUser) -> Void) {
         userEndpoint = .get
         request(userEndpoint) { result in
             switch result {

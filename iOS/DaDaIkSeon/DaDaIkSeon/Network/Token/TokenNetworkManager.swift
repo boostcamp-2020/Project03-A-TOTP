@@ -13,7 +13,7 @@ final class TokenNetworkManager: Requestable {
     
     var tokenEndpoint: TokenEndpoint = .get
     
-    func loadToken(completion: @escaping ([Token]) -> Void) {
+    func load(completion: @escaping ([Token]) -> Void) {
         
         tokenEndpoint = .get
         request(tokenEndpoint) { result in
@@ -29,12 +29,12 @@ final class TokenNetworkManager: Requestable {
         }
     }
 
-    func createToken(lastUpdate: String,
-                     token: Token,
-                     completion: @escaping() -> Void) {
+    func create(lastUpdate: String,
+                token: Token,
+                completion: @escaping() -> Void) {
         
-        tokenEndpoint = .postToken(lastUpdate: lastUpdate,
-                                   tokens: [token])
+        tokenEndpoint = .postOne(lastUpdate: lastUpdate,
+                                 tokens: [token])
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess:
@@ -51,8 +51,8 @@ final class TokenNetworkManager: Requestable {
                     tokens: [Token],
                     completion: @escaping([Token]) -> Void) {
         
-        tokenEndpoint = .putTokens(lastUpdate: lastUpdate,
-                                   tokens: tokens)
+        tokenEndpoint = .putAll(lastUpdate: lastUpdate,
+                                tokens: tokens)
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
@@ -67,9 +67,9 @@ final class TokenNetworkManager: Requestable {
     }
     
     // id는 UUID인데 String으로 언제 바꿔주어야할까?
-    func modifyToken(id: String,
-                     token: Token,
-                     completion: @escaping() -> Void) {
+    func modify(id: String,
+                token: Token,
+                completion: @escaping() -> Void) {
         
         tokenEndpoint = .patch(id: id,
                                token: token)

@@ -9,8 +9,8 @@ import Foundation
 
 enum TokenEndpoint {
     case get
-    case postToken(lastUpdate: String, tokens: [Token])
-    case putTokens(lastUpdate: String, tokens: [Token])
+    case postOne(lastUpdate: String, tokens: [Token])
+    case putAll(lastUpdate: String, tokens: [Token])
     case patch(id: String, token: Token)
     case delete(id: String)
 }
@@ -19,7 +19,7 @@ extension TokenEndpoint: EndpointType {
     
     var path: String {
         switch self {
-        case .get, .postToken, .putTokens:
+        case .get, .postOne, .putAll:
             return baseUrl
         case .patch(let id, _), .delete(let id):
             return baseUrl + "\(id)"
@@ -30,9 +30,9 @@ extension TokenEndpoint: EndpointType {
         switch self {
         case .get:
             return .GET
-        case .postToken:
+        case .postOne:
             return .POST
-        case .putTokens:
+        case .putAll:
             return .PUT
         case .patch:
             return .PATCH
@@ -45,8 +45,8 @@ extension TokenEndpoint: EndpointType {
         switch self {
         case .get, .delete:
             return nil
-        case .postToken(let lastUpdate, let tokens),
-             .putTokens(let lastUpdate, let tokens):
+        case .postOne(let lastUpdate, let tokens),
+             .putAll(let lastUpdate, let tokens):
             return [
                 "lastUpdate": lastUpdate,
                 "tokens": tokens
