@@ -43,5 +43,22 @@ final class UserNetworkManager: Requestable {
             }
         }
     }
+    
+    func changeEmail(email: String,
+                     completion: @escaping () -> Void) {
+        
+        userEndpoint = .patchEmail(email: email)
+        request(userEndpoint) { result in
+            switch result {
+            case .networkSuccess:
+                completion()
+            case .networkError(let error):
+                print(error)
+            case .networkFail:
+                print("Network Fail!!!!")
+            }
+        }
+        
+    }
 
 }
