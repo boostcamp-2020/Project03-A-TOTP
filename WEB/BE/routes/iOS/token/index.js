@@ -7,7 +7,7 @@ const tokenController = require('@controllers/iOS/token');
 
 const { catchErrors } = require('@utils/util');
 
-// router.use(catchErrors(userController.getUserFromJWT));
+router.use(catchErrors(userController.getUserFromJWT));
 router.get('/', catchErrors(tokenController.getTokenList));
 router.post('/', catchErrors(tokenController.addTokenList));
 
