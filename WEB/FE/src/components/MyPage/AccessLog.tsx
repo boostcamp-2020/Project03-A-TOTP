@@ -67,7 +67,6 @@ const PaginationWrapper = styled.div`
 function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProps): JSX.Element {
   const onDelete = (sid: string) => {
     delSession({ sid }).then((result) => {
-      console.log(result);
       if (result) {
         let newLogs = [...logs];
         newLogs = newLogs.map((log: Log) => {

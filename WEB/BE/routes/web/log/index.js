@@ -4,6 +4,7 @@ const router = express.Router();
 const logController = require('@/controllers/web/log');
 const { sessionAuthentication } = require('@middlewares');
 const { catchErrors } = require('@utils/util');
+const authController = require('@/controllers/web/auth');
 
 router.use(sessionAuthentication.sessionCheck);
 
@@ -38,6 +39,6 @@ router.get('/:num', catchErrors(logController.get));
  *      500:
  *        description: 기타 에러
  */
-router.patch('/session', catchErrors(logController.delSession));
+router.patch('/session', catchErrors(logController.delSession), catchErrors(authController.logout));
 
 module.exports = router;
