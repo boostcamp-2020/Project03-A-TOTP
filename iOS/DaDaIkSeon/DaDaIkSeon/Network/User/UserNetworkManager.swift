@@ -58,7 +58,24 @@ final class UserNetworkManager: Requestable {
                 print("Network Fail!!!!")
             }
         }
+    }
+    
+    func changeBackupMode(backup: Bool,
+                          udid: String,
+                          completion: @escaping () -> Void) {
         
+        userEndpoint = .patchBackup(isBackup: backup,
+                                    udid: udid)
+        request(userEndpoint) { result in
+            switch result {
+            case .networkSuccess:
+                completion()
+            case .networkError(let error):
+                print(error)
+            case .networkFail:
+                print("Network Fail!!!!")
+            }
+        }
     }
 
 }
