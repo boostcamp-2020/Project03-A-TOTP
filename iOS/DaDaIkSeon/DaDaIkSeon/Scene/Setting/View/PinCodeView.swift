@@ -70,8 +70,9 @@ struct PinCodeView: View {
                           completion: completion,
                           lastNumber: numberChecker)
             }
-            .animation(.spring())
+            //.animation(.spring())
         }
+        .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         
     }

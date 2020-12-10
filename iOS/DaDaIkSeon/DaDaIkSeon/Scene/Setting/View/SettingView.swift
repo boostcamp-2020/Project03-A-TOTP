@@ -73,8 +73,8 @@ struct SettingView: View {
                             if stateManager.faceIDToggle {
                                 bioAuth.authenticateUser { result in
                                     if result == nil {
-                                        viewModel.trigger(.liberateDaDaIkSeon)
                                         DispatchQueue.main.async {
+                                            viewModel.trigger(.liberateDaDaIkSeon)
                                             stateManager.faceIDToggle.toggle()
                                         }
                                     } else {
@@ -95,18 +95,6 @@ struct SettingView: View {
                             }).disabled(true).opacity(1.0)
                         })
                     } // TODO: on/off 텍스트로 하면 안되는지? 토글 disable은 투명이라서ㅠㅠ
-                    
-                    NavigationLink(destination: stateManager.faceIDToggle ?
-                                    PinCodeView(
-                                        mode: .delete(viewModel.state.service.pincode ?? "0000"),
-                                        completion: { _ in
-                                        viewModel.trigger(.liberateDaDaIkSeon)
-                                        stateManager.faceIDToggle.toggle()})
-                                    :PinCodeView(mode: .setup, completion: { pincode in
-                                        viewModel.trigger(.protectDaDaIkSeon(pincode))
-                                        stateManager.faceIDToggle.toggle()
-                                    }),
-                                   isActive: $stateManager.pinCodeSetting, label: { Text("") })
                 }
             }
             .padding(.horizontal, 10)
@@ -238,6 +226,18 @@ struct SettingView: View {
             
             Spacer()
         })
+        .fullScreenCover(isPresented: $stateManager.pinCodeSetting){
+            stateManager.faceIDToggle ?
+                            PinCodeView(
+                                mode: .delete(viewModel.state.service.pincode ?? "0000"),
+                                completion: { _ in
+                                viewModel.trigger(.liberateDaDaIkSeon)
+                                    stateManager.faceIDToggle.toggle()})
+                            :PinCodeView(mode: .setup, completion: { pincode in
+                                viewModel.trigger(.protectDaDaIkSeon(pincode))
+                                stateManager.faceIDToggle.toggle()
+                            })
+        }
         .background(Color(UIColor.systemGray6))
         .edgesIgnoringSafeArea(.bottom)
     }
