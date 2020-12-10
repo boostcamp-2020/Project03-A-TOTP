@@ -8,6 +8,10 @@ const storageHandler = {
   get(): string | null {
     return localStorage.getItem(STORAGE_KEY);
   },
+
+  clear(): void {
+    localStorage.clear();
+  },
 };
 
 export default storageHandler;

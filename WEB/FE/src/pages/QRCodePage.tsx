@@ -9,12 +9,4 @@ const QRCodePage = ({ match }) => {
   );
 };
 
-// const QRCodePage = () => {
-//   return (
-//     <div>
-//       <QRCodeComponent />
-//     </div>
-//   );
-// };
-
 export default QRCodePage;
