@@ -12,6 +12,7 @@ enum SettingEndpoint {
     case patchBackup(udid: String, isBackup: Bool)
     case patchMultiDevice(isMultiDevice: Bool)
     case patchDevice(udid: String, name: String)
+    case deleteDevice(udid: String)
 }
 
 extension SettingEndpoint: EndpointType {
@@ -26,7 +27,7 @@ extension SettingEndpoint: EndpointType {
             return basePath + "/backup/\(id)"
         case .patchMultiDevice:
             return basePath + "/multi"
-        case .patchDevice(let id, _):
+        case .patchDevice(let id, _), .deleteDevice(let id):
             return basePath + "/device/\(id)"
         }
     }
@@ -35,6 +36,8 @@ extension SettingEndpoint: EndpointType {
         switch self {
         case .patchEmail, .patchBackup, .patchMultiDevice, .patchDevice:
             return .PATCH
+        case .deleteDevice:
+            return .DELETE
         }
     }
     
@@ -48,6 +51,8 @@ extension SettingEndpoint: EndpointType {
             return ["multiDevice": multiDevice]
         case .patchDevice(_, let name):
             return ["name": name]
+        case .deleteDevice:
+            return nil
         }
     }
     
