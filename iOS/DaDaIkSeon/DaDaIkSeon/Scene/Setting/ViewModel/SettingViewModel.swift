@@ -101,11 +101,11 @@ class SettingViewModel: ViewModel {
         case .editAuthMode:
             state.authEditMode.toggle()
         case .protectDaDaIkSeon(let pincode):
-            // 키체인으로 비밀번호 저장
+            state.service.createPincde(pincode)
             print("protectTokens \(pincode)")
         case .liberateDaDaIkSeon:
-            // 키체인에서 비밀번호 삭제
-            print("protectTokens")
+            state.service.deletePincode()
+            print("liberateDaDaIkSeon")
         }
     }
 }

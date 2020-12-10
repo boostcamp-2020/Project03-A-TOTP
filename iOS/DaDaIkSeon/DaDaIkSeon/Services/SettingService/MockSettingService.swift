@@ -66,6 +66,14 @@ class MockSettingService: SettingServiceable {
     var pincode: String? {
         pincodeManager.loadPincode()
     }
+    
+    func deletePincode() {
+        pincodeManager.deletePincode()
+    }
+    
+    func createPincde(_ pincode: String) {
+        pincodeManager.storePincode(pincode)
+    }
 }
 
 final class PincodeManager {
@@ -81,15 +89,16 @@ final class PincodeManager {
                 kSecAttrAccount: account]
     }()
     
-    func storePincode(_ tokens: String) -> Bool {
-        guard let data = try? JSONEncoder().encode(tokens),
+    @discardableResult
+    func storePincode(_ pincode: String) -> Bool {
+        guard let data = try? JSONEncoder().encode(pincode),
               let service = service else { return false }
         
         let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
                                       kSecAttrService: service,
                                       kSecAttrAccount: account,
                                       kSecAttrGeneric: data]
-        _ = deletePincode()
+        deletePincode()
         return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
     }
     
@@ -112,6 +121,7 @@ final class PincodeManager {
         return pincode
     }
     
+    @discardableResult
     func deletePincode() -> Bool {
         guard let query = query else { return false }
         return SecItemDelete(query as CFDictionary) == errSecSuccess

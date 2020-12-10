@@ -30,4 +30,6 @@ protocol SettingServiceable {
     // 그럼 다른 디바이스에서 앱을 삭제하면?? - 이건 어쩔 도리가..
     
     var pincode: String? { get }
+    func deletePincode()
+    func createPincde(_ pincode: String)
 }
