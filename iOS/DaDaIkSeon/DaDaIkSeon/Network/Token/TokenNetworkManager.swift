@@ -28,4 +28,22 @@ final class TokenNetworkManager: Requestable {
         }
     }
 
+    func createToken(lastUpdate: String,
+                     token: Token,
+                     completion: @escaping() -> Void) {
+        
+        tokenEndpoint = .postToken(lastUpdate: lastUpdate, tokens: [token])
+        request(tokenEndpoint) { result in
+            switch result {
+            case .networkSuccess:
+                completion()
+            case .networkError(let error):
+                print(error)
+            case .networkFail:
+                print("Network Fail!!!!")
+            }
+        }
+    }
+    
+    
 }
