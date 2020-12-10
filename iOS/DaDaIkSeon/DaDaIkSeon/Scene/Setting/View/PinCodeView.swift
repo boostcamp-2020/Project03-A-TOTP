@@ -54,9 +54,14 @@ struct PinCodeView: View {
                 
                 Spacer()
                 
-                Text("PIN 번호를 설정 하세요")
-                    .foregroundColor(Color.gray)
-                
+                if numberChecker.isFirst() {
+                    Text("PIN 번호를 설정 하세요")
+                        .foregroundColor(Color.gray)
+                } else {
+                    Text("PIN 번호를 한 번 더 입력해주세요.")
+                        .foregroundColor(Color.gray)
+                }
+              
                 Spacer()
                 
                 HStack(spacing: 20) {
@@ -163,7 +168,12 @@ private extension NumberPad {
                     let inputCode = getCode()
                     switch pincodeViewMode {
                     case .auth(let pincode):
-                        break
+                        if pincode == inputCode {
+                            completion(inputCode)
+                        } else {
+                            codes.removeAll()
+                            // 에러 메세지 출력해주기 // alert
+                        }
                     case .setup:
                         if lastNumber.isFirst() {
                             lastNumber.setFirstNumber(inputCode)
