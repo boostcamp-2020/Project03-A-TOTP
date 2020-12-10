@@ -129,6 +129,8 @@ router.put('/secret-key/email', reCAPTCHA.verify, authController.sendSecretKeyEm
 
 router.use(sessionAuthentication.sessionCheck);
 
+router.get('/logout', authController.logout);
+
 router.post('/check-pw', authController.checkPassword);
 
 module.exports = router;
