@@ -74,12 +74,13 @@ struct SettingView: View {
                             }).disabled(true).opacity(1.0)
                         })
                     } // TODO: on/off 텍스트로 하면 안되는지? 토글 disable은 투명이라서ㅠㅠ
-                       
+                    
                     NavigationLink(destination: stateManager.faceIDToggle ?
-                                    PinCodeView(mode: .delete("1234"), completion: { _ in
+                                    PinCodeView(
+                                        mode: .delete(viewModel.state.service.pincode ?? "0000"),
+                                        completion: { _ in
                                         viewModel.trigger(.liberateDaDaIkSeon)
-                                        stateManager.faceIDToggle.toggle()
-                                    })
+                                        stateManager.faceIDToggle.toggle()})
                                     :PinCodeView(mode: .setup, completion: { pincode in
                                         viewModel.trigger(.protectDaDaIkSeon(pincode))
                                         stateManager.faceIDToggle.toggle()

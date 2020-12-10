@@ -28,4 +28,6 @@ protocol SettingServiceable {
     func deleteDevice(_ udid: String)
     // - 디바이스 생성은 다른 디바이스에서 인증이 되었을 때 - 이건 로그인 화면에서 이루어지겠다!
     // 그럼 다른 디바이스에서 앱을 삭제하면?? - 이건 어쩔 도리가..
+    
+    var pincode: String? { get }
 }
