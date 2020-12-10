@@ -13,6 +13,8 @@ struct SettingState {
     var emailEditMode: Bool
     var emailValidation: Bool
     
+    var authEditMode: Bool
+    
     var backupPasswordEditMode: Bool
     var backupPasswordEditCheckMode: Bool
     
@@ -29,6 +31,8 @@ enum SettingInput {
     
     case editEmailMode
     case editEmail(_ email: String)
+    
+    case editAuthMode
     
     case backupToggle
     case editBackupPasswordMode
@@ -59,6 +63,8 @@ extension SettingView {
         @Published var newPassword: String = ""
         @Published var newPasswordCheck: String = ""
         @Published var newDeviceName: String = ""
+        @Published var pinCodeToggle: Bool = false
+        @Published var faceIDToggle: Bool = false
     }
     
 }

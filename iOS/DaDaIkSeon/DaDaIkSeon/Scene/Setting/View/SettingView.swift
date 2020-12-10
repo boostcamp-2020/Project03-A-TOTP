@@ -50,13 +50,39 @@ struct SettingView: View {
                     Divider().opacity(0)
                 }
                 
-                NavigationLink(
-                    destination: NavigationLazyView(PinCodeView()),
-                    label: {
-                        SettingRow(title: "보안 강화하기",
-                                   isLast: true) { Image.chevronRight }
+                SettingRow(title: "보안 강화하기",
+                           isLast: false) {
+                    viewModel.state.authEditMode ? Image.chevronDown : Image.chevronRight
+                }
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.trigger(.editAuthMode)
+                    }
+                }
+                
+                if viewModel.state.authEditMode {
+//                    Toggle(isOn: $stateManager.pinCodeToggle, label: {
+//                        Text("PIN 코드")
+//                    })
+//                    .onChange(of: stateManager.pinCodeToggle, perform: { _ in
+//                        print("핀코드가 토글 ~")
+////                        NavigationLazyView(PinCodeView())
+//                    })
+//
+//                    Spacer()
+                    
+                    Toggle(isOn: $stateManager.faceIDToggle, label: {
+                        Text("FaceID")
                     })
-                    .foregroundColor(.black)
+                    .onChange(of: stateManager.faceIDToggle, perform: { _ in
+                        print("페이스 아이디가 토글 ~")
+//                        NavigationLazyView(PinCodeView())
+                    })
+                    
+                    Spacer()
+                    
+                    Divider().opacity(0)
+                }
             }
             .padding(.horizontal, 10)
             
