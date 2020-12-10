@@ -64,7 +64,7 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   const [hasErrored, setHasErrored] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
-  
+
   const handleError = (err: AxiosError<any>): void => {
     if (err.response?.status === UNAUTHORIZED) {
       history.push(LOGIN_URL);
@@ -153,7 +153,13 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
             />
           </TabPanel>
           <TabPanel>
-            <AccessLog logs={logs} page={page} maxPage={maxPage} onPageChange={onPageChange} />
+            <AccessLog
+              logs={logs}
+              setLogs={setLogs}
+              page={page}
+              maxPage={maxPage}
+              onPageChange={onPageChange}
+            />
           </TabPanel>
         </Tabs>
       </TabWrapper>

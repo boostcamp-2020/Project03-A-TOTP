@@ -147,3 +147,11 @@ export const receiveLogs = async (num: number): Promise<any> => {
   const { data } = await axios.get(`api/log/${num}`);
   return data;
 };
+
+interface delSessionParmas {
+  sid?: string;
+}
+export const delSession = async (sid: delSessionParmas): Promise<any> => {
+  const { data } = await axios.patch('api/log/session', sid);
+  return data;
+};

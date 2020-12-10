@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactPaginate from 'react-paginate';
 import { Table } from '@components/common/Table';
+import { delSession } from '@api/index';
 import Button from '@components/common/Button';
 
 interface Log {
@@ -9,12 +10,13 @@ interface Log {
   device: string;
   ip: string;
   location: string;
-  isLoggedIn: boolean;
+  isLoggedOut: boolean;
   sessionId: string | undefined;
 }
 
 interface AccessLogProps {
   logs: Array<Log>;
+  setLogs: any;
   page: number;
   maxPage: number;
   onPageChange: (selecteItem: { selected: number }) => void;
@@ -62,7 +64,27 @@ const PaginationWrapper = styled.div`
   }
 `;
 
-function AccessLog({ logs, page, maxPage, onPageChange }: AccessLogProps): JSX.Element {
+function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProps): JSX.Element {
+  const onDelete = (sid: string) => {
+    delSession({ sid }).then((result) => {
+      console.log(result);
+      if (result) {
+        let newLogs = [...logs];
+        newLogs = newLogs.map((log: Log) => {
+          if (log.sessionId === sid) {
+            log.sessionId = '';
+            log.isLoggedOut = true;
+          }
+          return log;
+        });
+        setLogs(newLogs);
+
+        alert('로그아웃 성공');
+      } else {
+        alert('요청 실패');
+      }
+    });
+  };
   const columns = [
     { title: '시간', key: 'time' },
     { title: '디바이스', key: 'device' },
@@ -70,13 +92,13 @@ function AccessLog({ logs, page, maxPage, onPageChange }: AccessLogProps): JSX.E
     { title: '위치', key: 'location' },
     {
       title: '상태',
-      key: 'isLoggedIn',
-      render: (isLoggedIn: boolean) => (isLoggedIn ? '로그인' : '로그아웃'),
+      key: 'isLoggedOut',
+      render: (isLoggedOut: boolean) => (isLoggedOut ? '로그아웃' : '로그인'),
     },
     {
       title: '접속차단',
       key: 'sessionId',
-      render: (sid: string) => (sid ? <Button text='로그아웃' onClick={() => console.log(sid)} /> : '-'),
+      render: (sid: string) => (sid ? <Button text='로그아웃' onClick={() => onDelete(sid)} /> : '-'),
     },
   ];
   return (
