@@ -3,7 +3,7 @@ const makeRandom = (num = 6, length = undefined) => {
     (prev, now) =>
       (prev += Math.random()
         .toString(36)
-        .substr(2, length + 2)),
+        .substr(2, length ? length + 2 : undefined)),
     ''
   );
 };
