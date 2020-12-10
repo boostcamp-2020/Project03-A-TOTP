@@ -53,7 +53,7 @@ struct SettingView: View {
                 // MARK: 보안강화하기
                 
                 SettingRow(title: "보안 강화하기",
-                           isLast: false) {
+                           isLast: viewModel.state.authEditMode ? false:true) {
                     viewModel.state.authEditMode ? Image.chevronDown : Image.chevronRight
                 }
                 .onTapGesture {
@@ -64,30 +64,25 @@ struct SettingView: View {
                 
                 if viewModel.state.authEditMode {
                     
-                    // 토글 on/off의 결과
-                    // on: 핀 넘버 설정 화면으로 넘어간다.
-                    //        -> 키체인에 해당 핀 넘버 저장(설정 뷰모델 - 클로저로 넘겨줌) 후 다시 돌아오기
-                    // off: 키체인에서 핀 넘버 삭제하기(설정 뷰모델)
-                    
-                    //
-                    
-                    Toggle(isOn: $stateManager.faceIDToggle, label: {
+                    HStack {
                         Text("FaceID/TouchID")
-                    })
-                    .onChange(of: stateManager.faceIDToggle, perform: { _ in
-                        if stateManager.faceIDToggle {  // true로 설정
-                            // 핀넘버 화면으로 이동 - 이 화면에서 핀넘버 두 번 확인하고 일치하면 저장
-                            // 여기에 뷰모델에 있는 키체인 등록 트리거를 호출하도록함. 클로저로 핀넘버 받아옴.
+                        Spacer()
+                        Button(action: {
                             stateManager.pinCodeSetting = true
-                        } else {                        // false로 설정
-                            viewModel.trigger(.liberateDaDaIkSeon)
-                        }
-                    })
-                    Spacer()
-                    Divider().opacity(0)
-                    NavigationLink(destination:
-                                    PinCodeView(mode: .setup, completion: { pincode in
+                        }, label: {
+                            Toggle(isOn: $stateManager.faceIDToggle, label: {
+                            }).disabled(true).opacity(1.0)
+                        })
+                    } // TODO: on/off 텍스트로 하면 안되는지? 토글 disable은 투명이라서ㅠㅠ
+                       
+                    NavigationLink(destination: stateManager.faceIDToggle ?
+                                    PinCodeView(mode: .auth("1234"), completion: { pincode in
+                                        viewModel.trigger(.liberateDaDaIkSeon)
+                                        stateManager.faceIDToggle.toggle()
+                                    })
+                                    :PinCodeView(mode: .setup, completion: { pincode in
                                         viewModel.trigger(.protectDaDaIkSeon(pincode))
+                                        stateManager.faceIDToggle.toggle()
                                     }),
                                    isActive: $stateManager.pinCodeSetting, label: { Text("") })
                 }
