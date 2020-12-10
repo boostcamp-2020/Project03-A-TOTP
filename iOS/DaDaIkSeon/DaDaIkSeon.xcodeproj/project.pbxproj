@@ -67,6 +67,7 @@
 		8885FD48257F2E7D0013D794 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD47257F2E7D0013D794 /* Device.swift */; };
 		8885FD56257F36120013D794 /* MockSettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD55257F36120013D794 /* MockSettingService.swift */; };
 		8885FD5B257F36290013D794 /* SettingServicaeble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD5A257F36290013D794 /* SettingServicaeble.swift */; };
+		88973B842582AD0C00723384 /* PincodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88973B832582AD0C00723384 /* PincodeManager.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
@@ -165,6 +166,7 @@
 		8885FD47257F2E7D0013D794 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8885FD55257F36120013D794 /* MockSettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSettingService.swift; sourceTree = "<group>"; };
 		8885FD5A257F36290013D794 /* SettingServicaeble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingServicaeble.swift; sourceTree = "<group>"; };
+		88973B832582AD0C00723384 /* PincodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeManager.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewWrapper.swift; sourceTree = "<group>"; };
 		889F67D8257F455500CFFFB0 /* SettingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingGridView.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
 				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
 				7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */,
+				88973B832582AD0C00723384 /* PincodeManager.swift */,
 				7CCDD28C256E45D000150565 /* Extensions */,
 				882E9A16257D0FD900B066F3 /* Util */,
 				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
@@ -937,6 +940,7 @@
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
+				88973B842582AD0C00723384 /* PincodeManager.swift in Sources */,
 				7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */,
 				7C2D3425257F5C4D0013AD65 /* LoginEmailView.swift in Sources */,
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
