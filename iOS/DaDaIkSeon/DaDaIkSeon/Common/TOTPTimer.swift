@@ -17,9 +17,9 @@ final class TOTPTimer {
     
     static var shared = TOTPTimer()
     
-    let timer: TimerPublisher
+    private var timer: TimerPublisher
     
-    var subscribers = [UUID: (TimerPublisher) -> Void]()
+    private var subscribers = [UUID: (TimerPublisher) -> Void]()
     
     private init() {
         timer = Timer
