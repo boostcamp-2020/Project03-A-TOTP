@@ -1,12 +1,13 @@
 import React from 'react';
 import { MainPageLayout } from '@layouts/MainPageLayout';
+import { IndexPageContainer } from '@/components/IndexPage/IndexPageContainer';
 
 interface MyPageProps {}
 
 function MyPage({}: MyPageProps): JSX.Element {
   return (
     <MainPageLayout>
-      <div>aa</div>
+      <IndexPageContainer />
     </MainPageLayout>
   );
 }
