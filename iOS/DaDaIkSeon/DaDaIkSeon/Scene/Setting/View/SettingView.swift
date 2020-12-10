@@ -54,6 +54,7 @@ struct SettingView: View {
                 
                 // MARK: 보안강화하기
                 
+                
                 SettingRow(title: "보안 강화하기",
                            isLast: viewModel.state.authEditMode ? false:true) {
                     viewModel.state.authEditMode ? Image.chevronDown : Image.chevronRight
@@ -95,6 +96,7 @@ struct SettingView: View {
                             }).disabled(true).opacity(1.0)
                         })
                     } // TODO: on/off 텍스트로 하면 안되는지? 토글 disable은 투명이라서ㅠㅠ
+                    Divider().opacity(0)
                 }
             }
             .padding(.horizontal, 10)
