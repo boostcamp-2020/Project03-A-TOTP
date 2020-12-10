@@ -1,4 +1,3 @@
-const { getTokenList, updateToken, delToken } = require('@/controllers/iOS/token');
 const { tokens: Token } = require('@models/sequelizeIOS');
 
 const toeknService = {
