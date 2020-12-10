@@ -22,7 +22,7 @@ struct QRGuideView: View {
     // MARK: Body
     var body: some View {
         
-        // 코드 정리 필요!! 네비게이션 속성 감싸주기
+        // TODO: 코드 정리 필요. 네비게이션 속성 감싸주기
         VStack {
             Spacer()
             Image.logo
@@ -60,7 +60,6 @@ struct QRGuideView: View {
                                   qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
                 isActive: $isShownEditView
             )
-            
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -80,7 +79,6 @@ struct QRGuideView: View {
         .alert(isPresented: $isShownCameraCheck, content: {
             Alert(title: Text("QR 스캔을 원하시면 '설정'을 눌러 '사진' 접근을 허용해주세요"))
         })
-        
     }
 }
 

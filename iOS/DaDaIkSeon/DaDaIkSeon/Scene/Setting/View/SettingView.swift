@@ -209,12 +209,6 @@ extension SettingView {
     
 }
 
-struct TestView: View {
-    var body: some View {
-        Text("")
-    }
-}
-
 struct SettingPreview: PreviewProvider {
     
     static var previews: some View {
