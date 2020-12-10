@@ -171,6 +171,7 @@ private extension NumberPad {
                     case .auth(let pincode):
                         if pincode == inputCode {
                             completion(inputCode)
+                            mode.wrappedValue.dismiss()
                         } else {
                             codes.removeAll()
                             erroMessageAlert = true
@@ -182,6 +183,7 @@ private extension NumberPad {
                         } else {
                             if lastNumber.compare(inputCode) {
                                 completion(inputCode)
+                                mode.wrappedValue.dismiss()
                             } else {
                                 codes.removeAll()
                                 erroMessageAlert = true
