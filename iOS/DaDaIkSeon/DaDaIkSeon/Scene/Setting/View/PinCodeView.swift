@@ -119,6 +119,7 @@ struct NumberPad: View {
     let pincodeViewMode: PinCodeViewMode
     let completion: (String) -> Void
     @ObservedObject var lastNumber: NumberChecker
+    @State private var erroMessageAlert: Bool = false
     
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
@@ -172,18 +173,18 @@ private extension NumberPad {
                             completion(inputCode)
                         } else {
                             codes.removeAll()
-                            // 에러 메세지 출력해주기 // alert
+                            erroMessageAlert = true
                         }
                     case .setup:
                         if lastNumber.isFirst() {
                             lastNumber.setFirstNumber(inputCode)
                             codes.removeAll()
-                        } else { // 한번 더!
+                        } else {
                             if lastNumber.compare(inputCode) {
                                 completion(inputCode)
                             } else {
-                                // 다시 입력하라는 메세지 출력
                                 codes.removeAll()
+                                erroMessageAlert = true
                             }
                         }
                     }
@@ -212,6 +213,9 @@ private extension NumberPad {
                             .cornerRadius(10)
                     )
             }
+        })
+        .alert(isPresented: $erroMessageAlert, content: {
+            Alert(title: Text("번호가 일치하지 않습니다."))
         })
     }
     
