@@ -1,3 +1,4 @@
+const { update } = require('@/services/web/auth');
 const { users: User } = require('@models/sequelizeIOS');
 const { devices: Device } = require('@models/sequelizeIOS');
 const { tokens: Token } = require('@models/sequelizeIOS');
@@ -25,6 +26,10 @@ const userService = {
 
   async updateDateTimeByNow({ idx }) {
     await User.update({ last_update: Date.now() }, { where: { idx } });
+  },
+
+  async updateDateTime({ lastUpdate, idx }) {
+    await User.update({ last_update: lastUpdate }, { where: { idx } });
   },
 };
 

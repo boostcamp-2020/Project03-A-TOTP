@@ -10,7 +10,7 @@ const { catchErrors } = require('@utils/util');
 router.use(catchErrors(userController.getUserFromJWT));
 router.get('/', catchErrors(tokenController.getTokenList));
 router.post('/', catchErrors(tokenController.addTokenList));
-
+router.put('/', catchErrors(tokenController.replaceToken));
 router.patch('/:id', catchErrors(tokenController.updateToken));
 router.delete('/:id', catchErrors(tokenController.delToken));
 
