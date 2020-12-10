@@ -65,7 +65,6 @@ extension SettingView {
         @Published var newPassword: String = ""
         @Published var newPasswordCheck: String = ""
         @Published var newDeviceName: String = ""
-        @Published var pinCodeToggle: Bool = false
         @Published var faceIDToggle: Bool = false
         @Published var pinCodeSetting: Bool = false
     }

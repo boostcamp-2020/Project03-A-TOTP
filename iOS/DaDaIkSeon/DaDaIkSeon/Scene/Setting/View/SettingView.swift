@@ -17,6 +17,13 @@ struct SettingView: View {
     
     private var bioAuth = BiometricIDAuth()
     
+    init() {
+        if nil != viewModel.state.service.pincode {
+            stateManager.faceIDToggle = true
+        }
+        // 이런식으로 다 초기화해줘야한다!
+    }
+    
     var body: some View {
         SettingViewWrapper(action: {
             viewModel.trigger(.refresh)
@@ -86,9 +93,7 @@ struct SettingView: View {
                                     }
                                 }
                             } else {
-                                DispatchQueue.main.async {
-                                    stateManager.pinCodeSetting = true
-                                }
+                                stateManager.pinCodeSetting = true
                             }
                         }, label: {
                             Toggle(isOn: $stateManager.faceIDToggle, label: {
