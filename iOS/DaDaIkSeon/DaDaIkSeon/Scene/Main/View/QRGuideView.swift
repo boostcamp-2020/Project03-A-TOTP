@@ -47,8 +47,8 @@ struct QRGuideView: View {
                     Text("QR 코드 스캔")
                 }
                 .foregroundColor(.black)
+                .frame(maxWidth: .infinity, maxHeight: 46)
             })
-            .frame(maxWidth: .infinity, maxHeight: 46)
             .background(Color(.systemGray6))
             .cornerRadius(15)
             
