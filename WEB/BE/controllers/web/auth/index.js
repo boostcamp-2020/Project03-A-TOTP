@@ -9,7 +9,6 @@ const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 const { makeRandom } = require('@utils/random');
 const UAParser = require('ua-parser-js');
-const axios = require('axios');
 
 const TEN_MINUTES = '10m';
 const ACIONS = {
@@ -53,12 +52,12 @@ const authController = {
     const userAgent = UAParser(req.headers['user-agent']);
     const { ip } = req;
     const params = await makeLogData({ ip, userAgent, id, sid: req.session.id });
-    await logService.insert({ params });
+    const [{ user }] = await Promise.all([authService.getUserById({ id }), logService.insert({ params })]);
 
     res.cookie('csrfToken', csrfToken, {
       maxAge: 2 * 60 * 60 * 1000,
     });
-    res.json({ result: true, csrfToken });
+    res.json({ userName: decryptWithAES256({ encryptedText: user.name }) });
   },
 
   async sendPasswordToken(req, res, next) {
