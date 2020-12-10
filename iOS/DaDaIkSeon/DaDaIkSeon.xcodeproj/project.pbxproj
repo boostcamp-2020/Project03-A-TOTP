@@ -28,6 +28,8 @@
 		7C4F3B7125820FAA000C1DD2 /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */; };
 		7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */; };
 		7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */; };
+		7C4F3B8B2582577A000C1DD2 /* TokenNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */; };
+		7C4F3B932582579A000C1DD2 /* TokenEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
 		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
@@ -124,6 +126,8 @@
 		7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
 		7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEndpoint.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
 		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 		7C2D344B257FA4FA0013AD65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7C4F3B89258255AB000C1DD2 /* Token */,
 				7C4F3B8525822317000C1DD2 /* User */,
 				7C4F3B6E25820F5F000C1DD2 /* Components */,
 			);
@@ -319,6 +324,15 @@
 				7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		7C4F3B89258255AB000C1DD2 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */,
+				7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */,
+			);
+			path = Token;
 			sourceTree = "<group>";
 		};
 		7C661924256CCAED0028E7C6 = {
@@ -930,12 +944,14 @@
 				7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */,
 				88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */,
 				7CB7BF1E25812574000CABA1 /* TokenServiceable.swift in Sources */,
+				7C4F3B932582579A000C1DD2 /* TokenEndpoint.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,
 				7C2D3420257F51360013AD65 /* LoginService.swift in Sources */,
 				7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */,
+				7C4F3B8B2582577A000C1DD2 /* TokenNetworkManager.swift in Sources */,
 				7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */,
 				7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
