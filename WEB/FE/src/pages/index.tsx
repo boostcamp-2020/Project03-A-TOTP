@@ -6,3 +6,4 @@ export { default as NotFoundPage } from '@pages/NotFoundPage';
 export { default as FindPasswordPage } from '@pages/FindPasswordPage';
 export { default as ChangePasswordPage } from '@/pages/ChangePasswordPage';
 export { default as MyPage } from '@/pages/MyPage';
+export { default as IndexPage } from '@/pages/IndexPage';
