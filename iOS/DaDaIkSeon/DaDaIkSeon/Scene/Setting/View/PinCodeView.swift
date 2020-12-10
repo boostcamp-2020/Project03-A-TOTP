@@ -7,9 +7,18 @@
 
 import SwiftUI
 
+// 아래 모드에 따라 다르게 화면 전환이 일어난다.
 enum PinCodeViewMode {
-    case setup // 핀넘버 설정
-    case auth // 핀넘버 사용
+    case setup
+    // 핀넘버 설정 - 두 번 code를 체크하고 맞으면 completion(pincode) 호출한다.
+    // 두 개의 값이 맞기만 하면 completion 호출
+    // 이 completion에는 viewmodel의 핀 넘버 등록 함수가 있다.
+    case auth(_ pincode: String) // 화면 시작할 때 이 값을 넣어준다.
+    // 핀넘버 사용 - 한 번 code를 체크하고,
+    // 일치할 때에만 핀 넘버 화면을 종료하고 completion 호출한다.
+    // code가 맞는지는 넘겨준 값으로 확인
+    // completion(result: Bool)에는 메인화면으로 가게 만드는 상태값이 있다.
+    // 취소가 나오면 안된다.
 }
 
 struct PinCodeView: View {
@@ -28,7 +37,7 @@ struct PinCodeView: View {
                 
                 Spacer()
                 
-                Text("PIN 번호를 세팅 하세요")
+                Text("PIN 번호를 설정 하세요")
                     .foregroundColor(Color.gray)
                 
                 Spacer()
