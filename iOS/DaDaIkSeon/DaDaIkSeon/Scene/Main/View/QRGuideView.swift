@@ -22,7 +22,6 @@ struct QRGuideView: View {
     // MARK: Body
     var body: some View {
         
-        // TODO: 코드 정리 필요. 네비게이션 속성 감싸주기
         VStack {
             Spacer()
             Image.logo
@@ -35,9 +34,6 @@ struct QRGuideView: View {
                 .multilineTextAlignment(.center)
             Spacer()
             Spacer()
-            
-            Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")
-                .multilineTextAlignment(.center)
             Spacer()
             Button(action: {
                 authoriztionCapture()
@@ -52,14 +48,15 @@ struct QRGuideView: View {
             .background(Color(.systemGray6))
             .cornerRadius(15)
             
-            NavigationLink(
-                "",
-                destination: NavigationLazyView(
-                    TokenEditView(service: service,
-                                  token: nil,
-                                  qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
-                isActive: $isShownEditView
-            )
+            
+            
+            
+            
+            Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")
+                .fontWeight(.heavy)
+                .multilineTextAlignment(.center)
+            
+            gotoTokenEditView
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -80,6 +77,17 @@ struct QRGuideView: View {
             Alert(title: Text("QR 스캔을 원하시면 '설정'을 눌러 '사진' 접근을 허용해주세요"))
         })
     }
+    
+    var gotoTokenEditView: some View {
+        NavigationLink(
+            "",
+            destination: NavigationLazyView(
+                TokenEditView(service: service,
+                              token: nil,
+                              qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
+            isActive: $isShownEditView
+        )
+    }
 }
 
 struct QRScannerView: View {
@@ -89,22 +97,49 @@ struct QRScannerView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
-        VStack {
-            CodeScannerView(codeTypes: [.qr], simulatedData: "-") { result in
-                switch result {
-                case .success(let url):
-                    isShownEditView = true
-                    qrCodeURL = url
-                case .failure(let error):
-                    print(error)
+        ZStack {
+            VStack {
+                CodeScannerView(codeTypes: [.qr], simulatedData: "-") { result in
+                    switch result {
+                    case .success(let url):
+                        isShownEditView = true
+                        qrCodeURL = url
+                    case .failure(let error):
+                        print(error)
+                    }
+                    mode.wrappedValue.dismiss()
                 }
-                mode.wrappedValue.dismiss()
             }
+            QRGuideLineView()
+        }
+    }
+}
+
+struct QRGuideLineView: View {
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Image.logo
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 70)
+                .padding(.bottom, 30)
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(style: StrokeStyle(lineWidth: 10, dash: [11]))
+                .foregroundColor(Color.pink)
+                .frame(width: 200, height: 200)
+                .padding()
+            Text("보안은 다다익선!\n2FA는 다다익선!\nTOTP는 다다익선!")
+                .fontWeight(.heavy)
+                .multilineTextAlignment(.center)
+            Spacer()
         }
     }
 }
 
 extension QRGuideView {
+    
     func authoriztionCapture() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // The user has previously granted access to the camera.
