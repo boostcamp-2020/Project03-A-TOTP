@@ -11,7 +11,6 @@ const tokenController = {
       delete token.isMain;
       return token;
     });
-    console.log(tokens);
     /** @TODO 트랜젝션 */
     await tokenService.addTokens(tokens);
     await userService.updateDateTimeByNow({ idx: user.idx });
@@ -25,7 +24,7 @@ const tokenController = {
     const data = {
       message: 'ok',
       data: {
-        lastUpdate: user.lastUpdate,
+        lastUpdate: user.last_update,
         tokens: result,
       },
     };
