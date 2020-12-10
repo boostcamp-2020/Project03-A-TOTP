@@ -18,16 +18,29 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
       },
-      toekn_name: {
+      id: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      target_url: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        unique: true,
       },
       key: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      color: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      icon: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      is_main: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
     },
@@ -35,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'tokens',
       timestamps: false,
-    },
+    }
   );
   return TOKENS;
 };

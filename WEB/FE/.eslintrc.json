@@ -43,7 +43,9 @@
     "@typescript-eslint/no-explicit-any": 0,
     "no-shadow": "off",
     "react/prop-types": 0,
-    "no-empty-pattern": 0
+    "no-empty-pattern": 0,
+    "no-alert": 0,
+    "react-hooks/exhaustive-deps": 0
   },
   "settings": { 
     "import/parsers": { 

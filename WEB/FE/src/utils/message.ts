@@ -9,4 +9,7 @@ export enum message {
   POSSIBLEEMAIL = '사용가능한 이메일 입니다.',
   DUPLICATENOTCHECK = '아이디 또는 이메일 중복체크를 해주세요.',
   SIGNUPSUCCESS = '회원가입에 성공하셨습니다.',
+  SIGNINSUCCESS = '로그인에 성공하셨습니다.',
+  FINDPASSWORDSUCCESS = '패스워드 변경을 위한 주소를 이메일로 전송하였습니다.',
+  EMAILSECRETKEYSUCCESS = '이메일로 QR Code를 재발급 받을 수 있는 주소를 전송하였습니다.',
 }

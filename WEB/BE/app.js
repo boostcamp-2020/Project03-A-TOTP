@@ -7,41 +7,45 @@ const RedisStore = require('connect-redis')(session);
 const logger = require('morgan');
 const cors = require('cors');
 const debug = require('debug')('server:server');
-const authRouter = require('@routes/auth');
-const userRouter = require('@routes/user');
+const authRouter = require('@/routes/web/auth');
+const userRouter = require('@/routes/web/user');
+const logRouter = require('@/routes/web/log');
+const iOSRouter = require('@routes/iOS');
 const csrf = require('@middlewares/csrf');
-// const infoRouter = require('@routes/info');
 const redis = require('@models/redis');
 const sequelizeWEB = require('@models/sequelizeIOS').sequelize;
 const sequelizeIOS = require('@models/sequelizeWEB').sequelize;
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerDefinition = require('@config/swagger');
 
 require('dotenv').config();
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const app = express();
+redis.notifyEvent();
 const corsOptions = {
   origin: 'http://dadaikseon.com/',
   optionsSuccessStatus: 200,
 };
 const sessionOptions = {
   store: new RedisStore({
-    client: redis(),
+    client: redis.client(),
     prefix: 'session:',
   }),
   saveUninitialized: false,
-  resave: false,
+  resave: true,
+  rolling: true,
   secret: process.env.SESSIONKEY,
   cookie: {
     maxAge: 7200000,
   },
 };
-
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-  sessionOptions.cookie.httpOnly = true;
-  sessionOptions.cookie.sameSite = true;
-}
+const swaggerOptions = {
+  swaggerDefinition,
+  apis: ['./routes/**/*.js'],
+};
 
 sequelizeWEB.sync();
 sequelizeIOS.sync();
@@ -50,12 +54,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
-app.use(csrf.checkHeader);
+
+app.use('/api/app', iOSRouter);
+
+if (!dev) {
+  app.set('trust proxy', 1);
+  sessionOptions.cookie.httpOnly = true;
+  sessionOptions.cookie.sameSite = true;
+  app.use(csrf.checkHeader);
+}
+
 app.use(session(sessionOptions));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-// app.use('/api/info', infoRouter);
+app.use('/api/log', logRouter);
 
 // handle 404
 app.use((req, res, next) => {

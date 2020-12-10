@@ -28,7 +28,7 @@ const Dimmed = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.color.Black};
+  background-color: ${({ theme }) => theme.color.black};
   opacity: 0.2;
   z-index: 100;
 `;
@@ -38,7 +38,7 @@ const ModalContainer = styled.div`
   z-index: 101;
   padding: 1.5rem;
   border: 1px solid ${({ theme }) => theme.color.border};
-  background-color: ${({ theme }) => theme.color.White};
+  background-color: ${({ theme }) => theme.color.white};
   border-radius: 4px;
   margin-bottom: 5%;
   animation: ${boxFade} 0.3s;

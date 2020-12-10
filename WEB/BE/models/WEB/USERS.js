@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_idx',
         sourceKey: 'idx',
       });
-      this.hasMany(models.logs, { foreignKey: 'user_idx', sourceKey: 'idx' });
     }
   }
   USERS.init(
@@ -41,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'users',
       timestamps: false,
-    },
+    }
   );
   return USERS;
 };
