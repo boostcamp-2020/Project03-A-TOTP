@@ -66,10 +66,10 @@ struct QRGuideView: View {
                     Image.camera
                     Text("QR 코드 스캔")
                 }
-                .foregroundColor(.black)
+                .foregroundColor(.white)
                 .frame(maxWidth: .infinity, maxHeight: 46)
             })
-            .background(Color(.systemGray6))
+            .background(Color.darkNavy)
             .cornerRadius(15)
             
             gotoTokenEditView
