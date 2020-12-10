@@ -20,17 +20,20 @@ struct SettingRow<Item: View>: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(title)")
-                Spacer()
-                item
-                
+        ZStack {
+            Rectangle().fill(Color.white)
+            VStack {
+                HStack {
+                    Text("\(title)")
+                    Spacer()
+                    item
+                    
+                }
+                .frame(height: 40)
+                Divider()
+                    .padding(0)
+                    .opacity(isLast ? 0.0 : 1.0)
             }
-            .frame(height: 40)
-            Divider()
-                .padding(0)
-                .opacity(isLast ? 0.0 : 1.0)
         }
     }
 }
