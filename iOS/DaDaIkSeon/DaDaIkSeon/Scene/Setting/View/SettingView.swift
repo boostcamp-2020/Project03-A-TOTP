@@ -74,15 +74,21 @@ struct SettingView: View {
                                 bioAuth.authenticateUser { result in
                                     if result == nil {
                                         viewModel.trigger(.liberateDaDaIkSeon)
-                                        stateManager.faceIDToggle.toggle()
+                                        DispatchQueue.main.async {
+                                            stateManager.faceIDToggle.toggle()
+                                        }
                                     } else {
-                                        if result == "Touch ID not available" {
-                                            stateManager.pinCodeSetting = true
+                                        if result != "You pressed cancel." {
+                                            DispatchQueue.main.async {
+                                                stateManager.pinCodeSetting = true
+                                            }
                                         }// 생체 인식 불가 또는 실패
                                     }
                                 }
                             } else {
-                                stateManager.pinCodeSetting = true
+                                DispatchQueue.main.async {
+                                    stateManager.pinCodeSetting = true
+                                }
                             }
                         }, label: {
                             Toggle(isOn: $stateManager.faceIDToggle, label: {
