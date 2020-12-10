@@ -36,15 +36,14 @@ const AuthContainer = styled.div`
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
-  const history = useHistory();
   const userName = storageHandler.get();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const onLogout = async () => {
     await logoutAPI()
       .then(() => {
-        window.location.reload();
         localStorage.clear();
+        window.location.reload();
       })
       .catch((err: any) => alert(err.response?.data?.message || err.message));
   };
