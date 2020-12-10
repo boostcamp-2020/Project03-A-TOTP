@@ -1,4 +1,4 @@
-const authService = require('@/services/auth');
+const authService = require('@/services/web/auth');
 const totp = require('@/utils/totp');
 const JWT = require('jsonwebtoken');
 const createError = require('http-errors');

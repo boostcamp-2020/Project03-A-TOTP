@@ -6,6 +6,15 @@ import notFoundImage from '@static/undraw_page_not_found_su7k.svg';
 interface NotFoundPageProps {}
 
 const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const Inner = styled.div`
   max-width: 600px;
   text-align: center;
   img {
@@ -24,8 +33,10 @@ function NotFoundPage({}: NotFoundPageProps): JSX.Element {
   return (
     <MainPageLayout>
       <Wrapper>
-        <Title>페이지를 찾을 수 없어요!</Title>
-        <img src={notFoundImage} alt='404' />
+        <Inner>
+          <Title>페이지를 찾을 수 없어요!</Title>
+          <img src={notFoundImage} alt='404' />
+        </Inner>
       </Wrapper>
     </MainPageLayout>
   );

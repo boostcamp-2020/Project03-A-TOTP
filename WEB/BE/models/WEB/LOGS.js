@@ -3,9 +3,9 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class LOGS extends Model {
     static associate(models) {
-      this.belongsTo(models.users, {
-        foreignKey: 'user_idx',
-        targetKey: 'idx',
+      this.belongsTo(models.auths, {
+        foreignKey: 'auth_id',
+        targetKey: 'id',
       });
     }
   }
@@ -28,6 +28,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
+      sid: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      is_logged_out: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       ip_address: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -41,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'logs',
       timestamps: false,
-    },
+    }
   );
   return LOGS;
 };

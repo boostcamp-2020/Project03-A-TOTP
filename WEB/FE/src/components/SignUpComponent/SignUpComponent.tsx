@@ -28,27 +28,35 @@ const SignUpComponent = (): JSX.Element => {
   const [emailCheck, setEmailCheck] = useState('');
 
   const checkIDDuplicateEventHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const result = await checkIDDuplicateAPI({ id });
-    if (!result) {
-      alert(message.ALREADYID);
-      setIDCheck('-1');
-      return;
+    try {
+      e.preventDefault();
+      const result = await checkIDDuplicateAPI({ id });
+      if (!result) {
+        alert(message.ALREADYID);
+        setIDCheck('-1');
+        return;
+      }
+      alert(message.POSSIBLEID);
+      setIDCheck(id);
+    } catch (err) {
+      console.error(err);
     }
-    alert(message.POSSIBLEID);
-    setIDCheck(id);
   };
 
   const checkEmailDuplicateEventHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const result = await checkEmailDuplicateAPI({ email: `${firstEmail}@${secondEmail}` });
-    if (!result) {
-      alert(message.ALREADYEMAIL);
-      setEmailCheck('-1');
-      return;
+    try {
+      e.preventDefault();
+      const result = await checkEmailDuplicateAPI({ email: `${firstEmail}@${secondEmail}` });
+      if (!result) {
+        alert(message.ALREADYEMAIL);
+        setEmailCheck('-1');
+        return;
+      }
+      alert(message.POSSIBLEEMAIL);
+      setEmailCheck(`${firstEmail}@${secondEmail}`);
+    } catch (err) {
+      console.error(err);
     }
-    alert(message.POSSIBLEEMAIL);
-    setEmailCheck(`${firstEmail}@${secondEmail}`);
   };
 
   const submitEventHandler = async (e: React.FormEvent<HTMLFormElement>) => {

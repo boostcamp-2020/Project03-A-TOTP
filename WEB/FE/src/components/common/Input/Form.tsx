@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  border: 1px solid ${({ theme }) => theme.color.Puple};
+  border: 1px solid ${({ theme }) => theme.color.darkerBorder};
   border-radius: 4px;
   margin-top: 1.3rem;
   overflow: hidden;

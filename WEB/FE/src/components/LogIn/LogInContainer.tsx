@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { LogInForm } from '@components/LogIn/LogInForm';
 import { TOTPModal } from '@components/TOTPModal/TOTPModal';
-import { loginWithOTP } from '@api/index';
+import { loginWithOTP, sendSecretKeyEmail } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
+import { message } from '@utils/message';
+import storageHandler from '@utils/localStorage';
 
 const TOTP_LEN = 6;
 
@@ -27,6 +29,14 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setTOTP('');
     setIsModalOpen(false);
   };
+  const onClickModal = () => {
+    setHasTOTPModalError(false);
+    executeRecaptcha('sendSecretKeyEmail')
+      .then((reCaptchaToken: string) => sendSecretKeyEmail({ authToken, reCaptchaToken }))
+      .then(() => alert(message.EMAILSECRETKEYSUCCESS))
+      .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
+      .finally(() => setModalDisabled(false));
+  };
   const onErrorWithOTP = (errMsg: string) => {
     setHasTOTPModalError(true);
     setErrorMsg(errMsg);
@@ -40,9 +50,15 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setModalDisabled(true);
     executeRecaptcha('LogInWithOTP')
       .then((reCaptchaToken: string) => loginWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
-      .then(() => history.replace('/'))
+      .then(({ userName }: { userName: string }) => successLoginHandler(userName))
       .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
       .finally(() => setModalDisabled(false));
+  };
+
+  const successLoginHandler = (userName: string) => {
+    alert(message.SIGNINSUCCESS);
+    storageHandler.set(userName);
+    history.replace('/');
   };
 
   return (
@@ -54,6 +70,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
         onChange={setTOTP}
         onSubmit={onSubmitOTP}
         onClose={onCloseModal}
+        onClick={onClickModal}
         hasErrored={hasTOTPModalError}
         disabled={modalDisabled}
         errorMsg={errorMsg}
