@@ -14,7 +14,7 @@ enum BiometricType {
     case faceID
 }
 
-class BiometricIDAuth {
+final class BiometricIDAuth {
     let context = LAContext()
     var loginReason = "Logging in with Touch ID"
     
