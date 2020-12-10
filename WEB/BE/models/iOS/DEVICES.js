@@ -18,24 +18,29 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
       },
-      device_name: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      last_access_time: {
+      udid: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      location: {
+      model_name: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      backup: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
     },
     {
       sequelize,
       modelName: 'devices',
       timestamps: false,
-    },
+    }
   );
   return DEVICES;
 };

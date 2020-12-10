@@ -1,4 +1,4 @@
-const logService = require('@services/log');
+const logService = require('@/services/web/log');
 
 const redis = require('@models/redis');
 
