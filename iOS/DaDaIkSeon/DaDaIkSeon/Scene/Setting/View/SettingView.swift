@@ -15,6 +15,8 @@ struct SettingView: View {
     // MARK: Property
     @ObservedObject var stateManager = SettingTransition()
     
+    let auth = BiometricIDAuth()
+    
     var body: some View {
         SettingViewWrapper(action: {
             viewModel.trigger(.refresh)
@@ -68,18 +70,16 @@ struct SettingView: View {
 //                        print("핀코드가 토글 ~")
 ////                        NavigationLazyView(PinCodeView())
 //                    })
-//
 //                    Spacer()
                     
                     Toggle(isOn: $stateManager.faceIDToggle, label: {
-                        Text("FaceID")
+                        Text("FaceID/TouchID")
                     })
                     .onChange(of: stateManager.faceIDToggle, perform: { _ in
                         print("페이스 아이디가 토글 ~")
-//                        BiometricIDAuth().authenticateUser { str in
-//                            print(str)
-//                        }
-                        
+                        auth.authenticateUser { str in
+                            print("\(str)")
+                        }
                     })
                     
                     Spacer()
