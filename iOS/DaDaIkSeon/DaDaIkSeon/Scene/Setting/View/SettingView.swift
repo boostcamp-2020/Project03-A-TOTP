@@ -15,6 +15,8 @@ struct SettingView: View {
     // MARK: Property
     @ObservedObject var stateManager = SettingTransition()
     
+    private var bioAuth = BiometricIDAuth()
+    
     var body: some View {
         SettingViewWrapper(action: {
             viewModel.trigger(.refresh)
@@ -68,7 +70,20 @@ struct SettingView: View {
                         Text("FaceID/TouchID")
                         Spacer()
                         Button(action: {
-                            stateManager.pinCodeSetting = true
+                            if stateManager.faceIDToggle {
+                                bioAuth.authenticateUser { result in
+                                    if result == nil {
+                                        viewModel.trigger(.liberateDaDaIkSeon)
+                                        stateManager.faceIDToggle.toggle()
+                                    } else {
+                                        if result == "Touch ID not available" {
+                                            stateManager.pinCodeSetting = true
+                                        }// 생체 인식 불가 또는 실패
+                                    }
+                                }
+                            } else {
+                                stateManager.pinCodeSetting = true
+                            }
                         }, label: {
                             Toggle(isOn: $stateManager.faceIDToggle, label: {
                             }).disabled(true).opacity(1.0)
