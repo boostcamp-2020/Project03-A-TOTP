@@ -66,20 +66,24 @@ const PaginationWrapper = styled.div`
 
 function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProps): JSX.Element {
   const onDelete = (sid: string) => {
-    if (delSession({ sid })) {
-      let newLogs = [...logs];
-      newLogs = newLogs.map((log: Log) => {
-        if (log.sessionId === sid) {
-          log.sessionId = '';
-          log.isLoggedOut = true;
-        }
-        return log;
-      });
-      setLogs(newLogs);
-      alert('로그아웃 성공');
-      return;
-    }
-    alert('요청 실패');
+    delSession({ sid }).then((result) => {
+      console.log(result);
+      if (result) {
+        let newLogs = [...logs];
+        newLogs = newLogs.map((log: Log) => {
+          if (log.sessionId === sid) {
+            log.sessionId = '';
+            log.isLoggedOut = true;
+          }
+          return log;
+        });
+        setLogs(newLogs);
+
+        alert('로그아웃 성공');
+      } else {
+        alert('요청 실패');
+      }
+    });
   };
   const columns = [
     { title: '시간', key: 'time' },
