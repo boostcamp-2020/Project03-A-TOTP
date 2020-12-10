@@ -1,10 +1,9 @@
 const { tokens: Token } = require('@models/sequelizeIOS');
 
-const toeknService = {
+const tokenService = {
   async addTokens(params) {
-    console.log(params);
-    await Token.bulkCreate(params, { ignoreDuplicates: true });
-    return true;
+    const result = await Token.bulkCreate(params, { ignoreDuplicates: true });
+    return result;
   },
 
   async getTokens(params) {
@@ -18,10 +17,15 @@ const toeknService = {
     return result;
   },
 
-  async delToken({ id }) {
+  async delTokenByTokenId({ id }) {
     const result = await Token.destroy({ where: { id } });
+    return result;
+  },
+
+  async delTokenByUserId({ userIdx }) {
+    const result = await Token.destroy({ where: { user_idx: userIdx } });
     return result;
   },
 };
 
-module.exports = toeknService;
+module.exports = tokenService;
