@@ -37,8 +37,6 @@
 	<dict>
 		<key>UIColorName</key>
 		<string>navy2</string>
-		<key>UIImageName</key>
-		<string>ddLogo</string>
 	</dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
