@@ -30,6 +30,8 @@
 		7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */; };
 		7C4F3B8B2582577A000C1DD2 /* TokenNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */; };
 		7C4F3B932582579A000C1DD2 /* TokenEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */; };
+		7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B9825826FC9000C1DD2 /* SettingNetworkManager.swift */; };
+		7C4F3B9E25826FE6000C1DD2 /* SettingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B9D25826FE6000C1DD2 /* SettingEndpoint.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
 		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
@@ -128,6 +130,8 @@
 		7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTNetworkManager.swift; sourceTree = "<group>"; };
 		7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenNetworkManager.swift; sourceTree = "<group>"; };
 		7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEndpoint.swift; sourceTree = "<group>"; };
+		7C4F3B9825826FC9000C1DD2 /* SettingNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B9D25826FE6000C1DD2 /* SettingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEndpoint.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
 		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 		7C2D344B257FA4FA0013AD65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7C4F3B9725826FBC000C1DD2 /* Setting */,
 				7C4F3B89258255AB000C1DD2 /* Token */,
 				7C4F3B8525822317000C1DD2 /* User */,
 				7C4F3B6E25820F5F000C1DD2 /* Components */,
@@ -333,6 +338,15 @@
 				7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */,
 			);
 			path = Token;
+			sourceTree = "<group>";
+		};
+		7C4F3B9725826FBC000C1DD2 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				7C4F3B9825826FC9000C1DD2 /* SettingNetworkManager.swift */,
+				7C4F3B9D25826FE6000C1DD2 /* SettingEndpoint.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		7C661924256CCAED0028E7C6 = {
@@ -979,10 +993,12 @@
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
 				7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
+				7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
 				7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */,
 				7C2D3425257F5C4D0013AD65 /* LoginEmailView.swift in Sources */,
+				7C4F3B9E25826FE6000C1DD2 /* SettingEndpoint.swift in Sources */,
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
