@@ -115,7 +115,10 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
         setLogs(data.result.rows);
         setMaxPage(Math.ceil(data.result.count / 6));
       })
-      .catch((err: any) => alert('로그를 받아오는데 실패했습니다.'));
+      .catch((err: any) => {
+        alert(`${err.response?.data?.message || err.message} 다시 로그인해주세요.`);
+        localStorage.clear();
+      });
   }, [page]);
 
   return (
