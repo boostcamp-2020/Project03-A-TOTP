@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Modal } from '@components/common/Modal';
 import { PasswordInput } from '@components/common';
 import Button from '@components/common/Button';
-import CSS from 'csstype';
 
 interface PasswordModalProps {
   password: string;
