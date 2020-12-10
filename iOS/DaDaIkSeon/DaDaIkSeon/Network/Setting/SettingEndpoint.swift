@@ -9,8 +9,9 @@ import Foundation
 
 enum SettingEndpoint {
     case patchEmail(email: String)
-    case patchBackup(isBackup: Bool, udid: String)
+    case patchBackup(udid: String, isBackup: Bool)
     case patchMultiDevice(isMultiDevice: Bool)
+    case patchDevice(udid: String, name: String)
 }
 
 extension SettingEndpoint: EndpointType {
@@ -25,12 +26,14 @@ extension SettingEndpoint: EndpointType {
             return basePath + "/backup/\(id)"
         case .patchMultiDevice:
             return basePath + "/multi"
+        case .patchDevice(let id, _):
+            return basePath + "/device/\(id)"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .patchEmail, .patchBackup, .patchMultiDevice:
+        case .patchEmail, .patchBackup, .patchMultiDevice, .patchDevice:
             return .PATCH
         }
     }
@@ -43,7 +46,8 @@ extension SettingEndpoint: EndpointType {
             return ["backup": backup]
         case .patchMultiDevice(let multiDevice):
             return ["multiDevice": multiDevice]
-        
+        case .patchDevice(_, let name):
+            return ["name": name]
         }
     }
     

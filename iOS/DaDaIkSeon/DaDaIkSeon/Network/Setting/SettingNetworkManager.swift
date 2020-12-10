@@ -27,12 +27,12 @@ final class SettingNetworkManager: Requestable {
         }
     }
     
-    func changeBackupMode(backup: Bool,
-                          udid: String,
+    func changeBackupMode(udid: String,
+                          backup: Bool,
                           completion: @escaping () -> Void) {
         
-        let settingEndpoint: SettingEndpoint = .patchBackup(isBackup: backup,
-                                                            udid: udid)
+        let settingEndpoint: SettingEndpoint = .patchBackup(udid: udid,
+                                                            isBackup: backup)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
