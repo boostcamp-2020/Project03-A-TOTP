@@ -76,7 +76,10 @@ struct SettingView: View {
                     })
                     .onChange(of: stateManager.faceIDToggle, perform: { _ in
                         print("페이스 아이디가 토글 ~")
-//                        NavigationLazyView(PinCodeView())
+//                        BiometricIDAuth().authenticateUser { str in
+//                            print(str)
+//                        }
+                        
                     })
                     
                     Spacer()
