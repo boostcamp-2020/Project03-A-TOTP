@@ -92,7 +92,7 @@ struct QRGuideView: View {
             destination: NavigationLazyView(
                 TokenEditView(service: service,
                               token: nil,
-                              qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
+                              qrCode: qrCodeURL)),
             isActive: $isShownEditView
         )
     }
@@ -110,8 +110,13 @@ struct QRScannerView: View {
                 CodeScannerView(codeTypes: [.qr], simulatedData: "-") { result in
                     switch result {
                     case .success(let url):
-                        isShownEditView = true
-                        qrCodeURL = url
+                        if nil == TOTPGenerator.extractKey(from: qrCodeURL) {
+                            // alert
+                        } else {
+                            isShownEditView = true
+                            qrCodeURL = url
+                        }
+                        
                     case .failure(let error):
                         print(error)
                     }
