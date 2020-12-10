@@ -10,6 +10,7 @@ import { AxiosError } from 'axios';
 import { PasswordModal } from '@components/PasswordModal/PasswordModal';
 import { getUser, updateUser, sendPassword, receiveLogs } from '@api/index';
 import storageHandler from '@utils/localStorage';
+import { HeadingSection } from '@components/common/Section/HeadingSection';
 
 const UNAUTHORIZED = 401;
 const LOGIN_URL = '/login';
@@ -18,12 +19,10 @@ interface MyPageContainerProps {}
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: ${({ theme }) => theme.size.pageWidth};
-  padding: 2rem 1rem;
   margin: auto;
 
   .react-tabs__tab-list {
-    border-bottom: 1px solid ${({ theme }) => theme.color.border};
+    border-bottom: 1px solid ${({ theme }) => theme.color.darkerBorder};
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 1.5rem;
@@ -43,12 +42,12 @@ const Wrapper = styled.div`
   }
 `;
 
-const Title = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-`;
-
 const TabWrapper = styled.div`
   margin-top: 5rem;
+  max-width: ${({ theme }) => theme.size.pageWidth};
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  margin: auto;
 `;
 
 function MyPageContainer({}: MyPageContainerProps): JSX.Element {
@@ -124,7 +123,7 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
 
   return (
     <Wrapper>
-      <Title>마이페이지</Title>
+      <HeadingSection>마이페이지</HeadingSection>
       <TabWrapper>
         <Tabs>
           <TabList>
