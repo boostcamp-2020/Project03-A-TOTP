@@ -32,7 +32,7 @@ class MockSettingService: SettingServiceable {
     }
     
     func updateBackupMode() {
-        self.user.backup?.toggle()
+//        self.user.backup?.toggle()
     }
     
     func updateBackupPassword(_ password: String) {
