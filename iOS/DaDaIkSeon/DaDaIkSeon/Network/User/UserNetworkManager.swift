@@ -11,9 +11,6 @@ final class UserNetworkManager: Requestable {
     
     typealias NetworkData = ResponseObject<DDISUser>
     
-    static let shared = UserNetworkManager()
-    private init() {}
-    
     var userEndpoint: UserEndpoint = .get
     
     func loadUser(completion: @escaping (DDISUser) -> Void) {
@@ -33,6 +30,7 @@ final class UserNetworkManager: Requestable {
     
     func sendEmail(email: String,
                    completion: @escaping () -> Void) {
+        
         userEndpoint = .postEmail(email: email)
         request(userEndpoint) { result in
             switch result {
@@ -45,5 +43,5 @@ final class UserNetworkManager: Requestable {
             }
         }
     }
-    
+
 }

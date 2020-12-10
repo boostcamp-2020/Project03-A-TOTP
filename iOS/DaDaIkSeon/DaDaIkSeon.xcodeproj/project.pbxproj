@@ -27,6 +27,7 @@
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
 		7C4F3B7125820FAA000C1DD2 /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */; };
 		7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */; };
+		7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
 		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
 		7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
+		7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTNetworkManager.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
 		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -262,9 +264,8 @@
 		7C2D344B257FA4FA0013AD65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7C4F3B8525822317000C1DD2 /* User */,
 				7C4F3B6E25820F5F000C1DD2 /* Components */,
-				7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */,
-				7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -308,6 +309,16 @@
 				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		7C4F3B8525822317000C1DD2 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */,
+				7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */,
+				7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		7C661924256CCAED0028E7C6 = {
@@ -950,6 +961,7 @@
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
+				7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,

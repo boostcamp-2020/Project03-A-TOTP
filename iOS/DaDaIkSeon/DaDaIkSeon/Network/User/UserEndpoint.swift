@@ -37,7 +37,7 @@ extension UserEndpoint: EndpointType {
         }
     }
     
-    var params: [String : Any]? {
+    var params: [String: Any]? {
         switch self {
         case .get:
             return nil
