@@ -22,6 +22,10 @@ const userService = {
     });
     return user;
   },
+
+  async updateDateTimeByNow({ idx }) {
+    await User.update({ last_update: Date.now() }, { where: { idx } });
+  },
 };
 
 module.exports = userService;
