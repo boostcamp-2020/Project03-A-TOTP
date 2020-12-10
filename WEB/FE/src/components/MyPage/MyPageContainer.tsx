@@ -9,6 +9,7 @@ import 'react-tabs/style/react-tabs.css';
 import { AxiosError } from 'axios';
 import { PasswordModal } from '@components/PasswordModal/PasswordModal';
 import { getUser, updateUser, sendPassword, receiveLogs } from '@api/index';
+import storageHandler from '@utils/localStorage';
 
 const UNAUTHORIZED = 401;
 const LOGIN_URL = '/login';
@@ -117,7 +118,7 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
       })
       .catch((err: any) => {
         alert(`${err.response?.data?.message || err.message} 다시 로그인해주세요.`);
-        localStorage.clear();
+        storageHandler.clear();
       });
   }, [page]);
 
