@@ -258,12 +258,7 @@
 		7C2D344B257FA4FA0013AD65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D345C257FA60A0013AD65 /* Requestable.swift */,
-				7C2D3461257FA66D0013AD65 /* NetworkResult.swift */,
-				7C2D3471257FA7190013AD65 /* ResponseObject.swift */,
-				7C2D3466257FA70F0013AD65 /* ResponseArray.swift */,
-				7C2D344C257FA5050013AD65 /* EndpointType.swift */,
-				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
+				7C4F3B6E25820F5F000C1DD2 /* Components */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -294,6 +289,19 @@
 				7C2D3429257F5C650013AD65 /* LoginCodeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7C4F3B6E25820F5F000C1DD2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D345C257FA60A0013AD65 /* Requestable.swift */,
+				7C2D3461257FA66D0013AD65 /* NetworkResult.swift */,
+				7C2D3471257FA7190013AD65 /* ResponseObject.swift */,
+				7C2D3466257FA70F0013AD65 /* ResponseArray.swift */,
+				7C2D344C257FA5050013AD65 /* EndpointType.swift */,
+				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		7C661924256CCAED0028E7C6 = {
