@@ -1,7 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
+import { Banner } from '@components/IndexPage/Banner';
 
 function IndexPageContainer() {
-  return <div />;
+  return (
+    <>
+      <Banner />
+    </>
+  );
 }
 
 export { IndexPageContainer };
