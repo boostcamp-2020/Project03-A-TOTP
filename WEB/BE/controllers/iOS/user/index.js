@@ -2,6 +2,8 @@ const userService = require('@services/iOS/user');
 const deviceService = require('@services/iOS/device');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
+const { makeRandom } = require('@utils/random');
+const emailSender = require('@utils/emailSender');
 
 const userController = {
   async getUserFromJWT(req, res, next) {
@@ -27,12 +29,12 @@ const userController = {
     if (user && user.multi_device === false) {
       return next(createError(400, '멀티 디바이스 off'));
     }
-
+    const emailCode = makeRandom(1, 6);
     if (!user) {
-      await userService.addUser({ email });
+      await userService.addUser({ email, email_code: emailCode });
     }
 
-    /** @TODO email_code 설정, 이메일 보내기 */
+    emailSender.sendiOSEmailCode(email, emailCode);
 
     res.json({ message: 'OK' });
   },
