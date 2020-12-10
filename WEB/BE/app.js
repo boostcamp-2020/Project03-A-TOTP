@@ -37,7 +37,6 @@ const sessionOptions = {
   saveUninitialized: false,
   resave: true,
   rolling: true,
-  httpOnly: true,
   secret: process.env.SESSIONKEY,
   cookie: {
     maxAge: 7200000,
