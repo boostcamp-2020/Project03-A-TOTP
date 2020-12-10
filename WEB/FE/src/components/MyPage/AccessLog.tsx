@@ -86,7 +86,19 @@ function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProp
     });
   };
   const columns = [
-    { title: '시간', key: 'time' },
+    {
+      title: '시간',
+      key: 'time',
+      render: (time: Date) => {
+        const show = new Date(time);
+        // return <>{show.toLocaleString()}</>;
+
+        show.setHours(show.getHours() + 9);
+        const show1 = show.toISOString();
+        const showArry = show1.split('T');
+        return <>{`${showArry[0]} ${showArry[1].substring(0, 5)}`}</>;
+      },
+    },
     { title: '디바이스', key: 'device' },
     { title: 'IP', key: 'ip' },
     { title: '위치', key: 'location' },
