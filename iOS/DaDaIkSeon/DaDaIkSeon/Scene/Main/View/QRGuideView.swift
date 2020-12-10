@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CodeScanner
+import AVFoundation
 
 struct QRGuideView: View {
     
@@ -15,11 +16,13 @@ struct QRGuideView: View {
     @State private var qrCodeURL = ""
     @State private var isShownScanner = false
     @State private var isShownEditView: Bool = false
+    @State private var isShownCameraCheck: Bool = false
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     // MARK: Body
     var body: some View {
         
+        // 코드 정리 필요!! 네비게이션 속성 감싸주기
         VStack {
             Spacer()
             Image.logo
@@ -27,11 +30,9 @@ struct QRGuideView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70)
                 .padding(.bottom, 30)
-           
             Text("2FA 인증을 위해 웹사이트가 제공하는\nQR코드를 스캔해주세요!")
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-            
             Spacer()
             Spacer()
             
@@ -39,10 +40,10 @@ struct QRGuideView: View {
                 .multilineTextAlignment(.center)
             Spacer()
             Button(action: {
-                isShownScanner = true
+                authoriztionCapture()
             }, label: {
                 HStack {
-                    Image(systemName: "camera.fill")
+                    Image.camera
                     Text("QR 코드 스캔")
                 }
                 .foregroundColor(.black)
@@ -59,7 +60,7 @@ struct QRGuideView: View {
                                   qrCode: TOTPGenerator.extractKey(from: qrCodeURL))),
                 isActive: $isShownEditView
             )
-
+            
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -76,6 +77,9 @@ struct QRGuideView: View {
             QRScannerView(isShownEditView: $isShownEditView,
                           qrCodeURL: $qrCodeURL)
         }
+        .alert(isPresented: $isShownCameraCheck, content: {
+            Alert(title: Text("QR 스캔을 원하시면 '설정'을 눌러 '사진' 접근을 허용해주세요"))
+        })
         
     }
 }
@@ -100,7 +104,25 @@ struct QRScannerView: View {
             }
         }
     }
-    
+}
+
+extension QRGuideView {
+    func authoriztionCapture() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized: // The user has previously granted access to the camera.
+            isShownScanner = true
+        case .notDetermined: // The user has not yet been asked for camera access.
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted { isShownScanner = true }
+            }
+        case .denied: // The user has previously denied access.
+            isShownCameraCheck = true
+        case .restricted: // The user can't grant access due to restrictions.
+            isShownCameraCheck = true
+        @unknown default:
+            break
+        }
+    }
 }
 
 // MARK: Preview

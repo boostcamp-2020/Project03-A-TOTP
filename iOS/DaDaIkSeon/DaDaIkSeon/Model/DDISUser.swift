@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DDISUser: Codable, Equatable  {
+struct DDISUser: Codable, Equatable {
     var email: String?
     var device: [Device]?
     var backup: Bool?
