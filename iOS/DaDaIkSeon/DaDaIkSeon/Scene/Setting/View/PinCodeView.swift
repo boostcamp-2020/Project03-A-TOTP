@@ -8,7 +8,7 @@
 import SwiftUI
 
 // 아래 모드에 따라 다르게 화면 전환이 일어난다.
-enum PinCodeViewMode {
+enum PinCodeViewMode: Equatable {
     case setup
     // 핀넘버 설정 - 두 번 code를 체크하고 맞으면 completion(pincode) 호출한다.
     // 두 개의 값이 맞기만 하면 completion 호출
@@ -17,13 +17,29 @@ enum PinCodeViewMode {
     // 핀넘버 사용 - 한 번 code를 체크하고,
     // 일치할 때에만 핀 넘버 화면을 종료하고 completion 호출한다.
     // code가 맞는지는 넘겨준 값으로 확인
-    // completion(result: Bool)에는 메인화면으로 가게 만드는 상태값이 있다.
+    // completion에는 메인화면으로 가게 만드는 상태값이 있다.
     // 취소가 나오면 안된다.
+    
+    static func ==(lhs: PinCodeViewMode, rhs: PinCodeViewMode) -> Bool {
+        switch (lhs, rhs) {
+        case (.setup, .setup): return true
+        case (.setup, .auth): return false
+        case (.auth, .setup): return false
+        case (.auth, .auth): return false
+        }
+    }
 }
 
 struct PinCodeView: View {
     
-    @State var code: [String] = []
+    @State private var code: [String] = []
+    private let pincodeViewMode: PinCodeViewMode
+    private let completion: (String) -> Void
+    
+    init(mode: PinCodeViewMode, completion: @escaping (String) -> Void) {
+        self.pincodeViewMode = mode
+        self.completion = completion
+    }
     
     var body: some View {
         VStack {
@@ -53,7 +69,9 @@ struct PinCodeView: View {
                 
                 Spacer()
                 
-                NumberPad(codes: $code)
+                NumberPad(codes: $code,
+                          pincodeViewMode: pincodeViewMode,
+                          completion: completion)
             }
             .animation(.spring())
         }
@@ -75,9 +93,10 @@ struct NumberRow: Identifiable {
 struct NumberPad: View {
     
     @Binding var codes: [String]
+    var pincodeViewMode: PinCodeViewMode
+    var completion: (String) -> Void
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
-    // TODO: 버튼 - 이넘타입으로 변경하기
     var deleteImageName = "delete"
     var cancelButton = "cancel"
     
@@ -131,7 +150,7 @@ private extension NumberPad {
                     .padding(.vertical)
                     .frame(width: 20)
             } else if value == cancelButton {
-                Text("취소")
+                Text( (pincodeViewMode == .setup) ? "취소" : "")
                     .font(.system(size: 15))
                     .fontWeight(.bold)
                     .foregroundColor(.pink1)

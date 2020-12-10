@@ -85,9 +85,11 @@ struct SettingView: View {
                     })
                     Spacer()
                     Divider().opacity(0)
-                    NavigationLink(destination: PinCodeView(),
-                                   isActive: $stateManager.pinCodeSetting,
-                                   label: { Text("") })
+                    NavigationLink(destination:
+                                    PinCodeView(mode: .setup, completion: { pincode in
+                                        viewModel.trigger(.protectDaDaIkSeon(pincode))
+                                    }),
+                                   isActive: $stateManager.pinCodeSetting, label: { Text("") })
                 }
             }
             .padding(.horizontal, 10)
