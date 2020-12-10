@@ -46,6 +46,8 @@ enum SettingInput {
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
     
+    case protectDaDaIkSeon(_ pincode: String)
+    case liberateDaDaIkSeon
 }
 
 enum SettingEditErrorMessage: String {

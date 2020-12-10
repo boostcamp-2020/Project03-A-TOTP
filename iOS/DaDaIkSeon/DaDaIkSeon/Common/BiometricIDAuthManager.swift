@@ -64,7 +64,8 @@ final class BiometricIDAuth {
                 default:
                     message = "Face ID/Touch ID may not be configured"
                 }
-                completion(message)                            }
+                completion(message)
+            }
         }
     }
 }

@@ -87,7 +87,6 @@ class SettingViewModel: ViewModel {
             } else {
                 state.editErrorMessage = .stringSize
             }
-        
         case .deleteDevice(let deviceID): break
             // alert 띄워서 확인 후 삭제
             //state.service.deleteDevice(deviceID)
@@ -101,7 +100,12 @@ class SettingViewModel: ViewModel {
             }
         case .editAuthMode:
             state.authEditMode.toggle()
+        case .protectDaDaIkSeon(let pincode):
+            // 키체인으로 비밀번호 저장
+            print("protectTokens \(pincode)")
+        case .liberateDaDaIkSeon:
+            // 키체인에서 비밀번호 삭제
+            print("protectTokens")
         }
     }
-    
 }

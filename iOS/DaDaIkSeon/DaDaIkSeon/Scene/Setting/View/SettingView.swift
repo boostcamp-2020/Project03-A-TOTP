@@ -15,8 +15,6 @@ struct SettingView: View {
     // MARK: Property
     @ObservedObject var stateManager = SettingTransition()
     
-    let auth = BiometricIDAuth()
-    
     var body: some View {
         SettingViewWrapper(action: {
             viewModel.trigger(.refresh)
@@ -52,6 +50,8 @@ struct SettingView: View {
                     Divider().opacity(0)
                 }
                 
+                // MARK: 보안강화하기
+                
                 SettingRow(title: "보안 강화하기",
                            isLast: false) {
                     viewModel.state.authEditMode ? Image.chevronDown : Image.chevronRight
@@ -63,27 +63,27 @@ struct SettingView: View {
                 }
                 
                 if viewModel.state.authEditMode {
-//                    Toggle(isOn: $stateManager.pinCodeToggle, label: {
-//                        Text("PIN 코드")
-//                    })
-//                    .onChange(of: stateManager.pinCodeToggle, perform: { _ in
-//                        print("핀코드가 토글 ~")
-////                        NavigationLazyView(PinCodeView())
-//                    })
-//                    Spacer()
+                    
+                    // 토글 on/off의 결과
+                    // on: 핀 넘버 설정 화면으로 넘어간다.
+                    //        -> 키체인에 해당 핀 넘버 저장(설정 뷰모델 - 클로저로 넘겨줌) 후 다시 돌아오기
+                    // off: 키체인에서 핀 넘버 삭제하기(설정 뷰모델)
+                    
+                    //
                     
                     Toggle(isOn: $stateManager.faceIDToggle, label: {
                         Text("FaceID/TouchID")
                     })
                     .onChange(of: stateManager.faceIDToggle, perform: { _ in
-                        print("페이스 아이디가 토글 ~")
-                        auth.authenticateUser { str in
-                            print("\(str)")
+                        if stateManager.faceIDToggle {  // true로 설정
+                            // 핀넘버 화면으로 이동 - 이 화면에서 핀넘버 두 번 확인하고 일치하면 저장
+                            // 여기에 뷰모델에 있는 키체인 등록 트리거를 호출하도록함. 클로저로 핀넘버 받아옴.
+                            NavigationLazyView(PinCodeView())
+                        } else {                        // false로 설정
+                            viewModel.trigger(.liberateDaDaIkSeon)
                         }
                     })
-                    
                     Spacer()
-                    
                     Divider().opacity(0)
                 }
             }
