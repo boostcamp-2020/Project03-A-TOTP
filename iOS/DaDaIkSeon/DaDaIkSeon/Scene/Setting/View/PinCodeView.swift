@@ -20,7 +20,7 @@ enum PinCodeViewMode: Equatable {
     // completion에는 메인화면으로 가게 만드는 상태값이 있다.
     // 취소가 나오면 안된다.
     
-    static func ==(lhs: PinCodeViewMode, rhs: PinCodeViewMode) -> Bool {
+    static func == (lhs: PinCodeViewMode, rhs: PinCodeViewMode) -> Bool {
         switch (lhs, rhs) {
         case (.setup, .setup): return true
         case (.setup, .auth): return false
@@ -33,6 +33,7 @@ enum PinCodeViewMode: Equatable {
 struct PinCodeView: View {
     
     @State private var code: [String] = []
+    @ObservedObject private var numberChecker = NumberChecker()
     private let pincodeViewMode: PinCodeViewMode
     private let completion: (String) -> Void
     
@@ -71,7 +72,8 @@ struct PinCodeView: View {
                 
                 NumberPad(codes: $code,
                           pincodeViewMode: pincodeViewMode,
-                          completion: completion)
+                          completion: completion,
+                          lastNumber: numberChecker)
             }
             .animation(.spring())
         }
@@ -90,11 +92,29 @@ struct NumberRow: Identifiable {
     var value: String
 }
 
+class NumberChecker: ObservableObject {
+    private var lastNumber: String = ""
+    
+    func setFirstNumber(_ number: String) {
+        lastNumber = number
+    }
+    
+    func compare(_ target: String) -> Bool {
+        lastNumber == target
+    }
+    
+    func isFirst() -> Bool {
+        lastNumber.count == 0
+    }
+}
+
 struct NumberPad: View {
     
     @Binding var codes: [String]
-    var pincodeViewMode: PinCodeViewMode
-    var completion: (String) -> Void
+    let pincodeViewMode: PinCodeViewMode
+    let completion: (String) -> Void
+    @ObservedObject var lastNumber: NumberChecker
+    
     @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     var deleteImageName = "delete"
@@ -140,8 +160,23 @@ private extension NumberPad {
             } else {
                 if !value.isEmpty { codes.append(value) }
                 if codes.count == 4 {
-                    print(getCode()) // 입력을 다 했을 때의 로직은 여기에...
-                    codes.removeAll()
+                    let inputCode = getCode()
+                    switch pincodeViewMode {
+                    case .auth(let pincode):
+                        break
+                    case .setup:
+                        if lastNumber.isFirst() {
+                            lastNumber.setFirstNumber(inputCode)
+                            codes.removeAll()
+                        } else { // 한번 더!
+                            if lastNumber.compare(inputCode) {
+                                completion(inputCode)
+                            } else {
+                                // 다시 입력하라는 메세지 출력
+                                codes.removeAll()
+                            }
+                        }
+                    }
                 }
             }
         }, label: {
