@@ -91,10 +91,7 @@ function AccessLog({ logs, setLogs, page, maxPage, onPageChange }: AccessLogProp
       key: 'time',
       render: (time: Date) => {
         const show = new Date(time);
-        show.setHours(show.getHours() + 9);
-        const show1 = show.toISOString();
-        const showArry = show1.split('T');
-        return <>{`${showArry[0]} ${showArry[1].substring(0, 5)}`}</>;
+        return <>{show.toLocaleString()}</>;
       },
     },
     { title: '디바이스', key: 'device' },
