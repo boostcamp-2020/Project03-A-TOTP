@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum PinCodeViewMode {
+    case setup // 핀넘버 설정
+    case auth // 핀넘버 사용
+}
+
 struct PinCodeView: View {
     
     @State var code: [String] = []
@@ -43,6 +48,8 @@ struct PinCodeView: View {
             }
             .animation(.spring())
         }
+        .navigationBarHidden(true)
+        
     }
 }
 
@@ -59,8 +66,12 @@ struct NumberRow: Identifiable {
 struct NumberPad: View {
     
     @Binding var codes: [String]
+    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
+    // TODO: 버튼 - 이넘타입으로 변경하기
     var deleteImageName = "delete"
+    var cancelButton = "cancel"
+    
     var datas = [
         NumberType(id: 0, row: [NumberRow(id: 0, value: "1"),
                                 NumberRow(id: 1, value: "2"),
@@ -71,7 +82,7 @@ struct NumberPad: View {
         NumberType(id: 2, row: [NumberRow(id: 0, value: "7"),
                                 NumberRow(id: 1, value: "8"),
                                 NumberRow(id: 2, value: "9")]),
-        NumberType(id: 3, row: [NumberRow(id: 0, value: ""),
+        NumberType(id: 3, row: [NumberRow(id: 0, value: "cancel"),
                                 NumberRow(id: 1, value: "0"),
                                 NumberRow(id: 2, value: "delete")])
     ]
@@ -96,6 +107,8 @@ private extension NumberPad {
         Button(action: {
             if value == deleteImageName {
                 if !codes.isEmpty { codes.removeLast() }
+            } else if value == cancelButton {
+                mode.wrappedValue.dismiss()
             } else {
                 if !value.isEmpty { codes.append(value) }
                 if codes.count == 4 {
@@ -108,6 +121,11 @@ private extension NumberPad {
                 value.toImage()
                     .padding(.vertical)
                     .frame(width: 20)
+            } else if value == cancelButton {
+                Text("취소")
+                    .font(.system(size: 15))
+                    .fontWeight(.bold)
+                    .foregroundColor(.pink1)
             } else {
                 Text(value)
                     .font(.system(size: 22))

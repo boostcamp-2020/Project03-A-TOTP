@@ -78,13 +78,16 @@ struct SettingView: View {
                         if stateManager.faceIDToggle {  // true로 설정
                             // 핀넘버 화면으로 이동 - 이 화면에서 핀넘버 두 번 확인하고 일치하면 저장
                             // 여기에 뷰모델에 있는 키체인 등록 트리거를 호출하도록함. 클로저로 핀넘버 받아옴.
-                            NavigationLazyView(PinCodeView())
+                            stateManager.pinCodeSetting = true
                         } else {                        // false로 설정
                             viewModel.trigger(.liberateDaDaIkSeon)
                         }
                     })
                     Spacer()
                     Divider().opacity(0)
+                    NavigationLink(destination: PinCodeView(),
+                                   isActive: $stateManager.pinCodeSetting,
+                                   label: { Text("") })
                 }
             }
             .padding(.horizontal, 10)
