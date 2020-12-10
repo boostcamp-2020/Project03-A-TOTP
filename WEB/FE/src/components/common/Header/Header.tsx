@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '@components/common/Button';
 import storageHandler from '@utils/localStorage';
 import { Dropdown } from '@components/common/Header/Dropdown';
 import { Nav } from '@components/common/Header/Nav';
+import { logoutAPI } from '@api/index';
 
 const Wrapper = styled.header`
   width: 100%;
@@ -38,7 +39,14 @@ const Header: React.FC<HeaderProps> = () => {
   const userName = storageHandler.get();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const onLogout = () => {};
+  const onLogout = async () => {
+    await logoutAPI()
+      .then(() => {
+        localStorage.clear();
+        window.location.reload();
+      })
+      .catch((err: any) => alert(err.response?.data?.message || err.message));
+  };
 
   return (
     <Wrapper>

@@ -149,6 +149,15 @@ const authController = {
 
     res.json({ result: true });
   },
+
+  async logout(req, res, next) {
+    req.session.destroy((err) => {
+      if (err) next(createError(err));
+      res.clearCookie('csrfToken');
+      res.clearCookie('connect.sid');
+      res.json({ result: true });
+    });
+  },
 };
 
 const makeLogData = async ({ ip, userAgent, id, sid }) => {

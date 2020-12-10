@@ -155,3 +155,8 @@ export const delSession = async (sid: delSessionParmas): Promise<any> => {
   const { data } = await axios.patch('api/log/session', sid);
   return data;
 };
+
+export const logoutAPI = async (): Promise<any> => {
+  const { data } = await axios.get('api/auth/logout');
+  return data;
+};
