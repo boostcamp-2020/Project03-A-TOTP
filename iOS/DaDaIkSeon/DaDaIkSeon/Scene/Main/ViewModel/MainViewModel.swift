@@ -23,7 +23,6 @@ final class MainViewModel: ViewModel {
                           selectedCount: 0,
                           zeroTokenState: service.tokenCount == 0
         )
-        trigger(.commonInput(.refreshTokens))
     }
     
     // MARK: Methods
