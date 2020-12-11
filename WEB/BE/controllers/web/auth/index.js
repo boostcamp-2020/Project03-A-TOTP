@@ -155,6 +155,8 @@ const authController = {
   async logout(req, res, next) {
     req.session.destroy((err) => {
       if (err) next(createError(err));
+      // eslint-disable-next-line no-unused-expressions
+      req.session;
       res.clearCookie('csrfToken');
       res.clearCookie('connect.sid');
       res.json({ result: true });

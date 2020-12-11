@@ -10,10 +10,15 @@ const redisModel = {
     const rid = redis.createClient(redisOption);
     const subscriber = redis.createClient(redisOption);
 
-    rid.config('SET', 'notify-keyspace-events', 'Ex');
+    rid.config('SET', 'notify-keyspace-events', 'KEA');
+    const EVENT_EXPIRED = '__keyevent@0__:expired';
+    const EVENT_DEL = '__keyevent@0__:del';
 
     subscriber.on('pmessage', async function (pattern, channel, message) {
-      await logService.update({ sid: message, isLoggedOut: true });
+      if (channel === EVENT_EXPIRED || channel === EVENT_DEL) {
+        message = message.replace('session:', '');
+        await logService.update({ sid: message, isLoggedOut: true });
+      }
     });
 
     subscriber.psubscribe('__key*__:*');
