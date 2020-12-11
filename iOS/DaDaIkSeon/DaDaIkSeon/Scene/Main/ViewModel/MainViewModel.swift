@@ -14,6 +14,7 @@ final class MainViewModel: ViewModel {
     @Published var state: MainState
     
     init(service: TokenServiceable) {
+        
         state = MainState(service: service,
                           filteredTokens: service.excludeMainCell(),
                           isSearching: false,
