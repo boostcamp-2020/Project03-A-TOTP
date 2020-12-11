@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct JWTToken: Codable {
-    var jwt: String
-}
-
 final class JWTNetworkManager: Requestable {
     
     typealias NetworkData = ResponseObject<JWTToken>

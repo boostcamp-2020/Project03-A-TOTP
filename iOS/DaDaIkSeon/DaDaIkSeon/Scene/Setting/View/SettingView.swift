@@ -230,7 +230,7 @@ struct SettingView: View {
             
             Spacer()
         })
-        .fullScreenCover(isPresented: $stateManager.pinCodeSetting){
+        .fullScreenCover(isPresented: $stateManager.pinCodeSetting) {
             stateManager.faceIDToggle ?
                             PinCodeView(
                                 mode: .delete(viewModel.state.service.pincode ?? "0000"),

@@ -19,4 +19,3 @@ extension EndpointType {
         return "https://dadaikseon.com/api/app"
     }
 }
-
