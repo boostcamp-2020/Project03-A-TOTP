@@ -15,8 +15,6 @@ struct SettingView: View {
     // MARK: Property
     @ObservedObject var stateManager = SettingTransition()
     
-    private var bioAuth = BiometricIDAuth()
-    
     init() {
         if nil != viewModel.state.service.pincode {
             stateManager.faceIDToggle = true
@@ -78,7 +76,7 @@ struct SettingView: View {
                         Spacer()
                         Button(action: {
                             if stateManager.faceIDToggle {
-                                bioAuth.authenticateUser { result in
+                                BiometricIDAuth().authenticateUser { result in
                                     if result == nil {
                                         DispatchQueue.main.async {
                                             viewModel.trigger(.liberateDaDaIkSeon)
