@@ -15,7 +15,7 @@ final class MainViewModel: ViewModel {
     
     init(service: TokenServiceable) {
         state = MainState(service: service,
-                          filteredTokens: [],
+                          filteredTokens: service.excludeMainCell(),
                           isSearching: false,
                           mainToken: Token(),
                           checkBoxMode: false,
