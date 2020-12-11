@@ -31,6 +31,7 @@ struct DaDaIkSeonApp: App {
             
             if main {
                 MainView(service: service).environmentObject(NavigationFlowObject())
+//                LoginView(service: LoginService(network: UserNetworkManager()))
             } else if pincode {
                 if let pincode = pincodeManager.loadPincode() {
                     PinCodeView(mode: .auth(pincode), completion: { _ in

@@ -11,7 +11,7 @@ final class JWTNetworkManager: Requestable {
     
     typealias NetworkData = ResponseObject<JWTToken>
     
-    var userEndpoint: UserEndpoint = .get
+    private var userEndpoint: UserEndpoint = .get
     
     func getJWTToken(code: String,
                      email: String,

@@ -11,7 +11,7 @@ final class UserNetworkManager: Requestable {
     
     typealias NetworkData = ResponseObject<DDISUser>
     
-    var userEndpoint: UserEndpoint = .get
+    private var userEndpoint: UserEndpoint = .get
     
     func load(completion: @escaping (DDISUser) -> Void) {
         userEndpoint = .get

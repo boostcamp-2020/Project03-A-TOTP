@@ -11,7 +11,7 @@ final class TokenNetworkManager: Requestable {
     
     typealias NetworkData = ResponseArray<Token>
     
-    var tokenEndpoint: TokenEndpoint = .get
+    private var tokenEndpoint: TokenEndpoint = .get
     
     func load(completion: @escaping ([Token]) -> Void) {
         
