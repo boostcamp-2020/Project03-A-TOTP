@@ -8,6 +8,7 @@
 import Foundation
 
 struct Token: Identifiable, Codable, Equatable {
+    
     var id = UUID()
     var key: String?
     var name: String?
@@ -59,4 +60,5 @@ struct Token: Identifiable, Codable, Equatable {
                   isMain: false)
         ]
     }
+    
 }

@@ -25,6 +25,13 @@
 		7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D349C257FC0B10013AD65 /* PinCodeView.swift */; };
 		7C3131E7257D1D4B00A19319 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131E6257D1D4B00A19319 /* LoginView.swift */; };
 		7C3131EE257D33CD00A19319 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3131ED257D33CD00A19319 /* LoginViewModel.swift */; };
+		7C4F3B7125820FAA000C1DD2 /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */; };
+		7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */; };
+		7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */; };
+		7C4F3B8B2582577A000C1DD2 /* TokenNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */; };
+		7C4F3B932582579A000C1DD2 /* TokenEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */; };
+		7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B9825826FC9000C1DD2 /* SettingNetworkManager.swift */; };
+		7C4F3B9E25826FE6000C1DD2 /* SettingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F3B9D25826FE6000C1DD2 /* SettingEndpoint.swift */; };
 		7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */; };
 		7C661933256CCAED0028E7C6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C661932256CCAED0028E7C6 /* MainView.swift */; };
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
@@ -118,6 +125,13 @@
 		7C2D349C257FC0B10013AD65 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		7C3131E6257D1D4B00A19319 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C3131ED257D33CD00A19319 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
+		7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEndpoint.swift; sourceTree = "<group>"; };
+		7C4F3B9825826FC9000C1DD2 /* SettingNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNetworkManager.swift; sourceTree = "<group>"; };
+		7C4F3B9D25826FE6000C1DD2 /* SettingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEndpoint.swift; sourceTree = "<group>"; };
 		7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaDaIkSeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonApp.swift; sourceTree = "<group>"; };
 		7C661932256CCAED0028E7C6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -258,12 +272,10 @@
 		7C2D344B257FA4FA0013AD65 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D345C257FA60A0013AD65 /* Requestable.swift */,
-				7C2D3461257FA66D0013AD65 /* NetworkResult.swift */,
-				7C2D3471257FA7190013AD65 /* ResponseObject.swift */,
-				7C2D3466257FA70F0013AD65 /* ResponseArray.swift */,
-				7C2D344C257FA5050013AD65 /* EndpointType.swift */,
-				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
+				7C4F3B9725826FBC000C1DD2 /* Setting */,
+				7C4F3B89258255AB000C1DD2 /* Token */,
+				7C4F3B8525822317000C1DD2 /* User */,
+				7C4F3B6E25820F5F000C1DD2 /* Components */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -294,6 +306,47 @@
 				7C2D3429257F5C650013AD65 /* LoginCodeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7C4F3B6E25820F5F000C1DD2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7C2D345C257FA60A0013AD65 /* Requestable.swift */,
+				7C2D3461257FA66D0013AD65 /* NetworkResult.swift */,
+				7C2D3471257FA7190013AD65 /* ResponseObject.swift */,
+				7C2D3466257FA70F0013AD65 /* ResponseArray.swift */,
+				7C2D344C257FA5050013AD65 /* EndpointType.swift */,
+				7C2D3454257FA5310013AD65 /* HTTPMethod.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7C4F3B8525822317000C1DD2 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7C4F3B7025820FAA000C1DD2 /* UserNetworkManager.swift */,
+				7C4F3B7D258222BC000C1DD2 /* JWTNetworkManager.swift */,
+				7C4F3B782582105D000C1DD2 /* UserEndpoint.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		7C4F3B89258255AB000C1DD2 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				7C4F3B8A2582577A000C1DD2 /* TokenNetworkManager.swift */,
+				7C4F3B922582579A000C1DD2 /* TokenEndpoint.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
+		7C4F3B9725826FBC000C1DD2 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				7C4F3B9825826FC9000C1DD2 /* SettingNetworkManager.swift */,
+				7C4F3B9D25826FE6000C1DD2 /* SettingEndpoint.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		7C661924256CCAED0028E7C6 = {
@@ -905,11 +958,14 @@
 				7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */,
 				88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */,
 				7CB7BF1E25812574000CABA1 /* TokenServiceable.swift in Sources */,
+				7C4F3B932582579A000C1DD2 /* TokenEndpoint.swift in Sources */,
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
+				7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,
 				7C2D3420257F51360013AD65 /* LoginService.swift in Sources */,
 				7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */,
+				7C4F3B8B2582577A000C1DD2 /* TokenNetworkManager.swift in Sources */,
 				7C2D3462257FA66D0013AD65 /* NetworkResult.swift in Sources */,
 				7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
@@ -919,6 +975,7 @@
 				8885FD56257F36120013D794 /* MockSettingService.swift in Sources */,
 				8835E10925701CD700838FDF /* TokenAddCellView.swift in Sources */,
 				882E9A18257D0FED00B066F3 /* NavigationFlowObject.swift in Sources */,
+				7C4F3B7125820FAA000C1DD2 /* UserNetworkManager.swift in Sources */,
 				88C9D12A256D4347004956EB /* Token.swift in Sources */,
 				7C2D344D257FA5050013AD65 /* EndpointType.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
@@ -934,11 +991,14 @@
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
+				7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
+				7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
 				7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */,
 				7C2D3425257F5C4D0013AD65 /* LoginEmailView.swift in Sources */,
+				7C4F3B9E25826FE6000C1DD2 /* SettingEndpoint.swift in Sources */,
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
