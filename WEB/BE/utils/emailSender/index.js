@@ -56,9 +56,18 @@ const emailSender = {
     }
   },
 
+  async sendiOSEmailCode({ email, emailCode }) {
+    const axiosOptions = makeOption(2441, email, '', { emailCode });
+
+    try {
+      await axios(axiosOptions);
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+
   sendSecretKey({ id, name, email, totpURL }) {
     const qrCodeQuery = encodeURIComponent(Buffer.from(totpURL).toString('base64'));
-    /** @TODO option 수정 필요 */
     const axiosOptions = makeOption(2400, email, name, {
       userName: name,
       URL: `https://dadaikseon.com/QRCode/${qrCodeQuery}`,
