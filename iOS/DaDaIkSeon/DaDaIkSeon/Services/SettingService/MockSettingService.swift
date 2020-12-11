@@ -10,6 +10,7 @@ import Foundation
 class MockSettingService: SettingServiceable {
     
     private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
+    private var pincodeManager = PincodeManager()
     
     init() {
         loadUser()
@@ -60,5 +61,17 @@ class MockSettingService: SettingServiceable {
         user.device?.removeAll(where: {
             $0.udid == udid
         })
+    }
+    
+    var pincode: String? {
+        pincodeManager.loadPincode()
+    }
+    
+    func deletePincode() {
+        pincodeManager.deletePincode()
+    }
+    
+    func createPincde(_ pincode: String) {
+        pincodeManager.storePincode(pincode)
     }
 }

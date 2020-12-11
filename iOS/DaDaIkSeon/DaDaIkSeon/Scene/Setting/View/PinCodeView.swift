@@ -7,9 +7,24 @@
 
 import SwiftUI
 
+// 아래 모드에 따라 다르게 화면 전환이 일어난다.
+enum PinCodeViewMode {
+    case auth(_ pincode: String)
+    case setup
+    case delete(_ pincode: String)
+}
+
 struct PinCodeView: View {
     
-    @State var code: [String] = []
+    @State private var code: [String] = []
+    @ObservedObject private var numberChecker = NumberChecker()
+    private let pincodeViewMode: PinCodeViewMode
+    private let completion: (String) -> Void
+    
+    init(mode: PinCodeViewMode, completion: @escaping (String) -> Void) {
+        self.pincodeViewMode = mode
+        self.completion = completion
+    }
     
     var body: some View {
         VStack {
@@ -23,9 +38,20 @@ struct PinCodeView: View {
                 
                 Spacer()
                 
-                Text("PIN 번호를 세팅 하세요")
-                    .foregroundColor(Color.gray)
-                
+                if numberChecker.isFirst() {
+                    switch pincodeViewMode {
+                    case .setup:
+                        Text("PIN 번호를 설정 하세요")
+                            .foregroundColor(Color.gray)
+                    default:
+                        Text("PIN 번호를 입력하세요")
+                            .foregroundColor(Color.gray)
+                    }
+                } else {
+                    Text("PIN 번호를 한 번 더 입력해주세요.")
+                        .foregroundColor(Color.gray)
+                }
+              
                 Spacer()
                 
                 HStack(spacing: 20) {
@@ -39,10 +65,16 @@ struct PinCodeView: View {
                 
                 Spacer()
                 
-                NumberPad(codes: $code)
+                NumberPad(codes: $code,
+                          pincodeViewMode: pincodeViewMode,
+                          completion: completion,
+                          lastNumber: numberChecker)
             }
-            .animation(.spring())
+            //.animation(.spring())
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
+        
     }
 }
 
@@ -56,11 +88,35 @@ struct NumberRow: Identifiable {
     var value: String
 }
 
+class NumberChecker: ObservableObject {
+    private var lastNumber: String = ""
+    
+    func setFirstNumber(_ number: String) {
+        lastNumber = number
+    }
+    
+    func compare(_ target: String) -> Bool {
+        lastNumber == target
+    }
+    
+    func isFirst() -> Bool {
+        lastNumber.count == 0
+    }
+}
+
 struct NumberPad: View {
     
     @Binding var codes: [String]
+    let pincodeViewMode: PinCodeViewMode
+    let completion: (String) -> Void
+    @ObservedObject var lastNumber: NumberChecker
+    @State private var erroMessageAlert: Bool = false
+    
+    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
     
     var deleteImageName = "delete"
+    var cancelButton = "cancel"
+    
     var datas = [
         NumberType(id: 0, row: [NumberRow(id: 0, value: "1"),
                                 NumberRow(id: 1, value: "2"),
@@ -71,7 +127,7 @@ struct NumberPad: View {
         NumberType(id: 2, row: [NumberRow(id: 0, value: "7"),
                                 NumberRow(id: 1, value: "8"),
                                 NumberRow(id: 2, value: "9")]),
-        NumberType(id: 3, row: [NumberRow(id: 0, value: ""),
+        NumberType(id: 3, row: [NumberRow(id: 0, value: "cancel"),
                                 NumberRow(id: 1, value: "0"),
                                 NumberRow(id: 2, value: "delete")])
     ]
@@ -96,11 +152,35 @@ private extension NumberPad {
         Button(action: {
             if value == deleteImageName {
                 if !codes.isEmpty { codes.removeLast() }
+            } else if value == cancelButton {
+                mode.wrappedValue.dismiss()
             } else {
                 if !value.isEmpty { codes.append(value) }
                 if codes.count == 4 {
-                    print(getCode()) // 입력을 다 했을 때의 로직은 여기에...
-                    codes.removeAll()
+                    let inputCode = getCode()
+                    switch pincodeViewMode {
+                    case .auth(let pincode), .delete(let pincode):
+                        if pincode == inputCode {
+                            completion(inputCode)
+                            mode.wrappedValue.dismiss()
+                        } else {
+                            codes.removeAll()
+                            erroMessageAlert = true
+                        }
+                    case .setup:
+                        if lastNumber.isFirst() {
+                            lastNumber.setFirstNumber(inputCode)
+                            codes.removeAll()
+                        } else {
+                            if lastNumber.compare(inputCode) {
+                                completion(inputCode)
+                                mode.wrappedValue.dismiss()
+                            } else {
+                                codes.removeAll()
+                                erroMessageAlert = true
+                            }
+                        }
+                    }
                 }
             }
         }, label: {
@@ -108,6 +188,19 @@ private extension NumberPad {
                 value.toImage()
                     .padding(.vertical)
                     .frame(width: 20)
+            } else if value == cancelButton {
+                switch pincodeViewMode {
+                case .auth:
+                    Text("")
+                        .font(.system(size: 15))
+                        .fontWeight(.bold)
+                        .foregroundColor(.pink1)
+                default:
+                    Text("취소")
+                        .font(.system(size: 15))
+                        .fontWeight(.bold)
+                        .foregroundColor(.pink1)
+                }
             } else {
                 Text(value)
                     .font(.system(size: 22))
@@ -121,6 +214,9 @@ private extension NumberPad {
                             .cornerRadius(10)
                     )
             }
+        })
+        .alert(isPresented: $erroMessageAlert, content: {
+            Alert(title: Text("번호가 일치하지 않습니다."))
         })
     }
     

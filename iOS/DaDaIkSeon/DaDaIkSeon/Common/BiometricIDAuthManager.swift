@@ -48,6 +48,7 @@ final class BiometricIDAuth {
                 }
             } else {
                 let message: String
+                // TODO: return 값 스트링으로 하지 말고 이넘으로 바꾸기
                 switch evaluateError {
                 case LAError.authenticationFailed?:
                     message = "There was a problem verifying your identity."
@@ -64,7 +65,8 @@ final class BiometricIDAuth {
                 default:
                     message = "Face ID/Touch ID may not be configured"
                 }
-                completion(message)                            }
+                completion(message)
+            }
         }
     }
 }

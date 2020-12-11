@@ -15,7 +15,12 @@ struct SettingView: View {
     // MARK: Property
     @ObservedObject var stateManager = SettingTransition()
     
-    let auth = BiometricIDAuth()
+    init() {
+        if nil != viewModel.state.service.pincode {
+            stateManager.faceIDToggle = true
+        }
+        // 이런식으로 다 초기화해줘야한다!
+    }
     
     var body: some View {
         SettingViewWrapper(action: {
@@ -26,7 +31,7 @@ struct SettingView: View {
             // MARK: 내정보 관리
             SettingGridView(title: "내 정보", titleColor: .white) {
                 SettingRow(title: "✉️ " + (viewModel.state.email),
-                           isLast: viewModel.state.emailEditMode ? false : true) {
+                           isLast: false) {
                     viewModel.state.emailEditMode ?
                         Image.chevronDown : Image.chevronRight
                 }
@@ -52,8 +57,10 @@ struct SettingView: View {
                     Divider().opacity(0)
                 }
                 
+                // MARK: 보안강화하기
+                
                 SettingRow(title: "보안 강화하기",
-                           isLast: false) {
+                           isLast: viewModel.state.authEditMode ? false:true) {
                     viewModel.state.authEditMode ? Image.chevronDown : Image.chevronRight
                 }
                 .onTapGesture {
@@ -63,27 +70,34 @@ struct SettingView: View {
                 }
                 
                 if viewModel.state.authEditMode {
-//                    Toggle(isOn: $stateManager.pinCodeToggle, label: {
-//                        Text("PIN 코드")
-//                    })
-//                    .onChange(of: stateManager.pinCodeToggle, perform: { _ in
-//                        print("핀코드가 토글 ~")
-////                        NavigationLazyView(PinCodeView())
-//                    })
-//                    Spacer()
                     
-                    Toggle(isOn: $stateManager.faceIDToggle, label: {
+                    HStack {
                         Text("FaceID/TouchID")
-                    })
-                    .onChange(of: stateManager.faceIDToggle, perform: { _ in
-                        print("페이스 아이디가 토글 ~")
-                        auth.authenticateUser { str in
-                            print("\(str)")
-                        }
-                    })
-                    
-                    Spacer()
-                    
+                        Spacer()
+                        Button(action: {
+                            if stateManager.faceIDToggle {
+                                BiometricIDAuth().authenticateUser { result in
+                                    if result == nil {
+                                        DispatchQueue.main.async {
+                                            viewModel.trigger(.liberateDaDaIkSeon)
+                                            stateManager.faceIDToggle.toggle()
+                                        }
+                                    } else {
+                                        if result != "You pressed cancel." {
+                                            DispatchQueue.main.async {
+                                                stateManager.pinCodeSetting = true
+                                            }
+                                        }// 생체 인식 불가 또는 실패
+                                    }
+                                }
+                            } else {
+                                stateManager.pinCodeSetting = true
+                            }
+                        }, label: {
+                            Toggle(isOn: $stateManager.faceIDToggle, label: {
+                            }).disabled(true).opacity(1.0)
+                        })
+                    } // TODO: on/off 텍스트로 하면 안되는지? 토글 disable은 투명이라서ㅠㅠ
                     Divider().opacity(0)
                 }
             }
@@ -216,6 +230,18 @@ struct SettingView: View {
             
             Spacer()
         })
+        .fullScreenCover(isPresented: $stateManager.pinCodeSetting){
+            stateManager.faceIDToggle ?
+                            PinCodeView(
+                                mode: .delete(viewModel.state.service.pincode ?? "0000"),
+                                completion: { _ in
+                                viewModel.trigger(.liberateDaDaIkSeon)
+                                    stateManager.faceIDToggle.toggle()})
+                            :PinCodeView(mode: .setup, completion: { pincode in
+                                viewModel.trigger(.protectDaDaIkSeon(pincode))
+                                stateManager.faceIDToggle.toggle()
+                            })
+        }
         .background(Color(UIColor.systemGray6))
         .edgesIgnoringSafeArea(.bottom)
     }
