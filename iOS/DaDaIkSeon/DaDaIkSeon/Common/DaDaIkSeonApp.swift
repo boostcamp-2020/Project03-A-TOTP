@@ -20,17 +20,8 @@ struct DaDaIkSeonApp: App {
 
     var body: some Scene {
         
-//        #if DEBUG
-//
-//        let service = MockTokenService()
-//        let loginService = LoginService()
-//
-//        #else
-        
         let storageManager = StorageManager()
         let service = TokenService(storageManager)
-        
-//        #endif
         
         WindowGroup {
             // 아래에서 상태 만들고 여기서 조건문으로 분기
@@ -63,15 +54,12 @@ struct DaDaIkSeonApp: App {
                                 main = true
                             }
                         } else {
-                            if "You pressed cancel." == result || "You pressed password." == result {
+                            if "You pressed cancel." == result
+                                || "You pressed password." == result {
                                 print("cancel", "실패, 핀넘버로")
                                 DispatchQueue.main.async {
                                     self.pincode = true
                                 }
-                            } else {
-//                                DispatchQueue.main.async {
-//                                    self.main = true
-//                                }
                             }
                         }
                     }
