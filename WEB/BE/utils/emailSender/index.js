@@ -57,8 +57,7 @@ const emailSender = {
   },
 
   async sendiOSEmailCode({ email, emailCode }) {
-    /** @TODO option 수정 필요 */
-    const axiosOptions = makeOption(1000, email, '', { emailCode });
+    const axiosOptions = makeOption(2441, email, '', { emailCode });
 
     try {
       await axios(axiosOptions);
