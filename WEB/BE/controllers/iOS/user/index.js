@@ -3,7 +3,7 @@ const deviceService = require('@services/iOS/device');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 const { makeRandom } = require('@utils/random');
-const emailSender = require('@utils/emailSender');
+const { emailSender } = require('@utils/emailSender');
 
 const userController = {
   async getUserFromJWT(req, res, next) {
@@ -30,11 +30,12 @@ const userController = {
       return next(createError(400, '멀티 디바이스 off'));
     }
     const emailCode = makeRandom(1, 6);
+
     if (!user) {
       await userService.addUser({ email, email_code: emailCode });
     }
 
-    emailSender.sendiOSEmailCode(email, emailCode);
+    emailSender.sendiOSEmailCode({ email, emailCode });
 
     res.json({ message: 'OK' });
   },
