@@ -49,6 +49,7 @@ struct DaDaIkSeonApp: App {
 }
 
 extension DaDaIkSeonApp {
+    
     func localAuthenticate() {
         switch root {
         case .none:
@@ -67,11 +68,12 @@ extension DaDaIkSeonApp {
             return
         }
     }
-}
+    
+    enum DaDaIkSeonAppRootViews {
+        case main
+        case localAuth
+        case networkAuth
+        case none
+    }
 
-enum DaDaIkSeonAppRootViews {
-    case main
-    case localAuth
-    case networkAuth
-    case none
 }
