@@ -1,4 +1,3 @@
-const { update } = require('@/services/web/auth');
 const { users: User } = require('@models/sequelizeIOS');
 const { devices: Device } = require('@models/sequelizeIOS');
 const { tokens: Token } = require('@models/sequelizeIOS');
