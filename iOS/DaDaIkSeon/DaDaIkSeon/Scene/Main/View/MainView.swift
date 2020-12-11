@@ -12,7 +12,7 @@ struct MainView: View {
     
     // MARK: ViewModel
     
-    @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    @StateObject var viewModel: AnyViewModel<MainState, MainInput>
     
     // MARK: Property
     
@@ -28,7 +28,7 @@ struct MainView: View {
     // MARK: Initialization
     
     init(service: TokenServiceable) {
-        viewModel = AnyViewModel(MainViewModel(service: service))
+        _viewModel = StateObject(wrappedValue: AnyViewModel(MainViewModel(service: service)))
     }
     
     // MARK: Body
