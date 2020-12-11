@@ -12,7 +12,7 @@ struct TokenCellView: View {
     
     // MARK: ViewModel
     
-    @StateObject var viewModel: AnyViewModel<TokenCellState, TokenCellInput>
+    @ObservedObject var viewModel: AnyViewModel<TokenCellState, TokenCellInput>
     
     // MARK: Property
     
@@ -26,12 +26,11 @@ struct TokenCellView: View {
          checkBoxMode: Binding<Bool>,
          isSelected: Bool?,
          refreshAction: (() -> Void)? = nil) {
-        _viewModel = StateObject(
-            wrappedValue: AnyViewModel(
-                TokenCellViewModel(service: service,
-                                   token: token,
-                                   isMainCell: isMain,
-                                   refreshAction: refreshAction)))
+        viewModel = AnyViewModel(
+            TokenCellViewModel(service: service,
+                               token: token,
+                               isMainCell: isMain,
+                               refreshAction: refreshAction))
         self.isMainCell = isMain
         self.isSelected = isSelected ?? false
         _checkBoxMode = checkBoxMode
