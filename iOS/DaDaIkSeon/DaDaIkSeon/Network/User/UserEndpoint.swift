@@ -16,7 +16,7 @@ enum UserEndpoint {
 extension UserEndpoint: EndpointType {
     
     var path: String {
-        let basePath = baseUrl + "/app/user"
+        let basePath = baseUrl + "/user"
         
         switch self {
         case .get:
@@ -47,7 +47,12 @@ extension UserEndpoint: EndpointType {
             return [
                 "code": code,
                 "email": email,
-                "device": device
+                "device": [
+                    "udid": device.udid ?? "",
+                    "name": device.name ?? "",
+                    "modelName": device.modelName ?? "",
+                    "backup": device.backup ?? true
+                ]
             ]
         }
     }

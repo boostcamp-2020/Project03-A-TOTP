@@ -37,8 +37,8 @@ final class LoginViewModel: ViewModel {
             changeIsEmailView()
         case .hideSendButton:
             state.isTyping = false
-        case .authButton(let code):
-            sendAuthCode(code)
+        case .authButton(let code, let device):
+            sendAuthCode(code, device: device)
         }
     }
 }
@@ -70,11 +70,11 @@ private extension LoginViewModel {
         }
     }
     
-    func sendAuthCode(_ codeText: String) {
+    func sendAuthCode(_ codeText: String, device: Device) {
         if !checkCodeStyle(codeText) {
             print("코드가 달라..")
         } else {
-            state.service.requestAuthentication(code: codeText)
+            state.service.requestAuthentication(code: codeText, device: device)
         }
     }
     

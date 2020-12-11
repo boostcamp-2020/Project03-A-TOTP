@@ -9,26 +9,35 @@ import Foundation
 
 protocol LoginServiceable {
     func sendEmail(email: String)
-    func requestAuthentication(code: String)
+    func requestAuthentication(code: String, device: Device)
 }
 
 final class LoginService: LoginServiceable {
     
+    var loginNetwork: UserNetworkManager
+    var user = DDISUser(email: nil, device: nil, multiDevice: nil)
+    let jwtTokenNetwork = JWTNetworkManager()
+    
+    init(network: UserNetworkManager) {
+        loginNetwork = network
+    }
+    
     func sendEmail(email: String) {
-        print("\(email) 에게 인증 요청을 보냈어요")
+        loginNetwork.sendEmail(email: email) { [weak self] in
+            guard let self = self else { return }
+            self.user.email = email
+        }
     }
     
-    func requestAuthentication(code: String) {
-        print("\(code) 코드 생성")
-        createDDISUser()
-    }
-    
-}
-
-private extension LoginService {
-    
-    func createDDISUser() {
-        print("유저를 생성했어요")
+    func requestAuthentication(code: String, device: Device) {
+        guard let email = user.email else { return }
+        
+        jwtTokenNetwork.getJWTToken(code: code,
+                                    email: email,
+                                    device: device) { jwtToken in
+            print("토큰:\(jwtToken)") // 키체인에 저장해야함
+        }
+        
     }
     
 }

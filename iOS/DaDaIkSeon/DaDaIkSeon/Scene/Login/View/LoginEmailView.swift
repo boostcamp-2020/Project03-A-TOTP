@@ -99,7 +99,7 @@ private extension LoginEmailView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        let service = LoginService()
+        let service = LoginService(network: UserNetworkManager())
         LoginView(service: service)
     }
 }

@@ -7,9 +7,13 @@
 
 import Foundation
 
+struct JWTToken: Codable {
+    var jwt: String
+}
+
 final class JWTNetworkManager: Requestable {
     
-    typealias NetworkData = ResponseObject<String>
+    typealias NetworkData = ResponseObject<JWTToken>
     
     var userEndpoint: UserEndpoint = .get
     
@@ -26,7 +30,7 @@ final class JWTNetworkManager: Requestable {
             switch result {
             case .networkSuccess(let data):
                 guard let jwtToken = data.responseResult.data else { return }
-                completion(jwtToken)
+                completion(jwtToken.jwt)
             case .networkError(let error):
                 print(error)
             case .networkFail:

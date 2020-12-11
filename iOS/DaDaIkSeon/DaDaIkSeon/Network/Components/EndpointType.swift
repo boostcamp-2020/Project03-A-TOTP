@@ -16,6 +16,7 @@ protocol EndpointType {
 
 extension EndpointType {
     var baseUrl: String {
-        return ""
+        return "https://dadaikseon.com/api/app"
     }
 }
+
