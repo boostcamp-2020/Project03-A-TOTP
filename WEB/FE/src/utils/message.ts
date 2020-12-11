@@ -12,4 +12,5 @@ export enum message {
   SIGNINSUCCESS = '로그인에 성공하셨습니다.',
   FINDPASSWORDSUCCESS = '패스워드 변경을 위한 주소를 이메일로 전송하였습니다.',
   EMAILSECRETKEYSUCCESS = '이메일로 QR Code를 재발급 받을 수 있는 주소를 전송하였습니다.',
+  CHANGEPASSWORDSUCCESS = '비밀번호가 성공적으로 변경되었습니다.',
 }
