@@ -69,12 +69,16 @@ struct DaDaIkSeonApp: App {
                                     self.pincode = true
                                 }
                             } else {
-                                
+//                                DispatchQueue.main.async {
+//                                    self.main = true
+//                                }
                             }
                         }
                     }
                 } else {
-                    self.main = true // pincode 없으면 앱 보호 안하겠다는 것
+                    DispatchQueue.main.async {
+                        self.main = true // pincode 없으면 앱 보호 안하겠다는 것
+                    }
                 }
             default: break
             }
