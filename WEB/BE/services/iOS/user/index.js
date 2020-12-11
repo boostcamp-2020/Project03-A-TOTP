@@ -26,6 +26,10 @@ const userService = {
   async updateDateTimeByNow({ idx }) {
     await User.update({ last_update: Date.now() }, { where: { idx } });
   },
+
+  async updateDateTime({ lastUpdate, idx }) {
+    await User.update({ last_update: lastUpdate }, { where: { idx } });
+  },
 };
 
 module.exports = userService;

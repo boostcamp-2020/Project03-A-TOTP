@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 4px;
   padding: 0.5rem 0;
+  z-index: 1;
 `;
 
 const Button = styled.button`
@@ -23,6 +24,7 @@ const Button = styled.button`
   background-color: transparent;
   text-align: left;
   padding: 0.5rem;
+  font-size: ${({ theme }) => theme.fontSize.md};
 
   &:hover {
     background-color: ${({ theme }) => theme.color.border};

@@ -33,6 +33,8 @@ const authController = {
 
     if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
 
+    if (!user.is_verified) return next(createError(400, '이메일 인증이 필요합니다.'));
+
     const token = JWT.sign({ id, action: ACIONS.LOGIN }, process.env.ENCRYPTIONKEY, {
       expiresIn: TEN_MINUTES,
     });
@@ -153,6 +155,8 @@ const authController = {
   async logout(req, res, next) {
     req.session.destroy((err) => {
       if (err) next(createError(err));
+      // eslint-disable-next-line no-unused-expressions
+      req.session;
       res.clearCookie('csrfToken');
       res.clearCookie('connect.sid');
       res.json({ result: true });
