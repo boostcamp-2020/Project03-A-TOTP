@@ -93,9 +93,9 @@ final class TokenService: TokenServiceable {
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
+        _ = storageManager.storeTokens(tokens)
         if tokens.count == 0 { return }
         updateMainWithFirstToken()
-        _ = storageManager.storeTokens(tokens)
     }
     
     func removeToken(_ id: UUID) {
