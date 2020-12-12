@@ -26,11 +26,11 @@ struct TokenCellView: View {
          checkBoxMode: Binding<Bool>,
          isSelected: Bool?,
          refreshAction: (() -> Void)? = nil) {
-        
-        viewModel = AnyViewModel(TokenCellViewModel(service: service,
-                                                    token: token,
-                                                    isMainCell: isMain,
-                                                    refreshAction: refreshAction))
+        viewModel = AnyViewModel(
+            TokenCellViewModel(service: service,
+                               token: token,
+                               isMainCell: isMain,
+                               refreshAction: refreshAction))
         self.isMainCell = isMain
         self.isSelected = isSelected ?? false
         _checkBoxMode = checkBoxMode

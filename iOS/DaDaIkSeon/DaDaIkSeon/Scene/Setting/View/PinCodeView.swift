@@ -9,7 +9,7 @@ import SwiftUI
 
 // 아래 모드에 따라 다르게 화면 전환이 일어난다.
 enum PinCodeViewMode {
-    case auth(_ pincode: String)
+    case auth(_ pincode: String) // 취소 버튼 프레임
     case setup
     case delete(_ pincode: String)
 }
@@ -191,10 +191,11 @@ private extension NumberPad {
             } else if value == cancelButton {
                 switch pincodeViewMode {
                 case .auth:
-                    Text("")
+                    Text("취소")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
                         .foregroundColor(.pink1)
+                        .opacity(0)
                 default:
                     Text("취소")
                         .font(.system(size: 15))
