@@ -46,27 +46,17 @@ final class LoginViewModel: ViewModel {
 private extension LoginViewModel {
     
     func changeCheckEmailText(_ emailText: String) {
-        state.checkEmailText = checkEmailStyle(emailText) ? "" : "올바르지 않은 이메일 형식입니다"
+        state.checkEmailText
+            = emailText.checkStyle(type: .email) ? "" : "올바르지 않은 이메일 형식입니다"
     }
     
     func changeCheckCodeText(_ codeText: String) {
-        state.checkCodeText = checkCodeStyle(codeText) ? "" : "6자리의 코드를 입력하세요(영문 대/소문자, 숫자)"
-    }
-    
-    func checkEmailStyle(_ emailText: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: emailText)
-    }
-    
-    func checkCodeStyle(_ codeText: String) -> Bool {
-        let codeRegEx = "[A-Z0-9a-z]{6}"
-        let codeTest = NSPredicate(format: "SELF MATCHES %@", codeRegEx)
-        return codeTest.evaluate(with: codeText)
+        state.checkCodeText
+            = codeText.checkStyle(type: .code)  ? "" : "6자리의 코드를 입력하세요(영문 대/소문자, 숫자)"
     }
     
     func sendAuthEmail(_ emailText: String) {
-        if !checkEmailStyle(emailText) {
+        if !emailText.checkStyle(type: .email) {
             print("올바르지 않아서 보낼 수 없어")
         } else {
             state.service.sendEmail(email: emailText)
@@ -75,7 +65,7 @@ private extension LoginViewModel {
     }
     
     func sendAuthCode(_ codeText: String, device: Device) {
-        if !checkCodeStyle(codeText) {
+        if !codeText.checkStyle(type: .code) {
             print("코드가 달라..")
         } else {
             state.service.requestAuthentication(code: codeText, device: device)
