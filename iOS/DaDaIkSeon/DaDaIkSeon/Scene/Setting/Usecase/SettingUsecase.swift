@@ -15,6 +15,7 @@ struct SettingState {
     
     var authEditMode: Bool
     
+    var backupToggle: Bool
     var backupPasswordEditMode: Bool
     var backupPasswordEditCheckMode: Bool
     
@@ -59,7 +60,6 @@ enum SettingEditErrorMessage: String {
 extension SettingView {
     
     final class SettingTransition: ObservableObject {
-        @Published var backupToggle: Bool = false
         @Published var multiDeviceToggle: Bool = false
         @Published var newEmail: String = ""
         @Published var newPassword: String = ""

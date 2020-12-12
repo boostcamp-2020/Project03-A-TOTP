@@ -21,6 +21,7 @@ class SettingViewModel: ViewModel {
             emailEditMode: false,
             emailValidation: true,
             authEditMode: false,
+            backupToggle: false,
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
             editErrorMessage: .none,
@@ -48,8 +49,14 @@ class SettingViewModel: ViewModel {
                 state.emailValidation = false
             }
         case .backupToggle:
-            state.service.updateBackupMode()
-            
+            //state.service.updateBackupMode()
+            if state.backupToggle {
+                // off 로 가기 - 끄기
+                
+            } else {
+                // on으로 가기 - 켜기
+                
+            }
         case .editBackupPasswordMode:
             state.backupPasswordEditMode.toggle()
             state.backupPasswordEditCheckMode = false

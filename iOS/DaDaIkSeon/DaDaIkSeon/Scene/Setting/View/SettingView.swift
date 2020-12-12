@@ -68,7 +68,6 @@ struct SettingView: View {
                         viewModel.trigger(.editAuthMode)
                     }
                 }
-                
                 if viewModel.state.authEditMode {
                     HStack {
                         Text("FaceID/TouchID")
@@ -89,12 +88,10 @@ struct SettingView: View {
             SettingGridView(title: "백업 관리", titleColor: .white) {
                 SettingRow(title: "백업 사용하기",
                            isLast: false) {
-                    Toggle(isOn: $stateManager.backupToggle, label: {
-                        Text("")
-                    })
-                    .onChange(of: stateManager.backupToggle, perform: { _ in
-                        viewModel.trigger(.backupToggle)
-                    })
+                    SettingToggleView(isOn: $viewModel.state.backupToggle)
+                        .onTapGesture {
+                            viewModel.trigger(.backupToggle)
+                        }
                 }
                 
                 SettingRow(
