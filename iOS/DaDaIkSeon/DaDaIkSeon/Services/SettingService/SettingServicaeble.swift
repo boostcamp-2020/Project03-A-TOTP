@@ -22,7 +22,7 @@ protocol SettingServiceable {
     func readBackupPassword() -> String?
     func updateBackupPassword(_ password: String)
     
-    func updateMultiDeviceMode()
+    func updateMultiDeviceMode(_ isOn: Bool, completion: () -> Void)
     
     func readDevice() -> [Device]?
     func updateDevice(_ newDevice: Device)

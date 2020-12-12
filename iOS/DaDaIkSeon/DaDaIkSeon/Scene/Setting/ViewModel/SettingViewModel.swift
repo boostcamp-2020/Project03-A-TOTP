@@ -25,6 +25,7 @@ class SettingViewModel: ViewModel {
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
             editErrorMessage: .none,
+            deviceToggle: false,
             deviceID: "",
             deviceInfoMode: false,
             devices: devices
@@ -91,7 +92,19 @@ class SettingViewModel: ViewModel {
             
         // MARK: MultiDevice
         case .multiDeviceToggle:
-            state.service.updateMultiDeviceMode()
+            if state.deviceToggle {
+                state.service.updateMultiDeviceMode(false) {
+                    DispatchQueue.main.async {
+                        self.state.deviceToggle = false
+                    }
+                }
+            } else {
+                state.service.updateMultiDeviceMode(true) {
+                    DispatchQueue.main.async {
+                        self.state.deviceToggle = true
+                    }
+                }
+            }
         case .editDevice(let device):
             guard let name = device.name else { return }
             if name.count > 3 {

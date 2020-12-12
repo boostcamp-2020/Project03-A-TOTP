@@ -13,10 +13,10 @@ extension SettingView {
         
         SettingGridView(title: "기기 관리", titleColor: .white) {
             SettingRow(title: "여러 기기 사용하기", isLast: false) {
-                Toggle(isOn: $stateManager.multiDeviceToggle, label: {Text("")})
-                    .onChange(of: stateManager.multiDeviceToggle, perform: { _ in
+                SettingToggleView(isOn: $viewModel.state.deviceToggle)
+                    .onTapGesture {
                         viewModel.trigger(.multiDeviceToggle)
-                    })
+                    }
             }
             ForEach(viewModel.state.devices, id: \.udid) { device in
                 SettingRow(

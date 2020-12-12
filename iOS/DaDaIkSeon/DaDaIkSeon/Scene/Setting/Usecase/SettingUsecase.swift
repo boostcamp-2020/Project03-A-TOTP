@@ -21,6 +21,7 @@ struct SettingState {
     
     var editErrorMessage: SettingEditErrorMessage
     
+    var deviceToggle: Bool
     var deviceID: String
     var deviceInfoMode: Bool
     
@@ -60,7 +61,6 @@ enum SettingEditErrorMessage: String {
 extension SettingView {
     
     final class SettingTransition: ObservableObject {
-        @Published var multiDeviceToggle: Bool = false
         @Published var newEmail: String = ""
         @Published var newPassword: String = ""
         @Published var newPasswordCheck: String = ""
