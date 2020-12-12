@@ -20,7 +20,7 @@ class BackupPasswordManager {
     }()
     
     @discardableResult
-    func storePincode(_ password: String) -> Bool {
+    func storePassword(_ password: String) -> Bool {
         guard let data = try? JSONEncoder().encode(password),
               let service = service else { return false }
         
@@ -28,11 +28,11 @@ class BackupPasswordManager {
                                       kSecAttrService: service,
                                       kSecAttrAccount: account,
                                       kSecAttrGeneric: data]
-        deletePincode()
+        deletePassword()
         return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
     }
     
-    func loadPincode() -> String? {
+    func loadPassword() -> String? {
         guard let service = service else { return nil }
         let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
                                       kSecAttrService: service,
@@ -52,7 +52,7 @@ class BackupPasswordManager {
     }
     
     @discardableResult
-    func deletePincode() -> Bool {
+    func deletePassword() -> Bool {
         guard let query = query else { return false }
         return SecItemDelete(query as CFDictionary) == errSecSuccess
     }

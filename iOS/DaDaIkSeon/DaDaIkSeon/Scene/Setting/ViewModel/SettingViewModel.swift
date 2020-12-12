@@ -56,16 +56,19 @@ class SettingViewModel: ViewModel {
                 state.backupToggle = false
             } else {
                 // 백업 비밀번호가 내장되어 있으면 바로 true 요청.
-                
-                
-                state.backupToggle = true
+                if nil != state.service.readBackupPassword() {
+                    state.backupToggle = true
+                } else { // 없으면 새로 생성후 로컬에 저장한 다음에 네트워크 요청
+                    // alert로 비밀번호를 설정해야한다고 알려야 한다.
+                    trigger(.editBackupPasswordMode)
+                }
             }
         case .editBackupPasswordMode:
             state.backupPasswordEditMode.toggle()
             state.backupPasswordEditCheckMode = false
             state.editErrorMessage = .none
         case .editBackupPassword(let password):
-            if password.count > 5 {
+            if check(password: password) {
                 state.service.updateBackupPassword(password)
                 state.backupPasswordEditMode = false
                 state.backupPasswordEditCheckMode = true
@@ -79,6 +82,9 @@ class SettingViewModel: ViewModel {
                 state.service.updateBackupPassword(last)
                 state.backupPasswordEditCheckMode = false
                 state.editErrorMessage = .none
+                if backupToggleGoingToOn() {
+                    state.backupToggle = true
+                }
             } else {
                 state.editErrorMessage = .different
             }
@@ -111,11 +117,19 @@ class SettingViewModel: ViewModel {
         case .editAuthMode:
             state.authEditMode.toggle()
         case .protectDaDaIkSeon(let pincode):
-            state.service.createPincde(pincode)
-            print("protectTokens \(pincode)")
+            state.service.createPincde(pincode) // 네트워크랑 상관 무
         case .liberateDaDaIkSeon:
             state.service.deletePincode()
-            print("liberateDaDaIkSeon")
         }
+    }
+}
+
+extension SettingViewModel {
+    func check(password: String) -> Bool {
+        password.count > 5
+    }
+    
+    func backupToggleGoingToOn() -> Bool {
+        state.backupToggle == false
     }
 }

@@ -19,6 +19,7 @@ protocol SettingServiceable {
     func updateEmail(_ email: String)
     
     func updateBackupMode()
+    func readBackupPassword() -> String?
     func updateBackupPassword(_ password: String)
     
     func updateMultiDeviceMode()
