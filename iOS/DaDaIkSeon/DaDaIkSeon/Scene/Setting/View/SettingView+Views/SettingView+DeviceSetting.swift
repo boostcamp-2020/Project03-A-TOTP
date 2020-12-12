@@ -40,7 +40,7 @@ extension SettingView {
                         TextField(device.name ?? "", text: $stateManager.newDeviceName)
                         Divider()
                         Button(action: {
-                            viewModel.trigger(.deleteDevice(device.udid ?? ""))
+                            viewModel.trigger(.deleteDevice(device.udid ?? "", UIDevice.current.model))
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })

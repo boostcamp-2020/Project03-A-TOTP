@@ -116,9 +116,13 @@ class SettingViewModel: ViewModel {
             } else {
                 state.editErrorMessage = .stringSize
             }
-        case .deleteDevice(let deviceID): break
-            // alert 띄워서 확인 후 삭제
-            //state.service.deleteDevice(deviceID)
+        case .deleteDevice(let deviceID, let myDeviceID):
+            if deviceID != myDeviceID {
+                // alert 띄워서 확인 후 삭제해주기
+                state.service.deleteDevice(deviceID)
+            } else {
+                
+            }
         case .deviceInfoMode(let udid):
             state.deviceInfoMode.toggle()
             state.editErrorMessage = .none
