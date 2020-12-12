@@ -79,11 +79,11 @@ struct TokenInfoViews: View {
                 .frame(height: 50)
             Text(name)
                 .foregroundColor(.white)
-                .font(.system(size: 11))
+                .font(.system(size: 13))
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .frame(
-                    width: 90,
+                    width: 110,
                     alignment: .center)
             (Text(password.prefix(3))
                 + Text(" ")
