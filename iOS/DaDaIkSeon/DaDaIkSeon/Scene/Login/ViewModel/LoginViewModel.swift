@@ -54,7 +54,9 @@ private extension LoginViewModel {
     }
     
     func checkEmailStyle(_ emailText: String) -> Bool {
-        return emailText.count > 3
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: emailText)
     }
     
     func checkCodeStyle(_ codeText: String) -> Bool {
