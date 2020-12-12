@@ -33,9 +33,9 @@ class SettingViewModel: ViewModel {
   
     func trigger(_ input: SettingInput) {
         switch input {
-        case .refresh:
+        case .refresh: // onAppear에서 호출
             state.service.refresh()
-            print("refresh")
+        // MARK: Email
         case .editEmailMode:
             state.emailEditMode.toggle()
             state.emailValidation = true
@@ -48,14 +48,17 @@ class SettingViewModel: ViewModel {
             } else {
                 state.emailValidation = false
             }
+            
+        // MARK: Backup
         case .backupToggle:
             //state.service.updateBackupMode()
             if state.backupToggle {
-                // off 로 가기 - 끄기
-                
+                state.backupToggle = false
             } else {
-                // on으로 가기 - 켜기
+                // 백업 비밀번호가 내장되어 있으면 바로 true 요청.
                 
+                
+                state.backupToggle = true
             }
         case .editBackupPasswordMode:
             state.backupPasswordEditMode.toggle()
@@ -79,10 +82,10 @@ class SettingViewModel: ViewModel {
             } else {
                 state.editErrorMessage = .different
             }
+            
+        // MARK: MultiDevice
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode()
-            print("multiDeviceToggle")
-            
         case .editDevice(let device):
             guard let name = device.name else { return }
             if name.count > 3 {

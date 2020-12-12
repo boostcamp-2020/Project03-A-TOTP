@@ -80,6 +80,7 @@
 		88938A592585388400D3945C /* SettingView+DeviceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A582585388400D3945C /* SettingView+DeviceSetting.swift */; };
 		88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */; };
 		88938A632585395600D3945C /* SettingView+MyInfoSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */; };
+		88938A6C2585474D00D3945C /* BackupPasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A6B2585474D00D3945C /* BackupPasswordManager.swift */; };
 		88973B842582AD0C00723384 /* PincodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88973B832582AD0C00723384 /* PincodeManager.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
@@ -192,6 +193,7 @@
 		88938A582585388400D3945C /* SettingView+DeviceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+DeviceSetting.swift"; sourceTree = "<group>"; };
 		88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+BackupSetting.swift"; sourceTree = "<group>"; };
 		88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+MyInfoSetting.swift"; sourceTree = "<group>"; };
+		88938A6B2585474D00D3945C /* BackupPasswordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPasswordManager.swift; sourceTree = "<group>"; };
 		88973B832582AD0C00723384 /* PincodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeManager.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewWrapper.swift; sourceTree = "<group>"; };
@@ -610,7 +612,6 @@
 				883C2150257E71680094FFAA /* SettingView.swift */,
 				88938A572585385000D3945C /* SettingView+Views */,
 				88AA33D9257F6F44008F02F5 /* SettingViewComponents */,
-				88938A3E25850D3400D3945C /* SettingToggleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -638,6 +639,7 @@
 		88937017256CFB6500337E2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				88938A6A2585471A00D3945C /* KeyChain */,
 				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
 				7CF48DD72572B775001E3639 /* ViewModel.swift */,
 				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
@@ -656,16 +658,25 @@
 		88938A572585385000D3945C /* SettingView+Views */ = {
 			isa = PBXGroup;
 			children = (
-				88938A582585388400D3945C /* SettingView+DeviceSetting.swift */,
-				88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */,
 				88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */,
+				88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */,
+				88938A582585388400D3945C /* SettingView+DeviceSetting.swift */,
 			);
 			path = "SettingView+Views";
+			sourceTree = "<group>";
+		};
+		88938A6A2585471A00D3945C /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				88938A6B2585474D00D3945C /* BackupPasswordManager.swift */,
+			);
+			path = KeyChain;
 			sourceTree = "<group>";
 		};
 		88AA33D9257F6F44008F02F5 /* SettingViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				88938A3E25850D3400D3945C /* SettingToggleView.swift */,
 				889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */,
 				889F67D8257F455500CFFFB0 /* SettingGridView.swift */,
 				88B3C547257F59840048DA86 /* SettingRow.swift */,
@@ -1026,6 +1037,7 @@
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
 				7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */,
+				88938A6C2585474D00D3945C /* BackupPasswordManager.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
