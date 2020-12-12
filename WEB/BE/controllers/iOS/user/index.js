@@ -63,11 +63,6 @@ const userController = {
 
     res.json({
       message: '성공요',
-      user: {
-        email: user.email,
-        device: [...user.devices, createdDevice],
-        multiDevice: user.multi_device,
-      },
       data: { jwt },
     });
   },
