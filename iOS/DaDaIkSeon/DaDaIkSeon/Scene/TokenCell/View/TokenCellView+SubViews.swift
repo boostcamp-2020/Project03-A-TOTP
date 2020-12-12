@@ -54,7 +54,7 @@ struct CircularProgressBar: View {
                 .foregroundColor(Color.white)
             
             Circle()
-                .trim(from: 0.0, to: CGFloat(progressAmount / totalTime))
+                .trim(from: CGFloat(1 / (totalTime/progressAmount)), to: 1.0)
                 .stroke(style: StrokeStyle(
                             lineWidth: CGFloat(strokeWidth),
                             lineCap: .round,
