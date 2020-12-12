@@ -81,6 +81,7 @@
 		88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */; };
 		88938A632585395600D3945C /* SettingView+MyInfoSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */; };
 		88938A6C2585474D00D3945C /* BackupPasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A6B2585474D00D3945C /* BackupPasswordManager.swift */; };
+		88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A702585488900D3945C /* TokenCryptoManager.swift */; };
 		88973B842582AD0C00723384 /* PincodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88973B832582AD0C00723384 /* PincodeManager.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
@@ -194,6 +195,7 @@
 		88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+BackupSetting.swift"; sourceTree = "<group>"; };
 		88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+MyInfoSetting.swift"; sourceTree = "<group>"; };
 		88938A6B2585474D00D3945C /* BackupPasswordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPasswordManager.swift; sourceTree = "<group>"; };
+		88938A702585488900D3945C /* TokenCryptoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCryptoManager.swift; sourceTree = "<group>"; };
 		88973B832582AD0C00723384 /* PincodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeManager.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewWrapper.swift; sourceTree = "<group>"; };
@@ -639,14 +641,15 @@
 		88937017256CFB6500337E2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				88938A6A2585471A00D3945C /* KeyChain */,
 				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
 				7CF48DD72572B775001E3639 /* ViewModel.swift */,
 				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
 				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
+				88938A702585488900D3945C /* TokenCryptoManager.swift */,
 				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
 				7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */,
 				88973B832582AD0C00723384 /* PincodeManager.swift */,
+				88938A6A2585471A00D3945C /* LocalStorageManager */,
 				7CCDD28C256E45D000150565 /* Extensions */,
 				882E9A16257D0FD900B066F3 /* Util */,
 				7C661934256CCAF10028E7C6 /* Assets.xcassets */,
@@ -665,12 +668,12 @@
 			path = "SettingView+Views";
 			sourceTree = "<group>";
 		};
-		88938A6A2585471A00D3945C /* KeyChain */ = {
+		88938A6A2585471A00D3945C /* LocalStorageManager */ = {
 			isa = PBXGroup;
 			children = (
 				88938A6B2585474D00D3945C /* BackupPasswordManager.swift */,
 			);
-			path = KeyChain;
+			path = LocalStorageManager;
 			sourceTree = "<group>";
 		};
 		88AA33D9257F6F44008F02F5 /* SettingViewComponents */ = {
@@ -1050,6 +1053,7 @@
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
+				88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */,
 				88B3C548257F59840048DA86 /* SettingRow.swift in Sources */,
 				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,
