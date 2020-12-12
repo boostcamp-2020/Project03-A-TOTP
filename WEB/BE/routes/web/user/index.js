@@ -5,14 +5,183 @@ const userController = require('@/controllers/web/user');
 const { validator, reCAPTCHA, sessionAuthentication } = require('@middlewares');
 const { catchErrors } = require('@utils/util');
 
+/**
+ * @swagger
+ * /user:
+ *  post:
+ *    tags:
+ *      - log
+ *    summary: 회원가입
+ *    description: 회원가입
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - name: email
+ *      in: body
+ *      description: 이메일
+ *      type: string
+ *      required: true
+ *    - name: name
+ *      in: body
+ *      description: 이름
+ *      type: string
+ *      required: true
+ *    - name: birth
+ *      in: body
+ *      description: 생일
+ *      type: string
+ *      required: true
+ *    - name: phone
+ *      in: body
+ *      description: 핸드폰번호
+ *      type: string
+ *      required: true
+ *    - name: id
+ *      in: body
+ *      description: 아이디
+ *      type: string
+ *      required: true
+ *    - name: password
+ *      in: body
+ *      description: 비밀번호
+ *      type: string
+ *      required: true
+ *    responses:
+ *      200:
+ *        description: 인증 이메일 전송 성공, QR Code URL
+ *        schema:
+ *          type: object
+ *          properties:
+ *            result:
+ *              type: Object
+ *            url:
+ *              type: string
+ *      400:
+ *        description: Validation 에러
+ *      401:
+ *        description: csrf 에러
+ *      500:
+ *        description: 기타 에러
+ */
 router.post(
   '/',
   reCAPTCHA.verify,
   validator(['id', 'password', 'email', 'name', 'phone', 'birth']),
   catchErrors(userController.signUp)
 );
+
+/**
+ * @swagger
+ * /user/dup-email:
+ *  post:
+ *    tags:
+ *      - log
+ *    summary: 이메일 중복 체크
+ *    description: 이메일 중복 체크
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - name: email
+ *      in: body
+ *      description: 이메일
+ *      type: string
+ *      required: true
+ *    responses:
+ *      200:
+ *        description: 이메일 중복 체크 성공(유무 전달)
+ *        schema:
+ *          type: object
+ *          properties:
+ *            result:
+ *              type: boolean
+ *      401:
+ *        description: csrf 에러
+ *      500:
+ *        description: 기타 에러
+ */
 router.post('/dup-email', catchErrors(userController.dupEmail));
+
+/**
+ * @swagger
+ * /user/confirm-email:
+ *  post:
+ *    tags:
+ *      - log
+ *    summary: 이메일 인증
+ *    description: 회원가입 이메일 인증
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - name: user
+ *      in: query
+ *      description: 암호화된 유저정보
+ *      type: string
+ *      required: true
+ *    responses:
+ *      200:
+ *        description: 이메일 인증 성공
+ *        schema:
+ *          type: object
+ *          properties:
+ *            result:
+ *              type: boolean
+ *      400:
+ *        description: 이메일 인증 URL Timeout
+ *      401:
+ *        description: csrf 에러
+ *      500:
+ *        description: 기타 에러
+ */
 router.get('/confirm-email', catchErrors(userController.confirmEmail));
+
+/**
+ * @swagger
+ * /user/find-id:
+ *  post:
+ *    tags:
+ *      - log
+ *    summary: 회원가입
+ *    description: 회원가입
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - name: email
+ *      in: body
+ *      description: 이메일
+ *      type: string
+ *      required: true
+ *    - name: name
+ *      in: body
+ *      description: 이름
+ *      type: string
+ *      required: true
+ *    - name: birth
+ *      in: body
+ *      description: 생일
+ *      type: string
+ *      required: true
+ *    - name: phone
+ *      in: body
+ *    - name: reCaptchaToken
+ *      in: body
+ *      description: reCAPTCHA Token
+ *      type: string
+ *      required: true
+ *    responses:
+ *      200:
+ *        description: 아이디찾기 이메일 전송 성공
+ *        schema:
+ *          type: object
+ *          properties:
+ *            true:
+ *              type: boolean
+ *      400:
+ *        description: Validation 에러 또는 없는 사용자
+ *      401:
+ *        description: csrf 에러
+ *      500:
+ *        description: 기타 에러
+ */
 router.post(
   '/find-id',
   reCAPTCHA.verify,
