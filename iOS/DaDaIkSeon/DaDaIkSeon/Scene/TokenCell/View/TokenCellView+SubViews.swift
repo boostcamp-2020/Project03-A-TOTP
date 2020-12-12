@@ -24,9 +24,7 @@ struct TopButtonViews: View {
             Group {
                 if checkBoxMode {
                     isChecked ?
-                        Image(systemName: "checkmark.circle.fill")
-                        :Image(systemName: "circle")
-                    // TODO: 이미지 셋에 추가하기 
+                        Image.check : Image.emptyCircle
                 } else {
                     Button(
                         action: { action() },

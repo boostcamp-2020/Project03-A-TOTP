@@ -35,6 +35,8 @@ extension Image {
     static let delete = Image(systemName: "delete.left.fill")
     static let camera = Image(systemName: "camera.fill")
     static let dadaikseonQR = Image("dadaikseonQR")
+    static let check = Image(systemName: "checkmark.circle.fill")
+    static let emptyCircle = Image(systemName: "circle")
 }
 
 extension String {
