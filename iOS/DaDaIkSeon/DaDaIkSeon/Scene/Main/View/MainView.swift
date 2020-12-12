@@ -12,7 +12,7 @@ struct MainView: View {
     
     // MARK: ViewModel
     
-    @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
+    @StateObject var viewModel: AnyViewModel<MainState, MainInput>
     
     // MARK: Property
     
@@ -28,7 +28,7 @@ struct MainView: View {
     // MARK: Initialization
     
     init(service: TokenServiceable) {
-        viewModel = AnyViewModel(MainViewModel(service: service))
+        _viewModel = StateObject(wrappedValue: AnyViewModel(MainViewModel(service: service)))
     }
     
     // MARK: Body
@@ -139,7 +139,6 @@ struct MainView: View {
                             }
                         )
                 )
-                //.opacity(viewModel.state.tokenOnDrag == token ? 0.0 : 1.0)
             }
             
             if !viewModel.state.checkBoxMode {
