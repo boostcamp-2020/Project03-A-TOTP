@@ -12,8 +12,9 @@ interface UserInfo {
   reCaptchaToken: string;
 }
 
-export const confirmEmailAPI = (query: string): void => {
-  axios.get(`/api/user/confirm-email?user=${query}`);
+export const confirmEmailAPI = async (query: string): Promise<string> => {
+  const { data } = await axios.get(`/api/user/confirm-email?user=${query}`);
+  return data;
 };
 
 export const checkIDDuplicateAPI = async ({ id }: { id: string }): Promise<boolean> => {
