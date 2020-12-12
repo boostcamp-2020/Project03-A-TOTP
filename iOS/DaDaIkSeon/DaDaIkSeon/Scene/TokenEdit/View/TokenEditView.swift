@@ -14,7 +14,8 @@ struct TokenEditView: View {
     @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     @EnvironmentObject var navigationFlow: NavigationFlowObject
     
-    @State private var text = ""
+    @ObservedObject private var entry = Entry()
+//    @State private var text = ""
     @State private var showingAlert = false
     @State private var segmentedMode = 0
     
@@ -56,7 +57,7 @@ struct TokenEditView: View {
                         .cornerRadius(15)
                     
                     TextField(viewModel.state.token.name ?? "토큰이름을 입력하세요",
-                              text: $text)
+                              text: $entry.text)
                         .padding(6)
                         .font(.system(size: 15))
                         .foregroundColor(.black)
@@ -99,7 +100,7 @@ struct TokenEditView: View {
                 hideKeyboard()
             }
             .onAppear {
-                text = viewModel.state.token.name ?? ""
+                entry.text = viewModel.state.token.name ?? ""
             }
         }
         Spacer()
@@ -123,7 +124,7 @@ extension TokenEditView {
     
     var saveButton: some View {
         Button(action: {
-            showingAlert = text.isEmpty || text.count > 17
+            showingAlert = entry.text.isEmpty || entry.text.count > 17
             if !showingAlert {
                 dismiss()
                 addToken()
@@ -153,7 +154,7 @@ extension TokenEditView {
 extension TokenEditView {
     
     func addToken() {
-        viewModel.trigger(.changeName(text))
+        viewModel.trigger(.changeName(entry.text))
         viewModel.trigger(.addToken)
     }
     
@@ -184,6 +185,19 @@ struct AlertModifier: ViewModifier {
                       dismissButton: .default(Text("네")))
             }
     }
+}
+
+class Entry: ObservableObject {
+    
+    let characterLimit = 17
+    @Published var text = "" {
+        didSet {
+            if text.count > characterLimit && oldValue.count <= characterLimit {
+                text = oldValue
+            }
+        }
+    }
+    
 }
 
 struct TokenEditView_Previews: PreviewProvider {
