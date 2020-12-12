@@ -21,7 +21,7 @@ struct LoginView: View {
             let geometryHeight = geometry.size.height
             
             ZStack {
-                Image("background")
+                Image.DDISBackground
                     .resizable()
                     .frame(width: geometryWidth)
                     .aspectRatio(contentMode: .fit)

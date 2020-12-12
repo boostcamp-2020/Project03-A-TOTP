@@ -37,6 +37,7 @@ extension Image {
     static let dadaikseonQR = Image("dadaikseonQR")
     static let check = Image(systemName: "checkmark.circle.fill")
     static let emptyCircle = Image(systemName: "circle")
+    static let DDISBackground = Image("background")
 }
 
 extension String {
