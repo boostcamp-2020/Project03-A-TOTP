@@ -79,7 +79,7 @@ extension TokenCellViewModel {
     
     func momentOfSecondsChanged(seconds: Int, key: String) {
         if lastSecond != seconds {
-            if isMainCell { leftTime = "\(seconds)" }
+            if isMainCell { leftTime = "\(30 - seconds)" }
             if seconds == 0 {
                 password
                     = TOTPGenerator.generate(from: key) ?? "000000"
