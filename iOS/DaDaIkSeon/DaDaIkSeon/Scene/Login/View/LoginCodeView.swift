@@ -80,7 +80,12 @@ private extension LoginCodeView {
     }
     
     func authButtonDidTap() {
-        viewModel.trigger(.authButton(codeText))
+        let device = Device(name: UIDevice.current.name,
+                            udid: UIDevice.current.identifierForVendor?.uuidString,
+                            modelName: UIDevice.current.model,
+                            backup: false,
+                            lastUpdate: nil)
+        viewModel.trigger(.authButton(codeText, device: device))
     }
     
 }

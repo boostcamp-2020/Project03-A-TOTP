@@ -25,16 +25,14 @@ extension Requestable {
         request.httpMethod = endpoint.method.rawValue
         
         if let params = endpoint.params {
-            let jsonData = try? JSONSerialization.data(withJSONObject: params,
-                                                        options: .prettyPrinted)
-            
+            let jsonData = try? JSONSerialization.data(withJSONObject: params)
             let headers = [
                 "Content-Type": "application/json"
                 // 토큰 등등
             ]
             
-            request.allHTTPHeaderFields = headers
             request.httpBody = jsonData
+            request.allHTTPHeaderFields = headers
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in

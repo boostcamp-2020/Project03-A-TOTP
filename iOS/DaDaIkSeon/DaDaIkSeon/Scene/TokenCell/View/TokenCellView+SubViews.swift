@@ -24,9 +24,7 @@ struct TopButtonViews: View {
             Group {
                 if checkBoxMode {
                     isChecked ?
-                        Image(systemName: "checkmark.circle.fill")
-                        :Image(systemName: "circle")
-                    // TODO: 이미지 셋에 추가하기 
+                        Image.check : Image.emptyCircle
                 } else {
                     Button(
                         action: { action() },
@@ -81,11 +79,11 @@ struct TokenInfoViews: View {
                 .frame(height: 50)
             Text(name)
                 .foregroundColor(.white)
-                .font(.system(size: 11))
+                .font(.system(size: 13))
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .frame(
-                    width: 90,
+                    width: 110,
                     alignment: .center)
             (Text(password.prefix(3))
                 + Text(" ")

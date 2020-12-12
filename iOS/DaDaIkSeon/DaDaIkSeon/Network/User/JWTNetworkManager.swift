@@ -9,9 +9,9 @@ import Foundation
 
 final class JWTNetworkManager: Requestable {
     
-    typealias NetworkData = ResponseObject<String>
+    typealias NetworkData = ResponseObject<JWTToken>
     
-    var userEndpoint: UserEndpoint = .get
+    private var userEndpoint: UserEndpoint = .get
     
     func getJWTToken(code: String,
                      email: String,
@@ -26,7 +26,7 @@ final class JWTNetworkManager: Requestable {
             switch result {
             case .networkSuccess(let data):
                 guard let jwtToken = data.responseResult.data else { return }
-                completion(jwtToken)
+                completion(jwtToken.jwt)
             case .networkError(let error):
                 print(error)
             case .networkFail:

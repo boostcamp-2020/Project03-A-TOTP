@@ -37,8 +37,8 @@ final class LoginViewModel: ViewModel {
             changeIsEmailView()
         case .hideSendButton:
             state.isTyping = false
-        case .authButton(let code):
-            sendAuthCode(code)
+        case .authButton(let code, let device):
+            sendAuthCode(code, device: device)
         }
     }
 }
@@ -46,23 +46,17 @@ final class LoginViewModel: ViewModel {
 private extension LoginViewModel {
     
     func changeCheckEmailText(_ emailText: String) {
-        state.checkEmailText = checkEmailStyle(emailText) ? "" : "올바르지 않은 이메일 형식입니다"
+        state.checkEmailText
+            = emailText.checkStyle(type: .email) ? "" : "올바르지 않은 이메일 형식입니다"
     }
     
     func changeCheckCodeText(_ codeText: String) {
-        state.checkCodeText = checkCodeStyle(codeText) ? "" : "6자리수를 입력하세요"
-    }
-    
-    func checkEmailStyle(_ emailText: String) -> Bool {
-        return emailText.count > 3
-    }
-    
-    func checkCodeStyle(_ codeText: String) -> Bool {
-        return codeText.count == 6
+        state.checkCodeText
+            = codeText.checkStyle(type: .code)  ? "" : "6자리의 코드를 입력하세요(영문 대/소문자, 숫자)"
     }
     
     func sendAuthEmail(_ emailText: String) {
-        if !checkEmailStyle(emailText) {
+        if !emailText.checkStyle(type: .email) {
             print("올바르지 않아서 보낼 수 없어")
         } else {
             state.service.sendEmail(email: emailText)
@@ -70,11 +64,11 @@ private extension LoginViewModel {
         }
     }
     
-    func sendAuthCode(_ codeText: String) {
-        if !checkCodeStyle(codeText) {
+    func sendAuthCode(_ codeText: String, device: Device) {
+        if !codeText.checkStyle(type: .code) {
             print("코드가 달라..")
         } else {
-            state.service.requestAuthentication(code: codeText)
+            state.service.requestAuthentication(code: codeText, device: device)
         }
     }
     
