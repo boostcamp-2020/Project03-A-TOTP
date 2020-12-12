@@ -70,34 +70,15 @@ struct SettingView: View {
                 }
                 
                 if viewModel.state.authEditMode {
-                    
                     HStack {
                         Text("FaceID/TouchID")
                         Spacer()
                         Button(action: {
-                            if stateManager.faceIDToggle {
-                                BiometricIDAuth().authenticateUser { result in
-                                    if result == nil {
-                                        DispatchQueue.main.async {
-                                            viewModel.trigger(.liberateDaDaIkSeon)
-                                            stateManager.faceIDToggle.toggle()
-                                        }
-                                    } else {
-                                        if result != "You pressed cancel." {
-                                            DispatchQueue.main.async {
-                                                stateManager.pinCodeSetting = true
-                                            }
-                                        }// 생체 인식 불가 또는 실패
-                                    }
-                                }
-                            } else {
-                                stateManager.pinCodeSetting = true
-                            }
+                            stateManager.pinCodeSetting = true
                         }, label: {
-                            Toggle(isOn: $stateManager.faceIDToggle, label: {
-                            }).disabled(true).opacity(1.0)
+                            SettingToggleView(isOn: $stateManager.faceIDToggle)
                         })
-                    } // TODO: on/off 텍스트로 하면 안되는지? 토글 disable은 투명이라서ㅠㅠ
+                    }
                     Divider().opacity(0)
                 }
             }
