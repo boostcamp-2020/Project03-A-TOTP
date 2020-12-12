@@ -50,7 +50,7 @@ private extension LoginViewModel {
     }
     
     func changeCheckCodeText(_ codeText: String) {
-        state.checkCodeText = checkCodeStyle(codeText) ? "" : "6자리수를 입력하세요"
+        state.checkCodeText = checkCodeStyle(codeText) ? "" : "6자리의 코드를 입력하세요(영문 대/소문자, 숫자)"
     }
     
     func checkEmailStyle(_ emailText: String) -> Bool {
@@ -60,7 +60,9 @@ private extension LoginViewModel {
     }
     
     func checkCodeStyle(_ codeText: String) -> Bool {
-        return codeText.count == 6
+        let codeRegEx = "[A-Z0-9a-z]{6}"
+        let codeTest = NSPredicate(format: "SELF MATCHES %@", codeRegEx)
+        return codeTest.evaluate(with: codeText)
     }
     
     func sendAuthEmail(_ emailText: String) {
@@ -93,3 +95,4 @@ private extension LoginViewModel {
     }
     
 }
+
