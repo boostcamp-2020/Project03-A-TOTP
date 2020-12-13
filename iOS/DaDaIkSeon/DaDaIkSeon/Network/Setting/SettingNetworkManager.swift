@@ -35,8 +35,12 @@ final class SettingNetworkManager: Requestable {
                                                             isBackup: backup)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion()
+            case .networkSuccess(let data):
+                if data.responseCode / 100 == 2 {
+                    completion()
+                } else {
+                    print(data.responseCode)
+                }
             case .networkError(let error):
                 print(error)
             case .networkFail:

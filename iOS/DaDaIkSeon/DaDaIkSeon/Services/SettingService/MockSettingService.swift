@@ -36,12 +36,10 @@ class MockSettingService: SettingServiceable {
         user.email = email
     }
     
-    func updateBackupMode() { //  네트워크 요청
-//        self.user.backup?.toggle()
-        //networkManager.changeBackupMode(udid: <#T##String#>, backup: <#T##Bool#>, completion: <#T##() -> Void#>)
-        // uuid는 service에서 알 수 있는 정보
-        // backup은 updateBackupMode에서 넣어줘야?
-        // 그냥 토글 해서 넣어주면 될듯!
+    func updateBackupMode(_ udid: String, backup: Bool, updateView: @escaping  () -> Void) {
+        networkManager.changeBackupMode(udid: udid, backup: backup) {
+            updateView()
+        }
     }
     
     func readBackupPassword() -> String? {

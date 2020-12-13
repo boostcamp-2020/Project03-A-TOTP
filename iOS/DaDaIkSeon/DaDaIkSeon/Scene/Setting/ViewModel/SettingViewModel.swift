@@ -55,13 +55,20 @@ class SettingViewModel: ViewModel {
         // MARK: Backup
         case .backupToggle:
             if state.backupToggle {
-                state.backupToggle = false
+                state.service.updateBackupMode(currentUDID, backup: true) {
+                    DispatchQueue.main.async {
+                        self.state.backupToggle = false
+                    }
+                }
             } else {
                 // 백업 비밀번호가 내장되어 있으면 바로 true 요청.
                 if nil != state.service.readBackupPassword() {
-                    state.backupToggle = true
-                } else { // 없으면 새로 생성후 로컬에 저장한 다음에 네트워크 요청
-                    // alert로 비밀번호를 설정해야한다고 알려야 한다.
+                    state.service.updateBackupMode(currentUDID, backup: true) {
+                        DispatchQueue.main.async {
+                            self.state.backupToggle = true
+                        }
+                    }
+                } else {
                     trigger(.editBackupPasswordMode)
                 }
             }
@@ -85,8 +92,14 @@ class SettingViewModel: ViewModel {
                 state.backupPasswordEditCheckMode = false
                 state.editErrorMessage = .none
                 if backupToggleGoingToOn() {
-                    // 여기서 네트워크 ㄱ
-                    state.backupToggle = true
+                    
+                    
+                    
+                    state.service.updateBackupMode(currentUDID, backup: true) {
+                        DispatchQueue.main.async {
+                            self.state.backupToggle = true
+                        }
+                    }
                 }
             } else {
                 state.editErrorMessage = .different
