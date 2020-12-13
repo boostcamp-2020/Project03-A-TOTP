@@ -14,11 +14,13 @@ final class LoginViewModel: ViewModel {
     @Published var state: LoginState
     
     init(service: LoginServiceable) {
+        let showEmailView = UserDefaults.standard.object(forKey: "isEmailView") as? Bool ?? true
+        print("showEmailView!!!! \(showEmailView)")
         state = LoginState(service: service,
                            checkEmailText: "",
                            checkCodeText: "",
                            isTyping: false,
-                           isEmailView: true)
+                           isEmailView: showEmailView)
     }
     
     // MARK: Methods
@@ -61,6 +63,7 @@ private extension LoginViewModel {
         } else {
             state.service.sendEmail(email: emailText)
             state.isEmailView = false
+            UserDefaults.standard.set(state.isEmailView, forKey: "isEmailView")
         }
     }
     
@@ -82,6 +85,7 @@ private extension LoginViewModel {
     
     func changeIsEmailView() {
         state.isEmailView = true
+        UserDefaults.standard.set(state.isEmailView, forKey: "isEmailView")
     }
     
 }

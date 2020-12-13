@@ -10,9 +10,9 @@ import SwiftUI
 @main
 struct DaDaIkSeonApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var root: DaDaIkSeonAppRootViews = .none
     @Environment(\.scenePhase) var scenePhase
-    let jwtToken = UserDefaults.standard.object(forKey: "JWTToken")
     
     var body: some Scene {
         
@@ -40,7 +40,6 @@ struct DaDaIkSeonApp: App {
                 LoginView(service: LoginService(), completion: {
                     root = .main
                 })
-                // 로그인 끝나면 메인으로.
             }
         }
         .onChange(of: scenePhase, perform: { newScenePhrase in
@@ -48,9 +47,7 @@ struct DaDaIkSeonApp: App {
             case .inactive:
                 DispatchQueue.main.async { root = .none }
             case .active:
-                // JWT가 있을 때 하는 로직 - JWT가 없으면 인증 화면으로!
-                // 로컬 인증 함수는 JWT가 있으면 실행되면 안된다.
-                if jwtToken == nil {
+                if JWTTokenStoreManager().load() == nil {
                     DispatchQueue.main.async { root = .login }
                 } else {
                     localAuthenticate()

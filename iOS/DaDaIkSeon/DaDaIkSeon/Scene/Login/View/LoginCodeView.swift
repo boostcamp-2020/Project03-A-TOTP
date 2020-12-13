@@ -86,8 +86,8 @@ private extension LoginCodeView {
                             modelName: UIDevice.current.model,
                             backup: false,
                             lastUpdate: nil)
-        viewModel.trigger(.authButton(codeText, device: device))
-        completion()
+        viewModel.trigger(.authButton(codeText,
+                                      device: device))
     }
     
 }

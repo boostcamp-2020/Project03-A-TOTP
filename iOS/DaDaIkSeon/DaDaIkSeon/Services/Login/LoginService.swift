@@ -26,12 +26,11 @@ final class LoginService: LoginServiceable {
     func requestAuthentication(code: String, device: Device) {
         guard let email = user.email else { return }
         JWTNetworkManager.shared.getJWTToken(code: code,
-                                    email: email,
-                                    device: device) { jwtToken in
-            print("토큰:\(jwtToken)") // 키체인에 저장해야함
-            UserDefaults.standard.set(jwtToken, forKey: "JWTToken") // 데이터 저장
+                                             email: email,
+                                             device: device) { jwtToken in
+            print("토큰:\(jwtToken)")
+            JWTTokenStoreManager().store(jwtToken)
         }
-        
     }
     
 }
