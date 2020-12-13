@@ -18,11 +18,15 @@ protocol SettingServiceable {
     func readEmail() -> String?
     func updateEmail(_ email: String)
     
-    func updateBackupMode(_ udid: String, backup: Bool, updateView: @escaping (SettingNetworkResult) -> Void)
+    func updateBackupMode(
+        _ udid: String, backup: Bool,
+        updateView: @escaping (SettingNetworkResult) -> Void)
     func readBackupPassword() -> String?
     func updateBackupPassword(_ password: String)
     
-    func updateMultiDeviceMode(_ isOn: Bool, completion: () -> Void)
+    func updateMultiDeviceMode(
+        _ isOn: Bool,
+        completion: @escaping (SettingNetworkResult) -> Void)
     
     func readDevice() -> [Device]?
     func updateDevice(_ newDevice: Device)
