@@ -23,6 +23,11 @@ extension SettingViewModel {
                 }
             }
         case .editBackupPasswordMode:
+            if state.backupPasswordEditCheckMode {
+                state.backupPasswordEditCheckMode = false
+                state.backupPasswordEditMode = false
+                return
+            }
             state.backupPasswordEditMode.toggle()
             state.backupPasswordEditCheckMode = false
             state.passwordErrorMessage = .none
