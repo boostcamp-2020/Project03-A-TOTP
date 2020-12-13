@@ -41,6 +41,8 @@ struct SettingViewWrapper<Content: View>: View {
                             }
                     })
                 )
+            
         }
+        .keyboardManagment()
     }
 }

@@ -22,7 +22,7 @@ struct SettingView: View {
         if nil != viewModel.state.service.pincode {
             stateManager.faceIDToggle = true
         }
-        // 이런식으로 다 초기화해줘야한다!
+        // 이런식으로 다 초기화해줘야한다! - 네트워크에서 받아온걸로!
     }
     
     var body: some View {
@@ -44,15 +44,15 @@ struct SettingView: View {
         })
         .fullScreenCover(isPresented: $stateManager.pinCodeSetting) {
             stateManager.faceIDToggle ?
-                            PinCodeView(
-                                mode: .delete(viewModel.state.service.pincode ?? "0000"),
-                                completion: { _ in
-                                    viewModel.trigger(.settingAuthMode(.liberateDaDaIkSeon))
-                                    stateManager.faceIDToggle.toggle()})
-                            :PinCodeView(mode: .setup, completion: { pincode in
-                                viewModel.trigger(.settingAuthMode(.protectDaDaIkSeon(pincode)))
-                                stateManager.faceIDToggle.toggle()
-                            })
+                PinCodeView(
+                    mode: .delete(viewModel.state.service.pincode ?? "0000"),
+                    completion: { _ in
+                        viewModel.trigger(.settingAuthMode(.liberateDaDaIkSeon))
+                        stateManager.faceIDToggle.toggle()})
+                :PinCodeView(mode: .setup, completion: { pincode in
+                    viewModel.trigger(.settingAuthMode(.protectDaDaIkSeon(pincode)))
+                    stateManager.faceIDToggle.toggle()
+                })
         }
         .background(Color(UIColor.systemGray6))
         .edgesIgnoringSafeArea(.bottom)
