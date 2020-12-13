@@ -55,19 +55,11 @@ class SettingViewModel: ViewModel {
         // MARK: Backup
         case .backupToggle:
             if state.backupToggle {
-                state.service.updateBackupMode(currentUDID, backup: true) {
-                    DispatchQueue.main.async {
-                        self.state.backupToggle = false
-                    }
-                }
+                updateBackupMode(false)
             } else {
                 // 백업 비밀번호가 내장되어 있으면 바로 true 요청.
                 if nil != state.service.readBackupPassword() {
-                    state.service.updateBackupMode(currentUDID, backup: true) {
-                        DispatchQueue.main.async {
-                            self.state.backupToggle = true
-                        }
-                    }
+                    updateBackupMode(true)
                 } else {
                     trigger(.editBackupPasswordMode)
                 }
@@ -92,14 +84,7 @@ class SettingViewModel: ViewModel {
                 state.backupPasswordEditCheckMode = false
                 state.editErrorMessage = .none
                 if backupToggleGoingToOn() {
-                    
-                    
-                    
-                    state.service.updateBackupMode(currentUDID, backup: true) {
-                        DispatchQueue.main.async {
-                            self.state.backupToggle = true
-                        }
-                    }
+                    updateBackupMode(true)
                 }
             } else {
                 state.editErrorMessage = .different
@@ -163,5 +148,24 @@ extension SettingViewModel {
     
     func backupToggleGoingToOn() -> Bool {
         state.backupToggle == false
+    }
+}
+
+extension SettingViewModel {
+    func updateBackupMode(_ mode: Bool) {
+        state.service.updateBackupMode(currentUDID, backup: mode) { result in
+            switch result {
+            case .result:
+                DispatchQueue.main.async {
+                    self.state.backupToggle = mode
+                }
+            case .dataParsingError:
+                break
+            case .messageError:
+                break
+            case .networkError:
+                break
+            }
+        }
     }
 }

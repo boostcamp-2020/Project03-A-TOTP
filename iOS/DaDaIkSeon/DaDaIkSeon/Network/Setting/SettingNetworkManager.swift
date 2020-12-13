@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum SettingNetworkResult: Error {
+    case result(_ data: String)
+    case messageError
+    case networkError
+    case dataParsingError
+}
+
 final class SettingNetworkManager: Requestable {
     
     typealias NetworkData = ResponseObject<String>
@@ -32,18 +39,23 @@ final class SettingNetworkManager: Requestable {
     
     func changeBackupMode(udid: String,
                           backup: Bool,
-                          completion: @escaping () -> Void) {
+                          completion: @escaping (SettingNetworkResult) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .patchBackup(udid: udid,
                                                             isBackup: backup)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
-                completion()
-            case .networkError(let error):
-                print(error)
+//                guard let resultData = data.responseResult.data else {
+//                    completion(.messageError)
+//                    return
+//                }
+                //completion(.result(resultData))
+                completion(.result(""))
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }
