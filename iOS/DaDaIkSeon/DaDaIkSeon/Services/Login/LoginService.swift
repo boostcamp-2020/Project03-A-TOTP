@@ -29,6 +29,7 @@ final class LoginService: LoginServiceable {
                                     email: email,
                                     device: device) { jwtToken in
             print("토큰:\(jwtToken)") // 키체인에 저장해야함
+            UserDefaults.standard.set(jwtToken, forKey: "JWTToken") // 데이터 저장
         }
         
     }

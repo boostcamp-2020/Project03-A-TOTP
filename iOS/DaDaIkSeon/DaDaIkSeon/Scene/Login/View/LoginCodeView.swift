@@ -13,6 +13,7 @@ struct LoginCodeView: View {
     
     @ObservedObject var viewModel: AnyViewModel<LoginState, LoginInput>
     @State private var codeText = ""
+    let completion: () -> Void
     
     var body: some View {
         VStack {
@@ -86,6 +87,7 @@ private extension LoginCodeView {
                             backup: false,
                             lastUpdate: nil)
         viewModel.trigger(.authButton(codeText, device: device))
+        completion()
     }
     
 }
