@@ -11,6 +11,9 @@ final class SettingNetworkManager: Requestable {
     
     typealias NetworkData = ResponseObject<String>
     
+    static let shared = SettingNetworkManager()
+    private init() {}
+    
     func changeEmail(email: String,
                      completion: @escaping () -> Void) {
         

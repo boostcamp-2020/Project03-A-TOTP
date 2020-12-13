@@ -13,6 +13,9 @@ final class UserNetworkManager: Requestable {
     
     private var userEndpoint: UserEndpoint = .get
     
+    static let shared = UserNetworkManager()
+    private init() {}
+    
     func load(completion: @escaping (DDISUser) -> Void) {
         userEndpoint = .get
         request(userEndpoint) { result in

@@ -13,6 +13,9 @@ final class JWTNetworkManager: Requestable {
     
     private var userEndpoint: UserEndpoint = .get
     
+    static let shared = JWTNetworkManager()
+    private init() {}
+    
     func getJWTToken(code: String,
                      email: String,
                      device: Device,

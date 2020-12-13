@@ -12,7 +12,6 @@ class MockSettingService: SettingServiceable {
     private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
     private var pincodeManager = PincodeManager()
     private var backupPasswordManager = BackupPasswordManager()
-    private var networkManager = SettingNetworkManager()
     
     init() {
         // user default에서 가져온 값과 서버에서 받아온 값을 비교해서 최신으로 load한다?
@@ -37,7 +36,7 @@ class MockSettingService: SettingServiceable {
     }
     
     func updateBackupMode(_ udid: String, backup: Bool, updateView: @escaping  () -> Void) {
-        networkManager.changeBackupMode(udid: udid, backup: backup) {
+        SettingNetworkManager.shared.changeBackupMode(udid: udid, backup: backup) {
             updateView()
         }
     }
@@ -54,7 +53,7 @@ class MockSettingService: SettingServiceable {
     }
     
     func updateMultiDeviceMode(_ isOn: Bool, completion: () -> Void) {
-        networkManager.changeMultiDevice(multiDevice: isOn, completion: {
+        SettingNetworkManager.shared.changeMultiDevice(multiDevice: isOn, completion: {
             // result를 매개변수로 받아서 여기서 처리해준다.
             //self.user.multiDevice?.toggle() 이걸 success에서 실행
             // completion 이것도 success에서 실행
