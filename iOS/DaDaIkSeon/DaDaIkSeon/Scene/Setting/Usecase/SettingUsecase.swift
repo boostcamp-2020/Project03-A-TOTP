@@ -23,7 +23,7 @@ struct SettingState {
     var editErrorMessage: SettingEditErrorMessage
     
     var deviceToggle: Bool
-    var deviceID: String
+    var selectedDeviceID: String
     var deviceInfoMode: Bool
     
     var devices: [Device]

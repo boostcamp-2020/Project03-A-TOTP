@@ -26,10 +26,8 @@ extension SettingViewModel {
                     print("networkError 실패")
                 }
             }
-
         case .editDevice(let device):
-            state.deviceInfoMode = false
-            state.deviceID = ""
+            state.selectedDeviceID = ""
             state.editErrorMessage = .none
             state.service.updateDevice(device)
             state.devices = state.service.readDevice() ?? Device.dummy()
@@ -41,12 +39,10 @@ extension SettingViewModel {
                 // alert 자기꺼는 삭제 못함 알려주기
             }
         case .deviceInfoMode(let udid):
-            state.deviceInfoMode.toggle()
-            state.editErrorMessage = .none
-            if state.deviceInfoMode {
-                state.deviceID = udid
+            if state.selectedDeviceID == udid {
+                state.selectedDeviceID = ""
             } else {
-                state.deviceID = ""
+                state.selectedDeviceID = udid
             }
         }
     }

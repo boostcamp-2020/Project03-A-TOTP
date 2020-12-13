@@ -37,13 +37,17 @@ extension SettingView {
                 if isSelectedDevice(deviceID: device.udid) {
                     
                     HStack {
+                        
                         TextField(device.name ?? "", text: $stateManager.newDeviceName.text)
+                        
                         Divider()
+                        
                         Button(action: {
                             viewModel.trigger(.settingMultiDevice(.deleteDevice(device.udid ?? "")))
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })
+                        
                         Button(action: {
                             var newDevice = device
                             newDevice.name = stateManager.newDeviceName.text
@@ -51,6 +55,7 @@ extension SettingView {
                         }, label: {
                             Text("확인").foregroundColor(Color.navy1)
                         })
+                        
                     }
                     
                     Text("\(viewModel.state.editErrorMessage.rawValue)")
@@ -84,8 +89,7 @@ extension SettingView {
     }
     
     func isSelectedDevice(deviceID: String?) -> Bool {
-        viewModel.state.deviceInfoMode
-            && viewModel.state.deviceID == deviceID
+        viewModel.state.selectedDeviceID == deviceID
     }
     
 }

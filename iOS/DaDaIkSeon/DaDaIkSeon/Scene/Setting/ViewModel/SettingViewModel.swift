@@ -28,7 +28,7 @@ class SettingViewModel: ViewModel {
             backupPasswordEditCheckMode: false,
             editErrorMessage: .none,
             deviceToggle: false,
-            deviceID: "",
+            selectedDeviceID: "",
             deviceInfoMode: false,
             devices: devices
         )
