@@ -46,24 +46,5 @@ final class UserNetworkManager: Requestable {
             }
         }
     }
-    
-//    func sendEmail(email: String,
-//                   completion: @escaping (DataResultType<String>) -> Void) {
-//
-//        userEndpoint = .postEmail(email: email)
-//        request(userEndpoint) { result in
-//            switch result {
-//            case .networkSuccess(let data):
-//                guard data.responseResult.data != nil else {
-//                    completion(.messageError)
-//                    return
-//                }
-//                completion(.result(""))
-//            case .networkError:
-//                completion(.dataParsingError)
-//            case .networkFail:
-//                completion(.networkError)
-//            }
-//        }
-//    }
+
 }

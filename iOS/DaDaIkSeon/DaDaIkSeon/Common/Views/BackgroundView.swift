@@ -12,15 +12,12 @@ struct BackgroundView: View {
         GeometryReader { reader in
             let width = reader.size.width
             let height = reader.size.height
-            Image.DDISBackground
-                .resizable()
-                .frame(width: width)
-                .aspectRatio(contentMode: .fit)
-                .edgesIgnoringSafeArea(.all)
             Image.logo.resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: width / 2)
+                .frame(width: width / 3)
                 .position(x: width / 2, y: height / 2)
         }
+        .background(Color.darkNavy)
+        .edgesIgnoringSafeArea(.all)
     }
 }

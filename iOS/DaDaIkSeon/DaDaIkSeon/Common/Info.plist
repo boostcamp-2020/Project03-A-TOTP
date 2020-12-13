@@ -35,8 +35,8 @@
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
-		<key>UIImageName</key>
-		<string>background</string>
+		<key>UIColorName</key>
+		<string>darkNavy</string>
 	</dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
