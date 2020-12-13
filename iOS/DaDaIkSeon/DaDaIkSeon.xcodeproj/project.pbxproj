@@ -96,6 +96,7 @@
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
 		88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */; };
 		88DAA8442572880A003E6A62 /* TOTPTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DAA8432572880A003E6A62 /* TOTPTimer.swift */; };
+		88EBF3652586062F00933D4E /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EBF3642586062F00933D4E /* Entry.swift */; };
 		88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */; };
 		8B3BF03307497E82800CB6D1 /* Pods_DaDaIkSeonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */; };
 		8FB143B0B01FA7993CFEAC9C /* Pods_DaDaIkSeon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */; };
@@ -217,6 +218,7 @@
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroTokenView.swift; sourceTree = "<group>"; };
 		88DAA8432572880A003E6A62 /* TOTPTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPTimer.swift; sourceTree = "<group>"; };
+		88EBF3642586062F00933D4E /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		88F0119325754ECC00054206 /* TokenCellView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenCellView+SubViews.swift"; sourceTree = "<group>"; };
 		90688457817CB7719705FC9F /* Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		981E93FC9FDFEEB9721B6608 /* Pods_DaDaIkSeon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -587,6 +589,7 @@
 			children = (
 				7CAE068525775E520051A1B5 /* NavigationLazyView.swift */,
 				882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */,
+				88EBF3642586062F00933D4E /* Entry.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1082,6 +1085,7 @@
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */,
+				88EBF3652586062F00933D4E /* Entry.swift in Sources */,
 				88B3C548257F59840048DA86 /* SettingRow.swift in Sources */,
 				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
 				7C661931256CCAED0028E7C6 /* DaDaIkSeonApp.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 class SettingViewModel: ViewModel {
     
     @Published var state: SettingState
-    private let currentUDID: String
+    let currentUDID: String
     
     init(udid: String) {
         currentUDID = udid

@@ -39,20 +39,20 @@ extension SettingView {
                 // 마찬가지로 off도 네트워크 통신이 되어야 on으로 설정 완료
                 
                 withAnimation {
-                    stateManager.newPassword = ""
-                    stateManager.newPasswordCheck = ""
+                    stateManager.newPassword.text = ""
+                    stateManager.newPasswordCheck.text = ""
                     viewModel.trigger(.settingBackup(.editBackupPasswordMode))
                 }
             }
             
             if viewModel.state.backupPasswordEditMode {
                 HStack {
-                    TextField("새 비밀번호를 입력해주세요.", text: $stateManager.newPassword)
+                    TextField("새 비밀번호를 입력해주세요.", text: $stateManager.newPassword.text)
                         .padding(.leading)
                     Divider()
                     Button(action: {
                         viewModel.trigger(
-                            .settingBackup(.editBackupPassword(stateManager.newPassword)))
+                            .settingBackup(.editBackupPassword(stateManager.newPassword.text)))
                     }, label: {
                         Text("확인").foregroundColor(Color.navy1)
                     })
@@ -61,13 +61,13 @@ extension SettingView {
                 Divider().opacity(0)
             } else if viewModel.state.backupPasswordEditCheckMode {
                 HStack {
-                    TextField("비밀번호를 한 번 더 입력해주세요.", text: $stateManager.newPasswordCheck)
+                    TextField("비밀번호를 한 번 더 입력해주세요.", text: $stateManager.newPasswordCheck.text)
                         .padding(.leading)
                     Divider()
                     Button(action: {
                         viewModel.trigger(.settingBackup(.checkPassword(
-                                                            stateManager.newPassword,
-                                                            stateManager.newPasswordCheck)))
+                                                            stateManager.newPassword.text,
+                                                            stateManager.newPasswordCheck.text)))
                     }, label: {
                         Text("확인").foregroundColor(Color.navy1)
                     })

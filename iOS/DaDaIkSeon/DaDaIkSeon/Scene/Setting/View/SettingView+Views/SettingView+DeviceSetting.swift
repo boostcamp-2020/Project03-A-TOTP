@@ -29,7 +29,7 @@ extension SettingView {
                 }
                 .onTapGesture {
                     withAnimation {
-                        stateManager.newDeviceName = ""
+                        stateManager.newDeviceName.text = ""
                         viewModel.trigger(.settingMultiDevice(.deviceInfoMode(device.udid ?? "")))
                     }
                 }
@@ -37,7 +37,7 @@ extension SettingView {
                 if isSelectedDevice(deviceID: device.udid) {
                     
                     HStack {
-                        TextField(device.name ?? "", text: $stateManager.newDeviceName)
+                        TextField(device.name ?? "", text: $stateManager.newDeviceName.text)
                         Divider()
                         Button(action: {
                             viewModel.trigger(.settingMultiDevice(.deleteDevice(device.udid ?? "")))
@@ -46,7 +46,7 @@ extension SettingView {
                         })
                         Button(action: {
                             var newDevice = device
-                            newDevice.name = stateManager.newDeviceName
+                            newDevice.name = stateManager.newDeviceName.text
                             viewModel.trigger(.settingMultiDevice(.editDevice(newDevice)))
                         }, label: {
                             Text("확인").foregroundColor(Color.navy1)

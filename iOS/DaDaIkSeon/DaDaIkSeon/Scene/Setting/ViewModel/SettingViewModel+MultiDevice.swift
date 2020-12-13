@@ -25,16 +25,11 @@ extension SettingViewModel {
                 }
             }
         case .editDevice(let device):
-            guard let name = device.name else { return }
-            if name.count > 3 {
-                state.deviceInfoMode = false
-                state.deviceID = ""
-                state.editErrorMessage = .none
-                state.service.updateDevice(device)
-                state.devices = state.service.readDevice() ?? Device.dummy()
-            } else {
-                state.editErrorMessage = .stringSize
-            }
+            state.deviceInfoMode = false
+            state.deviceID = ""
+            state.editErrorMessage = .none
+            state.service.updateDevice(device)
+            state.devices = state.service.readDevice() ?? Device.dummy()
         case .deleteDevice(let deviceID):
             if deviceID != currentUDID {
                 // alert 띄워서 확인 후 삭제해주기

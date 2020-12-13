@@ -17,18 +17,18 @@ extension SettingView {
             }
             .onTapGesture {
                 withAnimation {
-                    stateManager.newEmail = ""
+                    stateManager.newEmail.text = ""
                     viewModel.trigger(.settingEmail(.editEmailMode))
                 }
             }
             
             if viewModel.state.emailEditMode {
                 HStack {
-                    TextField(viewModel.state.email, text: $stateManager.newEmail)
+                    TextField(viewModel.state.email, text: $stateManager.newEmail.text)
                         .padding(.leading)
                     Divider()
                     Button(action: {
-                        viewModel.trigger(.settingEmail(.editEmail(stateManager.newEmail)))
+                        viewModel.trigger(.settingEmail(.editEmail(stateManager.newEmail.text)))
                     }, label: {
                         Text("변경하기").foregroundColor(Color.navy1)
                     })

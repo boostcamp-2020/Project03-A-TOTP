@@ -27,14 +27,14 @@ extension SettingViewModel {
             state.backupPasswordEditCheckMode = false
             state.editErrorMessage = .none
         case .editBackupPassword(let password):
-            if check(password: password) {
+            if password.checkStyle(type: .password) {
                 state.service.updateBackupPassword(password)
                 state.backupPasswordEditMode = false
                 state.backupPasswordEditCheckMode = true
                 state.editErrorMessage = .none
             } else {
                 state.backupPasswordEditCheckMode = false
-                state.editErrorMessage = .stringSize
+                state.editErrorMessage = .string
             }
         case .checkPassword(let last, let check):
             if last == check {
@@ -66,10 +66,6 @@ extension SettingViewModel {
                 break
             }
         }
-    }
-    
-    func check(password: String) -> Bool {
-        password.count > 5
     }
     
     func backupToggleGoingToOn() -> Bool {

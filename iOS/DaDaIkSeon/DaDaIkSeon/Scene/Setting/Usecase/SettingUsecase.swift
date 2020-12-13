@@ -68,17 +68,20 @@ enum SettingMultiDevice {
 
 enum SettingEditErrorMessage: String {
     case none = ""
-    case stringSize = "글자 수가 모자랍니다."
+    case string = "비밀번호 형식이 올바르지 않습니다.(대소문자, 숫자, 6~15자 사이)"
     case different = "입력한 비밀번호와 일치하지 않습니다."
 }
 
 extension SettingView {
     
     final class SettingTransition: ObservableObject {
-        @Published var newEmail: String = ""
-        @Published var newPassword: String = ""
-        @Published var newPasswordCheck: String = ""
-        @Published var newDeviceName: String = ""
+        
+        @Published var newEmail = Entry(limit: 20)
+        @Published var newPassword = Entry(limit: 15)
+        @Published var newPasswordCheck = Entry(limit: 15)
+        
+        @Published var newDeviceName = Entry(limit: 10)
+        
         @Published var faceIDToggle: Bool = false
         @Published var pinCodeSetting: Bool = false
     }
