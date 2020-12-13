@@ -43,7 +43,7 @@ extension SettingView {
                         Divider()
                         
                         Button(action: {
-                            viewModel.trigger(.settingMultiDevice(.deleteDevice(device.udid ?? "")))
+                            stateManager.deviceAlert = true
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })
@@ -59,13 +59,11 @@ extension SettingView {
                     }
                     
                     Text("\(viewModel.state.editErrorMessage.rawValue)")
+                        .font(.system(size: 10))
+                        .foregroundColor(Color.pink2)
                     
                     Divider()
-                    HStack {
-                        Text("디바이스 아이디:")
-                        Spacer()
-                        Text("\(device.udid ?? "")")
-                    }
+                    
                     HStack {
                         Text("모델 이름:")
                         Spacer()
@@ -77,11 +75,16 @@ extension SettingView {
         }
         .padding(.horizontal, 10)
         .padding(.top, 10)
-        .alert(isPresented: $stateManager.alert) {
-            Alert(title: Text(viewModel.state.alertMessage.rawValue))
-        }
-        .onChange(of: viewModel.state.alertMessage.rawValue, perform: { _ in
-            stateManager.alert = true
+        .alert(isPresented: $stateManager.deviceAlert, content: {
+            Alert(
+                title: Text("디바이스 삭제"),
+                message: Text("삭제한 디바이스를 다시 사용하고 싶으시다면 앱을 다시 설치하여야 합니다."),
+                primaryButton: .destructive(
+                    Text("삭제"), action: {
+                        withAnimation {
+                            viewModel.trigger(.settingMultiDevice(.deleteDevice))
+                        }}),
+                secondaryButton: .cancel(Text("취소")))
         })
     }
 
