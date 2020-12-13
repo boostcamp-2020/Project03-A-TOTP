@@ -15,7 +15,6 @@ final class LoginViewModel: ViewModel {
     
     init(service: LoginServiceable) {
         let showEmailView = UserDefaults.standard.object(forKey: "isEmailView") as? Bool ?? true
-        print("showEmailView!!!! \(showEmailView)")
         state = LoginState(service: service,
                            checkEmailText: "",
                            checkCodeText: "",
