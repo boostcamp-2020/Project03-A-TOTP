@@ -18,7 +18,7 @@ enum SettingEndpoint {
 extension SettingEndpoint: EndpointType {
     
     var path: String {
-        let basePath = baseUrl + "/app/user"
+        let basePath = baseUrl + "/user"
         
         switch self {
         case .patchEmail:

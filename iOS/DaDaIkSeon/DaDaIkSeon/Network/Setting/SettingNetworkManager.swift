@@ -36,11 +36,7 @@ final class SettingNetworkManager: Requestable {
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
-                if data.responseCode / 100 == 2 {
-                    completion()
-                } else {
-                    print(data.responseCode)
-                }
+                completion()
             case .networkError(let error):
                 print(error)
             case .networkFail:

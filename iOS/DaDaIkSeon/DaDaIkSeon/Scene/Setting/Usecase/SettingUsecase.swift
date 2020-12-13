@@ -9,6 +9,7 @@ import Foundation
 
 struct SettingState {
     var service: SettingServiceable
+    
     var email: String
     var emailEditMode: Bool
     var emailValidation: Bool
@@ -33,7 +34,6 @@ enum SettingInput {
     
     case editEmailMode
     case editEmail(_ email: String)
-    
     case editAuthMode
     
     case backupToggle
@@ -42,15 +42,26 @@ enum SettingInput {
     case checkPassword(_ last: String, _ check: String )
     
     case multiDeviceToggle
-    
     case deviceInfoMode(_ udid: String)
-    
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
     
     case protectDaDaIkSeon(_ pincode: String)
     case liberateDaDaIkSeon
 }
+
+enum SettingEmail {
+    
+}
+
+enum SettingBackup {
+    
+}
+
+enum SettingMultiDevice {
+    
+}
+
 
 enum SettingEditErrorMessage: String {
     case none = ""
