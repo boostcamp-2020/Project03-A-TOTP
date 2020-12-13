@@ -33,7 +33,9 @@ extension SettingView {
                         Text("변경하기").foregroundColor(Color.navy1)
                     })
                 }
-                Text( viewModel.state.emailValidation ? "" : "이메일 형식이 잘못되었습니다." )
+                
+                SettingErrorMessageView(viewModel.state.emailValidation ? "" : "이메일 형식이 잘못되었습니다.")
+                
                 Divider().opacity(0)
             }
             

@@ -39,6 +39,7 @@ extension SettingView {
                     HStack {
                         
                         TextField(device.name ?? "", text: $stateManager.newDeviceName.text)
+                            .ignoresSafeArea(.keyboard, edges: .bottom)
                         
                         Divider()
                         
@@ -59,14 +60,13 @@ extension SettingView {
                         
                     }
                     
-                    Text("\(viewModel.state.deviceErrorMessage.rawValue)")
-                        .font(.system(size: 10))
-                        .foregroundColor(Color.pink2)
+                    SettingErrorMessageView(viewModel.state.deviceErrorMessage.rawValue)
                     
                     Divider()
                     
                     HStack {
-                        Text("모델 이름:")
+                        Text("모델 이름").fontWeight(.bold)
+                        Divider()
                         Spacer()
                         Text("\(device.modelName ?? "")")
                     }

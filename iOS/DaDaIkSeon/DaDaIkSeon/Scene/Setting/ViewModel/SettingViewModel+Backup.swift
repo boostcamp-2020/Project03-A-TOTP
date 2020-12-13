@@ -10,7 +10,9 @@ import Foundation
 // MARK: Backup
 extension SettingViewModel {
     func handlerForBackupSetting(_ input: SettingBackup) {
+        
         switch input {
+        
         case .backupToggle:
             if state.backupToggle {
                 updateBackupMode(false)
@@ -22,6 +24,7 @@ extension SettingViewModel {
                     trigger(.settingBackup(.editBackupPasswordMode))
                 }
             }
+            
         case .editBackupPasswordMode:
             if state.backupPasswordEditCheckMode {
                 state.backupPasswordEditCheckMode = false
@@ -31,6 +34,7 @@ extension SettingViewModel {
             state.backupPasswordEditMode.toggle()
             state.backupPasswordEditCheckMode = false
             state.passwordErrorMessage = .none
+            
         case .editBackupPassword(let password):
             if password.checkStyle(type: .password) {
                 state.service.updateBackupPassword(password)
@@ -41,6 +45,7 @@ extension SettingViewModel {
                 state.backupPasswordEditCheckMode = false
                 state.passwordErrorMessage = .string
             }
+            
         case .checkPassword(let last, let check):
             if last == check {
                 state.service.updateBackupPassword(last)

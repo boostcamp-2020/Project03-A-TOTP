@@ -46,9 +46,9 @@ extension SettingView {
                         Text("확인").foregroundColor(Color.navy1)
                     })
                 }
-                Text( "\(viewModel.state.passwordErrorMessage.rawValue)" )
-                    .font(.system(size: 10))
-                    .foregroundColor(Color.pink2)
+                
+                SettingErrorMessageView(viewModel.state.passwordErrorMessage.rawValue)
+                
                 Divider().opacity(0)
                 
             } else if viewModel.state.backupPasswordEditCheckMode {
@@ -65,9 +65,7 @@ extension SettingView {
                     })
                 }
                 
-                Text( "\(viewModel.state.passwordErrorMessage.rawValue)" )
-                    .font(.system(size: 10))
-                    .foregroundColor(Color.pink2)
+                SettingErrorMessageView(viewModel.state.passwordErrorMessage.rawValue)
                 
                 Divider().opacity(0)
             }

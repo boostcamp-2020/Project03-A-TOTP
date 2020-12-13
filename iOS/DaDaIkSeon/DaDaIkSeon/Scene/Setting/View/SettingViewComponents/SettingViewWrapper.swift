@@ -20,29 +20,27 @@ struct SettingViewWrapper<Content: View>: View {
     }
     
     var body : some View {
-        VStack {
-            ScrollView {
-                destinationView
-                    .navigationBarHidden(false)
-                    .navigationTitle("설정")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(
-                        leading: Button(action: {
-                            mode.wrappedValue.dismiss()
-                        }, label: {
-                            Text("완료").foregroundColor(.black)
-                        }),
-                        trailing: Button(action: {
-                        }, label: {
-                            Image(systemName: "arrow.counterclockwise")
-                                .foregroundColor(.black)
-                                .onTapGesture {
-                                    action?()
-                                }
-                        })
-                    )
-            }
+        ScrollView {
+            destinationView
+                .navigationBarHidden(false)
+                .navigationTitle("설정")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(
+                    leading: Button(action: {
+                        mode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("완료").foregroundColor(.black)
+                    }),
+                    trailing: Button(action: {
+                    }, label: {
+                        Image(systemName: "arrow.counterclockwise")
+                            .foregroundColor(.black)
+                            .onTapGesture {
+                                action?()
+                            }
+                    })
+                )
         }
     }
 }
