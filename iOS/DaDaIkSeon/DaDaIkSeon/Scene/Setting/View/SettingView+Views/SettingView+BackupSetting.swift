@@ -34,6 +34,7 @@ extension SettingView {
             }
             
             if viewModel.state.backupPasswordEditMode {
+                
                 HStack {
                     TextField("새 비밀번호를 입력해주세요.", text: $stateManager.newPassword.text)
                         .padding(.leading)
@@ -45,8 +46,11 @@ extension SettingView {
                         Text("확인").foregroundColor(Color.navy1)
                     })
                 }
-                Text( "\(viewModel.state.editErrorMessage.rawValue)" )
+                Text( "\(viewModel.state.passwordErrorMessage.rawValue)" )
+                    .font(.system(size: 10))
+                    .foregroundColor(Color.pink2)
                 Divider().opacity(0)
+                
             } else if viewModel.state.backupPasswordEditCheckMode {
                 HStack {
                     TextField("비밀번호를 한 번 더 입력해주세요.", text: $stateManager.newPasswordCheck.text)
@@ -60,7 +64,11 @@ extension SettingView {
                         Text("확인").foregroundColor(Color.navy1)
                     })
                 }
-                Text( "\(viewModel.state.editErrorMessage.rawValue)" )
+                
+                Text( "\(viewModel.state.passwordErrorMessage.rawValue)" )
+                    .font(.system(size: 10))
+                    .foregroundColor(Color.pink2)
+                
                 Divider().opacity(0)
             }
             

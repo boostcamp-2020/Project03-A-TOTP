@@ -28,11 +28,11 @@ extension SettingViewModel {
             }
         case .editDevice(let device):
             if device.name?.count ?? 0 < 3 {
-                state.editErrorMessage = .deviceName
+                state.deviceErrorMessage = .deviceName
                 return
             }
             state.selectedDeviceID = ""
-            state.editErrorMessage = .none
+            state.deviceErrorMessage = .none
             state.service.updateDevice(device)
             state.devices = state.service.readDevice() ?? Device.dummy()
         case .deleteDevice:
@@ -40,10 +40,10 @@ extension SettingViewModel {
                 state.service.deleteDevice(state.selectedDeviceID)
                 //network
             } else {
-                state.editErrorMessage = .notDeleteDevice
+                state.deviceErrorMessage = .notDeleteDevice
             }
         case .deviceInfoMode(let udid):
-            state.editErrorMessage = .none
+            state.deviceErrorMessage = .none
             if state.selectedDeviceID == udid {
                 state.selectedDeviceID = ""
             } else {

@@ -47,7 +47,7 @@ extension SettingView {
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })
-                        
+                        Divider()
                         Button(action: {
                             var newDevice = device
                             newDevice.name = stateManager.newDeviceName.text
@@ -55,10 +55,11 @@ extension SettingView {
                         }, label: {
                             Text("확인").foregroundColor(Color.navy1)
                         })
+                        Divider()
                         
                     }
                     
-                    Text("\(viewModel.state.editErrorMessage.rawValue)")
+                    Text("\(viewModel.state.deviceErrorMessage.rawValue)")
                         .font(.system(size: 10))
                         .foregroundColor(Color.pink2)
                     

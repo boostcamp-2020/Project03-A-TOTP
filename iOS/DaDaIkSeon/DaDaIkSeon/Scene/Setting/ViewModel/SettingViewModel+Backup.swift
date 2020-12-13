@@ -25,28 +25,28 @@ extension SettingViewModel {
         case .editBackupPasswordMode:
             state.backupPasswordEditMode.toggle()
             state.backupPasswordEditCheckMode = false
-            state.editErrorMessage = .none
+            state.passwordErrorMessage = .none
         case .editBackupPassword(let password):
             if password.checkStyle(type: .password) {
                 state.service.updateBackupPassword(password)
                 state.backupPasswordEditMode = false
                 state.backupPasswordEditCheckMode = true
-                state.editErrorMessage = .none
+                state.passwordErrorMessage = .none
             } else {
                 state.backupPasswordEditCheckMode = false
-                state.editErrorMessage = .string
+                state.passwordErrorMessage = .string
             }
         case .checkPassword(let last, let check):
             if last == check {
                 state.service.updateBackupPassword(last)
                 state.backupPasswordEditCheckMode = false
-                state.editErrorMessage = .none
+                state.passwordErrorMessage = .none
                 // 토큰 update해줘야 함.
                 if backupToggleGoingToOn() {
                     updateBackupMode(true)
                 }
             } else {
-                state.editErrorMessage = .different
+                state.passwordErrorMessage = .different
             }
         }
     }
