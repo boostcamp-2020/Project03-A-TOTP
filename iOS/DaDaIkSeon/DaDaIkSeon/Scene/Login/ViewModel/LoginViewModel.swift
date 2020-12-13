@@ -57,9 +57,7 @@ private extension LoginViewModel {
     }
     
     func sendAuthEmail(_ emailText: String) {
-        if !emailText.checkStyle(type: .email) {
-            print("올바르지 않아서 보낼 수 없어")
-        } else {
+        if emailText.checkStyle(type: .email) {
             state.service.sendEmail(email: emailText)
             state.isEmailView = false
             UserDefaults.standard.set(state.isEmailView,
@@ -70,10 +68,7 @@ private extension LoginViewModel {
     func sendAuthCode(_ codeText: String,
                       device: Device,
                       completion: @escaping (String?) -> Void) {
-        
-        if !codeText.checkStyle(type: .code) {
-            print("코드가 달라..")
-        } else {
+        if codeText.checkStyle(type: .code) {
             state.service.requestAuthentication(code: codeText,
                                                 device: device,
                                                 completion: completion)
