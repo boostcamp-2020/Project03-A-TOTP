@@ -19,7 +19,7 @@ final class JWTNetworkManager: Requestable {
     func getJWTToken(code: String,
                      email: String,
                      device: Device,
-                     completion: @escaping(String) -> Void) {
+                     completion: @escaping(String?) -> Void) {
         
         userEndpoint = .postCode(code: code,
                                  email: email,
@@ -28,8 +28,7 @@ final class JWTNetworkManager: Requestable {
         request(userEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
-                guard let jwtToken = data.responseResult.data else { return }
-                completion(jwtToken.jwt)
+                completion(data.responseResult.data?.jwt)
             case .networkError(let error):
                 print(error)
             case .networkFail:

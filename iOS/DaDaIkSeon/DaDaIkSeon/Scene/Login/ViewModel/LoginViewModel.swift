@@ -69,7 +69,7 @@ private extension LoginViewModel {
     
     func sendAuthCode(_ codeText: String,
                       device: Device,
-                      completion: @escaping () -> Void) {
+                      completion: @escaping (String?) -> Void) {
         
         if !codeText.checkStyle(type: .code) {
             print("코드가 달라..")

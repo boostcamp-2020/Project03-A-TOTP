@@ -11,7 +11,7 @@ protocol LoginServiceable {
     func sendEmail(email: String)
     func requestAuthentication(code: String,
                                device: Device,
-                               completion: @escaping () -> Void)
+                               completion: @escaping (String?) -> Void)
 }
 
 final class LoginService: LoginServiceable {
@@ -29,17 +29,17 @@ final class LoginService: LoginServiceable {
     
     func requestAuthentication(code: String,
                                device: Device,
-                               completion: @escaping () -> Void) {
+                               completion: @escaping (String?) -> Void) {
         
         guard let email = user.email else { return }
         
         JWTNetworkManager.shared.getJWTToken(code: code,
                                              email: email,
                                              device: device) { jwtToken in
-            print("토큰:\(jwtToken)")
-            JWTTokenStoreManager().store(jwtToken)
-            
-            completion()
+            if let jwtToken = jwtToken {
+                JWTTokenStoreManager().store(jwtToken)
+            }
+            completion(jwtToken)
         }
     }
     
