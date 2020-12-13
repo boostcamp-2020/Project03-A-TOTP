@@ -9,17 +9,20 @@ import Foundation
 
 struct SettingState {
     var service: SettingServiceable
+    
     var email: String
     var emailEditMode: Bool
     var emailValidation: Bool
     
     var authEditMode: Bool
     
+    var backupToggle: Bool
     var backupPasswordEditMode: Bool
     var backupPasswordEditCheckMode: Bool
     
     var editErrorMessage: SettingEditErrorMessage
     
+    var deviceToggle: Bool
     var deviceID: String
     var deviceInfoMode: Bool
     
@@ -27,44 +30,58 @@ struct SettingState {
 }
 
 enum SettingInput {
-    case refresh
+    case refresh //
     
-    case editEmailMode
-    case editEmail(_ email: String)
+    case settingEmail(_ input: SettingEmail)
     
+    case settingAuthMode(_ input: SettingEditAuth)
+    
+    case settingBackup(_ input: SettingBackup)
+    
+    case settingMultiDevice(_ input: SettingMultiDevice)
+}
+
+enum SettingEmail {
+    case editEmailMode //
+    case editEmail(_ email: String) //
+}
+
+enum SettingEditAuth {
     case editAuthMode
-    
-    case backupToggle
-    case editBackupPasswordMode
-    case editBackupPassword(_ password: String)
-    case checkPassword(_ last: String, _ check: String )
-    
-    case multiDeviceToggle
-    
-    case deviceInfoMode(_ udid: String)
-    
-    case editDevice(_ device: Device)
-    case deleteDevice(_ deviceID: String)
-    
     case protectDaDaIkSeon(_ pincode: String)
     case liberateDaDaIkSeon
 }
 
+enum SettingBackup {
+    case backupToggle //
+    case editBackupPasswordMode
+    case editBackupPassword(_ password: String)
+    case checkPassword(_ last: String, _ check: String )
+}
+
+enum SettingMultiDevice {
+    case multiDeviceToggle //
+    case deviceInfoMode(_ udid: String) //
+    case editDevice(_ device: Device)
+    case deleteDevice(_ deviceID: String)
+}
+
 enum SettingEditErrorMessage: String {
     case none = ""
-    case stringSize = "글자 수가 모자랍니다."
+    case string = "비밀번호 형식이 올바르지 않습니다.(대소문자, 숫자, 6~15자 사이)"
     case different = "입력한 비밀번호와 일치하지 않습니다."
 }
 
 extension SettingView {
     
     final class SettingTransition: ObservableObject {
-        @Published var backupToggle: Bool = false
-        @Published var multiDeviceToggle: Bool = false
-        @Published var newEmail: String = ""
-        @Published var newPassword: String = ""
-        @Published var newPasswordCheck: String = ""
-        @Published var newDeviceName: String = ""
+        
+        @Published var newEmail = Entry(limit: 20)
+        @Published var newPassword = Entry(limit: 15)
+        @Published var newPasswordCheck = Entry(limit: 15)
+        
+        @Published var newDeviceName = Entry(limit: 10)
+        
         @Published var faceIDToggle: Bool = false
         @Published var pinCodeSetting: Bool = false
     }

@@ -14,7 +14,7 @@ struct TokenEditView: View {
     @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     @EnvironmentObject var navigationFlow: NavigationFlowObject
     
-    @ObservedObject private var entry = Entry()
+    @ObservedObject private var entry = Entry(limit: 17)
 //    @State private var text = ""
     @State private var showingAlert = false
     @State private var segmentedMode = 0
@@ -185,19 +185,6 @@ struct AlertModifier: ViewModifier {
                       dismissButton: .default(Text("네")))
             }
     }
-}
-
-class Entry: ObservableObject {
-    
-    let characterLimit = 17
-    @Published var text = "" {
-        didSet {
-            if text.count > characterLimit && oldValue.count <= characterLimit {
-                text = oldValue
-            }
-        }
-    }
-    
 }
 
 struct TokenEditView_Previews: PreviewProvider {

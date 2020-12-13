@@ -11,8 +11,11 @@ class MockSettingService: SettingServiceable {
     
     private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
     private var pincodeManager = PincodeManager()
+    private var backupPasswordManager = BackupPasswordManager()
     
     init() {
+        // user default에서 가져온 값과 서버에서 받아온 값을 비교해서 최신으로 load한다?
+        // 그냥 서버에서 데이터 받아서 사용하면 안되나? 꼭 유저 정보를 로컬에 가지고 있어야 할까
         loadUser()
     }
 
@@ -32,18 +35,30 @@ class MockSettingService: SettingServiceable {
         user.email = email
     }
     
-    func updateBackupMode() {
-//        self.user.backup?.toggle()
+    func updateBackupMode(_ udid: String, backup: Bool, updateView: @escaping  (SettingNetworkResult) -> Void) {
+        SettingNetworkManager.shared
+            .changeBackupMode(udid: udid, backup: backup) { result in
+            updateView(result)
+        }
+    }
+    
+    func readBackupPassword() -> String? {
+        backupPasswordManager.loadPassword()
     }
     
     func updateBackupPassword(_ password: String) {
+        backupPasswordManager.storePassword(password)
         // 백업 패스워드는 User 구조체에 들어가지 않는다.
         // 따로 UserDefault로 읽고 쓰고 변경해야 한다.
         // 나중에 토큰 가져올 때 이 비밀번호를 사용하여 복호화하게 된다.
     }
     
-    func updateMultiDeviceMode() {
-        self.user.multiDevice?.toggle()
+    func updateMultiDeviceMode(_ isOn: Bool, completion: () -> Void) {
+        SettingNetworkManager.shared.changeMultiDevice(multiDevice: isOn, completion: {
+            // result를 매개변수로 받아서 여기서 처리해준다.
+            //self.user.multiDevice?.toggle() 이걸 success에서 실행
+            // completion 이것도 success에서 실행
+        })
     }
     
     func readDevice() -> [Device]? {

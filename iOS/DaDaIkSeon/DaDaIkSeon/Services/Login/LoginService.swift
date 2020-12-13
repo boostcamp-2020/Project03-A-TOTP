@@ -14,16 +14,10 @@ protocol LoginServiceable {
 
 final class LoginService: LoginServiceable {
     
-    var loginNetwork: UserNetworkManager
     var user = DDISUser(email: nil, device: nil, multiDevice: nil)
-    let jwtTokenNetwork = JWTNetworkManager()
-    
-    init(network: UserNetworkManager) {
-        loginNetwork = network
-    }
     
     func sendEmail(email: String) {
-        loginNetwork.sendEmail(email: email) { [weak self] in
+        UserNetworkManager.shared.sendEmail(email: email) { [weak self] in
             guard let self = self else { return }
             self.user.email = email
         }
@@ -31,8 +25,7 @@ final class LoginService: LoginServiceable {
     
     func requestAuthentication(code: String, device: Device) {
         guard let email = user.email else { return }
-        
-        jwtTokenNetwork.getJWTToken(code: code,
+        JWTNetworkManager.shared.getJWTToken(code: code,
                                     email: email,
                                     device: device) { jwtToken in
             print("토큰:\(jwtToken)") // 키체인에 저장해야함

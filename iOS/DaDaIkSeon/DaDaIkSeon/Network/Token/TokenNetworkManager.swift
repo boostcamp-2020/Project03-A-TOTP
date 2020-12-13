@@ -11,6 +11,9 @@ final class TokenNetworkManager: Requestable {
     
     typealias NetworkData = ResponseArray<Token>
     
+    static let shared = TokenNetworkManager()
+    private init() {}
+    
     private var tokenEndpoint: TokenEndpoint = .get
     
     func load(completion: @escaping ([Token]) -> Void) {
