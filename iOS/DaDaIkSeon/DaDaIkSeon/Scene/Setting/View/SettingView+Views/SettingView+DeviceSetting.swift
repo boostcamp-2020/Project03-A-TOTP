@@ -77,7 +77,12 @@ extension SettingView {
         }
         .padding(.horizontal, 10)
         .padding(.top, 10)
-        
+        .alert(isPresented: $stateManager.alert) {
+            Alert(title: Text(viewModel.state.alertMessage.rawValue))
+        }
+        .onChange(of: viewModel.state.alertMessage.rawValue, perform: { _ in
+            stateManager.alert = true
+        })
     }
 
     func isLastDivice(udid: String?) -> Bool {

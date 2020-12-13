@@ -27,6 +27,8 @@ struct SettingState {
     var deviceInfoMode: Bool
     
     var devices: [Device]
+    
+    var alertMessage: SettingAlertMessage
 }
 
 enum SettingInput {
@@ -72,6 +74,11 @@ enum SettingEditErrorMessage: String {
     case different = "입력한 비밀번호와 일치하지 않습니다."
 }
 
+enum SettingAlertMessage: String {
+    case none = ""
+    case notDeleteDevice = "현재 사용중인 디바이스는 삭제할 수 없습니다."
+}
+
 extension SettingView {
     
     final class SettingTransition: ObservableObject {
@@ -84,6 +91,8 @@ extension SettingView {
         
         @Published var faceIDToggle: Bool = false
         @Published var pinCodeSetting: Bool = false
+        
+        @Published var alert: Bool = false
     }
     
 }

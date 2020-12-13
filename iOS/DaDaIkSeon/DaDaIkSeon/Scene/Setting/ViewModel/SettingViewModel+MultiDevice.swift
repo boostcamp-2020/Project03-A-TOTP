@@ -14,7 +14,7 @@ extension SettingViewModel {
             state.service.updateMultiDeviceMode(!state.deviceToggle) { result in
                 switch result {
                 case .result(let data):
-                    print("data")
+                    print(data)
                     DispatchQueue.main.async {
                         self.state.deviceToggle.toggle()
                     }
@@ -36,7 +36,7 @@ extension SettingViewModel {
                 // alert 띄워서 확인 후 삭제해주기
                 state.service.deleteDevice(deviceID)
             } else {
-                // alert 자기꺼는 삭제 못함 알려주기
+                state.alertMessage = .notDeleteDevice
             }
         case .deviceInfoMode(let udid):
             if state.selectedDeviceID == udid {

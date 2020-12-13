@@ -30,7 +30,8 @@ class SettingViewModel: ViewModel {
             deviceToggle: false,
             selectedDeviceID: "",
             deviceInfoMode: false,
-            devices: devices
+            devices: devices,
+            alertMessage: .none
         )
     }
     
