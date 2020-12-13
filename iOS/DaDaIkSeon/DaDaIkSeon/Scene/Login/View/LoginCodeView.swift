@@ -87,7 +87,10 @@ private extension LoginCodeView {
                             backup: false,
                             lastUpdate: nil)
         viewModel.trigger(.authButton(codeText,
-                                      device: device))
+                                      device: device,
+                                      completion: {
+            completion()
+        }))
     }
     
 }

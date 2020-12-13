@@ -9,12 +9,16 @@ import Foundation
 
 protocol LoginServiceable {
     func sendEmail(email: String)
-    func requestAuthentication(code: String, device: Device)
+    func requestAuthentication(code: String,
+                               device: Device,
+                               sendCompletion: @escaping () -> Void)
 }
 
 final class LoginService: LoginServiceable {
     
-    var user = DDISUser(email: nil, device: nil, multiDevice: nil)
+    var user = DDISUser(email: nil,
+                        device: nil,
+                        multiDevice: nil)
     
     func sendEmail(email: String) {
         UserNetworkManager.shared.sendEmail(email: email) { [weak self] in
@@ -23,14 +27,21 @@ final class LoginService: LoginServiceable {
         }
     }
     
-    func requestAuthentication(code: String, device: Device) {
+    func requestAuthentication(code: String,
+                               device: Device,
+                               sendCompletion: @escaping () -> Void) {
+        
         guard let email = user.email else { return }
+        
         JWTNetworkManager.shared.getJWTToken(code: code,
                                              email: email,
                                              device: device) { jwtToken in
             print("토큰:\(jwtToken)")
             JWTTokenStoreManager().store(jwtToken)
+            
+            sendCompletion()
         }
+        
     }
     
 }
