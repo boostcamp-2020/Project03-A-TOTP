@@ -121,12 +121,8 @@ class SettingViewModel: ViewModel {
             } else {
                 state.deviceID = ""
             }
-        case .editAuthMode:
-            state.authEditMode.toggle()
-        case .protectDaDaIkSeon(let pincode):
-            state.service.createPincde(pincode) // 네트워크랑 상관 무
-        case .liberateDaDaIkSeon:
-            state.service.deletePincode()
+        case .settingAuthMode(let input):
+            handlerForAuthModeSetting(input)
         }
     }
 }
@@ -150,6 +146,19 @@ extension SettingViewModel {
               state.emailValidation = true
           }
       }
+}
+
+extension SettingViewModel {
+    func handlerForAuthModeSetting(_ input: SettingEditAuth) {
+        switch input {
+        case .editAuthMode:
+            state.authEditMode.toggle()
+        case .protectDaDaIkSeon(let pincode):
+            state.service.createPincde(pincode) // 네트워크랑 상관 무
+        case .liberateDaDaIkSeon:
+            state.service.deletePincode()
+        }
+    }
 }
 
 extension SettingViewModel {

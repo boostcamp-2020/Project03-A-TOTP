@@ -47,10 +47,10 @@ struct SettingView: View {
                             PinCodeView(
                                 mode: .delete(viewModel.state.service.pincode ?? "0000"),
                                 completion: { _ in
-                                viewModel.trigger(.liberateDaDaIkSeon)
+                                    viewModel.trigger(.settingAuthMode(.liberateDaDaIkSeon))
                                     stateManager.faceIDToggle.toggle()})
                             :PinCodeView(mode: .setup, completion: { pincode in
-                                viewModel.trigger(.protectDaDaIkSeon(pincode))
+                                viewModel.trigger(.settingAuthMode(.protectDaDaIkSeon(pincode)))
                                 stateManager.faceIDToggle.toggle()
                             })
         }

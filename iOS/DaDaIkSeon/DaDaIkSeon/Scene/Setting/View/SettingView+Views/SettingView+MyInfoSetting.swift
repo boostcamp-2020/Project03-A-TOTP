@@ -16,7 +16,7 @@ extension SettingView {
                     Image.chevronDown : Image.chevronRight
             }
             .onTapGesture {
-                withAnimation { 
+                withAnimation {
                     stateManager.newEmail = ""
                     viewModel.trigger(.settingEmail(.editEmailMode))
                 }
@@ -45,7 +45,7 @@ extension SettingView {
             }
             .onTapGesture {
                 withAnimation {
-                    viewModel.trigger(.editAuthMode)
+                    viewModel.trigger(.settingAuthMode(.editAuthMode))
                 }
             }
             if viewModel.state.authEditMode {

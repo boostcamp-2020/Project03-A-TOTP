@@ -34,9 +34,7 @@ enum SettingInput {
     
     case settingEmail(_ input: SettingEmail)
     
-    case editAuthMode
-    case protectDaDaIkSeon(_ pincode: String)
-    case liberateDaDaIkSeon
+    case settingAuthMode(_ input: SettingEditAuth)
     
     case backupToggle//
     case editBackupPasswordMode
@@ -54,7 +52,7 @@ enum SettingEmail {
     case editEmail(_ email: String) //
 }
 
-enum EditAuth {
+enum SettingEditAuth {
     case editAuthMode
     case protectDaDaIkSeon(_ pincode: String)
     case liberateDaDaIkSeon
