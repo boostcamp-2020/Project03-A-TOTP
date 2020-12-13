@@ -26,18 +26,6 @@ extension SettingView {
                     Image.chevronDown : Image.chevronRight
             }
             .onTapGesture {
-                
-                // toggle on/off는 네트워크에 전달되어야 함.
-                
-                // 바로 변경하는 게 아님.
-                // 키체인 read로 비밀번호가 있는지 확인
-                // 있으면 바로 네트워크 통신
-                // 없으면 비밀 번호 설정하라고 editview 열어줌 - 설정 후 키체인 저장
-                // 그리고 나서 네트워크 통신
-                
-                // 네트워크 통신이 완료 되어야 비로소 on으로 설정 완료
-                // 마찬가지로 off도 네트워크 통신이 되어야 on으로 설정 완료
-                
                 withAnimation {
                     stateManager.newPassword.text = ""
                     stateManager.newPasswordCheck.text = ""
