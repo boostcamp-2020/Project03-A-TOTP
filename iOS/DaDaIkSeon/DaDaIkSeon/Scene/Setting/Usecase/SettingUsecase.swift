@@ -30,38 +30,49 @@ struct SettingState {
 }
 
 enum SettingInput {
-    case refresh
+    case refresh //
     
-    case editEmailMode
-    case editEmail(_ email: String)
+    case settingEmail(_ input: SettingEmail)
+    
     case editAuthMode
+    case protectDaDaIkSeon(_ pincode: String)
+    case liberateDaDaIkSeon
     
-    case backupToggle
+    case backupToggle//
     case editBackupPasswordMode
     case editBackupPassword(_ password: String)
     case checkPassword(_ last: String, _ check: String )
     
-    case multiDeviceToggle
-    case deviceInfoMode(_ udid: String)
+    case multiDeviceToggle //
+    case deviceInfoMode(_ udid: String) //
     case editDevice(_ device: Device)
     case deleteDevice(_ deviceID: String)
-    
+}
+
+enum SettingEmail {
+    case editEmailMode //
+    case editEmail(_ email: String) //
+}
+
+enum EditAuth {
+    case editAuthMode
     case protectDaDaIkSeon(_ pincode: String)
     case liberateDaDaIkSeon
 }
 
-enum SettingEmail {
-    
-}
-
 enum SettingBackup {
-    
+    case backupToggle //
+    case editBackupPasswordMode
+    case editBackupPassword(_ password: String)
+    case checkPassword(_ last: String, _ check: String )
 }
 
 enum SettingMultiDevice {
-    
+    case multiDeviceToggle //
+    case deviceInfoMode(_ udid: String) //
+    case editDevice(_ device: Device)
+    case deleteDevice(_ deviceID: String)
 }
-
 
 enum SettingEditErrorMessage: String {
     case none = ""

@@ -16,9 +16,9 @@ extension SettingView {
                     Image.chevronDown : Image.chevronRight
             }
             .onTapGesture {
-                withAnimation { // 애니메이션 좀 더 생각해보기
+                withAnimation { 
                     stateManager.newEmail = ""
-                    viewModel.trigger(.editEmailMode)
+                    viewModel.trigger(.settingEmail(.editEmailMode))
                 }
             }
             
@@ -28,7 +28,7 @@ extension SettingView {
                         .padding(.leading)
                     Divider()
                     Button(action: {
-                        viewModel.trigger(.editEmail(stateManager.newEmail))
+                        viewModel.trigger(.settingEmail(.editEmail(stateManager.newEmail)))
                     }, label: {
                         Text("변경하기").foregroundColor(Color.navy1)
                     })

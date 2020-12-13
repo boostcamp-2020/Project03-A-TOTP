@@ -33,24 +33,14 @@ class SettingViewModel: ViewModel {
             devices: devices
         )
     }
-  
+    
     func trigger(_ input: SettingInput) {
         switch input {
         case .refresh: // onAppear에서 호출
             state.service.refresh()
         // MARK: Email
-        case .editEmailMode:
-            state.emailEditMode.toggle()
-            state.emailValidation = true
-        case .editEmail(let email):
-            if email.count > 5 && email.contains("@") {
-                state.service.updateEmail(email)
-                state.email = state.service.readEmail() ?? ""
-                state.emailEditMode = false
-                state.emailValidation = true
-            } else {
-                state.emailValidation = false
-            }
+        case .settingEmail(let input):
+            handlerForEemailSetting(input)
             
         // MARK: Backup
         case .backupToggle:
@@ -141,11 +131,31 @@ class SettingViewModel: ViewModel {
     }
 }
 
+// MARK: Email
+extension SettingViewModel {
+    
+      func handlerForEemailSetting(_ input: SettingEmail) {
+          switch input {
+          case .editEmail(let email):
+              if email.count > 5 && email.contains("@") {
+                  state.service.updateEmail(email)
+                  state.email = state.service.readEmail() ?? ""
+                  state.emailEditMode = false
+                  state.emailValidation = true
+              } else {
+                  state.emailValidation = false
+              }
+          case .editEmailMode:
+              state.emailEditMode.toggle()
+              state.emailValidation = true
+          }
+      }
+}
+
 extension SettingViewModel {
     func check(password: String) -> Bool {
         password.count > 5
     }
-    
     func backupToggleGoingToOn() -> Bool {
         state.backupToggle == false
     }
