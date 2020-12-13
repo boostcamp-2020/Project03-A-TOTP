@@ -80,7 +80,7 @@ const tokenController = {
       await tokenService.addTokens(tokens, t);
       await userService.updateDateTime({ lastUpdate, idx: user.idx }, t);
     });
-    res.json('ok');
+    res.json({ message: 'ok' });
   },
 };
 module.exports = tokenController;
