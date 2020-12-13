@@ -70,14 +70,13 @@ private extension LoginViewModel {
     func sendAuthCode(_ codeText: String,
                       device: Device,
                       completion: @escaping () -> Void) {
+        
         if !codeText.checkStyle(type: .code) {
             print("코드가 달라..")
         } else {
             state.service.requestAuthentication(code: codeText,
                                                 device: device,
-                                                sendCompletion: {
-                completion()
-            })
+                                                completion: completion)
         }
     }
     

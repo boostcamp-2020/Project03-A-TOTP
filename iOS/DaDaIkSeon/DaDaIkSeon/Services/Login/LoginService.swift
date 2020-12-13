@@ -11,7 +11,7 @@ protocol LoginServiceable {
     func sendEmail(email: String)
     func requestAuthentication(code: String,
                                device: Device,
-                               sendCompletion: @escaping () -> Void)
+                               completion: @escaping () -> Void)
 }
 
 final class LoginService: LoginServiceable {
@@ -29,7 +29,7 @@ final class LoginService: LoginServiceable {
     
     func requestAuthentication(code: String,
                                device: Device,
-                               sendCompletion: @escaping () -> Void) {
+                               completion: @escaping () -> Void) {
         
         guard let email = user.email else { return }
         
@@ -39,9 +39,8 @@ final class LoginService: LoginServiceable {
             print("토큰:\(jwtToken)")
             JWTTokenStoreManager().store(jwtToken)
             
-            sendCompletion()
+            completion()
         }
-        
     }
     
 }

@@ -61,7 +61,6 @@ struct LoginCodeView: View {
             .padding(.vertical, 10)
             .background(Color.navy2)
             .cornerRadius(10)
-            
         }
         .padding(.all, 30)
     }

@@ -38,7 +38,7 @@ struct DaDaIkSeonApp: App {
                 BackgroundView()
             case .login:
                 LoginView(service: LoginService(), completion: {
-                    root = .main
+                    DispatchQueue.main.async { root = .main }
                 })
             }
         }
