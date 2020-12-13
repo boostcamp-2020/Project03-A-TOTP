@@ -10,8 +10,10 @@ import Foundation
 class SettingViewModel: ViewModel {
     
     @Published var state: SettingState
+    private let currentUDID: String
     
-    init() {
+    init(udid: String) {
+        currentUDID = udid
         let service = MockSettingService()
         let email = service.readEmail() ?? ""
         let devices = service.readDevice() ?? Device.dummy()
@@ -52,7 +54,6 @@ class SettingViewModel: ViewModel {
             
         // MARK: Backup
         case .backupToggle:
-            //state.service.updateBackupMode()
             if state.backupToggle {
                 state.backupToggle = false
             } else {
@@ -84,6 +85,7 @@ class SettingViewModel: ViewModel {
                 state.backupPasswordEditCheckMode = false
                 state.editErrorMessage = .none
                 if backupToggleGoingToOn() {
+                    // 여기서 네트워크 ㄱ
                     state.backupToggle = true
                 }
             } else {
@@ -116,8 +118,8 @@ class SettingViewModel: ViewModel {
             } else {
                 state.editErrorMessage = .stringSize
             }
-        case .deleteDevice(let deviceID, let myDeviceID):
-            if deviceID != myDeviceID {
+        case .deleteDevice(let deviceID):
+            if deviceID != currentUDID {
                 // alert 띄워서 확인 후 삭제해주기
                 state.service.deleteDevice(deviceID)
             } else {

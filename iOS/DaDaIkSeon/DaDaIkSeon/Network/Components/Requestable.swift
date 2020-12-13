@@ -27,8 +27,10 @@ extension Requestable {
         if let params = endpoint.params {
             let jsonData = try? JSONSerialization.data(withJSONObject: params)
             let headers = [
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
                 // 토큰 등등
+                "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJkZXZpY2VVZGlkIjoidWRpZHVkaWQiLCJpYXQiOjE2MDc2OTM1OTF9.dkRJ6vC92c6UIjb03sZIwyBKERRpZSbcUKGfXJNNf1s"
+                // \(UserDefaults.standard.string(forKey: "token") 로 바꿔야 한다.
             ]
             
             request.httpBody = jsonData

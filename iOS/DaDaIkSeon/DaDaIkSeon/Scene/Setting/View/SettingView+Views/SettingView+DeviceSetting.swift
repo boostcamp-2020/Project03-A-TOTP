@@ -40,7 +40,7 @@ extension SettingView {
                         TextField(device.name ?? "", text: $stateManager.newDeviceName)
                         Divider()
                         Button(action: {
-                            viewModel.trigger(.deleteDevice(device.udid ?? "", UIDevice.current.model))
+                            viewModel.trigger(.deleteDevice(device.udid ?? ""))
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })
@@ -74,8 +74,7 @@ extension SettingView {
         .padding(.top, 10)
         
     }
-    
-    
+
     func isLastDivice(udid: String?) -> Bool {
         guard let udid = udid else { return true }
         guard let device = viewModel.state.devices.last else {

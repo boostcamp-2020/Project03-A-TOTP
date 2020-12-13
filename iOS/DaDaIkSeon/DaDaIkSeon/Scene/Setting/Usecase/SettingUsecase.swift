@@ -46,7 +46,7 @@ enum SettingInput {
     case deviceInfoMode(_ udid: String)
     
     case editDevice(_ device: Device)
-    case deleteDevice(_ deviceID: String, _ myDeviceID: String)
+    case deleteDevice(_ deviceID: String)
     
     case protectDaDaIkSeon(_ pincode: String)
     case liberateDaDaIkSeon

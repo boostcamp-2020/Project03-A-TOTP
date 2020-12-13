@@ -10,12 +10,15 @@ import SwiftUI
 struct SettingView: View {
     
     // MARK: ViewModel
-    @ObservedObject var viewModel = SettingViewModel()
+    @ObservedObject var viewModel: AnyViewModel<SettingState, SettingInput>
     
     // MARK: Property
     @ObservedObject var stateManager = SettingTransition()
     
     init() {
+        let udid = UIDevice.current.identifierForVendor?.uuidString
+        // udid 없으면 error처리, 기기정보를 읽을 수 없다고
+        viewModel = AnyViewModel(SettingViewModel(udid: udid ?? ""))
         if nil != viewModel.state.service.pincode {
             stateManager.faceIDToggle = true
         }
