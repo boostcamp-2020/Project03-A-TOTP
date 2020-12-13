@@ -15,7 +15,7 @@ extension SettingView {
             SettingRow(title: "여러 기기 사용하기", isLast: false) {
                 SettingToggleView(isOn: $viewModel.state.deviceToggle)
                     .onTapGesture {
-                        viewModel.trigger(.multiDeviceToggle)
+                        viewModel.trigger(.settingMultiDevice(.multiDeviceToggle))
                     }
             }
             ForEach(viewModel.state.devices, id: \.udid) { device in
@@ -30,7 +30,7 @@ extension SettingView {
                 .onTapGesture {
                     withAnimation {
                         stateManager.newDeviceName = ""
-                        viewModel.trigger(.deviceInfoMode(device.udid ?? ""))
+                        viewModel.trigger(.settingMultiDevice(.deviceInfoMode(device.udid ?? "")))
                     }
                 }
                 
@@ -40,14 +40,14 @@ extension SettingView {
                         TextField(device.name ?? "", text: $stateManager.newDeviceName)
                         Divider()
                         Button(action: {
-                            viewModel.trigger(.deleteDevice(device.udid ?? ""))
+                            viewModel.trigger(.settingMultiDevice(.deleteDevice(device.udid ?? "")))
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })
                         Button(action: {
                             var newDevice = device
                             newDevice.name = stateManager.newDeviceName
-                            viewModel.trigger(.editDevice(newDevice))
+                            viewModel.trigger(.settingMultiDevice(.editDevice(newDevice)))
                         }, label: {
                             Text("확인").foregroundColor(Color.navy1)
                         })

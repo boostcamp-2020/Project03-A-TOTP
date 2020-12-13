@@ -36,15 +36,9 @@ enum SettingInput {
     
     case settingAuthMode(_ input: SettingEditAuth)
     
-    case backupToggle//
-    case editBackupPasswordMode
-    case editBackupPassword(_ password: String)
-    case checkPassword(_ last: String, _ check: String )
+    case settingBackup(_ input: SettingBackup)
     
-    case multiDeviceToggle //
-    case deviceInfoMode(_ udid: String) //
-    case editDevice(_ device: Device)
-    case deleteDevice(_ deviceID: String)
+    case settingMultiDevice(_ input: SettingMultiDevice)
 }
 
 enum SettingEmail {

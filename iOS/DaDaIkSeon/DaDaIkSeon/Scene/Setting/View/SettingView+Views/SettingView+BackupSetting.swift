@@ -16,9 +16,7 @@ extension SettingView {
                        isLast: false) {
                 SettingToggleView(isOn: $viewModel.state.backupToggle)
                     .onTapGesture {
-                        
-                        viewModel.trigger(.backupToggle)
-                        
+                        viewModel.trigger(.settingBackup(.backupToggle))
                     }
             }
             
@@ -43,7 +41,7 @@ extension SettingView {
                 withAnimation {
                     stateManager.newPassword = ""
                     stateManager.newPasswordCheck = ""
-                    viewModel.trigger(.editBackupPasswordMode)
+                    viewModel.trigger(.settingBackup(.editBackupPasswordMode))
                 }
             }
             
@@ -53,7 +51,8 @@ extension SettingView {
                         .padding(.leading)
                     Divider()
                     Button(action: {
-                        viewModel.trigger(.editBackupPassword(stateManager.newPassword))
+                        viewModel.trigger(
+                            .settingBackup(.editBackupPassword(stateManager.newPassword)))
                     }, label: {
                         Text("확인").foregroundColor(Color.navy1)
                     })
@@ -66,9 +65,9 @@ extension SettingView {
                         .padding(.leading)
                     Divider()
                     Button(action: {
-                        viewModel.trigger(.checkPassword(
-                                            stateManager.newPassword,
-                                            stateManager.newPasswordCheck))
+                        viewModel.trigger(.settingBackup(.checkPassword(
+                                                            stateManager.newPassword,
+                                                            stateManager.newPasswordCheck)))
                     }, label: {
                         Text("확인").foregroundColor(Color.navy1)
                     })

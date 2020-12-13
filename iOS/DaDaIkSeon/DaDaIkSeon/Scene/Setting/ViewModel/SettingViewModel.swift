@@ -38,153 +38,21 @@ class SettingViewModel: ViewModel {
         switch input {
         case .refresh: // onAppear에서 호출
             state.service.refresh()
+        
+        case .settingAuthMode(let input):
+            handlerForAuthModeSetting(input)
+            
         // MARK: Email
         case .settingEmail(let input):
             handlerForEemailSetting(input)
             
         // MARK: Backup
-        case .backupToggle:
-            if state.backupToggle {
-                updateBackupMode(false)
-            } else {
-                // 백업 비밀번호가 내장되어 있으면 바로 true 요청.
-                if nil != state.service.readBackupPassword() {
-                    updateBackupMode(true)
-                } else {
-                    trigger(.editBackupPasswordMode)
-                }
-            }
-        case .editBackupPasswordMode:
-            state.backupPasswordEditMode.toggle()
-            state.backupPasswordEditCheckMode = false
-            state.editErrorMessage = .none
-        case .editBackupPassword(let password):
-            if check(password: password) {
-                state.service.updateBackupPassword(password)
-                state.backupPasswordEditMode = false
-                state.backupPasswordEditCheckMode = true
-                state.editErrorMessage = .none
-            } else {
-                state.backupPasswordEditCheckMode = false
-                state.editErrorMessage = .stringSize
-            }
-        case .checkPassword(let last, let check):
-            if last == check {
-                state.service.updateBackupPassword(last)
-                state.backupPasswordEditCheckMode = false
-                state.editErrorMessage = .none
-                if backupToggleGoingToOn() {
-                    updateBackupMode(true)
-                }
-            } else {
-                state.editErrorMessage = .different
-            }
+        case .settingBackup(let input):
+            handlerForBackupSetting(input)
             
         // MARK: MultiDevice
-        case .multiDeviceToggle:
-            if state.deviceToggle {
-                state.service.updateMultiDeviceMode(false) {
-                    DispatchQueue.main.async {
-                        self.state.deviceToggle = false
-                    }
-                }
-            } else {
-                state.service.updateMultiDeviceMode(true) {
-                    DispatchQueue.main.async {
-                        self.state.deviceToggle = true
-                    }
-                }
-            }
-        case .editDevice(let device):
-            guard let name = device.name else { return }
-            if name.count > 3 {
-                state.deviceInfoMode = false
-                state.deviceID = ""
-                state.editErrorMessage = .none
-                state.service.updateDevice(device)
-                state.devices = state.service.readDevice() ?? Device.dummy()
-            } else {
-                state.editErrorMessage = .stringSize
-            }
-        case .deleteDevice(let deviceID):
-            if deviceID != currentUDID {
-                // alert 띄워서 확인 후 삭제해주기
-                state.service.deleteDevice(deviceID)
-            } else {
-                
-            }
-        case .deviceInfoMode(let udid):
-            state.deviceInfoMode.toggle()
-            state.editErrorMessage = .none
-            if state.deviceInfoMode {
-                state.deviceID = udid
-            } else {
-                state.deviceID = ""
-            }
-        case .settingAuthMode(let input):
-            handlerForAuthModeSetting(input)
-        }
-    }
-}
-
-// MARK: Email
-extension SettingViewModel {
-    
-      func handlerForEemailSetting(_ input: SettingEmail) {
-          switch input {
-          case .editEmail(let email):
-              if email.count > 5 && email.contains("@") {
-                  state.service.updateEmail(email)
-                  state.email = state.service.readEmail() ?? ""
-                  state.emailEditMode = false
-                  state.emailValidation = true
-              } else {
-                  state.emailValidation = false
-              }
-          case .editEmailMode:
-              state.emailEditMode.toggle()
-              state.emailValidation = true
-          }
-      }
-}
-
-extension SettingViewModel {
-    func handlerForAuthModeSetting(_ input: SettingEditAuth) {
-        switch input {
-        case .editAuthMode:
-            state.authEditMode.toggle()
-        case .protectDaDaIkSeon(let pincode):
-            state.service.createPincde(pincode) // 네트워크랑 상관 무
-        case .liberateDaDaIkSeon:
-            state.service.deletePincode()
-        }
-    }
-}
-
-extension SettingViewModel {
-    func check(password: String) -> Bool {
-        password.count > 5
-    }
-    func backupToggleGoingToOn() -> Bool {
-        state.backupToggle == false
-    }
-}
-
-extension SettingViewModel {
-    func updateBackupMode(_ mode: Bool) {
-        state.service.updateBackupMode(currentUDID, backup: mode) { result in
-            switch result {
-            case .result:
-                DispatchQueue.main.async {
-                    self.state.backupToggle = mode
-                }
-            case .dataParsingError:
-                break
-            case .messageError:
-                break
-            case .networkError:
-                break
-            }
+        case .settingMultiDevice(let input):
+            handlerForMultiDeviceSetting(input)
         }
     }
 }

@@ -77,6 +77,10 @@
 		8885FD56257F36120013D794 /* MockSettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD55257F36120013D794 /* MockSettingService.swift */; };
 		8885FD5B257F36290013D794 /* SettingServicaeble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD5A257F36290013D794 /* SettingServicaeble.swift */; };
 		888E5CD8258551D2001D30DF /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888E5CD7258551D2001D30DF /* BackgroundView.swift */; };
+		888E5CE02585FE8B001D30DF /* SettingViewModel+Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888E5CDF2585FE8B001D30DF /* SettingViewModel+Email.swift */; };
+		888E5CE52585FEA6001D30DF /* SettingViewModel+AuthMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888E5CE42585FEA6001D30DF /* SettingViewModel+AuthMode.swift */; };
+		888E5CEA2586041F001D30DF /* SettingViewModel+Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888E5CE92586041F001D30DF /* SettingViewModel+Backup.swift */; };
+		888E5CEF25860453001D30DF /* SettingViewModel+MultiDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888E5CEE25860453001D30DF /* SettingViewModel+MultiDevice.swift */; };
 		88938A3F25850D3400D3945C /* SettingToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A3E25850D3400D3945C /* SettingToggleView.swift */; };
 		88938A592585388400D3945C /* SettingView+DeviceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A582585388400D3945C /* SettingView+DeviceSetting.swift */; };
 		88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */; };
@@ -192,6 +196,10 @@
 		8885FD55257F36120013D794 /* MockSettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSettingService.swift; sourceTree = "<group>"; };
 		8885FD5A257F36290013D794 /* SettingServicaeble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingServicaeble.swift; sourceTree = "<group>"; };
 		888E5CD7258551D2001D30DF /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		888E5CDF2585FE8B001D30DF /* SettingViewModel+Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingViewModel+Email.swift"; sourceTree = "<group>"; };
+		888E5CE42585FEA6001D30DF /* SettingViewModel+AuthMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingViewModel+AuthMode.swift"; sourceTree = "<group>"; };
+		888E5CE92586041F001D30DF /* SettingViewModel+Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingViewModel+Backup.swift"; sourceTree = "<group>"; };
+		888E5CEE25860453001D30DF /* SettingViewModel+MultiDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingViewModel+MultiDevice.swift"; sourceTree = "<group>"; };
 		88938A3E25850D3400D3945C /* SettingToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingToggleView.swift; sourceTree = "<group>"; };
 		88938A582585388400D3945C /* SettingView+DeviceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+DeviceSetting.swift"; sourceTree = "<group>"; };
 		88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+BackupSetting.swift"; sourceTree = "<group>"; };
@@ -605,6 +613,10 @@
 			isa = PBXGroup;
 			children = (
 				883C2149257E70D90094FFAA /* SettingViewModel.swift */,
+				888E5CDF2585FE8B001D30DF /* SettingViewModel+Email.swift */,
+				888E5CE42585FEA6001D30DF /* SettingViewModel+AuthMode.swift */,
+				888E5CE92586041F001D30DF /* SettingViewModel+Backup.swift */,
+				888E5CEE25860453001D30DF /* SettingViewModel+MultiDevice.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1027,6 +1039,7 @@
 				7C2D349D257FC0B10013AD65 /* PinCodeView.swift in Sources */,
 				88F0119425754ECC00054206 /* TokenCellView+SubViews.swift in Sources */,
 				7CB7BF26258125C8000CABA1 /* MockTokenService.swift in Sources */,
+				888E5CEA2586041F001D30DF /* SettingViewModel+Backup.swift in Sources */,
 				7C661933256CCAED0028E7C6 /* MainView.swift in Sources */,
 				7CE395A12570968F00F3C813 /* View+.swift in Sources */,
 				88938A592585388400D3945C /* SettingView+DeviceSetting.swift in Sources */,
@@ -1039,6 +1052,7 @@
 				7C2D344D257FA5050013AD65 /* EndpointType.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
 				7C2D342A257F5C650013AD65 /* LoginCodeView.swift in Sources */,
+				888E5CE02585FE8B001D30DF /* SettingViewModel+Email.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
 				882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */,
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
@@ -1050,6 +1064,7 @@
 				88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */,
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
+				888E5CEF25860453001D30DF /* SettingViewModel+MultiDevice.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
 				7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */,
 				88938A6C2585474D00D3945C /* BackupPasswordManager.swift in Sources */,
@@ -1057,6 +1072,7 @@
 				7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
+				888E5CE52585FEA6001D30DF /* SettingViewModel+AuthMode.swift in Sources */,
 				88973B842582AD0C00723384 /* PincodeManager.swift in Sources */,
 				88938A632585395600D3945C /* SettingView+MyInfoSetting.swift in Sources */,
 				7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */,
