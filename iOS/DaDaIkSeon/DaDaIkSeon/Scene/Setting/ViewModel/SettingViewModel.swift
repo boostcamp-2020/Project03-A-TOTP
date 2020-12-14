@@ -12,11 +12,17 @@ class SettingViewModel: ViewModel {
     @Published var state: SettingState
     let currentUDID: String
     
+    func myDeviceToFirst() {
+        
+    }
+    
     init(udid: String) {
         currentUDID = udid
         let service = MockSettingService()
         let email = service.readEmail() ?? ""
-        let devices = service.readDevice() ?? Device.dummy()
+        var devices = service.readDevice() ?? Device.dummy()
+        let index = devices.firstIndex(where: { $0.udid == udid })
+        devices.move(fromOffsets: IndexSet(integer: index ?? 0), toOffset: 0)
         state = SettingState(
             service: service,
             email: email,
@@ -26,10 +32,11 @@ class SettingViewModel: ViewModel {
             backupToggle: false,
             backupPasswordEditMode: false,
             backupPasswordEditCheckMode: false,
-            editErrorMessage: .none,
+            passwordErrorMessage: .none,
             deviceToggle: false,
-            deviceID: "",
+            selectedDeviceID: "",
             deviceInfoMode: false,
+            deviceErrorMessage: .none,
             devices: devices
         )
     }

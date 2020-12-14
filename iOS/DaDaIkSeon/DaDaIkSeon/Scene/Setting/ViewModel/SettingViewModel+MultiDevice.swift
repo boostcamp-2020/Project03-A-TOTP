@@ -11,39 +11,43 @@ extension SettingViewModel {
     func handlerForMultiDeviceSetting(_ input: SettingMultiDevice) {
         switch input {
         case .multiDeviceToggle:
-            if state.deviceToggle {
-                state.service.updateMultiDeviceMode(false) {
+            state.service.updateMultiDeviceMode(!state.deviceToggle) { result in
+                switch result {
+                case .result(let data):
+                    print(data)
                     DispatchQueue.main.async {
-                        self.state.deviceToggle = false
+                        self.state.deviceToggle.toggle()
                     }
-                }
-            } else {
-                state.service.updateMultiDeviceMode(true) {
-                    DispatchQueue.main.async {
-                        self.state.deviceToggle = true
-                    }
+                case .dataParsingError:
+                    print("dataParsingError 실패")
+                case .messageError:
+                    print("messageError 실패")
+                case .networkError:
+                    print("networkError 실패")
                 }
             }
         case .editDevice(let device):
-            state.deviceInfoMode = false
-            state.deviceID = ""
-            state.editErrorMessage = .none
+            if device.name?.count ?? 0 < 3 {
+                state.deviceErrorMessage = .deviceName
+                return
+            }
+            state.selectedDeviceID = ""
+            state.deviceErrorMessage = .none
             state.service.updateDevice(device)
             state.devices = state.service.readDevice() ?? Device.dummy()
-        case .deleteDevice(let deviceID):
-            if deviceID != currentUDID {
-                // alert 띄워서 확인 후 삭제해주기
-                state.service.deleteDevice(deviceID)
+        case .deleteDevice:
+            if state.selectedDeviceID != currentUDID {
+                state.service.deleteDevice(state.selectedDeviceID)
+                //network
             } else {
-                // alert 자기꺼는 삭제 못함 알려주기
+                state.deviceErrorMessage = .notDeleteDevice
             }
         case .deviceInfoMode(let udid):
-            state.deviceInfoMode.toggle()
-            state.editErrorMessage = .none
-            if state.deviceInfoMode {
-                state.deviceID = udid
+            state.deviceErrorMessage = .none
+            if state.selectedDeviceID == udid {
+                state.selectedDeviceID = ""
             } else {
-                state.deviceID = ""
+                state.selectedDeviceID = udid
             }
         }
     }

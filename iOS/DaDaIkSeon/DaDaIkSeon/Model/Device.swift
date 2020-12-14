@@ -26,12 +26,12 @@ struct Device: Codable, Equatable {
     static func dummy() -> [Device] {
         [
             Device(name: "jjm",
-                   udid: "a",
+                   udid: "8D30104D-91D8-4503-B55B-C1063701AD6F",
                    modelName: "아이폰",
                    backup: false,
                    lastUpdate: "2020-11-21"),
             Device(name: "kjg",
-                   udid: "b",
+                   udid: "70C3A0F0-1491-43C6-8B1C-59F0E989A0A8",
                    modelName: "갤럭시",
                    backup: false,
                    lastUpdate: "2020-11-23")

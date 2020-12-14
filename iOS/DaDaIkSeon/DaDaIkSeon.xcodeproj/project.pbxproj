@@ -92,6 +92,8 @@
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
 		889F67D9257F455500CFFFB0 /* SettingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D8257F455500CFFFB0 /* SettingGridView.swift */; };
+		88B02BEF2586510D003E8291 /* SettingErrorMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B02BEE2586510D003E8291 /* SettingErrorMessageView.swift */; };
+		88B02C052586803F003E8291 /* KeboardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B02C042586803F003E8291 /* KeboardModifier.swift */; };
 		88B3C548257F59840048DA86 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3C547257F59840048DA86 /* SettingRow.swift */; };
 		88C9D12A256D4347004956EB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9D129256D4347004956EB /* Token.swift */; };
 		88C9E6A825775CF30021EE4A /* ZeroTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */; };
@@ -214,6 +216,8 @@
 		88AA33E4257FB4B9008F02F5 /* TokenServiceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenServiceable.swift; sourceTree = "<group>"; };
 		88AA33E5257FB4B9008F02F5 /* MockTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockTokenService.swift; sourceTree = "<group>"; };
 		88AA33E6257FB4B9008F02F5 /* TokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
+		88B02BEE2586510D003E8291 /* SettingErrorMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingErrorMessageView.swift; sourceTree = "<group>"; };
+		88B02C042586803F003E8291 /* KeboardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeboardModifier.swift; sourceTree = "<group>"; };
 		88B3C547257F59840048DA86 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		88C9D129256D4347004956EB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroTokenView.swift; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 				7CAE068525775E520051A1B5 /* NavigationLazyView.swift */,
 				882E9A17257D0FED00B066F3 /* NavigationFlowObject.swift */,
 				88EBF3642586062F00933D4E /* Entry.swift */,
+				88B02C042586803F003E8291 /* KeboardModifier.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -709,6 +714,7 @@
 				889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */,
 				889F67D8257F455500CFFFB0 /* SettingGridView.swift */,
 				88B3C547257F59840048DA86 /* SettingRow.swift */,
+				88B02BEE2586510D003E8291 /* SettingErrorMessageView.swift */,
 			);
 			path = SettingViewComponents;
 			sourceTree = "<group>";
@@ -1023,6 +1029,7 @@
 				7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */,
 				7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */,
 				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
+				88B02BEF2586510D003E8291 /* SettingErrorMessageView.swift in Sources */,
 				882E9A48257D236700B066F3 /* Handlerable.swift in Sources */,
 				882E9A24257D108300B066F3 /* MainUsecase.swift in Sources */,
 				7C2D343E257F73F40013AD65 /* TokenEditUsecase.swift in Sources */,
@@ -1085,6 +1092,7 @@
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */,
+				88B02C052586803F003E8291 /* KeboardModifier.swift in Sources */,
 				88EBF3652586062F00933D4E /* Entry.swift in Sources */,
 				88B3C548257F59840048DA86 /* SettingRow.swift in Sources */,
 				882E9A5D257D30EE00B066F3 /* CellHandler.swift in Sources */,
