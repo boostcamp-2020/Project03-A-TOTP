@@ -20,10 +20,17 @@ const { catchErrors } = require('@utils/util');
  *    summary: 이메일 인증 코드 발송
  *    description: 입력받은 이메일로 인증 코드를 발송한다
  *    parameters:
- *      - name: email
- *        in: body
- *        required: true
- *        type: string
+ *    - name: email
+ *      in: body
+ *      required: true
+ *      type: string
+ *    - name: device
+ *      in: body
+ *      required: true
+ *      type: object
+ *      properties:
+ *        udid:
+ *          type: string
  *    responses:
  *      200:
  *        description: 성공
@@ -32,8 +39,15 @@ const { catchErrors } = require('@utils/util');
  *          properties:
  *            message:
  *              type: string
- *      400:
- *        description: 멀티 디바이스 off
+ *              default: 'OK'
+ *      403:
+ *        description: 멀티 디바이스 off 이거나 on인데 등록되지 않은 디바이스인 경우
+ *        schema:
+ *          type: object
+ *          properties:
+ *            message:
+ *              type: string
+ *              default: '멀티 디바이스 off'
  *      500:
  *        description: 기타 에러
  */
@@ -58,7 +72,7 @@ router.post('/email', catchErrors(userController.sendEmail));
  *    - name: device
  *      in: body
  *      required: true
- *      tyle: object
+ *      type: object
  *      properties:
  *        name:
  *          type: string
@@ -83,6 +97,12 @@ router.post('/email', catchErrors(userController.sendEmail));
  *                  type: string
  *      400:
  *        description: 잘못된 이메일이거나 잘못된 인증코드를 전달한 경우
+ *        schema:
+ *          type: object
+ *          properties:
+ *            message:
+ *              type: string
+ *              default: '존재하지 않는 사용자입니다 or 인증 코드가 틀렸습니다'
  *      500:
  *        description: 기타 에러
  */
@@ -112,6 +132,8 @@ router.use(catchErrors(userController.getUserFromJWT));
  *          properties:
  *            message:
  *              type: string
+ *      403:
+ *        description: JWT 에러
  *      500:
  *        description: 기타 에러
  */
@@ -131,6 +153,7 @@ router.patch('/email', catchErrors(userController.updateEmail));
  *      in: body
  *      required: true
  *      type: boolean
+ *      default: true
  *    responses:
  *      200:
  *        description: 멀티디바이스 수정 성공
@@ -139,6 +162,8 @@ router.patch('/email', catchErrors(userController.updateEmail));
  *          properties:
  *            message:
  *              type: string
+ *      403:
+ *        description: JWT 에러
  *      500:
  *        description: 기타 에러
  */
@@ -168,6 +193,10 @@ router.param('udid', deviceController.getDevice);
  *          properties:
  *            message:
  *              type: string
+ *      400:
+ *        description: 잘못된 udid
+ *      403:
+ *        description: JWT 에러
  *      500:
  *        description: 기타 에러
  */
@@ -194,6 +223,10 @@ router.patch('/backup/:udid', catchErrors(deviceController.updateBackup));
  *          properties:
  *            message:
  *              type: string
+ *      400:
+ *        description: 잘못된 udid
+ *      403:
+ *        description: JWT 에러
  *      500:
  *        description: 기타 에러
  */
@@ -216,9 +249,55 @@ router.patch('/device/:udid', catchErrors(deviceController.updateName));
  *          properties:
  *            message:
  *              type: string
+ *      400:
+ *        description: 잘못된 udid
+ *      403:
+ *        description: JWT 에러
  *      500:
  *        description: 기타 에러
  */
 router.delete('/device/:udid', catchErrors(deviceController.deleteDevice));
+
+/**
+ * @swagger
+ * /app/user:
+ *  get:
+ *    tags: [iOS User (/app/user)]
+ *    summary: 유저 조회
+ *    description: 유저 정보, 디바이스 목록, 토큰 목록을 조회한다
+ *    security:
+ *      - jwt: []
+ *    responses:
+ *      200:
+ *        description: 조회 성공
+ *        schema:
+ *          type: object
+ *          properties:
+ *            email:
+ *              type: string
+ *            multiDevice:
+ *              type: boolean
+ *            lastUpdate:
+ *              type: string
+ *              example: 2020-12-10T13:24:44.000Z
+ *            devices:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  name:
+ *                    type: string
+ *                  udid:
+ *                    type: string
+ *                  modelName:
+ *                    type: string
+ *                  backup:
+ *                    type: boolean
+ *      403:
+ *        description: JWT 에러
+ *      500:
+ *        description: 기타 에러
+ */
+router.get('/', catchErrors(userController.getUser));
 
 module.exports = router;
