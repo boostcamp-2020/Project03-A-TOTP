@@ -30,8 +30,8 @@ final class LoginViewModel: ViewModel {
             changeCheckEmailText(email)
         case .checkCode(let code):
             changeCheckCodeText(code)
-        case .sendButton(let email):
-            sendAuthEmail(email)
+        case .sendButton(let email, let completion):
+            sendAuthEmail(email, completion)
         case .showSendButton:
             showSendButton()
         case .backButton:
@@ -56,25 +56,26 @@ private extension LoginViewModel {
             = codeText.checkStyle(type: .code)  ? "" : "6자리의 코드를 입력하세요(영문 대/소문자, 숫자)"
     }
     
-    func sendAuthEmail(_ emailText: String) {
+    func sendAuthEmail(_ emailText: String,
+                       _ completion: @escaping (String) -> Void) {
+        
         if emailText.checkStyle(type: .email) {
             state.service.sendEmail(email: emailText) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     switch result {
                     case .successSendEmail:
-                        print("하하하. 성공")
                         self.changeIsEmailView(false)
+                        completion(ResultMessage.successSendEmailMessage.rawValue)
                     case .multideviceOff:
-                        print("하하하 머ㅓㄹ티가 꺼졌어")
+                        completion(ResultMessage.multideviceOffMessage.rawValue)
                     case .dataParsingError:
-                        print("파싱이 안됐어...ㅋ")
+                        completion(ResultMessage.dataParsingError.rawValue)
                     case .networkError:
-                        print("네트워크를 확인해주세요")
+                        completion(ResultMessage.networkError.rawValue)
                     }
                 }
             }
-            
         }
     }
     
@@ -102,4 +103,10 @@ private extension LoginViewModel {
                                   forKey: "isEmailView")
     }
     
+    enum ResultMessage: String {
+        case successSendEmailMessage = "이메일로 인증코드를 전송했습니다"
+        case multideviceOffMessage = "멀티 디바이스가 꺼져있어 등록이 불가능합니다"
+        case dataParsingError = "Error"
+        case networkError = "네트워크를 확인해주세요"
+    }
 }

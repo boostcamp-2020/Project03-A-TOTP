@@ -13,6 +13,9 @@ struct LoginEmailView: View {
     
     @ObservedObject var viewModel: AnyViewModel<LoginState, LoginInput>
     @State private var emailText = ""
+    @State private var isShowing = false
+    @State private var message = ""
+    
     var geometryWidth: CGFloat
     
     var body: some View {
@@ -63,6 +66,10 @@ struct LoginEmailView: View {
                     }
                 }
             }
+            .alert(isPresented: $isShowing) {
+                Alert(title: Text(message),
+                      dismissButton: .default(Text("네")))
+            }
             .padding(.horizontal, 20)
             Spacer()
         }
@@ -91,7 +98,11 @@ private extension LoginEmailView {
     
     func sendButtonDidTap(_ emailText: String) {
         withAnimation {
-            viewModel.trigger(.sendButton(emailText))
+            viewModel.trigger(.sendButton(emailText,
+                                          completion: { resultMessage in
+                message = resultMessage
+                isShowing = true
+            }))
         }
     }
     
