@@ -21,26 +21,26 @@ const deviceController = {
     const { device } = req;
     const { backup } = req.body;
 
-    const updatedDevice = await device.update({ backup }, { returning: true });
+    await device.update({ backup }, { returning: true });
 
-    res.json({ backup: updatedDevice.backup });
+    res.json({ message: 'OK' });
   },
 
   async updateName(req, res) {
     const { device } = req;
     const { name } = req.body;
 
-    const updatedDevice = await device.update({ name }, { returning: true });
+    await device.update({ name }, { returning: true });
 
-    res.json({ name: updatedDevice.name });
+    res.json({ message: 'OK' });
   },
 
   async deleteDevice(req, res) {
     const { device } = req;
 
-    const deletedDevice = await device.destroy();
+    await device.destroy();
 
-    res.json({ udid: deletedDevice.udid });
+    res.json({ message: 'OK' });
   },
 };
 
