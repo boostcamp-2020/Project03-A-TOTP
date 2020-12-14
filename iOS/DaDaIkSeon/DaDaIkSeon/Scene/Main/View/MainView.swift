@@ -17,7 +17,7 @@ struct MainView: View {
     // MARK: Property
     
     @EnvironmentObject var navigationFlow: NavigationFlowObject
-    
+    @State var hasBackupPassword = false
     @Namespace var namespace
     
     var columns: [GridItem] = [
@@ -63,6 +63,13 @@ struct MainView: View {
                 TOTPTimer.shared.cancel()
             })
         }
+        .fullScreenCover(isPresented: $hasBackupPassword, content: {
+            BackupPasswordView(viewModel: AnyViewModel(BackupPasswordViewModel()))
+            
+        })
+        .onChange(of: viewModel.state.hasBackupPassword, perform: { value in
+            hasBackupPassword = value
+        })
         .onTapGesture {
             hideKeyboard()
         }

@@ -29,6 +29,12 @@ class CommonHandler: Handlerable {
         guard let input = input else { return }
         switch input {
         case .refreshTokens:
+            
+            if BackupPasswordManager().loadPassword() == nil {
+                state.hasBackupPassword = true
+                return
+            }
+            
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
