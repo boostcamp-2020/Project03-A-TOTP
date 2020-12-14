@@ -7,15 +7,23 @@ const { catchErrors } = require('@utils/util');
 const authController = require('@/controllers/web/auth');
 
 router.use(sessionAuthentication.sessionCheck);
+/**
+ * @swagger
+ * tags:
+ *  name: WEB Log (/log)
+ *  description: 접속 로그 관리
+ */
 
 /**
  * @swagger
  * /log/:num:
  *  put:
- *    tags:
- *      - log
+ *    tags: [WEB Log (/log)]
  *    summary: 선택페이지 로그가져오기
  *    description: 페이지네이션을 적용한 개수만큼 로그가져오기
+ *    security:
+ *      - session: []
+ *      - CSRF: []
  *    produces:
  *    - "application/json"
  *    parameters:
@@ -43,10 +51,12 @@ router.get('/:num', catchErrors(logController.get));
  * @swagger
  * /log/session:
  *  patch:
- *    tags:
- *      - log
+ *    tags: [WEB Log (/log)]
  *    summary: 원격 세션 제거
  *    description: sid 기반 세션을 제거
+ *    security:
+ *      - session: []
+ *      - CSRF: []
  *    produces:
  *    - "application/json"
  *    parameters:
