@@ -192,6 +192,8 @@ router.post(
   catchErrors(userController.findID)
 );
 
+router.post('/reSend', catchErrors(userController.reSendEmail));
+
 router.use(sessionAuthentication.sessionCheck);
 
 /**
@@ -265,5 +267,4 @@ router.use(sessionAuthentication.sessionCheck);
  */
 router.get('/', catchErrors(userController.getUser));
 router.patch('/', catchErrors(userController.updateUser));
-
 module.exports = router;
