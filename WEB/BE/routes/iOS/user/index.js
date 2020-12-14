@@ -20,17 +20,18 @@ const { catchErrors } = require('@utils/util');
  *    summary: 이메일 인증 코드 발송
  *    description: 입력받은 이메일로 인증 코드를 발송한다
  *    parameters:
- *    - name: email
- *      in: body
- *      required: true
- *      type: string
- *    - name: device
+ *    - name: email, device
  *      in: body
  *      required: true
  *      type: object
  *      properties:
- *        udid:
+ *        email:
  *          type: string
+ *        device:
+ *          object:
+ *          properties:
+ *            udid:
+ *              type: string
  *    responses:
  *      200:
  *        description: 성공
@@ -61,27 +62,24 @@ router.post('/email', catchErrors(userController.sendEmail));
  *    summary: 이메일 인증 코드 확인
  *    description: 입력받은 이메일로 인증 코드를 확인하하고 유저 정보를 저장한다
  *    parameters:
- *    - name: email
- *      in: body
- *      required: true
- *      type: string
- *    - name: code
- *      in: body
- *      required: true
- *      type: string
- *    - name: device
+ *    - name: body
  *      in: body
  *      required: true
  *      type: object
  *      properties:
- *        name:
+ *        code:
  *          type: string
- *        udid:
- *          type: string
- *        modelName:
- *          type: string
- *        backup:
- *          type: boolean
+ *        device:
+ *          type: object
+ *          properties:
+ *            name:
+ *              type: string
+ *            udid:
+ *              type: string
+ *            modelName:
+ *              type: string
+ *            backup:
+ *              type: boolean
  *    responses:
  *      200:
  *        description: 성공
@@ -123,7 +121,10 @@ router.use(catchErrors(userController.getUserFromJWT));
  *    - name: email
  *      in: body
  *      required: true
- *      type: string
+ *      type: object
+ *      properties:
+ *        email:
+ *          type: string
  *    responses:
  *      200:
  *        description: 이메일 수정 성공
@@ -152,8 +153,10 @@ router.patch('/email', catchErrors(userController.updateEmail));
  *    - name: multiDevice
  *      in: body
  *      required: true
- *      type: boolean
- *      default: true
+ *      type: object
+ *      properties:
+ *        multiDevice:
+ *          type: boolean
  *    responses:
  *      200:
  *        description: 멀티디바이스 수정 성공
@@ -184,7 +187,10 @@ router.param('udid', deviceController.getDevice);
  *    - name: backup
  *      in: body
  *      required: true
- *      type: boolean
+ *      type: object
+ *      properties:
+ *        backup:
+ *          type: boolean
  *    responses:
  *      200:
  *        description: 백업 수정 성공
@@ -214,7 +220,10 @@ router.patch('/backup/:udid', catchErrors(deviceController.updateBackup));
  *    - name: name
  *      in: body
  *      required: true
- *      type: string
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
  *    responses:
  *      200:
  *        description: 디바이스 이름 수정 성공

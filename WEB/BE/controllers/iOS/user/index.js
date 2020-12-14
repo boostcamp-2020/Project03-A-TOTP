@@ -102,18 +102,18 @@ const userController = {
     const { user } = req;
     const { email } = req.body;
 
-    const updatedUser = await user.update({ email }, { returning: true });
+    await user.update({ email }, { returning: true });
 
-    res.json({ email: updatedUser.email });
+    res.json({ message: 'OK' });
   },
 
   async updateMulti(req, res) {
     const { user } = req;
     const { multiDevice } = req.body;
 
-    const updatedUser = await user.update({ multi_device: multiDevice }, { returning: true });
+    await user.update({ multi_device: multiDevice }, { returning: true });
 
-    res.json({ multiDevice: updatedUser.multi_device });
+    res.json({ message: 'OK' });
   },
 };
 
