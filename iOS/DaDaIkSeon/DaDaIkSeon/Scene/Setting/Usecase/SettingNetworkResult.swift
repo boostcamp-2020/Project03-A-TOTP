@@ -11,6 +11,8 @@ enum SettingNetworkResult {
     case emailEdit
     case multiDeviceToggle
     case backupToggle
+    case deviceNameEdit
+    case deviceDelete
     case messageError
     case networkError
     case dataParsingError

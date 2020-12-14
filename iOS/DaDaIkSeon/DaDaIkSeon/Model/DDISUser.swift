@@ -10,7 +10,8 @@ import Foundation
 struct DDISUser: Codable, Equatable {
     
     var email: String?
-    var device: [Device]?
+    var device: Device?
+    var devices: [Device]?
     var multiDevice: Bool?
     
     static func == (lhs: DDISUser, rhs: DDISUser) -> Bool {
@@ -21,7 +22,7 @@ struct DDISUser: Codable, Equatable {
     
     static func dummy() -> DDISUser {
         DDISUser(email: "jjm@dadaikseon.com",
-                 device: Device.dummy(),
+                 devices: Device.dummy(),
                  multiDevice: false)
     }
     

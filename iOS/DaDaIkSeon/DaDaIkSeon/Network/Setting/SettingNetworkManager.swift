@@ -65,33 +65,32 @@ final class SettingNetworkManager: Requestable {
     
     func changeDevice(udid: String,
                       name: String,
-                      completion: @escaping () -> Void) {
-        
+                      completion: @escaping (SettingNetworkResult) -> Void) {
         let settingEndpoint: SettingEndpoint = .patchDevice(udid: udid, name: name)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-                completion()
-            case .networkError(let error):
-                print(error)
+                completion(.deviceNameEdit)
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }
     
     func deleteDevice(udid: String,
-                      completion: @escaping () -> Void) {
+                      completion: @escaping (SettingNetworkResult) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .deleteDevice(udid: udid)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-                completion()
+                completion(.deviceDelete)
             case .networkError(let error):
-                print(error)
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }
