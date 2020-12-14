@@ -20,7 +20,7 @@ module.exports = router;
 /**
  * @swagger
  * tags:
- *   name: IOS Token (/app/token)
+ *   name: iOS Token (/app/token)
  *   description: 토큰 관리
  * definitions:
  *   tokens:
@@ -55,7 +55,7 @@ module.exports = router;
  * @swagger
  * /app/token:
  *  get:
- *    tags: [IOS Token (/app/token)]
+ *    tags: [iOS Token (/app/token)]
  *    summary: 백업 서버 Key토큰 가져오기(JWT 필요)
  *    description: 백업 되어 있던 토큰을 전부 가져옴
  *    security:
@@ -90,7 +90,7 @@ module.exports = router;
  * @swagger
  * /app/token:
  *  post:
- *    tags: [IOS Token (/app/token)]
+ *    tags: [iOS Token (/app/token)]
  *    summary: Key 토큰 추가(JWT 필요)
  *    description: 백업 토큰을 추가함 요청을 보낸 서버 시간 기준으로 업데이트 시간도 업데이트 됨
  *    security:
@@ -126,7 +126,7 @@ module.exports = router;
  * @swagger
  * /app/token:
  *  put:
- *    tags: [IOS Token (/app/token)]
+ *    tags: [iOS Token (/app/token)]
  *    summary: Key 토큰 전부 바꾸기(JWT 필요)
  *    description: Key 토큰을 전부 새로운걸로 교환함
  *    security:
@@ -168,7 +168,7 @@ module.exports = router;
  * @swagger
  * /app/token/:id:
  *  patch:
- *    tags: [IOS Token (/app/token)]
+ *    tags: [iOS Token (/app/token)]
  *    summary: Key 토큰 업데이트(JWT 필요)
  *    description: 넘어온 id 기준으로 기존 Key token 데이터를 업데이트함
  *    security:
@@ -212,7 +212,7 @@ module.exports = router;
  * @swagger
  * /app/token/:id:
  *  delete:
- *    tags: [IOS Token (/app/token)]
+ *    tags: [iOS Token (/app/token)]
  *    summary: Key 토큰 삭제(JWT 필요)
  *    description: 넘어온 id 값을 삭제함
  *    security:

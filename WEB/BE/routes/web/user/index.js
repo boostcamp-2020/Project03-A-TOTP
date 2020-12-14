@@ -7,10 +7,16 @@ const { catchErrors } = require('@utils/util');
 
 /**
  * @swagger
+ * tags:
+ *  name: WEB User (/user)
+ *  description: 유저 관리
+ */
+
+/**
+ * @swagger
  * /user:
  *  post:
- *    tags:
- *      - log
+ *    tags: [WEB User (/user)]
  *    summary: 회원가입
  *    description: 회원가입
  *    produces:
@@ -74,8 +80,7 @@ router.post(
  * @swagger
  * /user/dup-email:
  *  post:
- *    tags:
- *      - log
+ *    tags: [WEB User (/user)]
  *    summary: 이메일 중복 체크
  *    description: 이메일 중복 체크
  *    produces:
@@ -105,8 +110,7 @@ router.post('/dup-email', catchErrors(userController.dupEmail));
  * @swagger
  * /user/confirm-email:
  *  post:
- *    tags:
- *      - log
+ *    tags: [WEB User (/user)]
  *    summary: 이메일 인증
  *    description: 회원가입 이메일 인증
  *    produces:
@@ -138,9 +142,8 @@ router.get('/confirm-email', catchErrors(userController.confirmEmail));
  * @swagger
  * /user/find-id:
  *  post:
- *    tags:
- *      - log
- *    summary: 회원가입
+ *    tags: [WEB User (/user)]
+ *    summary: 회원가입 ( 이거 이상합니다 수정 필요)
  *    description: 회원가입
  *    produces:
  *    - "application/json"
@@ -195,10 +198,12 @@ router.use(sessionAuthentication.sessionCheck);
  * @swagger
  * /user:
  *  get:
- *    tags:
- *      - user
+ *    tags: [WEB User (/user)]
  *    summary: 내 정보 조회
  *    description: 내 이름, 이메일, 전화번호, 생일을 조회한다
+ *    security:
+ *      - session: []
+ *      - CSRF: []
  *    produces:
  *    - "application/json"
  *    responses:
@@ -224,10 +229,12 @@ router.use(sessionAuthentication.sessionCheck);
  *      500:
  *        description: 기타 에러
  *  patch:
- *    tags:
- *      - user
+ *    tags: [WEB User (/user)]
  *    summary: 내 정보 수정
  *    description: 유저의 이름, 이메일, 전화번호, 생년월일을 수정한다
+ *    security:
+ *      - session: []
+ *      - CSRF: []
  *    produces:
  *    - "application/json"
  *    parameters:

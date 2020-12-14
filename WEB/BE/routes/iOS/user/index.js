@@ -7,10 +7,16 @@ const { catchErrors } = require('@utils/util');
 
 /**
  * @swagger
+ * tags:
+ *  name: iOS User (/app/user)
+ *  description: user 관리
+ */
+
+/**
+ * @swagger
  * /app/user/email:
  *  post:
- *    tags:
- *    - app/user
+ *    tags: [iOS User (/app/user)]
  *    summary: 이메일 인증 코드 발송
  *    description: 입력받은 이메일로 인증 코드를 발송한다
  *    parameters:
@@ -37,8 +43,7 @@ router.post('/email', catchErrors(userController.sendEmail));
  * @swagger
  * /app/user/confirm-email:
  *  post:
- *    tags:
- *    - app/user
+ *    tags: [iOS User (/app/user)]
  *    summary: 이메일 인증 코드 확인
  *    description: 입력받은 이메일로 인증 코드를 확인하하고 유저 정보를 저장한다
  *    parameters:
@@ -89,9 +94,11 @@ router.use(catchErrors(userController.getUserFromJWT));
  * @swagger
  * /app/user/email:
  *  patch:
- *    tags: [app/user]
+ *    tags: [iOS User (/app/user)]
  *    summary: 이메일 수정
  *    description: 입력받은 이메일 유저의 이메일 정보를 수정한다
+ *    security:
+ *      - jwt: []
  *    parameters:
  *    - name: email
  *      in: body
@@ -114,9 +121,11 @@ router.patch('/email', catchErrors(userController.updateEmail));
  * @swagger
  * /app/user/multi:
  *  patch:
- *    tags: [app/user]
+ *    tags: [iOS User (/app/user)]
  *    summary: 멀티디바이스 수정
  *    description: 유저의 멀티디바이스 정보를 수정한다
+ *    security:
+ *      - jwt: []
  *    parameters:
  *    - name: multiDevice
  *      in: body
@@ -141,9 +150,11 @@ router.param('udid', deviceController.getDevice);
  * @swagger
  * /app/user/backup/{udid}:
  *  patch:
- *    tags: [app/user]
+ *    tags: [iOS User (/app/user)]
  *    summary: 백업 수정
  *    description: 디바이스의 백업 정보를 수정한다
+ *    security:
+ *      - jwt: []
  *    parameters:
  *    - name: backup
  *      in: body
@@ -166,8 +177,10 @@ router.patch('/backup/:udid', catchErrors(deviceController.updateBackup));
  * @swagger
  * /app/user/device/{udid}:
  *  patch:
- *    tags: [app/user]
+ *    tags: [iOS User (/app/user)]
  *    summary: 디바이스 이름 수정
+ *    security:
+ *      - jwt: []
  *    parameters:
  *    - name: name
  *      in: body
@@ -190,9 +203,11 @@ router.patch('/device/:udid', catchErrors(deviceController.updateName));
  * @swagger
  * /app/user/device/{udid}:
  *  delete:
- *    tags: [app/user]
+ *    tags: [iOS User (/app/user)]
  *    summary: 디바이스 삭제
  *    description: 유저의 디바이스를 목록에서 삭제한다
+ *    security:
+ *      - jwt: []
  *    responses:
  *      200:
  *        description: 디바이스 삭제 성공

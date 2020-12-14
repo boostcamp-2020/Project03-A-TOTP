@@ -17,6 +17,16 @@ const swaggerDefinition = {
       name: 'Authorization',
       in: 'header',
     },
+    session: {
+      type: 'apiKey',
+      in: 'cookie',
+      name: 'connect.sid',
+    },
+    CSRF: {
+      type: 'apiKey',
+      in: 'cookie',
+      name: 'csrfToken',
+    },
   },
   components: {},
 };
