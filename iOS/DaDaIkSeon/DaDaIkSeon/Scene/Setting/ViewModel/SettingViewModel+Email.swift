@@ -16,6 +16,10 @@ extension SettingViewModel {
             if email.checkStyle(type: .email) {
                 state.service.updateEmail(email) { result in
                     switch result {
+                    case .emailEdit:
+                        DispatchQueue.main.async {
+                            self.state.email = email
+                        }
                     default: break
                     }
                 }

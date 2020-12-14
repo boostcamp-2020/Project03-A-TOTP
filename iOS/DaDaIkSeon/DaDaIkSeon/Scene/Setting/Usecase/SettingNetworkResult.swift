@@ -8,6 +8,7 @@
 import Foundation
 
 enum SettingNetworkResult {
+    case emailEdit
     case multiDeviceToggle
     case backupToggle
     case messageError

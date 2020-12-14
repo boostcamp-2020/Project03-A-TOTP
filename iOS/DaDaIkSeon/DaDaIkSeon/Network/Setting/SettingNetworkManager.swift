@@ -15,17 +15,16 @@ final class SettingNetworkManager: Requestable {
     private init() {}
     
     func changeEmail(email: String,
-                     completion: @escaping () -> Void) {
-        
+                     completion: @escaping (SettingNetworkResult) -> Void) {
         let settingEndpoint: SettingEndpoint = .patchEmail(email: email)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-                completion()
-            case .networkError(let error):
-                print(error)
+                completion(.emailEdit)
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }

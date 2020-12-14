@@ -84,7 +84,7 @@ extension SettingView {
     
     final class SettingTransition: ObservableObject {
         
-        @Published var newEmail = Entry(limit: 20)
+        @Published var newEmail = Entry(limit: 30)
         @Published var newPassword = Entry(limit: 15)
         @Published var newPasswordCheck = Entry(limit: 15)
         
