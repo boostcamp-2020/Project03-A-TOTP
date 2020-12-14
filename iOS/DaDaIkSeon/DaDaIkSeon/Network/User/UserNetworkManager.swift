@@ -32,17 +32,22 @@ final class UserNetworkManager: Requestable {
     }
     
     func sendEmail(email: String,
-                   completion: @escaping () -> Void) {
+                   completion: @escaping (LoginNetworkResult) -> Void) {
         
         userEndpoint = .postEmail(email: email)
         request(userEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion()
+            case .networkSuccess(let data):
+                switch data.responseCode {
+                case 200..<300:
+                    completion(.successSendEmail)
+                default:
+                    completion(.multideviceOff)
+                }
             case .networkError(let error):
-                print(error)
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }

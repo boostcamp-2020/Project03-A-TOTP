@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
+		7C032B1725874B1600BFAAEB /* LoginNetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C032B1625874B1600BFAAEB /* LoginNetworkResult.swift */; };
 		7C1DC3A72581F301008D9550 /* BiometricIDAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */; };
 		7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */; };
 		7C2D3420257F51360013AD65 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D341F257F51360013AD65 /* LoginService.swift */; };
@@ -127,6 +128,7 @@
 		3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3CF060568D9EE8E2331D44 /* Pods-DaDaIkSeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.release.xcconfig"; sourceTree = "<group>"; };
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
+		7C032B1625874B1600BFAAEB /* LoginNetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkResult.swift; sourceTree = "<group>"; };
 		7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricIDAuthManager.swift; sourceTree = "<group>"; };
 		7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
 		7C2D341F257F51360013AD65 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */,
+				7C032B1625874B1600BFAAEB /* LoginNetworkResult.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -1045,6 +1048,7 @@
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */,
 				888E5CD8258551D2001D30DF /* BackgroundView.swift in Sources */,
+				7C032B1725874B1600BFAAEB /* LoginNetworkResult.swift in Sources */,
 				88938A3F25850D3400D3945C /* SettingToggleView.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,

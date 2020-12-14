@@ -54,7 +54,7 @@ final class SettingNetworkManager: Requestable {
     }
 
     func changeMultiDevice(multiDevice: Bool,
-                           completion: @escaping (SettingNetworkResult) -> Void) {
+                           completion: @escaping (DataResultType<String>) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .patchMultiDevice(isMultiDevice: multiDevice)
         request(settingEndpoint) { result in

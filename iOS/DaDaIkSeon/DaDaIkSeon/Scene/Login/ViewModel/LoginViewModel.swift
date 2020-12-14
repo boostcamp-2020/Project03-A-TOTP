@@ -35,7 +35,7 @@ final class LoginViewModel: ViewModel {
         case .showSendButton:
             showSendButton()
         case .backButton:
-            changeIsEmailView()
+            changeIsEmailView(true)
         case .hideSendButton:
             state.isTyping = false
         case .authButton(let code, let device, let completion):
@@ -58,10 +58,23 @@ private extension LoginViewModel {
     
     func sendAuthEmail(_ emailText: String) {
         if emailText.checkStyle(type: .email) {
-            state.service.sendEmail(email: emailText)
-            state.isEmailView = false
-            UserDefaults.standard.set(state.isEmailView,
-                                      forKey: "isEmailView")
+            state.service.sendEmail(email: emailText) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .successSendEmail:
+                        print("하하하. 성공")
+                        self.changeIsEmailView(false)
+                    case .multideviceOff:
+                        print("하하하 머ㅓㄹ티가 꺼졌어")
+                    case .dataParsingError:
+                        print("파싱이 안됐어...ㅋ")
+                    case .networkError:
+                        print("네트워크를 확인해주세요")
+                    }
+                }
+            }
+            
         }
     }
     
@@ -83,8 +96,8 @@ private extension LoginViewModel {
         state.isTyping = false
     }
     
-    func changeIsEmailView() {
-        state.isEmailView = true
+    func changeIsEmailView(_ isEmail: Bool) {
+        state.isEmailView = isEmail
         UserDefaults.standard.set(state.isEmailView,
                                   forKey: "isEmailView")
     }
