@@ -15,7 +15,6 @@ const tokenService = {
   },
 
   async updateToken(params, id) {
-    console.log(params, id);
     const result = await Token.update(params, { where: { id } });
     return result;
   },

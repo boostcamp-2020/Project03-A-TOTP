@@ -166,17 +166,17 @@ module.exports = router;
 
 /**
  * @swagger
- * /app/token/:id:
+ * /app/token/{id}:
  *  patch:
  *    tags: [iOS Token (/app/token)]
- *    summary: Key 토큰 업데이트(JWT 필요)
+ *    summary: 토큰 업데이트(JWT 필요)
  *    description: 넘어온 id 기준으로 기존 Key token 데이터를 업데이트함
  *    security:
  *      - jwt: []
  *    produces:
  *    - "application/json"
  *    parameters:
- *    - name: tokens
+ *    - name: token
  *      in: body
  *      description: Key 토큰
  *      type: object
@@ -184,6 +184,11 @@ module.exports = router;
  *        tokens:
  *          $ref: '#/definitions/token'
  *      required: true
+ *    - name: id
+ *      in: path
+ *      description: 대상 id (토큰)
+ *      schema:
+ *        type: string
  *    responses:
  *      200:
  *        description: 업데이트 성공
@@ -210,7 +215,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /app/token/:id:
+ * /app/token/{id}:
  *  delete:
  *    tags: [iOS Token (/app/token)]
  *    summary: Key 토큰 삭제(JWT 필요)
@@ -219,6 +224,12 @@ module.exports = router;
  *      - jwt: []
  *    produces:
  *    - "application/json"
+ *    parameters:
+ *    - name: id
+ *      in: path
+ *      description: 대상 id (토큰)
+ *      schema:
+ *        type: string
  *    responses:
  *      200:
  *        description: 삭제 성공
