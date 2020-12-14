@@ -10,7 +10,7 @@ const userController = {
     const bearerHeader = req.headers.authorization;
 
     if (!bearerHeader) {
-      return next(createError(403, 'forbidden'));
+      return next(createError(403, '접근할 수 없는 요청입니다'));
     }
 
     const jwt = bearerHeader.split(' ')[1];
@@ -22,13 +22,39 @@ const userController = {
     next();
   },
 
-  async sendEmail(req, res, next) {
-    const { email } = req.body;
-    const user = await userService.getUserByEmail({ email });
+  async getUser(req, res) {
+    const { user } = req;
+    const devices = user.devices.map((device) => {
+      return {
+        name: device.name,
+        udid: device.udid,
+        modelName: device.model_name,
+        backup: device.backup,
+      };
+    });
 
-    if (user && user.multi_device === false) {
+    res.json({
+      user: {
+        email: user.email,
+        multiDevice: user.multi_device,
+        lastUpdate: user.last_update,
+        devices,
+      },
+    });
+  },
+
+  async sendEmail(req, res, next) {
+    const { email, device } = req.body;
+    const [user, userDevice] = await Promise.all([
+      userService.getUserByEmail({ email }),
+      deviceService.getDeviceByUdid({ udid: device.udid }),
+    ]);
+    const isValidUserCondition = !user || user.multi_device === true;
+
+    if (!isValidUserCondition && !userDevice) {
       return next(createError(403, '멀티 디바이스 off'));
     }
+
     const emailCode = makeRandom(1, 6);
 
     if (!user) {
@@ -47,19 +73,24 @@ const userController = {
     const user = await userService.getUserByEmail({ email });
 
     if (!user) {
-      return next(createError(400, '존재하지 않는 사용자'));
+      return next(createError(400, '존재하지 않는 사용자입니다'));
     }
 
     if (code !== user.email_code) {
-      return next(createError(400, '틀린 코드 입력'));
+      return next(createError(400, '인증 코드가 틀렸습니다'));
     }
 
-    const createdDevice = await deviceService.addDevice({
-      ...device,
-      model_name: device.modelName,
-      user_idx: user.idx,
-    });
-    const jwt = JWT.sign({ userIdx: user.idx, deviceUdid: createdDevice.udid }, process.env.ENCRYPTIONKEY);
+    let userDevice = user.devices.find((d) => d.udid === device.udid);
+
+    if (!userDevice) {
+      userDevice = await deviceService.addDevice({
+        ...device,
+        model_name: device.modelName,
+        user_idx: user.idx,
+      });
+    }
+
+    const jwt = JWT.sign({ userIdx: user.idx, deviceUdid: userDevice.udid }, process.env.ENCRYPTIONKEY);
 
     res.json({
       message: '성공요',
