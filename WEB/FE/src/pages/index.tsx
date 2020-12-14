@@ -9,3 +9,4 @@ export { default as MyPage } from '@/pages/MyPage';
 export { default as IndexPage } from '@/pages/IndexPage';
 export { default as Why2FAPage } from '@/pages/Why2FAPage';
 export { default as TOTPIntroPage } from '@/pages/TOTPIntroPage';
+export { default as StudyPage } from '@/pages/StudyPage';
