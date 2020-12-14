@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import qs from 'qs';
 import { useInput } from '@hooks/useInput';
 import { PasswordInput } from '@components/common';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -22,21 +21,17 @@ const ChangePasswordComponent = ({ location }): JSX.Element => {
     return <Redirect to='/' />;
   }
 
-  const userData = qs.parse(search, {
-    ignoreQueryPrefix: true,
-  });
-
-  const querStr: string = userData.user!.toString();
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const userData = search.substring(6);
     if (!password || !rePassword) {
       alert(message.SOMETHINGNOTINPUT);
     } else if (!accord) {
       alert(message.PASSWORDNOTACCORD);
     } else {
-      changePass(querStr, password)
+      changePass(userData, password)
         .then(() => {
+          console.log(message.CHANGEPASSWORDSUCCESS);
           history.push('/login');
         })
         .catch((err: any) => alert(err.response?.data?.mesaage || err));
