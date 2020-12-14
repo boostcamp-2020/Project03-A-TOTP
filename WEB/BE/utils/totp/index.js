@@ -19,6 +19,10 @@ const totp = {
   verifyDigits(key, digits, date = new Date()) {
     key = base32.decode(key);
     const sixDigits = makeSixDigits(key, date);
+    if (digits !== sixDigits) {
+      const seSixDigits = makeSixDigits(key, Date.now() - 30000);
+      return digits === seSixDigits;
+    }
     return digits === sixDigits;
   },
 };
