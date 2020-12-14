@@ -20,11 +20,13 @@ struct SettingState {
     var backupPasswordEditMode: Bool
     var backupPasswordEditCheckMode: Bool
     
-    var editErrorMessage: SettingEditErrorMessage
+    var passwordErrorMessage: SettingPasswordErrorMessage
     
     var deviceToggle: Bool
-    var deviceID: String
+    var selectedDeviceID: String
     var deviceInfoMode: Bool
+    
+    var deviceErrorMessage: SettingDeviceErrorMessage
     
     var devices: [Device]
 }
@@ -63,13 +65,19 @@ enum SettingMultiDevice {
     case multiDeviceToggle //
     case deviceInfoMode(_ udid: String) //
     case editDevice(_ device: Device)
-    case deleteDevice(_ deviceID: String)
+    case deleteDevice
 }
 
-enum SettingEditErrorMessage: String {
+enum SettingPasswordErrorMessage: String {
     case none = ""
     case string = "비밀번호 형식이 올바르지 않습니다.(대소문자, 숫자, 6~15자 사이)"
     case different = "입력한 비밀번호와 일치하지 않습니다."
+}
+
+enum SettingDeviceErrorMessage: String {
+    case none = ""
+    case deviceName = "3자 이상의 이름을 입력해주세요."
+    case notDeleteDevice = "현재 사용중인 디바이스는 삭제할 수 없습니다."
 }
 
 extension SettingView {
@@ -84,6 +92,8 @@ extension SettingView {
         
         @Published var faceIDToggle: Bool = false
         @Published var pinCodeSetting: Bool = false
+        
+        @Published var deviceAlert: Bool = false
     }
     
 }

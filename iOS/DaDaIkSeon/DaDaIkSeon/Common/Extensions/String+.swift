@@ -9,6 +9,7 @@ import Foundation
 
 extension String {
     
+    // MARK: TextField Check
     enum RegExType: String {
         case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         case code = "[A-Z0-9a-z]{6}"
@@ -21,4 +22,11 @@ extension String {
         return test.evaluate(with: self)
     }
     
+    // MARK: Date Formatter
+    func timeFormatToDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let date = dateFormatter.date(from: self)
+        return date
+    }
 }

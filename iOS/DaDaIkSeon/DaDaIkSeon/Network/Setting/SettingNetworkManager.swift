@@ -54,17 +54,22 @@ final class SettingNetworkManager: Requestable {
     }
 
     func changeMultiDevice(multiDevice: Bool,
-                           completion: @escaping () -> Void) {
+                           completion: @escaping (SettingNetworkResult) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .patchMultiDevice(isMultiDevice: multiDevice)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion()
-            case .networkError(let error):
-                print(error)
+            case .networkSuccess(let data):
+//                guard let resultData = data.responseResult.data else {
+//                    completion(.messageError)
+//                    return
+//                }
+//                completion(.result(resultData))
+                completion(.result(""))
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }

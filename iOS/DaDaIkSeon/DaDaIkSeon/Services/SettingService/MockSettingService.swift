@@ -55,12 +55,15 @@ class MockSettingService: SettingServiceable {
         // 나중에 토큰 가져올 때 이 비밀번호를 사용하여 복호화하게 된다.
     }
     
-    func updateMultiDeviceMode(_ isOn: Bool, completion: () -> Void) {
-        SettingNetworkManager.shared.changeMultiDevice(multiDevice: isOn, completion: {
-            // result를 매개변수로 받아서 여기서 처리해준다.
+    func updateMultiDeviceMode(
+        _ isOn: Bool, completion: @escaping (SettingNetworkResult) -> Void) {
+        SettingNetworkManager
+            .shared.changeMultiDevice(multiDevice: isOn) { result in
+                completion(result)
+                // result를 매개변수로 받아서 여기서 처리해준다.
             //self.user.multiDevice?.toggle() 이걸 success에서 실행
             // completion 이것도 success에서 실행
-        })
+        }
     }
     
     func readDevice() -> [Device]? {

@@ -37,13 +37,18 @@ extension SettingView {
                 if isSelectedDevice(deviceID: device.udid) {
                     
                     HStack {
+                        
                         TextField(device.name ?? "", text: $stateManager.newDeviceName.text)
+                            .ignoresSafeArea(.keyboard, edges: .bottom)
+                        
                         Divider()
+                        
                         Button(action: {
-                            viewModel.trigger(.settingMultiDevice(.deleteDevice(device.udid ?? "")))
+                            stateManager.deviceAlert = true
                         }, label: {
                             Text("삭제").foregroundColor(Color.pink)
                         })
+                        Divider()
                         Button(action: {
                             var newDevice = device
                             newDevice.name = stateManager.newDeviceName.text
@@ -51,18 +56,17 @@ extension SettingView {
                         }, label: {
                             Text("확인").foregroundColor(Color.navy1)
                         })
+                        Divider()
+                        
                     }
                     
-                    Text("\(viewModel.state.editErrorMessage.rawValue)")
+                    SettingErrorMessageView(viewModel.state.deviceErrorMessage.rawValue)
                     
                     Divider()
+                    
                     HStack {
-                        Text("디바이스 아이디:")
-                        Spacer()
-                        Text("\(device.udid ?? "")")
-                    }
-                    HStack {
-                        Text("모델 이름:")
+                        Text("모델 이름").fontWeight(.bold)
+                        Divider()
                         Spacer()
                         Text("\(device.modelName ?? "")")
                     }
@@ -72,7 +76,17 @@ extension SettingView {
         }
         .padding(.horizontal, 10)
         .padding(.top, 10)
-        
+        .alert(isPresented: $stateManager.deviceAlert, content: {
+            Alert(
+                title: Text("디바이스 삭제"),
+                message: Text("삭제한 디바이스를 다시 사용하고 싶으시다면 앱을 다시 설치하여야 합니다."),
+                primaryButton: .destructive(
+                    Text("삭제"), action: {
+                        withAnimation {
+                            viewModel.trigger(.settingMultiDevice(.deleteDevice))
+                        }}),
+                secondaryButton: .cancel(Text("취소")))
+        })
     }
 
     func isLastDivice(udid: String?) -> Bool {
@@ -84,8 +98,7 @@ extension SettingView {
     }
     
     func isSelectedDevice(deviceID: String?) -> Bool {
-        viewModel.state.deviceInfoMode
-            && viewModel.state.deviceID == deviceID
+        viewModel.state.selectedDeviceID == deviceID
     }
     
 }
