@@ -16,6 +16,7 @@ final class TokenNetworkManager: Requestable {
     
     private var tokenEndpoint: TokenEndpoint = .get
     
+    // 최초 한 번만 실행 - 그 이후에는 항상 싱크 비교가 되어야 한다. 
     func load(completion: @escaping ([Token]) -> Void) {
         
         tokenEndpoint = .get

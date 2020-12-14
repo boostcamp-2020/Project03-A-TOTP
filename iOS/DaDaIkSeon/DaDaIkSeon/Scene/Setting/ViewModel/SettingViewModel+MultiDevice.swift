@@ -34,12 +34,20 @@ extension SettingViewModel {
             }
             state.selectedDeviceID = ""
             state.deviceErrorMessage = .none
-            state.service.updateDevice(device)
+            state.service.updateDevice(
+                device, completion: { result in
+                    switch result {
+                    default: break
+                    }
+                })
             state.devices = state.service.readDevice() ?? Device.dummy()
         case .deleteDevice:
             if state.selectedDeviceID != currentUDID {
-                state.service.deleteDevice(state.selectedDeviceID)
-                //network
+                state.service.deleteDevice(state.selectedDeviceID, completion: { result in
+                    switch result {
+                    default: break
+                    }
+                })
             } else {
                 state.deviceErrorMessage = .notDeleteDevice
             }

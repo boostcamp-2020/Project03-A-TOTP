@@ -8,30 +8,33 @@
 import Foundation
 
 class MockSettingService: SettingServiceable {
-    
+
     private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
     private var pincodeManager = PincodeManager()
     private var backupPasswordManager = BackupPasswordManager()
     
     init() {
-        // user default에서 가져온 값과 서버에서 받아온 값을 비교해서 최신으로 load한다?
-        // 그냥 서버에서 데이터 받아서 사용하면 안되나? 꼭 유저 정보를 로컬에 가지고 있어야 할까
         loadUser()
     }
 
-    private func loadUser() { // 유저 디폴트에서 가져와야한다.
-        user = DDISUser.dummy()
+    private func loadUser() { // 네트워크에서 가져와야한다. - 컴플리션에서 뷰 업데이트
+        refresh()
     }
+    // error: 설정 정보를 불러오는 데 실패하였습니다. 네트워크 연결을 확인해주세요.
     
     func refresh() {
         // 네트워크에서 가져오기
+        user = DDISUser.dummy()
     }
     
     func readEmail() -> String? {
         return user.email
     }
     
-    func updateEmail(_ email: String) {
+    func updateEmail(_ email: String, completion: @escaping (SettingNetworkResult) -> Void) {
+        
+       // 네트워크
+        
         user.email = email
     }
     
@@ -60,9 +63,6 @@ class MockSettingService: SettingServiceable {
         SettingNetworkManager
             .shared.changeMultiDevice(multiDevice: isOn) { result in
                 completion(result)
-                // result를 매개변수로 받아서 여기서 처리해준다.
-            //self.user.multiDevice?.toggle() 이걸 success에서 실행
-            // completion 이것도 success에서 실행
         }
     }
     
@@ -70,17 +70,24 @@ class MockSettingService: SettingServiceable {
         user.device
     }
     
-    func updateDevice(_ newDevice: Device) {
+    func updateDevice(_ newDevice: Device,
+                      completion: @escaping (SettingNetworkResult) -> Void) {
         guard let devices = user.device else { return }
+        
+        // 업데이트 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
         if let index = devices.firstIndex(where: { newDevice.udid == $0.udid }) {
             user.device?[index] = newDevice
         }
+        
     }
     
-    func deleteDevice(_ udid: String) {
+    func deleteDevice(_ udid: String,
+                      completion: @escaping (SettingNetworkResult) -> Void) {
+        
         user.device?.removeAll(where: {
             $0.udid == udid
-        })
+        }) // 삭제 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
+        
     }
     
     var pincode: String? {

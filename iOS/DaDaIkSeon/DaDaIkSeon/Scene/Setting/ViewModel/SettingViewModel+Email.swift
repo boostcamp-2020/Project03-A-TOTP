@@ -14,7 +14,11 @@ extension SettingViewModel {
         switch input {
         case .editEmail(let email):
             if email.checkStyle(type: .email) {
-                state.service.updateEmail(email)
+                state.service.updateEmail(email) { result in
+                    switch result {
+                    default: break
+                    }
+                }
                 state.email = state.service.readEmail() ?? ""
                 state.emailEditMode = false
                 state.emailValidation = true

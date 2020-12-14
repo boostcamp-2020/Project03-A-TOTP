@@ -39,11 +39,6 @@ final class SettingNetworkManager: Requestable {
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-//                guard let resultData = data.responseResult.data else {
-//                    completion(.messageError)
-//                    return
-//                }
-                //completion(.result(resultData))
                 completion(.backupToggle)
             case .networkError:
                 completion(.dataParsingError)
@@ -59,7 +54,7 @@ final class SettingNetworkManager: Requestable {
         let settingEndpoint: SettingEndpoint = .patchMultiDevice(isMultiDevice: multiDevice)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess(let data):
+            case .networkSuccess:
                 completion(.multiDeviceToggle)
             case .networkError:
                 completion(.dataParsingError)
