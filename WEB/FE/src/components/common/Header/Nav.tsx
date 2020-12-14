@@ -46,7 +46,7 @@ function Nav({}: NavProps): JSX.Element {
         </Link>
       </NavButton>
       <NavButton>
-        <Link to='/'>
+        <Link to='/study'>
           <Button type='text' text='학습하기' style={{ padding: 0 }} />
         </Link>
       </NavButton>
