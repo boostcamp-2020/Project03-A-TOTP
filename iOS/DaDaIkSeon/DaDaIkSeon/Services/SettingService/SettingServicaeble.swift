@@ -21,7 +21,7 @@ protocol SettingServiceable {
     func updateBackupMode(
         _ udid: String,
         backup: Bool,
-        updateView: @escaping (DataResultType<String>) -> Void)
+        updateView: @escaping (SettingNetworkResult) -> Void)
     func readBackupPassword() -> String?
     func updateBackupPassword(_ password: String)
     

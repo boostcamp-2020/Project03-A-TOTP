@@ -37,7 +37,7 @@ class MockSettingService: SettingServiceable {
     
     func updateBackupMode(_ udid: String,
                           backup: Bool,
-                          updateView: @escaping (DataResultType<String>) -> Void) {
+                          updateView: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
             .changeBackupMode(udid: udid, backup: backup) { result in
             updateView(result)

@@ -12,9 +12,9 @@ extension SettingViewModel {
         switch input {
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode(!state.deviceToggle) { result in
+                // toggle 성공
                 switch result {
-                case .result(let data):
-                    print(data)
+                case .multiDeviceToggle:
                     DispatchQueue.main.async {
                         self.state.deviceToggle.toggle()
                     }
@@ -24,6 +24,7 @@ extension SettingViewModel {
                     print("messageError 실패")
                 case .networkError:
                     print("networkError 실패")
+                default: break
                 }
             }
         case .editDevice(let device):
