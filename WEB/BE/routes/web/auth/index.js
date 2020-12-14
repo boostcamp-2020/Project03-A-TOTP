@@ -4,13 +4,18 @@ const router = express.Router();
 const authController = require('@/controllers/web/auth');
 const { validator, reCAPTCHA, verifyJWT, sessionAuthentication } = require('@middlewares');
 const { catchErrors } = require('@utils/util');
+/**
+ * @swagger
+ * tags:
+ *  name: WEB auth (/auth)
+ *  description: auth 관리
+ */
 
 /**
  * @swagger
  * /auth/dup-id:
  *  post:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: 아이디 중복체크
  *    description: 아이디 중복체크를 한 후 결과를 반환한다
  *    consumes:
@@ -42,8 +47,7 @@ router.post('/dup-id', catchErrors(authController.dupId));
  * @swagger
  * /auth:
  *  post:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: 아이디,비밀번호 로그인 인증
  *    description: 아이디,비밀번호를 체크한 후 성공하면 authToken을 반환
  *    consumes:
@@ -78,8 +82,7 @@ router.post('/dup-id', catchErrors(authController.dupId));
  *      500:
  *        description: 기타 에러
  *  put:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: TOTP 로그인 인증
  *    description: TOTP와 authToken을 받아서 값을 확인한 후 성공하면 세션 쿠키를 전달
  *    consumes:
@@ -123,8 +126,7 @@ router
  * @swagger
  * /auth/password/email:
  *  post:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: 아이디, 이름, 생년월일 인증
  *    description: 아이디, 이름, 생년월일을 체크한 후 성공하면 authToken을 반환
  *    consumes:
@@ -169,8 +171,7 @@ router
  *      500:
  *        description: 유저정보가 존재하지않음
  *  put:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: 비밀번호 찾기 TOTP 인증
  *    description: TOTP와 authToken을 받아서 값을 확인한 후 성공하면 이메일로 비밀번호변경 URL 발송
  *    consumes:
@@ -204,8 +205,7 @@ router
  *      401:
  *        description: 잘못된 authToken 또는 csrf 에러
  *  patch:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: 비밀번호 변경
  *    description: 변경된 비밀번호를 전달하여 비밀번호 변경
  *    consumes:
@@ -244,8 +244,7 @@ router
  * @swagger
  * /auth/secret-key/email:
  *  put:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: QR Code 재발급
  *    description: 아이디를 받아 이메일로 QR Code 재발급 주소 전달
  *    consumes:
@@ -291,8 +290,7 @@ router.use(sessionAuthentication.sessionCheck);
  * @swagger
  * /auth/logout:
  *  get:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: Logout
  *    description: 세션을 삭제하여 Logout
  *    consumes:
@@ -318,8 +316,7 @@ router.get('/logout', authController.logout);
  * @swagger
  * /auth/check-pw:
  *  post:
- *    tags:
- *    - auth
+ *    tags: [WEB auth (/auth)]
  *    summary: 비밀번호 체크
  *    description: 개인정보 수정을 위한 비밀번호 체크
  *    consumes:
