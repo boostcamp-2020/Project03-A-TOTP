@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+final class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         clearKeychainIfWillUnistall()
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults.standard.set(true,
+                                  forKey: "isEmailView")
     }
     
     func clearKeychainIfWillUnistall() {
