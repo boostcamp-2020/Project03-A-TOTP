@@ -24,19 +24,12 @@ extension Requestable {
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
         
-        let header = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-        let payload = "eyJ1c2VySWR4Ijo0LCJkZXZpY2VVZGlkIjoiNzBDM0EwRjAtMTQ5MS00M0M2LThCMUMtNTlGMEU5ODlBMEE4IiwiaWF0IjoxNjA3ODM5NzMyfQ"
-        let last = "Atm0smcQzaqSox3QNQ1CP93lAjtllnjokGkDXYAN11k"
-        
         if let params = endpoint.params {
             let jsonData = try? JSONSerialization.data(withJSONObject: params)
-            let headers = [
-                "Content-Type": "application/json",
-                // 토큰 등등
-                "Authorization": "bearer \(header).\(payload).\(last)"
-                // \(UserDefaults.standard.string(forKey: "token") 로 바꿔야 한다.
-            ]
-            
+            var headers = ["Content-Type": "application/json"]
+            if let jwtToken = JWTTokenStoreManager().load() {
+                headers["Authorization"] = "bearer \(jwtToken)"
+            }
             request.httpBody = jsonData
             request.allHTTPHeaderFields = headers
         }

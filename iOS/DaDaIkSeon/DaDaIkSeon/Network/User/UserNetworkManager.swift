@@ -44,7 +44,7 @@ final class UserNetworkManager: Requestable {
                 default:
                     completion(.multideviceOff)
                 }
-            case .networkError(let error):
+            case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
                 completion(.networkError)
