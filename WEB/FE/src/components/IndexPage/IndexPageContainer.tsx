@@ -61,7 +61,7 @@ function IndexPageContainer({}: IndexPageContainerProps): JSX.Element {
             비밀번호만 사용하는 인증 방법은 더 이상 안전하지 않습니다. 날이 갈수록 데이터 유출은 빈번해지고
             새로운 해킹 방법이 등장하고 있습니다. 2단계 보안인증 적용으로 스스로 위험에서 보호하세요.
           </Description>
-          <Link to='/'>
+          <Link to='/why-2fa'>
             <Button text='더 알아보기 &#xE001;' />
           </Link>
         </TextContainer>
@@ -79,7 +79,7 @@ function IndexPageContainer({}: IndexPageContainerProps): JSX.Element {
             비밀번호와 시간의 조합으로 OTP를 생성하는 TOTP는 더욱 쉽고 안전하게 계정을 위협으로부터 보호할 수
             있도록 해줍니다.
           </Description>
-          <Link to='/'>
+          <Link to='/totp-intro'>
             <Button text='더 알아보기 &#xE001;' />
           </Link>
         </TextContainer>
