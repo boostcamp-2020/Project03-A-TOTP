@@ -21,8 +21,17 @@ final class UserNetworkManager: Requestable {
         request(userEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
-                guard let user = data.responseResult.data else { return }
-                completion(.refresh(user))
+                switch data.responseCode {
+                case (200..<300):
+                    guard let user = data.responseResult.data else { return }
+                    completion(.refresh(user))
+                case (400..<500):
+                    completion(.accessError403)
+                case 500:
+                    completion(.ETCError500)
+                default:
+                    completion(.ETCError)
+                }
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:

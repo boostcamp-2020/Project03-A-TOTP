@@ -26,19 +26,23 @@ class MockSettingService: SettingServiceable {
             print("is not presented")
             user = DDISUser.placeHoler()
         }
-        refresh(updateView: nil)
     }
-    // error: 설정 정보를 불러오는 데 실패하였습니다. 네트워크 연결을 확인해주세요.
     
-    func refresh(updateView: ((SettingNetworkResult) -> Void)?) { // 뷰모델 생성자에서 실행
+    func refresh(updateView: @escaping (SettingNetworkResult) -> Void) { // 뷰모델 생성자에서 실행
         UserNetworkManager.shared.load { [weak self] (result) in
             guard let self = self else { return }
             switch result {
             case .refresh(let user):
                 self.user = user
-                UserDefaults.standard.set(try? PropertyListEncoder().encode(user), forKey: "DDISUser")
-                updateView?(result)
-            default: break
+                UserDefaults.standard.set(
+                    try? PropertyListEncoder().encode(user), forKey: "DDISUser")
+                updateView(result)
+            case .accessError403:
+                print("403")
+            case .ETCError500:
+                print("ETCError500")
+            default:
+                print("error")
             }
         }
     }

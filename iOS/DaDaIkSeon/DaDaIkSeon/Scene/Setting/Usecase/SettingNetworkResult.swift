@@ -14,7 +14,10 @@ enum SettingNetworkResult {
     case backupToggle
     case deviceNameEdit
     case deviceDelete
+    case accessError403
     case messageError
     case networkError
     case dataParsingError
+    case ETCError500
+    case ETCError
 }

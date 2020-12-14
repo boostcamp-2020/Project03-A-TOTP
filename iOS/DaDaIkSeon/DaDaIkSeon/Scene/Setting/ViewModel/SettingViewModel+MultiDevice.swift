@@ -12,7 +12,6 @@ extension SettingViewModel {
         switch input {
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode(!state.deviceToggle) { result in
-                // toggle 성공
                 switch result {
                 case .multiDeviceToggle:
                     DispatchQueue.main.async {

@@ -9,7 +9,7 @@ import Foundation
 
 protocol SettingServiceable {
 
-    func refresh(updateView: ((SettingNetworkResult) -> Void)?) // 네트워크에서 가져오기
+    func refresh(updateView: @escaping (SettingNetworkResult) -> Void) // 네트워크에서 가져오기
     
     func readEmail() -> String?
     func updateEmail(_ email: String,
