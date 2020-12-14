@@ -10,7 +10,7 @@ const { catchErrors } = require('@utils/util');
  * /user:
  *  post:
  *    tags:
- *      - log
+ *      - user
  *    summary: 회원가입
  *    description: 회원가입
  *    produces:
@@ -75,7 +75,7 @@ router.post(
  * /user/dup-email:
  *  post:
  *    tags:
- *      - log
+ *      - user
  *    summary: 이메일 중복 체크
  *    description: 이메일 중복 체크
  *    produces:
@@ -106,7 +106,7 @@ router.post('/dup-email', catchErrors(userController.dupEmail));
  * /user/confirm-email:
  *  post:
  *    tags:
- *      - log
+ *      - user
  *    summary: 이메일 인증
  *    description: 회원가입 이메일 인증
  *    produces:
@@ -139,7 +139,7 @@ router.get('/confirm-email', catchErrors(userController.confirmEmail));
  * /user/find-id:
  *  post:
  *    tags:
- *      - log
+ *      - user
  *    summary: 회원가입
  *    description: 회원가입
  *    produces:
