@@ -18,6 +18,7 @@ const swaggerDefinition = {
       in: 'header',
     },
   },
+  components: {},
 };
 
 module.exports = swaggerDefinition;
