@@ -10,9 +10,11 @@ import SwiftUI
 struct LoginView: View {
     
     @ObservedObject var viewModel: AnyViewModel<LoginState, LoginInput>
+    private let completion: () -> Void
     
-    init(service: LoginServiceable) {
+    init(service: LoginServiceable, completion: @escaping () -> Void) {
         viewModel = AnyViewModel(LoginViewModel(service: service))
+        self.completion = completion
     }
     
     var body: some View {
@@ -32,7 +34,8 @@ struct LoginView: View {
                         LoginEmailView(viewModel: viewModel,
                                        geometryWidth: geometryWidth)
                     } else {
-                        LoginCodeView(viewModel: viewModel)
+                        LoginCodeView(viewModel: viewModel,
+                                      completion: completion)
                     }
                     Spacer()
                 }

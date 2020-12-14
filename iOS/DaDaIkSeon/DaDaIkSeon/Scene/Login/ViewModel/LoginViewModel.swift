@@ -14,11 +14,12 @@ final class LoginViewModel: ViewModel {
     @Published var state: LoginState
     
     init(service: LoginServiceable) {
+        let showEmailView = UserDefaults.standard.object(forKey: "isEmailView") as? Bool ?? true
         state = LoginState(service: service,
                            checkEmailText: "",
                            checkCodeText: "",
                            isTyping: false,
-                           isEmailView: true)
+                           isEmailView: showEmailView)
     }
     
     // MARK: Methods
@@ -37,8 +38,8 @@ final class LoginViewModel: ViewModel {
             changeIsEmailView()
         case .hideSendButton:
             state.isTyping = false
-        case .authButton(let code, let device):
-            sendAuthCode(code, device: device)
+        case .authButton(let code, let device, let completion):
+            sendAuthCode(code, device: device, completion: completion)
         }
     }
 }
@@ -56,19 +57,21 @@ private extension LoginViewModel {
     }
     
     func sendAuthEmail(_ emailText: String) {
-        if !emailText.checkStyle(type: .email) {
-            print("올바르지 않아서 보낼 수 없어")
-        } else {
+        if emailText.checkStyle(type: .email) {
             state.service.sendEmail(email: emailText)
             state.isEmailView = false
+            UserDefaults.standard.set(state.isEmailView,
+                                      forKey: "isEmailView")
         }
     }
     
-    func sendAuthCode(_ codeText: String, device: Device) {
-        if !codeText.checkStyle(type: .code) {
-            print("코드가 달라..")
-        } else {
-            state.service.requestAuthentication(code: codeText, device: device)
+    func sendAuthCode(_ codeText: String,
+                      device: Device,
+                      completion: @escaping (String?) -> Void) {
+        if codeText.checkStyle(type: .code) {
+            state.service.requestAuthentication(code: codeText,
+                                                device: device,
+                                                completion: completion)
         }
     }
     
@@ -82,6 +85,8 @@ private extension LoginViewModel {
     
     func changeIsEmailView() {
         state.isEmailView = true
+        UserDefaults.standard.set(state.isEmailView,
+                                  forKey: "isEmailView")
     }
     
 }

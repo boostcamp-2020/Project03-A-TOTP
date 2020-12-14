@@ -13,6 +13,8 @@ struct LoginCodeView: View {
     
     @ObservedObject var viewModel: AnyViewModel<LoginState, LoginInput>
     @State private var codeText = ""
+    @State private var isAlert = false
+    let completion: () -> Void
     
     var body: some View {
         VStack {
@@ -56,11 +58,15 @@ struct LoginCodeView: View {
                 Text("인증")
                     .foregroundColor(.white)
             })
+            .alert(isPresented: $isAlert) {
+                Alert(title: Text("코드가 일치하지 않습니다"),
+                      message: Text("입력하신 코드를 확인해주세요"),
+                      dismissButton: .default(Text("네")))
+            }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
             .background(Color.navy2)
             .cornerRadius(10)
-            
         }
         .padding(.all, 30)
     }
@@ -85,7 +91,16 @@ private extension LoginCodeView {
                             modelName: UIDevice.current.model,
                             backup: false,
                             lastUpdate: nil)
-        viewModel.trigger(.authButton(codeText, device: device))
+        viewModel.trigger(.authButton(codeText,
+                                      device: device,
+                                      completion: { token in
+            if token != nil {
+                isAlert = false
+                completion()
+            } else {
+                isAlert = true
+            }
+        }))
     }
     
 }

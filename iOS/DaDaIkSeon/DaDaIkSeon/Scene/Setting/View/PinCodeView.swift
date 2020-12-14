@@ -151,11 +151,15 @@ private extension NumberPad {
     func makeNumberButton(value: String) -> some View {
         Button(action: {
             if value == deleteImageName {
-                if !codes.isEmpty { codes.removeLast() }
+                if !codes.isEmpty {
+                    withAnimation { _ = codes.removeLast() }
+                }
             } else if value == cancelButton {
                 mode.wrappedValue.dismiss()
             } else {
-                if !value.isEmpty { codes.append(value) }
+                if !value.isEmpty {
+                    withAnimation { codes.append(value) }
+                }
                 if codes.count == 4 {
                     let inputCode = getCode()
                     switch pincodeViewMode {
