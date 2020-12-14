@@ -8,23 +8,39 @@
 import Foundation
 
 class MockSettingService: SettingServiceable {
-
-    private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
+    
+    private var user: DDISUser
     private var pincodeManager = PincodeManager()
     private var backupPasswordManager = BackupPasswordManager()
     
     init() {
-        loadUser()
-    }
-
-    private func loadUser() { // 네트워크에서 가져와야한다. - 컴플리션에서 뷰 업데이트
-        refresh()
+        // 아래 로직을 placeholder에서 수행하도록 옮기자
+        if let data = UserDefaults.standard.value(forKey: "DDISUser") as? Data {
+            if let user = try? PropertyListDecoder().decode(DDISUser.self, from: data) {
+                self.user = user
+            } else {
+                print("don't parsing")
+                user = DDISUser.placeHoler()
+            }
+        } else {
+            print("is not presented")
+            user = DDISUser.placeHoler()
+        }
+        refresh(updateView: nil)
     }
     // error: 설정 정보를 불러오는 데 실패하였습니다. 네트워크 연결을 확인해주세요.
     
-    func refresh() {
-        // 네트워크에서 가져오기
-        user = DDISUser.dummy()
+    func refresh(updateView: ((SettingNetworkResult) -> Void)?) { // 뷰모델 생성자에서 실행
+        UserNetworkManager.shared.load { [weak self] (result) in
+            guard let self = self else { return }
+            switch result {
+            case .refresh(let user):
+                self.user = user
+                UserDefaults.standard.set(try? PropertyListEncoder().encode(user), forKey: "DDISUser")
+                updateView?(result)
+            default: break
+            }
+        }
     }
     
     func readEmail() -> String? {
@@ -66,19 +82,20 @@ class MockSettingService: SettingServiceable {
             .shared.changeMultiDevice(multiDevice: isOn) { result in
                 completion(result)
         }
+        
     }
-    
+   
     func readDevice() -> [Device]? {
-        user.device
+        user.devices
     }
     
     func updateDevice(_ newDevice: Device,
                       completion: @escaping (SettingNetworkResult) -> Void) {
-        guard let devices = user.device else { return }
+        guard let devices = user.devices else { return }
         
         // 업데이트 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
         if let index = devices.firstIndex(where: { newDevice.udid == $0.udid }) {
-            user.device?[index] = newDevice
+            user.devices?[index] = newDevice
         }
         
     }
@@ -86,7 +103,7 @@ class MockSettingService: SettingServiceable {
     func deleteDevice(_ udid: String,
                       completion: @escaping (SettingNetworkResult) -> Void) {
         
-        user.device?.removeAll(where: {
+        user.devices?.removeAll(where: {
             $0.udid == udid
         }) // 삭제 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
         

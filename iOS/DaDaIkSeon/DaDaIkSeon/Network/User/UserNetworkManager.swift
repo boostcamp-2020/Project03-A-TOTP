@@ -16,17 +16,17 @@ final class UserNetworkManager: Requestable {
     static let shared = UserNetworkManager()
     private init() {}
     
-    func load(completion: @escaping (DDISUser) -> Void) {
+    func load(completion: @escaping (SettingNetworkResult) -> Void) {
         userEndpoint = .get
         request(userEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
                 guard let user = data.responseResult.data else { return }
-                completion(user)
-            case .networkError(let error):
-                print(error)
+                completion(.refresh(user))
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }

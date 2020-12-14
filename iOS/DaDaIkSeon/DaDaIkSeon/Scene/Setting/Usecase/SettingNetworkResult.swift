@@ -8,6 +8,7 @@
 import Foundation
 
 enum SettingNetworkResult {
+    case refresh(_ user: DDISUser)
     case emailEdit
     case multiDeviceToggle
     case backupToggle

@@ -44,8 +44,8 @@ class SettingViewModel: ViewModel {
     func trigger(_ input: SettingInput) {
         switch input {
         case .refresh: // onAppear에서 호출
-            state.service.refresh()
-        
+            //state.service.refresh()
+        break
         case .settingAuthMode(let input):
             handlerForAuthModeSetting(input)
             
