@@ -27,12 +27,14 @@ const userController = {
     const user = await userService.getUserByEmail({ email });
 
     if (user && user.multi_device === false) {
-      return next(createError(400, '멀티 디바이스 off'));
+      return next(createError(403, '멀티 디바이스 off'));
     }
     const emailCode = makeRandom(1, 6);
 
     if (!user) {
       await userService.addUser({ email, email_code: emailCode });
+    } else {
+      await user.update({ email_code: emailCode });
     }
 
     emailSender.sendiOSEmailCode({ email, emailCode });
@@ -61,11 +63,6 @@ const userController = {
 
     res.json({
       message: '성공요',
-      user: {
-        email: user.email,
-        device: [...user.devices, createdDevice],
-        multiDevice: user.multi_device,
-      },
       data: { jwt },
     });
   },
