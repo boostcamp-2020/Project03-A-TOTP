@@ -17,7 +17,7 @@ struct SettingErrorMessageView: View {
     
     var body: some View {
         Text(text)
-            .font(.system(size: 10))
+            .font(.system(size: 12))
             .foregroundColor(Color.pink2)
     }
 }
