@@ -9,6 +9,7 @@ import Foundation
 
 protocol LoginServiceable {
     func sendEmail(email: String,
+                   device: Device,
                    completion: @escaping (LoginNetworkResult) -> Void)
     func requestAuthentication(code: String,
                                device: Device,
@@ -22,8 +23,10 @@ final class LoginService: LoginServiceable {
                         multiDevice: nil)
     
     func sendEmail(email: String,
+                   device: Device,
                    completion: @escaping (LoginNetworkResult) -> Void) {
-        UserNetworkManager.shared.sendEmail(email: email) { [weak self] result in
+        UserNetworkManager.shared.sendEmail(email: email,
+                                            device: device) { [weak self] result in
             guard let self = self else { return }
             self.user.email = email
             completion(result)

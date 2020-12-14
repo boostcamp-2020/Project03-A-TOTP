@@ -22,5 +22,5 @@ enum LoginInput {
     case checkCode(_ codeText: String)
     case checkEmail(_ emailText: String)
     case authButton(_ codeText: String, device: Device, completion: (String?) -> Void)
-    case sendButton(_ emailText: String, completion: (String) -> Void)
+    case sendButton(_ emailText: String, device: Device, completion: (String) -> Void)
 }

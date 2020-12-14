@@ -97,8 +97,14 @@ private extension LoginEmailView {
     }
     
     func sendButtonDidTap(_ emailText: String) {
+        let device = Device(name: UIDevice.current.name,
+                            udid: UIDevice.current.identifierForVendor?.uuidString,
+                            modelName: UIDevice.current.model,
+                            backup: true,
+                            lastUpdate: nil)
         withAnimation {
             viewModel.trigger(.sendButton(emailText,
+                                          device: device,
                                           completion: { resultMessage in
                 message = resultMessage
                 isShowing = true

@@ -30,8 +30,8 @@ final class LoginViewModel: ViewModel {
             changeCheckEmailText(email)
         case .checkCode(let code):
             changeCheckCodeText(code)
-        case .sendButton(let email, let completion):
-            sendAuthEmail(email, completion)
+        case .sendButton(let email, let device, let completion):
+            sendAuthEmail(email, device, completion)
         case .showSendButton:
             showSendButton()
         case .backButton:
@@ -57,10 +57,11 @@ private extension LoginViewModel {
     }
     
     func sendAuthEmail(_ emailText: String,
+                       _ device: Device,
                        _ completion: @escaping (String) -> Void) {
         
         if emailText.checkStyle(type: .email) {
-            state.service.sendEmail(email: emailText) { [weak self] result in
+            state.service.sendEmail(email: emailText, device: device) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     switch result {

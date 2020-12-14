@@ -32,9 +32,10 @@ final class UserNetworkManager: Requestable {
     }
     
     func sendEmail(email: String,
+                   device: Device,
                    completion: @escaping (LoginNetworkResult) -> Void) {
         
-        userEndpoint = .postEmail(email: email)
+        userEndpoint = .postEmail(email: email, device: device)
         request(userEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
