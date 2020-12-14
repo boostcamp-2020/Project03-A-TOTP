@@ -9,8 +9,14 @@ import SwiftUI
 
 struct BackupPasswordView: View {
     
+    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
+    @StateObject var viewModel: AnyViewModel<BackupPasswordState, BackupPasswordInput>
     @ObservedObject var passwordEntry = Entry(limit: 15)
     @ObservedObject var passwordCheckEntry = Entry(limit: 15)
+    
+    init(viewModel: AnyViewModel<BackupPasswordState, BackupPasswordInput>) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         VStack {
@@ -26,7 +32,7 @@ struct BackupPasswordView: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                Text("일치하지 않습니다.")
+                Text(viewModel.state.errorMessage.rawValue)
                     .font(.system(size: 11))
                     .foregroundColor(.gray)
                     .padding(.trailing, 8)
@@ -40,8 +46,8 @@ struct BackupPasswordView: View {
                             radius: 5,
                             x: 0.0,
                             y: 0.3)
-                    .onChange(of: passwordEntry.text) { _ in
-    //                    checkTextChange()
+                    .onChange(of: passwordEntry.text) { text in
+                        viewModel.trigger(.inputPassword(text))
                     }
                 
                 TextField("비밀번호 확인", text: $passwordCheckEntry.text)
@@ -53,15 +59,16 @@ struct BackupPasswordView: View {
                             radius: 5,
                             x: 0.0,
                             y: 0.3)
-                    .onChange(of: passwordCheckEntry.text) { _ in
-    //                    checkTextChange()
+                    .onChange(of: passwordCheckEntry.text) { text in
+                        viewModel.trigger(.inputPasswordCheck(passwordEntry.text,
+                                                              text))
                     }
             }
             
             Spacer()
             
             Button(action: {
-                
+                viewModel.trigger(.next)
             }, label: {
                 HStack {
                     Spacer()
@@ -74,15 +81,19 @@ struct BackupPasswordView: View {
             .padding(.vertical, 10)
             .background(LinearGradient.navy)
             .cornerRadius(15)
+            .disabled(!viewModel.state.enable)
             
             Spacer()
         }
         .padding(.horizontal, 40)
+        .onChange(of: viewModel.state.next, perform: { value in
+            if value { mode.wrappedValue.dismiss() }
+        })
     }
 }
 
 struct BackupPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        BackupPasswordView()
+        BackupPasswordView(viewModel: AnyViewModel(BackupPasswordViewModel()))
     }
 }
