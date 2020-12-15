@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-axios.defaults.headers['X-CSRF'] = 'X-CSRF';
+import axios from './config';
 
 interface UserInfo {
   id: string;
@@ -12,8 +10,9 @@ interface UserInfo {
   reCaptchaToken: string;
 }
 
-export const confirmEmailAPI = (query: string): void => {
-  axios.get(`/api/user/confirm-email?user=${query}`);
+export const confirmEmailAPI = async (query: string): Promise<string> => {
+  const { data } = await axios.get(`/api/user/confirm-email?user=${query}`);
+  return data;
 };
 
 export const checkIDDuplicateAPI = async ({ id }: { id: string }): Promise<boolean> => {
@@ -158,5 +157,10 @@ export const delSession = async (sid: delSessionParmas): Promise<any> => {
 
 export const logoutAPI = async (): Promise<any> => {
   const { data } = await axios.get('api/auth/logout');
+  return data;
+};
+
+export const reSend = async (id: string): Promise<any> => {
+  const { data } = await axios.post('api/user/reSend', { id });
   return data;
 };

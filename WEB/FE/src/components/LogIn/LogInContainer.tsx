@@ -31,11 +31,13 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   };
   const onClickModal = () => {
     setHasTOTPModalError(false);
-    executeRecaptcha('sendSecretKeyEmail')
-      .then((reCaptchaToken: string) => sendSecretKeyEmail({ authToken, reCaptchaToken }))
-      .then(() => alert(message.EMAILSECRETKEYSUCCESS))
-      .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
-      .finally(() => setModalDisabled(false));
+    if (window.confirm('QR 재등록 Email을 전송하시겠습니까? \n이전에 사용된 OTP 정보는 삭제됩니다.')) {
+      executeRecaptcha('sendSecretKeyEmail')
+        .then((reCaptchaToken: string) => sendSecretKeyEmail({ authToken, reCaptchaToken }))
+        .then(() => alert(message.EMAILSECRETKEYSUCCESS))
+        .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
+        .finally(() => setModalDisabled(false));
+    }
   };
   const onErrorWithOTP = (errMsg: string) => {
     setHasTOTPModalError(true);
@@ -51,7 +53,13 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     executeRecaptcha('LogInWithOTP')
       .then((reCaptchaToken: string) => loginWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
       .then(({ userName }: { userName: string }) => successLoginHandler(userName))
-      .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
+      .catch((err: any) => {
+        onErrorWithOTP(err.response?.data?.message || err.message);
+        if (err.response.status === 401) {
+          alert(err.response?.data?.message);
+          window.location.reload();
+        }
+      })
       .finally(() => setModalDisabled(false));
   };
 

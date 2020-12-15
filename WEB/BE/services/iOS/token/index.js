@@ -7,12 +7,14 @@ const tokenService = {
   },
 
   async getTokens(params) {
-    const result = await Token.findAll({ where: params });
+    const result = await Token.findAll({
+      attributes: ['id', 'key', 'name', 'color', 'icon', 'is_Main'],
+      where: params,
+    });
     return result;
   },
 
   async updateToken(params, id) {
-    console.log(params, id);
     const result = await Token.update(params, { where: { id } });
     return result;
   },

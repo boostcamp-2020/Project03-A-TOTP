@@ -32,6 +32,14 @@ const Wrapper = styled.div`
     color: ${({ theme }) => theme.color.text};
     font-size: 1.125rem;
     border-radius: 0;
+
+    &:focus {
+      box-shadow: none;
+
+      &:after {
+        display: none;
+      }
+    }
   }
 
   .react-tabs__tab--selected {
@@ -125,7 +133,7 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
     <Wrapper>
       <HeadingSection>마이페이지</HeadingSection>
       <TabWrapper>
-        <Tabs>
+        <Tabs onSelect={(index, lastIndex) => index !== lastIndex}>
           <TabList>
             <Tab>내 정보</Tab>
             <Tab>접속 이력</Tab>

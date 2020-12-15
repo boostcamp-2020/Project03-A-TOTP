@@ -36,17 +36,17 @@ function Nav({}: NavProps): JSX.Element {
         </Link>
       </LogoContainer>
       <NavButton>
-        <Link to='/'>
+        <Link to='/why-2fa'>
           <Button type='text' text='Why 2FA?' style={{ padding: 0 }} />
         </Link>
       </NavButton>
       <NavButton>
-        <Link to='/'>
+        <Link to='/totp-intro'>
           <Button type='text' text='TOTP' style={{ padding: 0 }} />
         </Link>
       </NavButton>
       <NavButton>
-        <Link to='/'>
+        <Link to='/study'>
           <Button type='text' text='학습하기' style={{ padding: 0 }} />
         </Link>
       </NavButton>

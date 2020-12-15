@@ -4,7 +4,7 @@ const DB = require('@models/sequelizeIOS');
 
 const tokenController = {
   async addTokenList(req, res, next) {
-    let { tokens } = req.body.data;
+    let { tokens } = req.body;
     const { user } = req;
     tokens = tokens.map((token) => {
       token.user_idx = user.idx;
@@ -36,7 +36,7 @@ const tokenController = {
   async updateToken(req, res, next) {
     const { id } = req.params;
     const { user } = req;
-    const { token } = req.body.data;
+    const { token } = req.body;
     await DB.sequelize.transaction(async () => {
       const result = await tokenService.updateToken(token, id);
 
@@ -57,7 +57,7 @@ const tokenController = {
       if (result !== 0) {
         /** @TODO 트랜젝션 */
         await userService.updateDateTimeByNow({ idx: user.idx });
-        res.json(result);
+        res.json({ message: 'ok' });
       } else res.status(400).json({ mgessage: 'There is no token' });
     });
   },
@@ -80,7 +80,7 @@ const tokenController = {
       await tokenService.addTokens(tokens, t);
       await userService.updateDateTime({ lastUpdate, idx: user.idx }, t);
     });
-    res.json('ok');
+    res.json({ message: 'ok' });
   },
 };
 module.exports = tokenController;

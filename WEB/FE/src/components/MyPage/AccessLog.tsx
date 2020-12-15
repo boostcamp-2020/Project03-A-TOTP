@@ -24,6 +24,25 @@ interface AccessLogProps {
 
 const TableWrapper = styled.div`
   padding: 2rem 0;
+
+  th:nth-child(1) {
+    width: 23%;
+  }
+  th:nth-child(2) {
+    width: 17%;
+  }
+  th:nth-child(3) {
+    width: 13%;
+  }
+  th:nth-child(4) {
+    width: 22%;
+  }
+  th:nth-child(5) {
+    width: 10%;
+  }
+  th:nth-child(6) {
+    width: 15%;
+  }
 `;
 
 const PaginationWrapper = styled.div`

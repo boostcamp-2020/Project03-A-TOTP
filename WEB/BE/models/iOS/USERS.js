@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       multi_device: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
       },
       last_update: {
         type: DataTypes.DATE,
