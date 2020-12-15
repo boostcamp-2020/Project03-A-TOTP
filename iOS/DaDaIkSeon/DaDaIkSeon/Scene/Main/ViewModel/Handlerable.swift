@@ -61,7 +61,7 @@ class CommonHandler: Handlerable {
             state.zeroTokenState = true
             state.filteredTokens = []
         } else {
-            if state.service.tokenCount > 1 {
+            if state.service.tokenCount >= 1 {
                 state.zeroTokenState = false
             }
             if let maintoken = state.service.mainToken() {
