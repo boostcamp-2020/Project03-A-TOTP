@@ -43,62 +43,45 @@ final class TokenService: TokenServiceable {
     
     // completion 받아와야
     func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void) {
-        // 여기서 받아온 데이터와 우리 꺼 시간 비교.
-        // 우리꺼가 최신이면 sync 보냄.
-        // 서버가 최신이면 우리꺼 전부 서버꺼로 바꿈
         // (토큰 정보 바뀔 때마다 우리 디바이스에 있는 시간 update 해야된다.)
         TokenNetworkManager.shared.load {[weak self] result in
             guard let self = self else { return }
             
-            
-//
-//
-//            switch result {
-//            case .successLoad(let result):
-//                if self.isRecentLocal(time: result.lastUpdate!) { // 로컬이 최신 - 싱크맞추기
-//                    //self.syncToServer(updateView)
-//                    TokenNetworkManager.shared.syncTokens(
-//                        lastUpdate: "", tokens: encryptedTokens) { [weak self] result in
-//                        guard let self = self else { return }
-//                        switch result  {
-//                        case .successSync: // lastupdate, tokens
-//                            let tokens = result.tokens
-//                            var decryptedTokens = [Token]()
-//                            // 복호화
-//                            tokens.forEach {
-//                                var token = $0
-//                                if let password = BackupPasswordManager().loadPassword() {
-//                                    if let key = token.key {
-//                                        do {
-//                                            token.key = try TokenCryptoManager(password).decrypt(from: key)
-//                                        } catch {
-//                                            updateView(.failedDecryption)
-//                                            // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-//                                        }
-//                                    }
-//                                } else {
-//                                    updateView(.noBackupPassword)
-//                                    // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-//                                }
-//                                decryptedTokens.append(token)
-//                            }
-//                            _ = self.storageManager.storeTokens(decryptedTokens) // 키체인 업데이트
-//                            self.tokens = decryptedTokens // service token update
-//                            self.designateMain() // 메인 지정
-//                            updateView(.successSync(decryptedTokens)) // 뷰 업데이트 - 여기서 showScene
-//                        default: break
-//                        }
-//
-////                        복호화 - main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-////                        성공시 바로 service, main 업데이트
-//
-//                    }
-//                    return
-//                }
-//                // 서버가 최신이면 그대로 로컬에 가져옴
-//                // updateView 실행하여 showMainScene 해줌
-//            default: break
-//            }
+            // 받아온 데이터 어떤게 더 최신인지 확인,
+            // case 로컬이 최신 - 그냥 로컬 데이터로(이미 로컬에 데이터가 존재함) show
+            // 또한 로컬에 있는 데이터를 서버에 쏴서 싱크를 맞춰줘야 함. - 이거 좀ㅁ만 나중에 하자
+            // case server - 서버 데이터로 로컬 데이터를 수정해주고, service에 있는 tokens도 변경해주고 show 하게 함
+            // case error -> alert 띄우게
+
+            switch result {
+            case .successLoad(let result):
+                if self.isRecentLocal(time: result.lastUpdate!) { // 로컬이 최신 - 싱크맞추기
+                    //self.syncToServer(updateView)
+                    TokenNetworkManager.shared.load { result in
+                        switch result {
+                        case .successLoad(let serverData): // 시간 비교.
+                            if let time = serverData.lastUpdate {
+                                if self.isRecentLocal(time: time) { // 로컬이 최신
+                                    updateView(result) // showMain 실행
+                                    // 싱크 맞추기 보내야 함. - 암호화 필요
+                                } else { // 서버가 최신
+                                    // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
+                                    if let tokens = serverData.tokens {
+                                        // 복호화
+                                    } else { // 토큰이 없음 -> 모두 삭제한 게 최신이라는 의미
+                                        // 모두 삭제해주기
+                                    }
+                                }
+                            }
+                        default: break
+                        }
+                    }
+                    
+                }
+                // 서버가 최신이면 그대로 로컬에 가져옴
+                // updateView 실행하여 showMainScene 해줌
+            default: break
+            }
         }
     }
     

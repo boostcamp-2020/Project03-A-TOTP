@@ -33,7 +33,7 @@ class CommonHandler: Handlerable {
 //                state.hasBackupPassword = true
 //                return
 //            }
-            if isBackup() { // 네트워크
+            if isBackup() { // 네트워크 - 데이터를 받아서 최신걸로 저장
                 // load
                 state.service.refreshTokens { result in
                     switch result {
