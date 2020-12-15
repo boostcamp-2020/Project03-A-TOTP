@@ -33,13 +33,14 @@ struct SettingView: View {
             
             // MARK: 내정보 관리
             myInfoView
-            
+            #if DEBUG
             // MARK: 백업 관리
             backupView
             
             // MARK: 기기 관리
             deviceSettingView
             
+            #endif
             Spacer()
         })
         .fullScreenCover(isPresented: $stateManager.pinCodeSetting) {

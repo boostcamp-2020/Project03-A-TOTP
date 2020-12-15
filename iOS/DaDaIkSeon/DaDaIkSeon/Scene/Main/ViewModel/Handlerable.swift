@@ -29,6 +29,7 @@ class CommonHandler: Handlerable {
         guard let input = input else { return }
         switch input {
         case .refreshTokens:
+            #if DEBUG
             if BackupPasswordManager().loadPassword() == nil {
                 state.hasBackupPassword = true
                 return
@@ -52,6 +53,7 @@ class CommonHandler: Handlerable {
                     }
                 }
             }
+            #endif
             showMainScene()
         }
     }

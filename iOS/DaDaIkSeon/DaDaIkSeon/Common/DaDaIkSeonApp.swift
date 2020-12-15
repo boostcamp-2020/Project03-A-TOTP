@@ -47,6 +47,7 @@ struct DaDaIkSeonApp: App {
             case .inactive:
                 DispatchQueue.main.async { root = .none }
             case .active:
+                #if DEBUG
                 if JWTTokenStoreManager().load() == nil {
                     DispatchQueue.main.async { root = .login }
                 } else {
@@ -54,6 +55,9 @@ struct DaDaIkSeonApp: App {
                     print("현재 백업 비밀번호 \(BackupPasswordManager().loadPassword())")
                     localAuthenticate()
                 }
+                #else
+                localAuthenticate()
+                #endif
             default: break
             }
         })

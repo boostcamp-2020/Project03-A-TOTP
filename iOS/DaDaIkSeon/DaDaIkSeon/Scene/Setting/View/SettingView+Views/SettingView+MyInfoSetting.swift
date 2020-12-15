@@ -10,6 +10,8 @@ import SwiftUI
 extension SettingView {
     var myInfoView: some View {
         SettingGridView(title: "내 정보", titleColor: .white) {
+            
+            #if DEBUG
             SettingRow(title: "✉️ " + (viewModel.state.email),
                        isLast: false) {
                 viewModel.state.emailEditMode ?
@@ -38,6 +40,7 @@ extension SettingView {
                 
                 Divider().opacity(0)
             }
+            #endif
             
             // MARK: 보안강화하기
             
