@@ -58,6 +58,7 @@ struct SettingView: View {
         .edgesIgnoringSafeArea(.bottom)
         .onAppear {
             viewModel.trigger(.refresh)
+            stateManager.reset()
         }
     }
 }

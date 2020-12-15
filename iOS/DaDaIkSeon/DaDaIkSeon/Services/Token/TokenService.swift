@@ -62,6 +62,10 @@ final class TokenService: TokenServiceable {
                         } else { // 서버가 최신
                             // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
                             if let tokens = serverData.tokens {
+                                if tokens.count == 0 {
+                                    updateView(.noTokens)
+                                    return
+                                }
                                 switch self.decryptTokenKeys(tokens: tokens) {
                                 case .successLoad(let decryptedResult): // 복호화 성공
                                     if let decryptedTokens = decryptedResult.tokens {

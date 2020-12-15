@@ -21,7 +21,7 @@ extension SettingViewModel {
                             self.state.email = email
                         }
                     default:
-                        print("뭐지")
+                        print("")
                     }
                 }
                 state.email = state.service.readEmail() ?? ""

@@ -52,9 +52,15 @@ class MockSettingService: SettingServiceable {
     func updateEmail(_ email: String, completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
             .changeEmail(email: email) { [weak self] result in
-                guard let self = self else { return }
-                self.user.email = email
-                completion(result)
+                switch result {
+                case .emailEdit:
+                    guard let self = self else { return }
+                    self.user.email = email
+                    completion(result)
+                default:
+                    completion(result)
+                }
+                
             }
     }
     
