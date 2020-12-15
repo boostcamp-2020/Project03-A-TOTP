@@ -64,8 +64,9 @@ struct MainView: View {
             })
         }
         .fullScreenCover(isPresented: $hasBackupPassword, content: {
-            BackupPasswordView(viewModel: AnyViewModel(BackupPasswordViewModel()))
-            
+            BackupPasswordView(viewModel: AnyViewModel(
+                                BackupPasswordViewModel(
+                                    service: viewModel.state.service)))
         })
         .onChange(of: viewModel.state.hasBackupPassword, perform: { value in
             hasBackupPassword = value

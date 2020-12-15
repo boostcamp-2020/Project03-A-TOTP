@@ -16,11 +16,11 @@ struct DaDaIkSeonApp: App {
     
     var body: some Scene {
         
-        #if DEBUG
-        let service = MockTokenService()
-        #else
+//        #if DEBUG
+//        let service = MockTokenService()
+//        #else
         let service = TokenService(StorageManager())
-        #endif
+//        #endif
         
         WindowGroup {
             switch root {

@@ -8,6 +8,7 @@
 import Foundation
 
 struct BackupPasswordState {
+    var service: TokenServiceable
     var backupPassword = ""
     var backupPasswordChecker = ""
     var enable: Bool = false
