@@ -31,7 +31,7 @@ const ChangePasswordComponent = ({ location }): JSX.Element => {
     } else {
       changePass(userData, password)
         .then(() => {
-          console.log(message.CHANGEPASSWORDSUCCESS);
+          alert(message.CHANGEPASSWORDSUCCESS);
           history.push('/login');
         })
         .catch((err: any) => alert(err.response?.data?.mesaage || err));
