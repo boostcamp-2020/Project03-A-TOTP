@@ -7,16 +7,31 @@ const { emailSender } = require('@utils/emailSender');
 
 const userController = {
   async getUserFromJWT(req, res, next) {
-    const bearerHeader = req.headers.authorization;
+    const authorizationHeader = req.headers.authorization;
 
-    if (!bearerHeader) {
+    if (!authorizationHeader) {
       return next(createError(403, '접근할 수 없는 요청입니다'));
     }
 
-    const jwt = bearerHeader.split(' ')[1];
-    const { userIdx, deviceUdid } = JWT.verify(jwt, process.env.ENCRYPTIONKEY);
+    const [authType, authToken] = authorizationHeader.split(' ');
 
-    req.user = await userService.getUserByIdx({ idx: userIdx });
+    if (authType !== 'bearer' || !authToken) {
+      return next(createError(403, '잘못된 Authorization 헤더입니다'));
+    }
+
+    const { userIdx, deviceUdid } = JWT.verify(authToken, process.env.ENCRYPTIONKEY);
+
+    if (!userIdx || !deviceUdid) {
+      return next(createError(403, '잘못된 jwt입니다'));
+    }
+
+    const user = await userService.getUserByIdx({ idx: userIdx });
+
+    if (!user) {
+      return next(createError(403, '잘못된 jwt입니다'));
+    }
+
+    req.user = user;
     req.deviceUdid = deviceUdid;
 
     next();
