@@ -80,6 +80,16 @@ const authService = {
     const result = await authsModel.findOne({ where: { id } });
     return result.login_fail_count;
   },
+
+  async setLoginFailCount({ id }) {
+    const result = await authsModel.update({ login_fail_count: 0 }, { where: { id } });
+    return result;
+  },
+
+  async userDeactivation({ id }) {
+    const result = await authsModel.update({ is_verified: false }, { where: { id } });
+    return result;
+  },
 };
 
 module.exports = authService;
