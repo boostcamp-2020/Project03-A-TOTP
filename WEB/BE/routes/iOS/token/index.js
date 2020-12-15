@@ -181,7 +181,7 @@ module.exports = router;
  *      description: Key 토큰
  *      type: object
  *      properties:
- *        tokens:
+ *        token:
  *          $ref: '#/definitions/token'
  *      required: true
  *    - name: id
