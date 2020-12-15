@@ -28,6 +28,9 @@ class BackupPasswordViewModel: ViewModel {
             } else {
                 state.errorMessage = .inputFormat
             }
+            if input.count > 5 && state.isMultiUser {
+                state.enable = true
+            }
         case .inputPasswordCheck(let last, let current):
             if current.count > 0 {
                 if last == current {
