@@ -68,6 +68,7 @@ extension BackupPasswordViewModel {
                     print("비밀번호 틀림, 다시호출 \(tokens)")
                     self.state.isMultiUser = true
                     if !isInit {
+                        self.setBackupPassword()
                         self.state.next = self.decryptTokenKeys(tokens)
                     }
                 case .noTokens:
