@@ -40,6 +40,8 @@ extension Requestable {
                   let response = response as? HTTPURLResponse else { return }
             let responseCode = response.statusCode
             
+            print(String(data: data, encoding: .utf8))
+            
             if error != nil {
                 completion(.networkFail)
             }

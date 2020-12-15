@@ -57,7 +57,7 @@ final class TokenService: TokenServiceable {
                 if let time = serverData.lastUpdate {
                     if self.isRecentLocal(time: time) { // 로컬이 최신
                         updateView(result) // showMain 실행
-                        // 싱크 맞추기 보내야 함. - 암호화 필요
+                        syncToServer(lastupdateTime: time, updateView)
                     } else { // 서버가 최신
                         // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
                         if let tokens = serverData.tokens {
@@ -76,12 +76,13 @@ final class TokenService: TokenServiceable {
                             // 성공하면 그대로 로컬 데이터 업데이트 - success - showMain 어쩌구 실행
                             // 실패하면 비밀 번호 설정하도록 유도 - failDecrption - (비번 다시 설정, 비번설정)
                         } else { // 토큰이 없음 -> 모두 삭제한 게 최신이라는 의미 - 데이터 없음!
-                            // 모두 삭제해주기
-                            
+                            tokens.removeAll()
                             _ = storageManager.deleteTokens()
-                            
+                            updateView(.noTokens)
                         }
                     }
+                } else {
+                    print("시간값이 없다.")
                 }
             default: break
             }
@@ -220,14 +221,13 @@ extension TokenService {
                     return
                 }
             }
-            
             decryptedTokens.append(token)
             result = .successLoad(TokenNetworkType(lastUpdate: nil, tokens: decryptedTokens))
         }
         return result
     }
     
-    func syncToServer(_ updateView: @escaping (MainNetworkResult) -> Void) {
+    func syncToServer(lastupdateTime: String, _ updateView: @escaping (MainNetworkResult) -> Void) {
         // 암호화
         var encryptedTokens = [Token]()
         tokens.forEach {
@@ -249,6 +249,15 @@ extension TokenService {
             encryptedTokens.append(token)
         }
         
+        //let device = DDISUserCache.get()
         
+        TokenNetworkManager.shared.syncTokens(
+            lastUpdate: lastupdateTime, tokens: encryptedTokens) { result in
+            switch result {
+            case .successLoad:
+                print("성공")
+            default: break
+            }
+        }
     }
 }

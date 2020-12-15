@@ -16,6 +16,11 @@ struct Token: Identifiable, Codable, Equatable {
     var icon: String?
     var isMain: Bool?
     
+    enum CodingKeys: String, CodingKey {
+        case id, key, name, color, icon
+        case isMain = "is_Main"
+    }
+    
     static func == (lhs: Token, rhs: Token) -> Bool {
         lhs.id == rhs.id
     }

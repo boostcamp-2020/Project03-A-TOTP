@@ -61,8 +61,11 @@ class MockSettingService: SettingServiceable {
                           backup: Bool,
                           updateView: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
-            .changeBackupMode(udid: udid, backup: backup) { result in
-            updateView(result)
+            .changeBackupMode(udid: udid, backup: backup) {[weak self] result in
+                guard let self = self else { return }
+                self.user.device?.backup = true
+                DDISUserCache.save(self.user)
+                updateView(result)
         }
     }
     
@@ -72,6 +75,7 @@ class MockSettingService: SettingServiceable {
     
     func updateBackupPassword(_ password: String) {
         backupPasswordManager.storePassword(password)
+        
         // 백업 패스워드는 User 구조체에 들어가지 않는다.
         // 따로 UserDefault로 읽고 쓰고 변경해야 한다.
         // 나중에 토큰 가져올 때 이 비밀번호를 사용하여 복호화하게 된다.
