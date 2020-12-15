@@ -64,10 +64,16 @@ class SettingViewModel: ViewModel {
                             self.state.deviceToggle = multiDevice
                         }
                     }
+                case .accessError403:
+                    print("권한 없음")
+                case .ETCError500:
+                    print("기타에러")
                 default:
+                    print("오긴옴")
                     break
                 }
             }
+            
         case .settingAuthMode(let input):
             handlerForAuthModeSetting(input)
             

@@ -37,12 +37,8 @@ class MockSettingService: SettingServiceable {
                 UserDefaults.standard.set(
                     try? PropertyListEncoder().encode(user), forKey: "DDISUser")
                 updateView(result)
-            case .accessError403:
-                print("403")
-            case .ETCError500:
-                print("ETCError500")
             default:
-                print("error")
+                updateView(result)
             }
         }
     }
