@@ -22,7 +22,7 @@ protocol SettingServiceable {
     
     func updateMultiDeviceMode(
         _ isOn: Bool, completion: @escaping (SettingNetworkResult) -> Void)
-    
+  
     func readDevice() -> [Device]?
     func updateDevice(
         _ newDevice: Device, completion: @escaping (SettingNetworkResult) -> Void)

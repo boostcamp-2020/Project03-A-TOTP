@@ -9,7 +9,7 @@ import Foundation
 
 enum UserEndpoint {
     case get
-    case postEmail(email: String)
+    case postEmail(email: String, device: Device)
     case postCode(code: String, email: String, device: Device)
 }
 
@@ -41,8 +41,16 @@ extension UserEndpoint: EndpointType {
         switch self {
         case .get:
             return nil
-        case .postEmail(let email):
-            return ["email": email]
+        case .postEmail(let email, let device):
+            return [
+                "email": email,
+                "device": [
+                    "udid": device.udid ?? "",
+                    "name": device.name ?? "",
+                    "modelName": device.modelName ?? "",
+                    "backup": device.backup ?? true
+                ]
+            ]
         case .postCode(let code, let email, let device):
             return [
                 "code": code,

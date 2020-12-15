@@ -22,7 +22,8 @@ final class MainViewModel: ViewModel {
                           checkBoxMode: false,
                           selectedTokens: [UUID: Bool](),
                           selectedCount: 0,
-                          zeroTokenState: service.tokenCount == 0
+                          zeroTokenState: service.tokenCount == 0,
+                          hasBackupPassword: false
         )
     }
     

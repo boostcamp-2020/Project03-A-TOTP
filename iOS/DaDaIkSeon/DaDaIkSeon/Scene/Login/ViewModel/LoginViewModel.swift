@@ -30,12 +30,12 @@ final class LoginViewModel: ViewModel {
             changeCheckEmailText(email)
         case .checkCode(let code):
             changeCheckCodeText(code)
-        case .sendButton(let email):
-            sendAuthEmail(email)
+        case .sendButton(let email, let device, let completion):
+            sendAuthEmail(email, device, completion)
         case .showSendButton:
             showSendButton()
         case .backButton:
-            changeIsEmailView()
+            changeIsEmailView(true)
         case .hideSendButton:
             state.isTyping = false
         case .authButton(let code, let device, let completion):
@@ -56,12 +56,27 @@ private extension LoginViewModel {
             = codeText.checkStyle(type: .code)  ? "" : "6자리의 코드를 입력하세요(영문 대/소문자, 숫자)"
     }
     
-    func sendAuthEmail(_ emailText: String) {
+    func sendAuthEmail(_ emailText: String,
+                       _ device: Device,
+                       _ completion: @escaping (String) -> Void) {
+        
         if emailText.checkStyle(type: .email) {
-            state.service.sendEmail(email: emailText)
-            state.isEmailView = false
-            UserDefaults.standard.set(state.isEmailView,
-                                      forKey: "isEmailView")
+            state.service.sendEmail(email: emailText, device: device) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .successSendEmail:
+                        self.changeIsEmailView(false)
+                        completion(ResultMessage.successSendEmailMessage.rawValue)
+                    case .multideviceOff:
+                        completion(ResultMessage.multideviceOffMessage.rawValue)
+                    case .dataParsingError:
+                        completion(ResultMessage.dataParsingError.rawValue)
+                    case .networkError:
+                        completion(ResultMessage.networkError.rawValue)
+                    }
+                }
+            }
         }
     }
     
@@ -83,10 +98,16 @@ private extension LoginViewModel {
         state.isTyping = false
     }
     
-    func changeIsEmailView() {
-        state.isEmailView = true
+    func changeIsEmailView(_ isEmail: Bool) {
+        state.isEmailView = isEmail
         UserDefaults.standard.set(state.isEmailView,
                                   forKey: "isEmailView")
     }
     
+    enum ResultMessage: String {
+        case successSendEmailMessage = "이메일로 인증코드를 전송했습니다"
+        case multideviceOffMessage = "멀티 디바이스가 꺼져있어 등록이 불가능합니다"
+        case dataParsingError = "Error"
+        case networkError = "네트워크를 확인해주세요"
+    }
 }
