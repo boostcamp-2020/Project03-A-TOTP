@@ -15,36 +15,30 @@ final class SettingNetworkManager: Requestable {
     private init() {}
     
     func changeEmail(email: String,
-                     completion: @escaping () -> Void) {
-        
+                     completion: @escaping (SettingNetworkResult) -> Void) {
         let settingEndpoint: SettingEndpoint = .patchEmail(email: email)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-                completion()
-            case .networkError(let error):
-                print(error)
+                completion(.emailEdit)
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }
     
     func changeBackupMode(udid: String,
                           backup: Bool,
-                          completion: @escaping (DataResultType<String>) -> Void) {
+                          completion: @escaping (SettingNetworkResult) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .patchBackup(udid: udid,
                                                             isBackup: backup)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess(let data):
-//                guard let resultData = data.responseResult.data else {
-//                    completion(.messageError)
-//                    return
-//                }
-                //completion(.result(resultData))
-                completion(.result(""))
+            case .networkSuccess:
+                completion(.backupToggle)
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
@@ -59,13 +53,8 @@ final class SettingNetworkManager: Requestable {
         let settingEndpoint: SettingEndpoint = .patchMultiDevice(isMultiDevice: multiDevice)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess(let data):
-//                guard let resultData = data.responseResult.data else {
-//                    completion(.messageError)
-//                    return
-//                }
-//                completion(.result(resultData))
-                completion(.result(""))
+            case .networkSuccess:
+                completion(.multiDeviceToggle)
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
@@ -76,33 +65,32 @@ final class SettingNetworkManager: Requestable {
     
     func changeDevice(udid: String,
                       name: String,
-                      completion: @escaping () -> Void) {
-        
+                      completion: @escaping (SettingNetworkResult) -> Void) {
         let settingEndpoint: SettingEndpoint = .patchDevice(udid: udid, name: name)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-                completion()
-            case .networkError(let error):
-                print(error)
+                completion(.deviceNameEdit)
+            case .networkError:
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }
     
     func deleteDevice(udid: String,
-                      completion: @escaping () -> Void) {
+                      completion: @escaping (SettingNetworkResult) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .deleteDevice(udid: udid)
         request(settingEndpoint) { result in
             switch result {
             case .networkSuccess:
-                completion()
+                completion(.deviceDelete)
             case .networkError(let error):
-                print(error)
+                completion(.dataParsingError)
             case .networkFail:
-                print("Network Fail!!!!")
+                completion(.networkError)
             }
         }
     }

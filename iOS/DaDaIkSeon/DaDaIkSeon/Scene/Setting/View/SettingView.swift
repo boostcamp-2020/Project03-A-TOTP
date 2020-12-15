@@ -56,6 +56,9 @@ struct SettingView: View {
         }
         .background(Color(UIColor.systemGray6))
         .edgesIgnoringSafeArea(.bottom)
+        .onAppear {
+            viewModel.trigger(.refresh)
+        }
     }
 }
 

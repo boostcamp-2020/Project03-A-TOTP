@@ -10,7 +10,8 @@ import Foundation
 struct DDISUser: Codable, Equatable {
     
     var email: String?
-    var device: [Device]?
+    var device: Device?
+    var devices: [Device]?
     var multiDevice: Bool?
     
     static func == (lhs: DDISUser, rhs: DDISUser) -> Bool {
@@ -19,9 +20,11 @@ struct DDISUser: Codable, Equatable {
             && lhs.multiDevice == rhs.multiDevice
     }
     
-    static func dummy() -> DDISUser {
+    // 혹시 모르니까 유저 디폴트로 저장해놓을까?
+    // 이메일이랑 
+    static func placeHoler() -> DDISUser {
         DDISUser(email: "jjm@dadaikseon.com",
-                 device: Device.dummy(),
+                 devices: Device.dummy(),
                  multiDevice: false)
     }
     

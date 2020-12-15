@@ -12,10 +12,6 @@ class SettingViewModel: ViewModel {
     @Published var state: SettingState
     let currentUDID: String
     
-    func myDeviceToFirst() {
-        
-    }
-    
     init(udid: String) {
         currentUDID = udid
         let service = MockSettingService()
@@ -43,9 +39,41 @@ class SettingViewModel: ViewModel {
     
     func trigger(_ input: SettingInput) {
         switch input {
+        // error: 설정 정보를 불러오는 데 실패하였습니다. 네트워크 연결을 확인해주세요.
         case .refresh: // onAppear에서 호출
-            state.service.refresh()
-        
+            state.service.refresh { result in
+                switch result {
+                case .refresh(let user):
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        if let email = user.email {
+                            self.state.email = email
+                        }
+                        if let devices = user.devices {
+                            self.state.devices = devices
+                            if let myDevice = devices.first(where: {
+                                $0.udid == self.currentUDID
+                            }) {
+                                if let backup = myDevice.backup {
+                                    self.state.backupToggle = backup
+                                }
+                            }
+                        }
+                        
+                        if let multiDevice = user.multiDevice {
+                            self.state.deviceToggle = multiDevice
+                        }
+                    }
+                case .accessError403:
+                    print("권한 없음")
+                case .ETCError500:
+                    print("기타에러")
+                default:
+                    print("오긴옴")
+                    break
+                }
+            }
+            
         case .settingAuthMode(let input):
             handlerForAuthModeSetting(input)
             

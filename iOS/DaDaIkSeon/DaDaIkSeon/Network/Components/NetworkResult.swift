@@ -12,7 +12,8 @@ enum NetworkResult<T> {
 }
 
 enum DataResultType<T>: Error {
-    case result(T)
+    case result1(T, Int)
+    
     case messageError
     case networkError
     case dataParsingError

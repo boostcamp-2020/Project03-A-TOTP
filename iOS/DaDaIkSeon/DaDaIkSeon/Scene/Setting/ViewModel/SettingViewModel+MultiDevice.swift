@@ -13,8 +13,7 @@ extension SettingViewModel {
         case .multiDeviceToggle:
             state.service.updateMultiDeviceMode(!state.deviceToggle) { result in
                 switch result {
-                case .result(let data):
-                    print(data)
+                case .multiDeviceToggle:
                     DispatchQueue.main.async {
                         self.state.deviceToggle.toggle()
                     }
@@ -24,6 +23,7 @@ extension SettingViewModel {
                     print("messageError 실패")
                 case .networkError:
                     print("networkError 실패")
+                default: break
                 }
             }
         case .editDevice(let device):
@@ -33,12 +33,20 @@ extension SettingViewModel {
             }
             state.selectedDeviceID = ""
             state.deviceErrorMessage = .none
-            state.service.updateDevice(device)
+            state.service.updateDevice(
+                device, completion: { result in
+                    switch result {
+                    default: break
+                    }
+                })
             state.devices = state.service.readDevice() ?? Device.dummy()
         case .deleteDevice:
             if state.selectedDeviceID != currentUDID {
-                state.service.deleteDevice(state.selectedDeviceID)
-                //network
+                state.service.deleteDevice(state.selectedDeviceID, completion: { result in
+                    switch result {
+                    default: break
+                    }
+                })
             } else {
                 state.deviceErrorMessage = .notDeleteDevice
             }

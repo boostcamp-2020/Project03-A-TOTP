@@ -9,35 +9,56 @@ import Foundation
 
 class MockSettingService: SettingServiceable {
     
-    private var user = DDISUser.dummy() // 나중에 userDefault로 변경해야함
+    private var user: DDISUser
     private var pincodeManager = PincodeManager()
     private var backupPasswordManager = BackupPasswordManager()
     
     init() {
-        // user default에서 가져온 값과 서버에서 받아온 값을 비교해서 최신으로 load한다?
-        // 그냥 서버에서 데이터 받아서 사용하면 안되나? 꼭 유저 정보를 로컬에 가지고 있어야 할까
-        loadUser()
-    }
-
-    private func loadUser() { // 유저 디폴트에서 가져와야한다.
-        user = DDISUser.dummy()
+        // 아래 로직을 placeholder에서 수행하도록 옮기자
+        if let data = UserDefaults.standard.value(forKey: "DDISUser") as? Data {
+            if let user = try? PropertyListDecoder().decode(DDISUser.self, from: data) {
+                self.user = user
+            } else {
+                print("don't parsing")
+                user = DDISUser.placeHoler()
+            }
+        } else {
+            print("is not presented")
+            user = DDISUser.placeHoler()
+        }
     }
     
-    func refresh() {
-        // 네트워크에서 가져오기
+    func refresh(updateView: @escaping (SettingNetworkResult) -> Void) { // 뷰모델 생성자에서 실행
+        UserNetworkManager.shared.load { [weak self] (result) in
+            guard let self = self else { return }
+            switch result {
+            case .refresh(let user):
+                self.user = user
+                UserDefaults.standard.set(
+                    try? PropertyListEncoder().encode(user), forKey: "DDISUser")
+                updateView(result)
+            default:
+                updateView(result)
+            }
+        }
     }
     
     func readEmail() -> String? {
         return user.email
     }
     
-    func updateEmail(_ email: String) {
-        user.email = email
+    func updateEmail(_ email: String, completion: @escaping (SettingNetworkResult) -> Void) {
+        SettingNetworkManager.shared
+            .changeEmail(email: email) { [weak self] result in
+                guard let self = self else { return }
+                self.user.email = email
+                completion(result)
+            }
     }
     
     func updateBackupMode(_ udid: String,
                           backup: Bool,
-                          updateView: @escaping (DataResultType<String>) -> Void) {
+                          updateView: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
             .changeBackupMode(udid: udid, backup: backup) { result in
             updateView(result)
@@ -60,27 +81,32 @@ class MockSettingService: SettingServiceable {
         SettingNetworkManager
             .shared.changeMultiDevice(multiDevice: isOn) { result in
                 completion(result)
-                // result를 매개변수로 받아서 여기서 처리해준다.
-            //self.user.multiDevice?.toggle() 이걸 success에서 실행
-            // completion 이것도 success에서 실행
         }
+        
     }
-    
+   
     func readDevice() -> [Device]? {
-        user.device
+        user.devices
     }
     
-    func updateDevice(_ newDevice: Device) {
-        guard let devices = user.device else { return }
+    func updateDevice(_ newDevice: Device,
+                      completion: @escaping (SettingNetworkResult) -> Void) {
+        guard let devices = user.devices else { return }
+        
+        // 업데이트 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
         if let index = devices.firstIndex(where: { newDevice.udid == $0.udid }) {
-            user.device?[index] = newDevice
+            user.devices?[index] = newDevice
         }
+        
     }
     
-    func deleteDevice(_ udid: String) {
-        user.device?.removeAll(where: {
+    func deleteDevice(_ udid: String,
+                      completion: @escaping (SettingNetworkResult) -> Void) {
+        
+        user.devices?.removeAll(where: {
             $0.udid == udid
-        })
+        }) // 삭제 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
+        
     }
     
     var pincode: String? {

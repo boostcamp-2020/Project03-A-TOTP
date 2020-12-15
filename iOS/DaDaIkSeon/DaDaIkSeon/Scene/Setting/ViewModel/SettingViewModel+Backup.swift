@@ -64,7 +64,7 @@ extension SettingViewModel {
     func updateBackupMode(_ mode: Bool) {
         state.service.updateBackupMode(currentUDID, backup: mode) { result in
             switch result {
-            case .result:
+            case .backupToggle:
                 DispatchQueue.main.async {
                     self.state.backupToggle = mode
                 }
@@ -74,6 +74,7 @@ extension SettingViewModel {
                 break
             case .networkError:
                 break
+            default: break
             }
         }
     }
