@@ -282,26 +282,32 @@ router.delete('/device/:udid', catchErrors(deviceController.deleteDevice));
  *        schema:
  *          type: object
  *          properties:
- *            email:
+ *            message:
  *              type: string
- *            multiDevice:
- *              type: boolean
- *            lastUpdate:
- *              type: string
- *              example: 2020-12-10T13:24:44.000Z
- *            devices:
- *              type: array
- *              items:
- *                type: object
- *                properties:
- *                  name:
- *                    type: string
- *                  udid:
- *                    type: string
- *                  modelName:
- *                    type: string
- *                  backup:
- *                    type: boolean
+ *              example: 'OK'
+ *            data:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                multiDevice:
+ *                  type: boolean
+ *                lastUpdate:
+ *                  type: string
+ *                  example: 2020-12-10T13:24:44.000Z
+ *                devices:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    properties:
+ *                      name:
+ *                        type: string
+ *                      udid:
+ *                        type: string
+ *                      modelName:
+ *                        type: string
+ *                      backup:
+ *                        type: boolean
  *      403:
  *        description: JWT 에러
  *      500:
