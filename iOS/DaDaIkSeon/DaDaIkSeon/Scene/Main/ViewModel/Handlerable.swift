@@ -36,14 +36,17 @@ class CommonHandler: Handlerable {
             if isBackup() { // 네트워크 - 데이터를 받아서 최신걸로 저장
                 // load
                 state.service.refreshTokens { result in
-                    switch result {
-                    case .successSync:
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        switch result {
+                        case .successSync:
                             self.showMainScene()
+                        case .failedDecryption(let tokens): //
+                            self.state.hasBackupPassword = true
+                            break
+                        default: break
+                        // error 처리
                         }
-                    default: break
-                    // error 처리
                     }
                 }
             } else { // 로컬
