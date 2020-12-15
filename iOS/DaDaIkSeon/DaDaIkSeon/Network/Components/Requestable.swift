@@ -26,13 +26,14 @@ extension Requestable {
         
         if let params = endpoint.params {
             let jsonData = try? JSONSerialization.data(withJSONObject: params)
-            var headers = ["Content-Type": "application/json"]
-            if let jwtToken = JWTTokenStoreManager().load() {
-                headers["Authorization"] = "bearer \(jwtToken)"
-            }
             request.httpBody = jsonData
-            request.allHTTPHeaderFields = headers
         }
+        
+        var headers: [String: String] = ["Content-Type": "application/json"]
+        if let jwtToken = JWTTokenStoreManager().load() {
+            headers["Authorization"] = "bearer \(jwtToken)"
+        }
+        request.allHTTPHeaderFields = headers
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
