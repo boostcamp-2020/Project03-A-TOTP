@@ -29,16 +29,25 @@ class CommonHandler: Handlerable {
         guard let input = input else { return }
         switch input {
         case .refreshTokens:
-            
-            if BackupPasswordManager().loadPassword() == nil {
-                state.hasBackupPassword = true
-                return
-            }
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                self.showMainScene()
+//            if BackupPasswordManager().loadPassword() == nil {
+//                state.hasBackupPassword = true
+//                return
+//            }
+            if isBackup() { // 네트워크
+                // load
+                state.service.refreshTokens { result in
+                    switch result {
+                    case .successSync:
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            self.showMainScene()
+                        }
+                    default: break
+                    // error 처리
+                    }
+                }
+            } else { // 로컬
+                showMainScene()
             }
         }
     }
@@ -67,4 +76,23 @@ class CommonHandler: Handlerable {
         state.isSearching = false
     }
     
+    func isBackup() -> Bool {
+        if let data = UserDefaults.standard.value(forKey: "DDISUser") as? Data {
+            // 있따.
+            if let user = try? PropertyListDecoder().decode(DDISUser.self, from: data) {
+                if user.device?.backup != true {
+                    // 네트워크
+                    return true
+                } else { // false
+                    return false
+                }
+            } else {
+                print("don't parsing")
+                return false
+            }
+        } else {
+            print("is not presented")
+            return false
+        }
+    }
 }

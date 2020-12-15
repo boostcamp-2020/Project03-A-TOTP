@@ -32,10 +32,11 @@ class MockSettingService: SettingServiceable {
         UserNetworkManager.shared.load { [weak self] (result) in
             guard let self = self else { return }
             switch result {
-            case .refresh(let user):
+            case .refresh(var user):
+                user.device = self.user.device
                 self.user = user
                 UserDefaults.standard.set(
-                    try? PropertyListEncoder().encode(user), forKey: "DDISUser")
+                    try? PropertyListEncoder().encode(self.user), forKey: "DDISUser")
                 updateView(result)
             default:
                 updateView(result)

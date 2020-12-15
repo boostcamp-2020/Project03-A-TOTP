@@ -16,13 +16,13 @@ final class MainViewModel: ViewModel {
     init(service: TokenServiceable) {
         
         state = MainState(service: service,
-                          filteredTokens: service.excludeMainCell(),
+                          filteredTokens: [],
                           isSearching: false,
                           mainToken: Token(),
                           checkBoxMode: false,
                           selectedTokens: [UUID: Bool](),
                           selectedCount: 0,
-                          zeroTokenState: service.tokenCount == 0,
+                          zeroTokenState: true,
                           hasBackupPassword: false
         )
     }
