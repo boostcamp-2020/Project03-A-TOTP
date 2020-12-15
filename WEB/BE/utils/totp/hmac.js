@@ -3,6 +3,8 @@ const crypto = require('crypto');
 const MAX_KEY_BYTES = 64;
 const IPAD_NUM = 0x36;
 const OPAD_NUM = 0x5c;
+const I_PAD = Buffer.alloc(MAX_KEY_BYTES, IPAD_NUM);
+const O_PAD = Buffer.alloc(MAX_KEY_BYTES, OPAD_NUM);
 
 const strToBuffer = (encoding) => (string) => Buffer.from(string, encoding);
 
@@ -23,6 +25,12 @@ const xor = (a, b) => {
   return buffer;
 };
 
+const isValidKey = (key) => typeof key === 'string';
+
+const isValidData = (data) => Buffer.isBuffer(data) || typeof data === 'string';
+
+const isValidKeyBufferLength = (keyBuffer) => keyBuffer.byteLength <= MAX_KEY_BYTES;
+
 /**
  * HMAC을 생성합니다
  * @param {string} key 비밀 키 문자열
@@ -32,18 +40,18 @@ const xor = (a, b) => {
  * @returns {string} HMAC 문자열
  */
 exports.createHmac = ({ key, data, algorithm, encoding }) => {
-  if (typeof key !== 'string') {
+  if (!isValidKey(key)) {
     throw new Error('key must be a String');
   }
 
-  if (!Buffer.isBuffer(data) && typeof data !== 'string') {
+  if (!isValidData(data)) {
     throw new Error('data must be a Buffer or String');
   }
 
   const keyBuffer = Buffer.from(key);
   const dataBuffer = Buffer.isBuffer(data) ? data : Buffer.from(data);
 
-  if (keyBuffer.byteLength > MAX_KEY_BYTES) {
+  if (!isValidKeyBufferLength(keyBuffer)) {
     throw new Error('Key length exceeded the limit');
   }
 
@@ -51,10 +59,8 @@ exports.createHmac = ({ key, data, algorithm, encoding }) => {
 
   keyBuffer.copy(targetBuffer, 0, 0, keyBuffer.byteLength);
 
-  const iPad = Buffer.alloc(MAX_KEY_BYTES, IPAD_NUM);
-  const oPad = Buffer.alloc(MAX_KEY_BYTES, OPAD_NUM);
-  const iKeyPad = xor(targetBuffer, iPad);
-  const oKeyPad = xor(targetBuffer, oPad);
+  const iKeyPad = xor(targetBuffer, I_PAD);
+  const oKeyPad = xor(targetBuffer, O_PAD);
 
   return pipe(
     concatBuffer(iKeyPad),
