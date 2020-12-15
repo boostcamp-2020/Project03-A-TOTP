@@ -92,29 +92,19 @@ const StudyComponent = (): JSX.Element => {
     let value = 0;
     Object.keys(state).forEach((key) => {
       return state[key].forEach((item: ListProps) => {
-        value += key.substring(0, key.length - 1) === item.name.substring(0, item.name.length - 1) ? 10 : 0;
+        const componentName = key.substring(0, key.length - 1);
+        const itemName = item.name.substring(0, item.name.length - 1);
+        value += componentName === itemName ? 10 : 0;
+        value +=
+          (componentName === 'secretKey' && itemName === 'timeStamp') ||
+          (componentName === 'timeStamp' && itemName === 'secretKey')
+            ? 10
+            : 0;
       });
     });
     setScore(value);
   };
 
-  const makeContainer = (value: string, list: ListProps[]) => {
-    return (
-      <DropTarget onDrop={(e) => onDrop(e, value)}>
-        <DropContainer styles={initialArrayData[value]} isList={value === 'list'}>
-          {list.map(
-            (item: ListProps): JSX.Element => {
-              return (
-                <Drag dataItem={`${value}:${item.name}`}>
-                  <DragImg styles={initialArrayData[item.name]} src={item.svg} />
-                </Drag>
-              );
-            },
-          )}
-        </DropContainer>
-      </DropTarget>
-    );
-  };
   return (
     <>
       <HeadingSection>학습하기</HeadingSection>
@@ -128,11 +118,13 @@ const StudyComponent = (): JSX.Element => {
           {Object.keys(state)
             .filter((value) => value !== 'list')
             .map((value) => {
-              return <StudyBox value={value} list={state[value]} onDrop={onDrop} />;
+              return <StudyBox key={value} value={value} list={state[value]} onDrop={onDrop} />;
             })}
         </BackGround>
         <MiddleContent>아래 아이콘들을 드래그하여 위 빈칸에 넣어보세요 !</MiddleContent>
-        <div>{makeContainer('list', state.list)}</div>
+        <div>
+          <StudyBox value='list' list={state.list} onDrop={onDrop} />
+        </div>
         <MarkButton markScore={markScore} score={score} />
       </BlockSection>
     </>
