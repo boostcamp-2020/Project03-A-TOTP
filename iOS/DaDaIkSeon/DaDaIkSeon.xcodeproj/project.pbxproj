@@ -59,6 +59,7 @@
 		7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF48DD72572B775001E3639 /* ViewModel.swift */; };
 		7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */; };
 		7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFFFFBD2575FA780056F827 /* Image+.swift */; };
+		8810D2B72588757400D79D6D /* MainNetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8810D2B62588757400D79D6D /* MainNetworkResult.swift */; };
 		881BDDBB258749A20082CBEA /* SettingNetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881BDDBA258749A20082CBEA /* SettingNetworkResult.swift */; };
 		8826F686257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */; };
 		882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882D44B2256D0BB6001901F9 /* TokenCellView.swift */; };
@@ -189,6 +190,7 @@
 		7CF48DD72572B775001E3639 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		7CFAE84625762D47002F048E /* TokenEditView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenEditView+SubViews.swift"; sourceTree = "<group>"; };
 		7CFFFFBD2575FA780056F827 /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
+		8810D2B62588757400D79D6D /* MainNetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkResult.swift; sourceTree = "<group>"; };
 		881BDDBA258749A20082CBEA /* SettingNetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNetworkResult.swift; sourceTree = "<group>"; };
 		8826F685257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISTOTPGeneratorTests.swift; sourceTree = "<group>"; };
 		882D44B2256D0BB6001901F9 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellView.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				882E9A23257D108300B066F3 /* MainUsecase.swift */,
+				8810D2B62588757400D79D6D /* MainNetworkResult.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -1118,6 +1121,7 @@
 				7C2D344D257FA5050013AD65 /* EndpointType.swift in Sources */,
 				7CFFFFBE2575FA780056F827 /* Image+.swift in Sources */,
 				7C2D342A257F5C650013AD65 /* LoginCodeView.swift in Sources */,
+				8810D2B72588757400D79D6D /* MainNetworkResult.swift in Sources */,
 				888E5CE02585FE8B001D30DF /* SettingViewModel+Email.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
 				882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */,
