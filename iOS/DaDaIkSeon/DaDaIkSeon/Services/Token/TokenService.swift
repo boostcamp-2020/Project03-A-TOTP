@@ -70,10 +70,12 @@ final class TokenService: TokenServiceable {
                                 switch self.decryptTokenKeys(tokens: tokens) {
                                 case .successLoad(let decryptedResult): // 복호화 성공
                                     if let decryptedTokens = decryptedResult.tokens {
-                                        self.tokens = decryptedTokens // service에 있는 tokens 업데이트
-                                        designateMain()
                                         _ = storageManager.storeTokens(decryptedTokens)
-                                        updateView(.successLoad(decryptedResult))
+                                        DispatchQueue.main.async {
+                                            self.tokens = decryptedTokens // service에 있는 tokens 업데이트
+                                            designateMain()
+                                            updateView(.successLoad(decryptedResult))
+                                        }
                                     } else {
                                         print("여기")
                                     }

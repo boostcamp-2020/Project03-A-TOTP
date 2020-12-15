@@ -9,35 +9,19 @@ import Foundation
 
 class MockSettingService: SettingServiceable {
     
-    private var user: DDISUser
+//    /private var user: DDISUser? =
     private var pincodeManager = PincodeManager()
     private var backupPasswordManager = BackupPasswordManager()
     
-    init() {
-        // placeHolder는 로컬, 바꿀 때마다 현재 시간 저장
-        if let data = UserDefaults.standard.value(forKey: "DDISUser") as? Data {
-            if let user = try? PropertyListDecoder().decode(DDISUser.self, from: data) {
-                self.user = user
-            } else {
-                print("don't parsing")
-                user = DDISUser.placeHoler()
-            }
-            print(data)
-        } else {
-            print("is not presented")
-            user = DDISUser.placeHoler()
-        }
-    }
-    
     func refresh(updateView: @escaping (SettingNetworkResult) -> Void) { // 뷰모델 생성자에서 실행
-        UserNetworkManager.shared.load { [weak self] (result) in
-            guard let self = self else { return }
+        UserNetworkManager.shared.load { (result) in
             switch result {
-            case .refresh(var user):
-                user.device = self.user.device
-                self.user = user
-                UserDefaults.standard.set(
-                    try? PropertyListEncoder().encode(self.user), forKey: "DDISUser")
+            case .refresh(var serverUser):
+                guard var user = DDISUserCache.get() else { return }
+                serverUser.device = user.device
+                user.devices = serverUser.devices
+                user = serverUser
+                DDISUserCache.save(user)
                 updateView(result)
             default:
                 updateView(result)
@@ -46,22 +30,23 @@ class MockSettingService: SettingServiceable {
     }
     
     func readEmail() -> String? {
+        guard let user = DDISUserCache.get() else { return nil }
         return user.email
     }
     
     // userdefualt도 바꿔줘야 한다.
     func updateEmail(_ email: String, completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
-            .changeEmail(email: email) { [weak self] result in
+            .changeEmail(email: email) { result in
                 switch result {
                 case .emailEdit:
-                    guard let self = self else { return }
-                    self.user.email = email
+                    guard var user = DDISUserCache.get() else { return }
+                    user.email = email
+                    DDISUserCache.save(user)
                     completion(result)
                 default:
                     completion(result)
                 }
-                
             }
     }
     
@@ -70,12 +55,24 @@ class MockSettingService: SettingServiceable {
                           backup: Bool,
                           updateView: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
-            .changeBackupMode(udid: udid, backup: backup) {[weak self] result in
-                guard let self = self else { return }
-                self.user.device?.backup = true
-                DDISUserCache.save(self.user)
-                updateView(result)
-        }
+            .changeBackupMode(udid: udid, backup: backup) { result in
+                switch result {
+                case .backupToggle:
+                    guard var user = DDISUserCache.get() else { return }
+                    if var devices = user.devices {
+                        if let index = devices.firstIndex(where: { $0.udid ==  user.device?.udid }) {
+                            devices[index].backup = backup
+                            user.devices = devices
+                        }
+                    }
+                    user.device?.backup = backup
+                    DDISUserCache.save(user)
+                    updateView(result)
+                default:
+                    print("backupToggle 실패")
+                }
+                
+            }
     }
     
     func readBackupPassword() -> String? {
@@ -95,13 +92,21 @@ class MockSettingService: SettingServiceable {
         _ isOn: Bool, completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager
             .shared.changeMultiDevice(multiDevice: isOn) { result in
-                completion(result)
-        }
-        
+                switch result {
+                case .multiDeviceToggle:
+                    guard var user = DDISUserCache.get() else { return }
+                    user.multiDevice = isOn
+                    DDISUserCache.save(user)
+                    completion(result)
+                default:
+                    print("changeMultiDevice 실패")
+                }
+            }
     }
-   
+    
     func readDevice() -> [Device]? {
-        user.devices
+        guard let user = DDISUserCache.get() else { return nil }
+        return user.devices
     }
     
     // userdefualt도 바꿔줘야 한다.
@@ -111,13 +116,18 @@ class MockSettingService: SettingServiceable {
               let name = newDevice.name else { return }
         // 업데이트 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
         SettingNetworkManager.shared.changeDevice(
-            udid: udid, name: name) { [weak self] result in
+            udid: udid, name: name) { result in
             switch result {
             case .deviceNameEdit:
-                guard let self = self else { return }
-                guard var devices = self.user.devices else {return}
+                guard var user = DDISUserCache.get() else { return }
+                guard var devices = user.devices else {return}
                 if let index = devices.firstIndex(where: { $0.udid == udid }) {
                     devices[index] = newDevice
+                    user.devices = devices
+                    if newDevice.udid == user.device?.udid {
+                        user.device = newDevice
+                    } // device는 현재 디바이스 일 때만 바꾼다.
+                    DDISUserCache.save(user)
                     completion(.deviceNameEditSuccess(devices))
                 }
             default:
@@ -129,13 +139,14 @@ class MockSettingService: SettingServiceable {
     func deleteDevice(_ udid: String,
                       completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared.deleteDevice(
-            udid: udid) { [weak self] result in
-            guard let self = self else { return }
+            udid: udid) { result in
+            guard var user = DDISUserCache.get() else { return }
             switch result {
             case .deviceDelete:
-                self.user.devices?.removeAll(where: { // 서비스에서 삭제.
+                user.devices?.removeAll(where: { // 서비스에서 삭제.
                     $0.udid == udid
-                })
+                }) // 현재 디바이스 삭제는 ui에서 걸러준다.
+                DDISUserCache.save(user)
                 completion(result)
             default:
                 completion(result)
@@ -155,3 +166,4 @@ class MockSettingService: SettingServiceable {
         pincodeManager.storePincode(pincode)
     }
 }
+
