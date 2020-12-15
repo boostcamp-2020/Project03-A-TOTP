@@ -13,6 +13,7 @@ enum SettingNetworkResult {
     case multiDeviceToggle
     case backupToggle
     case deviceNameEdit
+    case deviceNameEditSuccess(_ devices: [Device])
     case deviceDelete
     case accessError403
     case messageError

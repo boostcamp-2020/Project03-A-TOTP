@@ -20,7 +20,8 @@ extension SettingViewModel {
                         DispatchQueue.main.async {
                             self.state.email = email
                         }
-                    default: break
+                    default:
+                        print("")
                     }
                 }
                 state.email = state.service.readEmail() ?? ""

@@ -19,8 +19,13 @@ final class SettingNetworkManager: Requestable {
         let settingEndpoint: SettingEndpoint = .patchEmail(email: email)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion(.emailEdit)
+            case .networkSuccess(let data):
+                switch data.responseCode {
+                case (200..<300):
+                    completion(.emailEdit)
+                default:
+                    completion(.ETCError)
+                }
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
@@ -37,8 +42,13 @@ final class SettingNetworkManager: Requestable {
                                                             isBackup: backup)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion(.backupToggle)
+            case .networkSuccess(let data):
+                switch data.responseCode {
+                case (200..<300):
+                    completion(.backupToggle)
+                default:
+                    completion(.ETCError)
+                }
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
@@ -46,15 +56,20 @@ final class SettingNetworkManager: Requestable {
             }
         }
     }
-
+    
     func changeMultiDevice(multiDevice: Bool,
                            completion: @escaping (SettingNetworkResult) -> Void) {
         
         let settingEndpoint: SettingEndpoint = .patchMultiDevice(isMultiDevice: multiDevice)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion(.multiDeviceToggle)
+            case .networkSuccess(let data):
+                switch data.responseCode {
+                case (200..<300):
+                    completion(.multiDeviceToggle)
+                default:
+                    completion(.ETCError)
+                }
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
@@ -69,8 +84,13 @@ final class SettingNetworkManager: Requestable {
         let settingEndpoint: SettingEndpoint = .patchDevice(udid: udid, name: name)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion(.deviceNameEdit)
+            case .networkSuccess(let data):
+                switch data.responseCode {
+                case (200..<300):
+                    completion(.deviceNameEdit)
+                default:
+                    completion(.ETCError)
+                }
             case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
@@ -85,9 +105,14 @@ final class SettingNetworkManager: Requestable {
         let settingEndpoint: SettingEndpoint = .deleteDevice(udid: udid)
         request(settingEndpoint) { result in
             switch result {
-            case .networkSuccess:
-                completion(.deviceDelete)
-            case .networkError(let error):
+            case .networkSuccess(let data):
+                switch data.responseCode {
+                case (200..<300):
+                    completion(.deviceDelete)
+                default:
+                    completion(.ETCError)
+                }
+            case .networkError:
                 completion(.dataParsingError)
             case .networkFail:
                 completion(.networkError)

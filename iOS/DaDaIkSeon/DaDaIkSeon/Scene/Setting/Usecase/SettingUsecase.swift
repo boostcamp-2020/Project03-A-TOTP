@@ -94,6 +94,16 @@ extension SettingView {
         @Published var pinCodeSetting: Bool = false
         
         @Published var deviceAlert: Bool = false
+        
+        func reset() {
+            newEmail = Entry(limit: 30)
+            newPassword = Entry(limit: 15)
+            newPasswordCheck = Entry(limit: 15)
+            newDeviceName = Entry(limit: 10)
+            faceIDToggle = false
+            pinCodeSetting = false
+            deviceAlert = false
+        }
     }
     
 }
