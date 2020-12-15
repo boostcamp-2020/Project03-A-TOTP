@@ -5,6 +5,7 @@ const logService = require('@/services/web/log');
 const { comparePassword, getEncryptedPassword } = require('@utils/bcrypt');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { emailSender } = require('@/utils/emailSender');
+const DB = require('@models/sequelizeIOS');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 const { makeRandom } = require('@utils/random');
@@ -52,10 +53,11 @@ const authController = {
     const { ip } = req;
     const params = await makeLogData({ ip: ip.substring(7), userAgent, id, sid: req.session.id });
     const [{ user }] = await Promise.all([authService.getUserById({ id }), logService.insert({ params })]);
-    /** @TODO 트랜잭션 */
-    await authService.updateOTP({ id, totp });
-    await authService.setLoginFailCount({ id });
 
+    await DB.sequelize.transaction(async () => {
+      await authService.updateOTP({ id, totp });
+      await authService.setLoginFailCount({ id });
+    });
     res.cookie('csrfToken', csrfToken, {
       maxAge: 2 * 60 * 60 * 1000,
     });
