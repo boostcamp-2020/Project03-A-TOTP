@@ -43,8 +43,7 @@ const authController = {
   },
 
   async logInSuccess(req, res, next) {
-    const { action, id } = req.body;
-
+    const { action, id, totp } = req.body;
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
     const csrfToken = makeRandom();
     req.session.user = id;
@@ -53,6 +52,7 @@ const authController = {
     const { ip } = req;
     const params = await makeLogData({ ip: ip.substring(7), userAgent, id, sid: req.session.id });
     const [{ user }] = await Promise.all([authService.getUserById({ id }), logService.insert({ params })]);
+    await authService.updateOTP({ id, totp });
 
     res.cookie('csrfToken', csrfToken, {
       maxAge: 2 * 60 * 60 * 1000,
