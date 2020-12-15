@@ -40,6 +40,29 @@ final class TokenService: TokenServiceable {
     }
     
     func loadTokens() -> [Token] {
+        // 암호화
+        var encryptedTokens = [Token]()
+        
+        tokens.forEach {
+            var token = $0
+            if let password = BackupPasswordManager().loadPassword() {
+                if let key = token.key {
+                    do {
+                        token.key = try TokenCryptoManager(password).encrypt(with: key)
+                    } catch {
+                        print(error)
+                    }
+                }
+            } else {
+                print("백업 비밀번호가 없다!")
+            }
+            encryptedTokens.append(token)
+        }
+        TokenNetworkManager.shared.syncTokens(lastUpdate: "", tokens: encryptedTokens) { result in
+            
+            
+            
+        }
         return storageManager.loadTokens() ?? []
     }
     

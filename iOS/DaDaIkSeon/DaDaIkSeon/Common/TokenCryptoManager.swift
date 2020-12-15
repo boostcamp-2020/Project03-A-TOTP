@@ -63,13 +63,13 @@ class TokenCryptoManager {
         }
     }
     
-    enum EncryptErrorType: Error {
+    private enum EncryptErrorType: Error {
         case tokenKeyToDataError
         case passwordToDataError
         case sealError
         case sealBoxingError
     }
-    enum DecryptErrorType: Error {
+    private enum DecryptErrorType: Error {
         case combinedStringToDataError
         case combinedToSealBoxError
         case passwordToData
