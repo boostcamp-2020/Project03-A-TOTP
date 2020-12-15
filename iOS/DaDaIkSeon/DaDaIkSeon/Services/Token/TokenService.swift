@@ -70,12 +70,10 @@ final class TokenService: TokenServiceable {
                                 switch self.decryptTokenKeys(tokens: tokens) {
                                 case .successLoad(let decryptedResult): // 복호화 성공
                                     if let decryptedTokens = decryptedResult.tokens {
+                                        self.tokens = decryptedTokens // service에 있는 tokens 업데이트
+                                        designateMain()
                                         _ = storageManager.storeTokens(decryptedTokens)
-                                        DispatchQueue.main.async {
-                                            self.tokens = decryptedTokens // service에 있는 tokens 업데이트
-                                            designateMain()
-                                            updateView(.successLoad(decryptedResult))
-                                        }
+                                        updateView(.successLoad(decryptedResult))
                                     } else {
                                         print("여기")
                                     }
@@ -121,12 +119,31 @@ final class TokenService: TokenServiceable {
         }
         tokens.append(token)
         _ = storageManager.storeTokens(tokens)
+        lastUpdateTime()
+        if isBackUp() {
+            do {
+                if let key = token.key {
+                    token.key = try TokenCryptoManager(self.getPasword()).encrypt(with: key)
+                    TokenNetworkManager.shared.create(token: token) {
+                        print("저장 성공...")
+                    }
+                }
+            } catch {
+                print("저장 실패..")
+            }
+        }
     }
     
     func update(token: Token) {
         guard let index = tokens.firstIndex(where: { $0.id == token.id }) else { return }
         tokens[index] = token
         _ = storageManager.storeTokens(tokens)
+        lastUpdateTime()
+        if isBackUp() {
+            TokenNetworkManager.shared.modify(token: token) {
+                print("수정 성공")
+            }
+        }
     }
     
     func mainToken() -> Token? {
@@ -167,11 +184,14 @@ final class TokenService: TokenServiceable {
         _ = storageManager.storeTokens(tokens)
         if tokens.count == 0 { return }
         updateMainWithFirstToken()
-    }
-    
-    func removeToken(_ id: String) {
-        tokens.removeAll(where: { $0.id == id })
-        _ = storageManager.storeTokens(tokens)
+        lastUpdateTime()
+        if isBackUp() {
+            for id in idList {
+                TokenNetworkManager.shared.delete(id: id) {
+                    print("삭제 성공")
+                }
+            }
+        }
     }
     
     func updateTokenPosition(from: Int, target: Int) {
@@ -183,6 +203,21 @@ final class TokenService: TokenServiceable {
 }
 
 extension TokenService {
+    
+    func lastUpdateTime() {
+        if var user = DDISUserCache.get() {
+            user.device?.lastUpdate = Date().dateFormatToString()
+            DDISUserCache.save(user)
+        }
+    }
+    
+    func isBackUp() -> Bool {
+        return DDISUserCache.get()?.device?.backup != nil
+    }
+    
+    func getPasword() -> String {
+        return BackupPasswordManager().loadPassword() ?? ""
+    }
     
     func updateMainWithFirstToken() {
         if nil !=  mainToken() {

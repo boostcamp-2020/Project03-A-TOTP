@@ -31,8 +31,6 @@ protocol TokenServiceable {
     
     func removeTokens(_ idList: [String])
     
-    func removeToken(_ id: String)
-    
     func updateTokenPosition(from: Int, target: Int)
     
 }
