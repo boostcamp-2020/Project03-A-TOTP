@@ -2,12 +2,14 @@ const createError = require('http-errors');
 
 const sessionAuthentication = {
   sessionCheck(req, res, next) {
-    const { csrfToken } = req.cookies;
-    // if (!req.session.key && req.session.CSRF_TOKEN !== CSRFTOKEN) {
-    if (!req.session.user) {
+    const { CSRF_TOKEN } = req.session;
+    const { csrfToken } = req.query;
+    if (!req.session.user && CSRF_TOKEN !== csrfToken) {
       res.clearCookie('csrfToken');
       return next(createError(401, '로그아웃되어 권한이 없습니다.'));
     }
+    console.log(req.session);
+    console.log(req.query);
     res.cookie('csrfToken', csrfToken, {
       maxAge: 2 * 60 * 60 * 1000,
     });
