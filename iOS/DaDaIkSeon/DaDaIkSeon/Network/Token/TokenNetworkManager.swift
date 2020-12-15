@@ -9,7 +9,7 @@ import Foundation
 
 struct TokenNetworkType: Codable {
     var lastUpdate: String?
-    var tokens: [Token]
+    var tokens: [Token]?
 }
 
 final class TokenNetworkManager: Requestable {
@@ -28,7 +28,10 @@ final class TokenNetworkManager: Requestable {
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess(let data):
-                guard let resultData = data.responseResult.data else { return }
+                guard let resultData = data.responseResult.data else {
+                    completion(.parsingError)
+                    return
+                }
                 completion(.successLoad(resultData))
             case .networkError(let error):
                 print(error)

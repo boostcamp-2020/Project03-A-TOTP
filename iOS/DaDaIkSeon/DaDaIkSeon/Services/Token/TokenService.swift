@@ -33,7 +33,7 @@ final class TokenService: TokenServiceable {
     
     // MARK: Methods
     
-    func token(id: UUID) -> Token? {
+    func token(id: String) -> Token? {
         tokens.first(where: { $0.id == id })
     }
     
@@ -43,62 +43,57 @@ final class TokenService: TokenServiceable {
     
     // completion 받아와야
     func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void) {
-        // 여기서 받아온 데이터와 우리 꺼 시간 비교.
-        // 우리꺼가 최신이면 sync 보냄.
-        // 서버가 최신이면 우리꺼 전부 서버꺼로 바꿈
         // (토큰 정보 바뀔 때마다 우리 디바이스에 있는 시간 update 해야된다.)
-        TokenNetworkManager.shared.load {[weak self] result in
-            guard let self = self else { return }
-            
-            
-//
-//
-//            switch result {
-//            case .successLoad(let result):
-//                if self.isRecentLocal(time: result.lastUpdate!) { // 로컬이 최신 - 싱크맞추기
-//                    //self.syncToServer(updateView)
-//                    TokenNetworkManager.shared.syncTokens(
-//                        lastUpdate: "", tokens: encryptedTokens) { [weak self] result in
-//                        guard let self = self else { return }
-//                        switch result  {
-//                        case .successSync: // lastupdate, tokens
-//                            let tokens = result.tokens
-//                            var decryptedTokens = [Token]()
-//                            // 복호화
-//                            tokens.forEach {
-//                                var token = $0
-//                                if let password = BackupPasswordManager().loadPassword() {
-//                                    if let key = token.key {
-//                                        do {
-//                                            token.key = try TokenCryptoManager(password).decrypt(from: key)
-//                                        } catch {
-//                                            updateView(.failedDecryption)
-//                                            // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-//                                        }
-//                                    }
-//                                } else {
-//                                    updateView(.noBackupPassword)
-//                                    // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-//                                }
-//                                decryptedTokens.append(token)
-//                            }
-//                            _ = self.storageManager.storeTokens(decryptedTokens) // 키체인 업데이트
-//                            self.tokens = decryptedTokens // service token update
-//                            self.designateMain() // 메인 지정
-//                            updateView(.successSync(decryptedTokens)) // 뷰 업데이트 - 여기서 showScene
-//                        default: break
-//                        }
-//
-////                        복호화 - main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-////                        성공시 바로 service, main 업데이트
-//
-//                    }
-//                    return
-//                }
-//                // 서버가 최신이면 그대로 로컬에 가져옴
-//                // updateView 실행하여 showMainScene 해줌
-//            default: break
-//            }
+        
+        // 받아온 데이터 어떤게 더 최신인지 확인,
+        // case 로컬이 최신 - 그냥 로컬 데이터로(이미 로컬에 데이터가 존재함) show
+        // 또한 로컬에 있는 데이터를 서버에 쏴서 싱크를 맞춰줘야 함. - 이거 좀ㅁ만 나중에 하자
+        // case server - 서버 데이터로 로컬 데이터를 수정해주고, service에 있는 tokens도 변경해주고 show 하게 함
+        // case error -> alert 띄우게
+        
+        TokenNetworkManager.shared.load { [self] result in
+            switch result {
+            case .successLoad(let serverData): // 시간 비교.
+                if let time = serverData.lastUpdate {
+                    do {
+                        if try self.isRecentLocal(time: time) { // 로컬이 최신
+                            updateView(result) // showMain 실행
+                            syncToServer(lastupdateTime: time, updateView)
+                        } else { // 서버가 최신
+                            // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
+                            if let tokens = serverData.tokens {
+                                switch self.decryptTokenKeys(tokens: tokens) {
+                                case .successLoad(let decryptedResult): // 복호화 성공
+                                    if let decryptedTokens = decryptedResult.tokens {
+                                        self.tokens = decryptedTokens // service에 있는 tokens 업데이트
+                                        _ = storageManager.storeTokens(decryptedTokens)
+                                        updateView(.successLoad(decryptedResult))
+                                    }
+                                case .failedDecryption:
+                                    print("failedDecryption")
+                                    updateView(.failedDecryption(tokens))
+                                case .noBackupPassword:
+                                    print("noBackupPassword")
+                                    updateView(.noBackupPassword)
+                                default: break
+                                }
+                                // 복호화 - 토큰이랑 비밀 번호 주면 시도. - 성공 of 실패
+                                // 성공하면 그대로 로컬 데이터 업데이트 - success - showMain 어쩌구 실행
+                                // 실패하면 비밀 번호 설정하도록 유도 - failDecrption - (비번 다시 설정, 비번설정)
+                            } else { // 토큰이 없음 -> 모두 삭제한 게 최신이라는 의미 - 데이터 없음!
+                                tokens.removeAll()
+                                _ = storageManager.deleteTokens()
+                                updateView(.noTokens)
+                            }
+                        }
+                    } catch {
+                        print(error)
+                    }
+                } else {
+                    print("시간값이 없다.")
+                }
+            default: break
+            }
         }
     }
     
@@ -140,7 +135,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
-    func updateMainToken(id: UUID) {
+    func updateMainToken(id: String) {
         guard let oldMainTokenIndex = tokens.firstIndex(where: {
             guard let isMain = $0.isMain else { return false }
             return isMain
@@ -153,7 +148,7 @@ final class TokenService: TokenServiceable {
         _ = storageManager.storeTokens(tokens)
     }
     
-    func removeTokens(_ idList: [UUID]) {
+    func removeTokens(_ idList: [String]) {
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
@@ -162,7 +157,7 @@ final class TokenService: TokenServiceable {
         updateMainWithFirstToken()
     }
     
-    func removeToken(_ id: UUID) {
+    func removeToken(_ id: String) {
         tokens.removeAll(where: { $0.id == id })
         _ = storageManager.storeTokens(tokens)
     }
@@ -185,13 +180,19 @@ extension TokenService {
         }
     }
     
+   //
+    
     // 시간 비교 후, 뭐가 최신인지 아는 게 이 함수의 목적
-    func isRecentLocal(time: String) -> Bool {
+    func isRecentLocal(time: String) throws -> Bool {
         if let user = DDISUserCache.get() {
-            let deviceTime = user.device?.lastUpdate?.timeFormatToDate()
-            let serverTime = time.timeFormatToDate()
+            guard let deviceTime = user.device?.lastUpdate?.timeFormatToDate() else {
+                throw TimeError.localTime
+            }
+            guard let serverTime = time.timeFormatToDate() else {
+                throw TimeError.serverTime
+            }
             
-            if deviceTime! <= serverTime! { // 서버가 최신
+            if deviceTime <= serverTime { // 서버가 최신
                 return false
             } else {
                 return true
@@ -201,8 +202,46 @@ extension TokenService {
             return true
         }
     }
-
-    func syncToServer(_ updateView: @escaping (MainNetworkResult) -> Void) {
+    
+    func decryptTokenKeys(tokens: [Token], password: String? = nil) -> MainNetworkResult {
+        
+        var decryptedTokens = [Token]()
+        var result: MainNetworkResult = .failedDecryption(tokens)
+        tokens.forEach {
+            var token = $0
+            if let password = password {
+                if let key = token.key {
+                    do {
+                        token.key = try TokenCryptoManager(password).decrypt(from: key)
+                    } catch {
+                        result = .failedDecryption(tokens)
+                        return
+                        // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
+                    }
+                }
+            } else {
+                if let password = BackupPasswordManager().loadPassword() {
+                    if let key = token.key {
+                        do {
+                            token.key = try TokenCryptoManager(password).decrypt(from: key)
+                        } catch {
+                            result = .failedDecryption(tokens)
+                            return
+                            // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
+                        }
+                    }
+                } else {
+                    result = .noBackupPassword
+                    return
+                }
+            }
+            decryptedTokens.append(token)
+            result = .successLoad(TokenNetworkType(lastUpdate: nil, tokens: decryptedTokens))
+        }
+        return result
+    }
+    
+    func syncToServer(lastupdateTime: String, _ updateView: @escaping (MainNetworkResult) -> Void) {
         // 암호화
         var encryptedTokens = [Token]()
         tokens.forEach {
@@ -224,6 +263,20 @@ extension TokenService {
             encryptedTokens.append(token)
         }
         
+        //let device = DDISUserCache.get()
         
+        TokenNetworkManager.shared.syncTokens(
+            lastUpdate: lastupdateTime, tokens: encryptedTokens) { result in
+            switch result {
+            case .successLoad:
+                print("성공")
+            default: break
+            }
+        }
     }
+}
+
+enum TimeError: Error {
+    case localTime
+    case serverTime
 }

@@ -19,7 +19,7 @@ final class TOTPTimer {
     
     private var timer: TimerPublisher
     
-    private var subscribers = [UUID: (TimerPublisher) -> Void]()
+    private var subscribers = [String: (TimerPublisher) -> Void]()
     
     private init() {
         timer = Timer
@@ -27,7 +27,7 @@ final class TOTPTimer {
             .autoconnect()
     }
     
-    func start(tokenID: UUID, subscriber: @escaping (TimerPublisher) -> Void) {
+    func start(tokenID: String, subscriber: @escaping (TimerPublisher) -> Void) {
         subscribers.updateValue(subscriber, forKey: tokenID)
         subscriber(timer)
     }
@@ -40,7 +40,7 @@ final class TOTPTimer {
         timer.upstream.connect().cancel()
     }
     
-    func deleteSubscribers(tokenIDs: [UUID]) {
+    func deleteSubscribers(tokenIDs: [String]) {
         tokenIDs.forEach {
             subscribers.removeValue(forKey: $0)
         }

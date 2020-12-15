@@ -38,7 +38,7 @@ class BackupPasswordViewModel: ViewModel {
             }
         case .next:
             state.next = true
-            print("next!!! \(state.service.loadTokens())")
+          //  print("next!!! \(state.service.loadTokens())")
         }
     }
     

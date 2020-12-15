@@ -101,7 +101,7 @@ private extension LoginEmailView {
                             udid: UIDevice.current.identifierForVendor?.uuidString ?? "",
                             modelName: UIDevice.current.model,
                             backup: true,
-                            lastUpdate: "1970-01-01T00:00:00.000Z")
+                            lastUpdate: "1970-01-02T00:00:00.000Z")
         withAnimation {
             viewModel.trigger(.sendButton(emailText,
                                           device: device,

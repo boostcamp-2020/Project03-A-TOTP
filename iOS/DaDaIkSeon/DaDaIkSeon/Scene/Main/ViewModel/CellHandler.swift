@@ -31,7 +31,7 @@ final class CellHandler: CommonHandler {
         }
     }
     
-    func moveToMain(_ id: UUID) {
+    func moveToMain(_ id: String) {
         state.service.updateMainToken(id: id)
         if state.isSearching {
             endSearch()

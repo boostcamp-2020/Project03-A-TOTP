@@ -18,7 +18,7 @@ enum TokenEndpoint {
 extension TokenEndpoint: EndpointType {
     
     var path: String {
-        let basePath = baseUrl + "/app/token"
+        let basePath = baseUrl + "/token"
         
         switch self {
         case .get, .postOne, .putAll:

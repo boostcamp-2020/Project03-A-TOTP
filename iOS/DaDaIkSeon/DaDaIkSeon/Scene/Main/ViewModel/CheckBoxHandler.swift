@@ -44,7 +44,7 @@ final class CheckBoxHandler: CommonHandler {
         state.selectedCount = 0
     }
     
-    func selectCell(_ id: UUID) {
+    func selectCell(_ id: String) {
         if let token = state.selectedTokens[id] {
             if token {
                 state.selectedCount -= 1

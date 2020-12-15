@@ -20,7 +20,7 @@ final class MainViewModel: ViewModel {
                           isSearching: false,
                           mainToken: Token(),
                           checkBoxMode: false,
-                          selectedTokens: [UUID: Bool](),
+                          selectedTokens: [String: Bool](),
                           selectedCount: 0,
                           zeroTokenState: true,
                           hasBackupPassword: false
