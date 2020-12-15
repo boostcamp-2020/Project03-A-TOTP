@@ -98,10 +98,10 @@ private extension LoginEmailView {
     
     func sendButtonDidTap(_ emailText: String) {
         let device = Device(name: UIDevice.current.name,
-                            udid: UIDevice.current.identifierForVendor?.uuidString,
+                            udid: UIDevice.current.identifierForVendor?.uuidString ?? "",
                             modelName: UIDevice.current.model,
                             backup: true,
-                            lastUpdate: nil)
+                            lastUpdate: "1970-01-01T00:00:00.000Z")
         withAnimation {
             viewModel.trigger(.sendButton(emailText,
                                           device: device,
