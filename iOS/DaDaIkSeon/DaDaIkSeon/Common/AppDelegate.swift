@@ -26,6 +26,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
             _ = StorageManager().deleteTokens()
             _ = PincodeManager().deletePincode()
             _ = JWTTokenStoreManager().delete()
+            _ = BackupPasswordManager().deletePassword()
             UserDefaults.standard.set(true, forKey: "alreadyInstalled")
         }
     }
