@@ -161,3 +161,8 @@ export const logoutAPI = async (): Promise<any> => {
   const { data } = await axios.get('api/auth/logout');
   return data;
 };
+
+export const reSend = async (id: string): Promise<any> => {
+  const { data } = await axios.post('api/user/reSend', { id });
+  return data;
+};

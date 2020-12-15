@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AuthForm } from '@components/common/AuthForm';
 import DefaultInput from '@components/common/Input/DefaultInput';
-import { loginWithPassword } from '@api/index';
+import { loginWithPassword, reSend } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useInput } from '@hooks/useInput';
 import { Link } from 'react-router-dom';
@@ -32,7 +32,19 @@ const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
     executeRecaptcha('LogInWithPassword')
       .then((reCaptchaToken: string) => loginWithPassword({ id, password, reCaptchaToken }))
       .then(({ authToken }: { authToken: string }) => onSuccess(authToken))
-      .catch((err: any) => alert(err.response?.data?.message || err.message))
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          if (window.confirm('이메일 미인증 사용자입니다. 다시 인증 메일을 보내시겠습니까?')) {
+            reSend(id).then((data) => {
+              if (data.message === 'ok') {
+                alert('성공적으로 재 전송되었습니다.');
+              }
+            });
+          }
+          return;
+        }
+        alert(err.response?.data?.message || err.message);
+      })
       .finally(() => setIsSubmitting(false));
   };
 
