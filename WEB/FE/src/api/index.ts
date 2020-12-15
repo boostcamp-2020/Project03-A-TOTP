@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-axios.defaults.headers['X-CSRF'] = 'X-CSRF';
+import axios from './config';
 
 interface UserInfo {
   id: string;
