@@ -8,7 +8,7 @@ interface ParagraphProps {
 }
 
 const Wrapper = styled.p`
-  line-height: 1.5;
+  line-height: 1.6;
   word-break: keep-all;
   margin-bottom: 0.5rem;
 `;

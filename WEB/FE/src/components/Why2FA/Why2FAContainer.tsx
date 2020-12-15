@@ -4,12 +4,15 @@ import { HeadingSection } from '@components/common/Section/HeadingSection';
 import { BlockSection } from '@components/common/Section/BlockSection';
 import { Paragraph } from '@components/common/Paragraph';
 import image from '@static/undraw_two_factor_authentication_namy.svg';
+import Button from '@components/common/Button';
+import { Link } from 'react-router-dom';
 
 interface Why2FAContainerProps {}
 
 const ColumnContainer = styled.div`
   display: flex;
   align-items: stretch;
+  margin-bottom: 5rem;
 `;
 
 const Title = styled.h3`
@@ -24,7 +27,7 @@ const TextContainer = styled.div`
 const ImageContainer = styled.div`
   flex: 1;
   max-width: 400px;
-  padding: 2rem;
+  padding: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,6 +40,11 @@ const ImageContainer = styled.div`
 const List = styled.ul`
   padding: 0.5rem 20px;
   list-style: circle;
+  line-height: 1.6;
+`;
+
+const ButtonContainer = styled.div`
+  text-align: center;
 `;
 
 function Why2FAContainer({}: Why2FAContainerProps): JSX.Element {
@@ -61,9 +69,8 @@ function Why2FAContainer({}: Why2FAContainerProps): JSX.Element {
             </Paragraph>
             <Paragraph>
               게다가 약 <b>39%</b>의 사람들은 다른 온라인 계정에도 같은 비밀번호를 사용한다고 합니다. 가입
-              되어 있는 온라인 계정들 중 어딘가는 안전하지 않은 사이트가 있을 수 있습니다. 네이버 카카오에서
-              아무리 보안을 두텁게 하고 있다고 한들 올바른 아이디 비밀번호를 입력한 해커를 막을 수는 없을
-              것입니다.
+              되어 있는 온라인 계정들 중 어딘가는 안전하지 않은 사이트가 있을 수 있습니다. 서비스에서 아무리
+              보안을 두텁게 하고 있다고 한들 올바른 아이디 비밀번호를 입력한 해커를 막을 수는 없을 것입니다.
             </Paragraph>
             <Paragraph>
               그래서 2FA는 필요합니다. 새로운 기기를 등록하거나 계정 접근 및 변경을 위해 사용자는 계정에
@@ -78,6 +85,11 @@ function Why2FAContainer({}: Why2FAContainerProps): JSX.Element {
             <img src={image} alt='2fa diagram' />
           </ImageContainer>
         </ColumnContainer>
+        <ButtonContainer>
+          <Link to='/totp-intro'>
+            <Button text='TOTP 알아보기 &#xE001;' />
+          </Link>
+        </ButtonContainer>
       </BlockSection>
     </>
   );

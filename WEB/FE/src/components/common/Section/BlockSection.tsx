@@ -15,6 +15,7 @@ const Inner = styled.div`
   width: 100%;
   max-width: ${({ theme }) => theme.size.pageWidth};
   margin: auto;
+  margin-bottom: 3rem;
   padding: 1rem;
 `;
 
