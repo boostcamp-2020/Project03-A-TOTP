@@ -49,7 +49,8 @@ const userController = {
     });
 
     res.json({
-      user: {
+      message: 'OK',
+      data: {
         email: user.email,
         multiDevice: user.multi_device,
         lastUpdate: user.last_update,
