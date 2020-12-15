@@ -75,7 +75,9 @@ final class TokenService: TokenServiceable {
                                     }
                                 case .failedDecryption:
                                     print("failedDecryption")
-                                    updateView(.failedDecryption(tokens))
+                                    tokens.isEmpty
+                                        ? updateView(.noTokens)
+                                        : updateView(.failedDecryption(tokens))
                                 case .noBackupPassword:
                                     print("noBackupPassword")
                                     updateView(.noBackupPassword)

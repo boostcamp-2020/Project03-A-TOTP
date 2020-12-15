@@ -51,6 +51,7 @@ struct DaDaIkSeonApp: App {
                     DispatchQueue.main.async { root = .login }
                 } else {
                     print("현재 토큰 \(JWTTokenStoreManager().load()!)")
+                    print("현재 백업 비밀번호 \(BackupPasswordManager().loadPassword())")
                     localAuthenticate()
                 }
             default: break

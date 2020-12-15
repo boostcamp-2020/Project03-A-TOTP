@@ -9,17 +9,18 @@ import Foundation
 
 struct BackupPasswordState {
     var service: TokenServiceable
+    var errorMessage: BackupPasswordErrorMessage = .none
     var backupPassword = ""
     var backupPasswordChecker = ""
-    var enable: Bool = false
-    var next: Bool = false
-    var errorMessage: BackupPasswordErrorMessage = .none
+    var enable = false
+    var next = false
+    var isMultiUser = false
 }
 
 enum BackupPasswordInput {
     case inputPassword(_ input: String)
     case inputPasswordCheck(_ last: String, _ current: String)
-    case next
+    case next(_ password: String)
 }
 
 enum BackupPasswordErrorMessage: String {

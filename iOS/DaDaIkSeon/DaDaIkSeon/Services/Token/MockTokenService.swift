@@ -7,12 +7,11 @@
 
 import Foundation
 
-final class MockTokenService: TokenServiceable {
+final class MockTokenService {
     
     func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void) {
         //
     }
-    
     
     // MARK: Property
     

@@ -13,6 +13,8 @@ protocol TokenServiceable {
     
     func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void)
     
+    func decryptTokenKeys(tokens: [Token], password: String?) -> MainNetworkResult
+    
     func token(id: String) -> Token?
     
     func tokenList() -> [Token]
