@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       udid: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       model_name: {
         type: DataTypes.STRING,
