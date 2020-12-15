@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import OtpInput from 'react-otp-input';
+import { OTPInput } from '@components/TOTPModal/OTPInput';
 import { Modal } from '@components/common/Modal';
 import Button from '@components/common/Button';
-import CSS from 'csstype';
-import { Link } from 'react-router-dom';
 
 interface TOTPModalProps {
   isOpen: boolean;
@@ -52,19 +50,6 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const InputStyle: CSS.Properties = {
-  width: '4rem',
-  height: '4rem',
-  margin: '0 0.3rem',
-  fontSize: '20px',
-  borderRadius: '4px',
-  border: '1px solid #ccc',
-};
-
-const ErrorStyle: CSS.Properties = {
-  border: '1px solid #ff4d4f',
-};
-
 const TOTPModal = ({
   isOpen,
   TOTP,
@@ -85,17 +70,7 @@ const TOTPModal = ({
             표시된 OTP 6자리를 입력해 주세요
             {hasErrored && <Error>{errorMsg}</Error>}
           </Description>
-          <OtpInput
-            value={TOTP}
-            onChange={onChange}
-            numInputs={6}
-            inputStyle={InputStyle}
-            isInputNum
-            shouldAutoFocus
-            hasErrored={hasErrored}
-            errorStyle={ErrorStyle}
-            isDisabled={disabled}
-          />
+          <OTPInput otp={TOTP} onChange={onChange} hasErrored={hasErrored} isDisabled={disabled} />
           <ButtonContainer>
             <Button
               text='확인'
