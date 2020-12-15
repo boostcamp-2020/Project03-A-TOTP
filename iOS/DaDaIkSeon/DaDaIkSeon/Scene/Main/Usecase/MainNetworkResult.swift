@@ -14,7 +14,7 @@ enum MainNetworkResult {
     case parsingError
     case noBackupPassword
     case failedEncryption
-    case failedDecryption
+    case failedDecryption(_ tokens: [Token])
     case serverHasNoTime
 }
 
