@@ -8,8 +8,6 @@ const sessionAuthentication = {
       res.clearCookie('csrfToken');
       return next(createError(401, '로그아웃되어 권한이 없습니다.'));
     }
-    console.log(req.session);
-    console.log(req.query);
     res.cookie('csrfToken', csrfToken, {
       maxAge: 2 * 60 * 60 * 1000,
     });
