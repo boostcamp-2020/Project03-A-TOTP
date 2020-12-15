@@ -19,6 +19,7 @@ struct MainState {
     var selectedCount: Int
     var zeroTokenState: Bool
     var tokenOnDrag: Token?
+    var hasBackupPassword: Bool
 }
 
 // MARK: Input

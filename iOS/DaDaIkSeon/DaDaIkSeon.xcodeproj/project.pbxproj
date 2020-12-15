@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		228F28C1735B656EB3DA4FF9 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20AB54C9D61BCD0BFA05867 /* Pods_DaDaIkSeon_DaDaIkSeonUITests.framework */; };
+		7C032B1725874B1600BFAAEB /* LoginNetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C032B1625874B1600BFAAEB /* LoginNetworkResult.swift */; };
+		7C032B212587C2E400BFAAEB /* BackupPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C032B202587C2E400BFAAEB /* BackupPasswordView.swift */; };
+		7C032B262587C85000BFAAEB /* BackupPaswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C032B252587C85000BFAAEB /* BackupPaswordViewModel.swift */; };
+		7C032B2B2587C8F100BFAAEB /* BackupPasswordUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C032B2A2587C8F100BFAAEB /* BackupPasswordUsecase.swift */; };
 		7C1DC3A72581F301008D9550 /* BiometricIDAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */; };
 		7C2D3418257F4DDC0013AD65 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */; };
 		7C2D3420257F51360013AD65 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D341F257F51360013AD65 /* LoginService.swift */; };
@@ -127,6 +131,10 @@
 		3D7375BCD76D276087540F5A /* Pods_DaDaIkSeonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaDaIkSeonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3CF060568D9EE8E2331D44 /* Pods-DaDaIkSeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeon.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon.release.xcconfig"; sourceTree = "<group>"; };
 		79693E5AFB75E5A4C980879F /* Pods-DaDaIkSeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDaIkSeonTests.release.xcconfig"; path = "Target Support Files/Pods-DaDaIkSeonTests/Pods-DaDaIkSeonTests.release.xcconfig"; sourceTree = "<group>"; };
+		7C032B1625874B1600BFAAEB /* LoginNetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkResult.swift; sourceTree = "<group>"; };
+		7C032B202587C2E400BFAAEB /* BackupPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPasswordView.swift; sourceTree = "<group>"; };
+		7C032B252587C85000BFAAEB /* BackupPaswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPaswordViewModel.swift; sourceTree = "<group>"; };
+		7C032B2A2587C8F100BFAAEB /* BackupPasswordUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPasswordUsecase.swift; sourceTree = "<group>"; };
 		7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricIDAuthManager.swift; sourceTree = "<group>"; };
 		7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
 		7C2D341F257F51360013AD65 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
@@ -265,10 +273,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C032B1C2587C29B00BFAAEB /* BackupPassword */ = {
+			isa = PBXGroup;
+			children = (
+				7C032B1D2587C2B800BFAAEB /* Usecase */,
+				7C032B1E2587C2BD00BFAAEB /* ViewModel */,
+				7C032B1F2587C2C600BFAAEB /* View */,
+			);
+			path = BackupPassword;
+			sourceTree = "<group>";
+		};
+		7C032B1D2587C2B800BFAAEB /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				7C032B2A2587C8F100BFAAEB /* BackupPasswordUsecase.swift */,
+			);
+			path = Usecase;
+			sourceTree = "<group>";
+		};
+		7C032B1E2587C2BD00BFAAEB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7C032B252587C85000BFAAEB /* BackupPaswordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7C032B1F2587C2C600BFAAEB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C032B202587C2E400BFAAEB /* BackupPasswordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7C2D3416257F4DCA0013AD65 /* Usecase */ = {
 			isa = PBXGroup;
 			children = (
 				7C2D3417257F4DDC0013AD65 /* LoginUsecase.swift */,
+				7C032B1625874B1600BFAAEB /* LoginNetworkResult.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -651,6 +694,7 @@
 				882E99FE257D08F200B066F3 /* TokenCell */,
 				882E9A00257D093300B066F3 /* TokenEdit */,
 				7C3131DC257D1C1600A19319 /* Login */,
+				7C032B1C2587C29B00BFAAEB /* BackupPassword */,
 				883C2148257E70780094FFAA /* Setting */,
 			);
 			path = Scene;
@@ -1033,6 +1077,7 @@
 				882E9A12257D0A5200B066F3 /* MainViewModel.swift in Sources */,
 				7C4F3BD125848D15000C1DD2 /* String+.swift in Sources */,
 				7C2D345D257FA60A0013AD65 /* Requestable.swift in Sources */,
+				7C032B262587C85000BFAAEB /* BackupPaswordViewModel.swift in Sources */,
 				7C2D3472257FA7190013AD65 /* ResponseObject.swift in Sources */,
 				882E9A58257D2F2A00B066F3 /* SearchHandler.swift in Sources */,
 				88B02BEF2586510D003E8291 /* SettingErrorMessageView.swift in Sources */,
@@ -1045,6 +1090,8 @@
 				7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */,
 				7C4F3B792582105D000C1DD2 /* UserEndpoint.swift in Sources */,
 				888E5CD8258551D2001D30DF /* BackgroundView.swift in Sources */,
+				7C032B1725874B1600BFAAEB /* LoginNetworkResult.swift in Sources */,
+				7C032B2B2587C8F100BFAAEB /* BackupPasswordUsecase.swift in Sources */,
 				88938A3F25850D3400D3945C /* SettingToggleView.swift in Sources */,
 				7CCDD28E256E45E000150565 /* Color+.swift in Sources */,
 				882E9A2C257D113000B066F3 /* TokenDropDelegate.swift in Sources */,
@@ -1097,6 +1144,7 @@
 				7C4F3B9E25826FE6000C1DD2 /* SettingEndpoint.swift in Sources */,
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
+				7C032B212587C2E400BFAAEB /* BackupPasswordView.swift in Sources */,
 				7C7AC6BE25863A4E00C45D2E /* JWTTokenStoreManager.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */,

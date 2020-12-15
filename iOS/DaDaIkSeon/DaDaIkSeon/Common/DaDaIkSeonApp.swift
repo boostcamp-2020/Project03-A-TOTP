@@ -50,6 +50,7 @@ struct DaDaIkSeonApp: App {
                 if JWTTokenStoreManager().load() == nil {
                     DispatchQueue.main.async { root = .login }
                 } else {
+                    print("현재 토큰 \(JWTTokenStoreManager().load()!)")
                     localAuthenticate()
                 }
             default: break
