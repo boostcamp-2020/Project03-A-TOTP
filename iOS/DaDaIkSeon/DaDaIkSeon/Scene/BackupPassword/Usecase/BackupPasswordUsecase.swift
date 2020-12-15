@@ -9,11 +9,12 @@ import Foundation
 
 struct BackupPasswordState {
     var service: TokenServiceable
+    var errorMessage: BackupPasswordErrorMessage = .none
     var backupPassword = ""
     var backupPasswordChecker = ""
-    var enable: Bool = false
-    var next: Bool = false
-    var errorMessage: BackupPasswordErrorMessage = .none
+    var enable = false
+    var next = false
+    var isMultiUser = false
 }
 
 enum BackupPasswordInput {
