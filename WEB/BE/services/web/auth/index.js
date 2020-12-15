@@ -60,6 +60,16 @@ const authService = {
     const result = await authsModel.update(query, { where });
     return result;
   },
+
+  async updateOTP({ id, totp }) {
+    const result = await authsModel.update({ last_totp: totp }, { where: { id } });
+    return result;
+  },
+
+  async getOTPById({ id }) {
+    const result = await authsModel.findOne({ where: { id } });
+    return result.last_totp;
+  },
 };
 
 module.exports = authService;
