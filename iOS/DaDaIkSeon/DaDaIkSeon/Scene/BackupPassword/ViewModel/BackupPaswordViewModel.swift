@@ -11,8 +11,8 @@ class BackupPasswordViewModel: ViewModel {
     
     @Published var state: BackupPasswordState
     
-    init() {
-        state = BackupPasswordState()
+    init(service: TokenServiceable) {
+        state = BackupPasswordState(service: service)
     }
     
     func trigger(_ input: BackupPasswordInput) {
@@ -38,6 +38,7 @@ class BackupPasswordViewModel: ViewModel {
             }
         case .next:
             state.next = true
+            print("next!!! \(state.service.loadTokens())")
         }
     }
     

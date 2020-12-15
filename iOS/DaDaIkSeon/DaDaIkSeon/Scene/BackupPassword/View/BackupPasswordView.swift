@@ -94,6 +94,7 @@ struct BackupPasswordView: View {
 
 struct BackupPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        BackupPasswordView(viewModel: AnyViewModel(BackupPasswordViewModel()))
+        BackupPasswordView(viewModel: AnyViewModel(BackupPasswordViewModel(
+                                service: TokenService(StorageManager()))))
     }
 }

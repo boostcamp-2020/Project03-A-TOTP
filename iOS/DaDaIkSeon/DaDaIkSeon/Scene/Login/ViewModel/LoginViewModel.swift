@@ -60,6 +60,11 @@ private extension LoginViewModel {
                        _ device: Device,
                        _ completion: @escaping (String) -> Void) {
         
+        DDISUserCache.save(DDISUser(email: emailText,
+                                    device: device,
+                                    devices: nil,
+                                    multiDevice: true))
+        
         if emailText.checkStyle(type: .email) {
             state.service.sendEmail(email: emailText, device: device) { [weak self] result in
                 guard let self = self else { return }

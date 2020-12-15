@@ -86,14 +86,9 @@ private extension LoginCodeView {
     }
     
     func authButtonDidTap() {
-        let device = Device(name: UIDevice.current.name,
-                            udid: UIDevice.current.identifierForVendor?.uuidString,
-                            modelName: UIDevice.current.model,
-                            backup: false,
-                            lastUpdate: nil)
-        
+        guard let myDevice = DDISUserCache.get()?.device else { return }
         viewModel.trigger(.authButton(codeText,
-                                      device: device,
+                                      device: myDevice,
                                       completion: { token in
             if token != nil {
                 isAlert = false

@@ -31,13 +31,16 @@ struct DDISUser: Codable, Equatable {
 }
 
 struct DDISUserCache {
+  
     static let key = "userCache"
+    
     static func save(_ value: DDISUser) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(value) {
             UserDefaults.standard.set(encoded, forKey: key)
         }
     }
+  
     static func get() -> DDISUser? {
         if let objects = UserDefaults.standard.value(forKey: key) as? Data {
             let decoder = JSONDecoder()
@@ -51,7 +54,9 @@ struct DDISUserCache {
             return nil
         }
     }
+  
     static func remove() {
         UserDefaults.standard.removeObject(forKey: key)
     }
+    
 }
