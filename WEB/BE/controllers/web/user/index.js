@@ -48,6 +48,7 @@ const userController = {
     const info = {
       isVerified: 1,
       idx,
+      loginFailCount: 0,
     };
 
     await authService.update({ info });

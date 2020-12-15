@@ -18,6 +18,7 @@ const authService = {
   async update({ info }) {
     const query = {
       is_verified: info.isVerified,
+      login_fail_count: info.loginFailCount,
     };
     const where = {
       user_idx: info.idx,
@@ -39,7 +40,6 @@ const authService = {
 
   async getUserById({ id }) {
     const query = {
-      attributes: [],
       include: [{ model: users }],
       where: { id },
     };
@@ -69,6 +69,21 @@ const authService = {
   async getOTPById({ id }) {
     const result = await authsModel.findOne({ where: { id } });
     return result.last_totp;
+  },
+
+  async loginFail({ id }) {
+    const result = await authsModel.increment({ login_fail_count: +1 }, { where: { id } });
+    return result;
+  },
+
+  async setLoginFailCount({ id }) {
+    const result = await authsModel.update({ login_fail_count: 0 }, { where: { id } });
+    return result;
+  },
+
+  async userDeactivation({ id }) {
+    const result = await authsModel.update({ is_verified: false }, { where: { id } });
+    return result;
   },
 };
 
