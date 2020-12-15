@@ -33,7 +33,7 @@ final class TokenService: TokenServiceable {
     
     // MARK: Methods
     
-    func token(id: UUID) -> Token? {
+    func token(id: String) -> Token? {
         tokens.first(where: { $0.id == id })
     }
     
@@ -55,31 +55,39 @@ final class TokenService: TokenServiceable {
             switch result {
             case .successLoad(let serverData): // 시간 비교.
                 if let time = serverData.lastUpdate {
-                    if self.isRecentLocal(time: time) { // 로컬이 최신
-                        updateView(result) // showMain 실행
-                        syncToServer(lastupdateTime: time, updateView)
-                    } else { // 서버가 최신
-                        // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
-                        if let tokens = serverData.tokens {
-                            switch self.decryptTokenKeys(tokens: tokens) {
-                            case .successLoad(let decryptedResult): // 복호화 성공
-                                if let decryptedTokens = decryptedResult.tokens {
-                                    self.tokens = decryptedTokens // service에 있는 tokens 업데이트
-                                    _ = storageManager.storeTokens(decryptedTokens)
-                                    updateView(.successLoad(decryptedResult))
+                    do {
+                        if try self.isRecentLocal(time: time) { // 로컬이 최신
+                            updateView(result) // showMain 실행
+                            syncToServer(lastupdateTime: time, updateView)
+                        } else { // 서버가 최신
+                            // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
+                            if let tokens = serverData.tokens {
+                                switch self.decryptTokenKeys(tokens: tokens) {
+                                case .successLoad(let decryptedResult): // 복호화 성공
+                                    if let decryptedTokens = decryptedResult.tokens {
+                                        self.tokens = decryptedTokens // service에 있는 tokens 업데이트
+                                        _ = storageManager.storeTokens(decryptedTokens)
+                                        updateView(.successLoad(decryptedResult))
+                                    }
+                                case .failedDecryption:
+                                    print("failedDecryption")
+                                    updateView(.failedDecryption(tokens))
+                                case .noBackupPassword:
+                                    print("noBackupPassword")
+                                    updateView(.noBackupPassword)
+                                default: break
                                 }
-                            case .failedDecryption: updateView(.failedDecryption(tokens))
-                            case .noBackupPassword: updateView(.noBackupPassword)
-                            default: break
+                                // 복호화 - 토큰이랑 비밀 번호 주면 시도. - 성공 of 실패
+                                // 성공하면 그대로 로컬 데이터 업데이트 - success - showMain 어쩌구 실행
+                                // 실패하면 비밀 번호 설정하도록 유도 - failDecrption - (비번 다시 설정, 비번설정)
+                            } else { // 토큰이 없음 -> 모두 삭제한 게 최신이라는 의미 - 데이터 없음!
+                                tokens.removeAll()
+                                _ = storageManager.deleteTokens()
+                                updateView(.noTokens)
                             }
-                            // 복호화 - 토큰이랑 비밀 번호 주면 시도. - 성공 of 실패
-                            // 성공하면 그대로 로컬 데이터 업데이트 - success - showMain 어쩌구 실행
-                            // 실패하면 비밀 번호 설정하도록 유도 - failDecrption - (비번 다시 설정, 비번설정)
-                        } else { // 토큰이 없음 -> 모두 삭제한 게 최신이라는 의미 - 데이터 없음!
-                            tokens.removeAll()
-                            _ = storageManager.deleteTokens()
-                            updateView(.noTokens)
                         }
+                    } catch {
+                        print(error)
                     }
                 } else {
                     print("시간값이 없다.")
@@ -127,7 +135,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
-    func updateMainToken(id: UUID) {
+    func updateMainToken(id: String) {
         guard let oldMainTokenIndex = tokens.firstIndex(where: {
             guard let isMain = $0.isMain else { return false }
             return isMain
@@ -140,7 +148,7 @@ final class TokenService: TokenServiceable {
         _ = storageManager.storeTokens(tokens)
     }
     
-    func removeTokens(_ idList: [UUID]) {
+    func removeTokens(_ idList: [String]) {
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
@@ -149,7 +157,7 @@ final class TokenService: TokenServiceable {
         updateMainWithFirstToken()
     }
     
-    func removeToken(_ id: UUID) {
+    func removeToken(_ id: String) {
         tokens.removeAll(where: { $0.id == id })
         _ = storageManager.storeTokens(tokens)
     }
@@ -172,13 +180,19 @@ extension TokenService {
         }
     }
     
+   //
+    
     // 시간 비교 후, 뭐가 최신인지 아는 게 이 함수의 목적
-    func isRecentLocal(time: String) -> Bool {
+    func isRecentLocal(time: String) throws -> Bool {
         if let user = DDISUserCache.get() {
-            let deviceTime = user.device?.lastUpdate?.timeFormatToDate()
-            let serverTime = time.timeFormatToDate()
+            guard let deviceTime = user.device?.lastUpdate?.timeFormatToDate() else {
+                throw TimeError.localTime
+            }
+            guard let serverTime = time.timeFormatToDate() else {
+                throw TimeError.serverTime
+            }
             
-            if deviceTime! <= serverTime! { // 서버가 최신
+            if deviceTime <= serverTime { // 서버가 최신
                 return false
             } else {
                 return true
@@ -260,4 +274,9 @@ extension TokenService {
             }
         }
     }
+}
+
+enum TimeError: Error {
+    case localTime
+    case serverTime
 }

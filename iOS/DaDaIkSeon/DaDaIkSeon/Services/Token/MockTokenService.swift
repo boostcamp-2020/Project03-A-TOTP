@@ -30,7 +30,7 @@ final class MockTokenService: TokenServiceable {
     
     // MARK: Methods
     
-    func token(id: UUID) -> Token? {
+    func token(id: String) -> Token? {
         tokens.first(where: { $0.id == id })
     }
     
@@ -73,7 +73,7 @@ final class MockTokenService: TokenServiceable {
         }
     }
     
-    func updateMainToken(id: UUID) { // main id가 없는 경우 에러다.
+    func updateMainToken(id: String) { // main id가 없는 경우 에러다.
         guard let mainTokenIndex = tokens.firstIndex(where: {
             guard let isMain = $0.isMain else { return false }
             return isMain
@@ -86,7 +86,7 @@ final class MockTokenService: TokenServiceable {
         }
     }
     
-    func removeTokens(_ idList: [UUID]) {
+    func removeTokens(_ idList: [String]) {
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
         }
@@ -94,7 +94,7 @@ final class MockTokenService: TokenServiceable {
         updateMainWithFirstToken()
     }
     
-    func removeToken(_ id: UUID) {
+    func removeToken(_ id: String) {
         tokens.removeAll(where: { $0.id == id })
         if tokens.count == 0 { return }
         updateMainWithFirstToken()

@@ -18,7 +18,7 @@ final class TokenEditViewModel: ViewModel {
         if let token = token {
             defaultToken = token
         } else {
-            defaultToken = Token(id: UUID(),
+            defaultToken = Token(id: String(),
                                  key: qrCode,
                                  name: nil,
                                  color: "mint",

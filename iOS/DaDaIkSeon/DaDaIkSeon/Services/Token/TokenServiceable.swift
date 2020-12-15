@@ -13,7 +13,7 @@ protocol TokenServiceable {
     
     func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void)
     
-    func token(id: UUID) -> Token?
+    func token(id: String) -> Token?
     
     func tokenList() -> [Token]
     
@@ -25,11 +25,11 @@ protocol TokenServiceable {
     
     func excludeMainCell() -> [Token]
     
-    func updateMainToken(id: UUID)
+    func updateMainToken(id: String)
     
-    func removeTokens(_ idList: [UUID])
+    func removeTokens(_ idList: [String])
     
-    func removeToken(_ id: UUID)
+    func removeToken(_ id: String)
     
     func updateTokenPosition(from: Int, target: Int)
     

@@ -15,7 +15,7 @@ struct MainState {
     var isSearching: Bool
     var mainToken: Token
     var checkBoxMode: Bool
-    var selectedTokens: [UUID: Bool]
+    var selectedTokens: [String: Bool]
     var selectedCount: Int
     var zeroTokenState: Bool
     var tokenOnDrag: Token?
@@ -44,12 +44,12 @@ enum SearchInput {
 enum CheckBoxInput {
     case showCheckBox
     case hideCheckBox
-    case selectCell(_ id: UUID)
+    case selectCell(_ id: String)
     case deleteSelectedTokens
 }
 
 enum CellInput {
-    case moveToMain(_ id: UUID)
+    case moveToMain(_ id: String)
     case move(_ from: Int, _ target: Int)
     case startDragging(_ token: Token)
     case endDragging
