@@ -41,6 +41,8 @@ class CommonHandler: Handlerable {
                         switch result {
                         case .successSync:
                             self.showMainScene()
+                        case .successLoad:
+                            self.showMainScene()
                         case .failedDecryption(let tokens): //
                             self.state.hasBackupPassword = true
                             break
