@@ -103,7 +103,6 @@ const userController = {
   async reSendEmail(req, res, next) {
     const { id } = req.body;
     const { user } = await authService.getUserById({ id });
-    console.log(user);
     emailSender.SignUpAuthentication(
       decryptWithAES256({ encryptedText: user.email }),
       decryptWithAES256({ encryptedText: user.name }),
