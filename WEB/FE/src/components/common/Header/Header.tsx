@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '@components/common/Button';
 import storageHandler from '@utils/localStorage';
 import { Dropdown } from '@components/common/Header/Dropdown';
 import { Nav } from '@components/common/Header/Nav';
 import { logoutAPI } from '@api/index';
+import { AxiosError } from 'axios';
 
 const Wrapper = styled.header`
   width: 100%;
@@ -35,9 +36,19 @@ const AuthContainer = styled.div`
 
 interface HeaderProps {}
 
+const UNAUTHORIZED = 401;
+
 const Header: React.FC<HeaderProps> = () => {
   const userName = storageHandler.get();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleError = (err: AxiosError<any>): void => {
+    if (err.response?.status === UNAUTHORIZED) {
+      window.location.reload();
+      return;
+    }
+    alert(err.response?.data?.message || err.message);
+  };
 
   const onLogout = async () => {
     await logoutAPI()
@@ -45,7 +56,7 @@ const Header: React.FC<HeaderProps> = () => {
         localStorage.clear();
         window.location.reload();
       })
-      .catch((err: any) => alert(err.response?.data?.message || err.message));
+      .catch(handleError);
   };
 
   return (
