@@ -53,7 +53,13 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     executeRecaptcha('LogInWithOTP')
       .then((reCaptchaToken: string) => loginWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
       .then(({ userName }: { userName: string }) => successLoginHandler(userName))
-      .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
+      .catch((err: any) => {
+        onErrorWithOTP(err.response?.data?.message || err.message);
+        if (err.response.status === 401) {
+          alert(err.response?.data?.message);
+          window.location.reload();
+        }
+      })
       .finally(() => setModalDisabled(false));
   };
 
