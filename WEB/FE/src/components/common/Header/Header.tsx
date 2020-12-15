@@ -66,7 +66,12 @@ const Header: React.FC<HeaderProps> = () => {
         <AuthContainer>
           {userName ? (
             <>
-              <Button type='primary' text={userName} onClick={() => setIsDropdownOpen(true)} />
+              <Button
+                type='primary'
+                text={userName}
+                onClick={() => setIsDropdownOpen(true)}
+                style={{ padding: '0 1.25rem', fontSize: '14px' }}
+              />
               {isDropdownOpen && <Dropdown onClose={() => setIsDropdownOpen(false)} onLogout={onLogout} />}
             </>
           ) : (
