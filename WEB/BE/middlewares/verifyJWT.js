@@ -55,7 +55,7 @@ const checkLoingCount = async (id, next) => {
     return false;
   }
   if (auth.login_fail_count >= 5) {
-    next(createError(400, '5번 연속 틀리셨습니다 등록된 Email에서 다시 인증해 주세요'));
+    next(createError(401, '5번 연속 틀리셨습니다 등록된 Email에서 다시 인증해 주세요'));
     return false;
   }
   return true;
