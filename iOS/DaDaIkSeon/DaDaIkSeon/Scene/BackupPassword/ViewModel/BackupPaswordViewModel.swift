@@ -28,6 +28,9 @@ class BackupPasswordViewModel: ViewModel {
             } else {
                 state.errorMessage = .inputFormat
             }
+            if input.count > 5 && state.isMultiUser {
+                state.enable = true
+            }
         case .inputPasswordCheck(let last, let current):
             if current.count > 0 {
                 if last == current {
@@ -65,6 +68,7 @@ extension BackupPasswordViewModel {
                     print("비밀번호 틀림, 다시호출 \(tokens)")
                     self.state.isMultiUser = true
                     if !isInit {
+                        self.setBackupPassword()
                         self.state.next = self.decryptTokenKeys(tokens)
                     }
                 case .noTokens:

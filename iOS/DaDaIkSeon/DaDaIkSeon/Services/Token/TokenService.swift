@@ -57,6 +57,7 @@ final class TokenService: TokenServiceable {
                 if let time = serverData.lastUpdate {
                     do {
                         if try self.isRecentLocal(time: time) { // 로컬이 최신
+                            designateMain()
                             updateView(result) // showMain 실행
                             syncToServer(lastupdateTime: time, updateView)
                         } else { // 서버가 최신
@@ -70,8 +71,11 @@ final class TokenService: TokenServiceable {
                                 case .successLoad(let decryptedResult): // 복호화 성공
                                     if let decryptedTokens = decryptedResult.tokens {
                                         self.tokens = decryptedTokens // service에 있는 tokens 업데이트
+                                        designateMain()
                                         _ = storageManager.storeTokens(decryptedTokens)
                                         updateView(.successLoad(decryptedResult))
+                                    } else {
+                                        print("여기")
                                     }
                                 case .failedDecryption:
                                     print("failedDecryption")
