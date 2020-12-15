@@ -26,6 +26,7 @@ struct SettingViewWrapper<Content: View>: View {
                 .navigationTitle("설정")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
+                
                 .navigationBarItems(
                     leading: Button(action: {
                         mode.wrappedValue.dismiss()
@@ -34,11 +35,13 @@ struct SettingViewWrapper<Content: View>: View {
                     }),
                     trailing: Button(action: {
                     }, label: {
+                        #if DEBUG
                         Image(systemName: "arrow.counterclockwise")
                             .foregroundColor(.black)
                             .onTapGesture {
                                 action?()
                             }
+                        #endif
                     })
                 )
             
