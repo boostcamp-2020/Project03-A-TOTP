@@ -44,6 +44,7 @@ const Header: React.FC<HeaderProps> = () => {
 
   const handleError = (err: AxiosError<any>): void => {
     if (err.response?.status === UNAUTHORIZED) {
+      localStorage.clear();
       window.location.reload();
       return;
     }
