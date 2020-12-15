@@ -34,7 +34,6 @@ class CommonHandler: Handlerable {
                 return
             }
             if isBackup() { // 네트워크 - 데이터를 받아서 최신걸로 저장
-                // load
                 state.service.refreshTokens { result in
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
@@ -45,15 +44,15 @@ class CommonHandler: Handlerable {
                             self.showMainScene()
                         case .failedDecryption(let tokens): //
                             self.state.hasBackupPassword = true
+                            self.showMainScene()
                             break
-                        default: break
-                        // error 처리
+                        default:
+                            self.showMainScene()
                         }
                     }
                 }
-            } else { // 로컬
-                showMainScene()
             }
+            showMainScene()
         }
     }
     
@@ -62,7 +61,7 @@ class CommonHandler: Handlerable {
             state.zeroTokenState = true
             state.filteredTokens = []
         } else {
-            if state.service.tokenCount == 1 {
+            if state.service.tokenCount >= 1 {
                 state.zeroTokenState = false
             }
             if let maintoken = state.service.mainToken() {
