@@ -15,4 +15,7 @@ enum MainNetworkResult {
     case noBackupPassword
     case failedEncryption
     case failedDecryption
+    case serverHasNoTime
 }
+
+//
