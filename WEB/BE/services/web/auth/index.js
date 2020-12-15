@@ -70,6 +70,16 @@ const authService = {
     const result = await authsModel.findOne({ where: { id } });
     return result.last_totp;
   },
+
+  async loginFail({ id }) {
+    const result = await authsModel.increment({ login_fail_count: +1 }, { where: { id } });
+    return result;
+  },
+
+  async getLoginFailCount({ id }) {
+    const result = await authsModel.findOne({ where: { id } });
+    return result.login_fail_count;
+  },
 };
 
 module.exports = authService;
