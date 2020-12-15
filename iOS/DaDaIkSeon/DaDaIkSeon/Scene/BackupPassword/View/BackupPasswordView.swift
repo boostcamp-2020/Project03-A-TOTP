@@ -40,7 +40,7 @@ struct BackupPasswordView: View {
             Spacer()
             
             Button(action: {
-                viewModel.trigger(.next)
+                viewModel.trigger(.next(passwordEntry.text))
             }, label: {
                 HStack {
                     Spacer()

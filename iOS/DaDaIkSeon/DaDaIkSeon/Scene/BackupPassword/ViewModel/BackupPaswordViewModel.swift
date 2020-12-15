@@ -40,9 +40,9 @@ class BackupPasswordViewModel: ViewModel {
             } else {
                 state.errorMessage = .none
             }
-        case .next:
-            state.next = true
-            refreshTokens()
+        case .next(let password):
+            state.backupPassword = password
+            refreshTokens(isInit: false)
         }
     }
     
@@ -50,24 +50,60 @@ class BackupPasswordViewModel: ViewModel {
 
 extension BackupPasswordViewModel {
     
-    func refreshTokens() {
+    func refreshTokens(isInit: Bool = true) {
         state.service.refreshTokens(updateView: { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .successLoad:
-                print("메인화면으로 이동해야함")
-                self.state.isMultiUser = false
-            case .failedDecryption:
-//            case .failedDecryption(let data):
-                print("비밀번호 틀림, 다시호출")
-                // service.decryptKey??? fh ektl qnfmsek.....
-                self.state.isMultiUser = false
-            default:
-                print("비밀번호 두개 다 입력하고 아무것도 안 뜸")
-                self.state.isMultiUser = true
-                return
+            DispatchQueue.main.async {
+                switch result {
+                case .successLoad:
+                    print("메인화면으로 이동해야함")
+                    self.state.isMultiUser = false
+                    if !isInit {
+                        self.state.next = true
+                    }
+                case .failedDecryption(let tokens):
+                    print("비밀번호 틀림, 다시호출 \(tokens)")
+                    self.state.isMultiUser = true
+                    if !isInit {
+                        self.state.next = self.decryptTokenKeys(tokens)
+                    }
+                case .noTokens:
+                    print("토큰이 아무것도 없는 경우")
+                    if !isInit {
+                        self.setBackupPassword()
+                        self.state.next = true
+                    }
+                case .noBackupPassword:
+                    print("백업 패스워드가 없어서 설정해야함.")
+                    self.state.isMultiUser = false
+                    if !isInit {
+                        self.setBackupPassword()
+                        self.state.next = true
+                    }
+                default:
+                    print("비밀번호 두개 다 입력하고 아무것도 안 뜸")
+                    self.state.isMultiUser = false
+                    self.state.next = false
+                    return
+                }
             }
         })
+    }
+    
+    func decryptTokenKeys(_ tokens: [Token]) -> Bool {
+        let result = state.service.decryptTokenKeys(tokens: tokens,
+                                                    password: state.backupPassword)
+        
+        switch result {
+        case .successLoad:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func setBackupPassword() {
+        BackupPasswordManager().storePassword(state.backupPassword)
     }
     
 }

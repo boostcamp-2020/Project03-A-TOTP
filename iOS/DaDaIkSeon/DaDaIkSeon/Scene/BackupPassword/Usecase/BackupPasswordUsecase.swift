@@ -20,7 +20,7 @@ struct BackupPasswordState {
 enum BackupPasswordInput {
     case inputPassword(_ input: String)
     case inputPasswordCheck(_ last: String, _ current: String)
-    case next
+    case next(_ password: String)
 }
 
 enum BackupPasswordErrorMessage: String {
