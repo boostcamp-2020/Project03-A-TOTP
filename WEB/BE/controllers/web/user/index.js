@@ -99,6 +99,17 @@ const userController = {
 
     res.json({ message: 'ok' });
   },
+
+  async reSendEmail(req, res, next) {
+    const { id } = req.body;
+    const { user } = await authService.getUserById({ id });
+    emailSender.SignUpAuthentication(
+      decryptWithAES256({ encryptedText: user.email }),
+      decryptWithAES256({ encryptedText: user.name }),
+      user.idx
+    );
+    res.json({ message: 'ok' });
+  },
 };
 
 const encrypUserInfo = ({ userInfo }) => {
