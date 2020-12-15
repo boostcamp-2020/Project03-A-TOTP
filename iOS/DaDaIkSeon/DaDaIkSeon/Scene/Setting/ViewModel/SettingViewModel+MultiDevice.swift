@@ -36,7 +36,13 @@ extension SettingViewModel {
             state.service.updateDevice(
                 device, completion: { result in
                     switch result {
-                    default: break
+                    case .deviceNameEditSuccess(let devices):
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            self.state.devices = devices
+                        }
+                    default:
+                        print("디바이스 이름 바꾸기 실패")
                     }
                 })
             state.devices = state.service.readDevice() ?? Device.dummy()

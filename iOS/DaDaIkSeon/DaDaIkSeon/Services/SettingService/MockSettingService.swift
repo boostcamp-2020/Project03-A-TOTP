@@ -22,6 +22,7 @@ class MockSettingService: SettingServiceable {
                 print("don't parsing")
                 user = DDISUser.placeHoler()
             }
+            print(data)
         } else {
             print("is not presented")
             user = DDISUser.placeHoler()
@@ -96,13 +97,23 @@ class MockSettingService: SettingServiceable {
     
     func updateDevice(_ newDevice: Device,
                       completion: @escaping (SettingNetworkResult) -> Void) {
-        guard let devices = user.devices else { return }
-        
+        guard let udid = newDevice.udid,
+              let name = newDevice.name else { return }
         // 업데이트 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
-        if let index = devices.firstIndex(where: { newDevice.udid == $0.udid }) {
-            user.devices?[index] = newDevice
+        SettingNetworkManager.shared.changeDevice(
+            udid: udid, name: name) { [weak self] result in
+            switch result {
+            case .deviceNameEdit:
+                guard let self = self else { return }
+                guard var devices = self.user.devices else {return}
+                if let index = devices.firstIndex(where: { $0.udid == udid }) {
+                    devices[index] = newDevice
+                    completion(.deviceNameEditSuccess(devices))
+                }
+            default:
+                print("deviceNameEdit 실패")
+            }
         }
-        
     }
     
     func deleteDevice(_ udid: String,
