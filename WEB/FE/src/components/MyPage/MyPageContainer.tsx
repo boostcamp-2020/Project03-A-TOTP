@@ -124,8 +124,7 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
         setMaxPage(Math.ceil(data.result.count / 6));
       })
       .catch((err: any) => {
-        alert(`${err.response?.data?.message || err.message} 다시 로그인해주세요.`);
-        storageHandler.clear();
+        alert(`${err.response?.data?.message || err.message}`);
       });
   }, [page]);
 
