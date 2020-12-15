@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Header } from '@/components/common/Header/Header';
-import { Footer } from '@components/common/Footer';
+import { Footer } from '@/components/Footer/Footer';
 
 const Wrapper = styled.div`
   width: 100%;

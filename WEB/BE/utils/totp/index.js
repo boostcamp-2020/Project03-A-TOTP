@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const base32 = require('hi-base32');
+const { createHmac } = require('@utils/totp/hmac');
 
 const totp = {
   makeSecretKey(length = 20) {
@@ -19,21 +20,25 @@ const totp = {
   verifyDigits(key, digits, date = new Date()) {
     key = base32.decode(key);
     const sixDigits = makeSixDigits(key, date);
+    if (digits !== sixDigits) {
+      const seSixDigits = makeSixDigits(key, date, -1);
+      return digits === seSixDigits;
+    }
     return digits === sixDigits;
   },
 };
 
-const makeSixDigits = (key, date) => {
-  const timeStamp = makeTimeStamp(date);
-  const buffer = makeBuffer(timeStamp);
-  const hash = crypto.createHmac('sha1', key).update(buffer).digest('hex');
+const makeSixDigits = (key, date, window = 0) => {
+  const timeStamp = makeTimeStamp(date, window);
+  const timeBuffer = makeBuffer(timeStamp);
+  const hash = createHmac({ key, data: timeBuffer, algorithm: 'sha1', encoding: 'hex' });
   const DBC = selectDBC(hash);
-  let sixDigits = (parseInt(DBC, 16) % 1000000).toString();
-  sixDigits = sixDigits.length !== 6 ? `0${sixDigits}` : sixDigits;
-  return sixDigits;
+  const sixDigits = (parseInt(DBC, 16) % 1000000).toString();
+
+  return sixDigits.padStart(6, '0');
 };
 
-const makeTimeStamp = (date, window = 0) => {
+const makeTimeStamp = (date, window) => {
   return Math.floor(new Date(date) / 30000) + window;
 };
 

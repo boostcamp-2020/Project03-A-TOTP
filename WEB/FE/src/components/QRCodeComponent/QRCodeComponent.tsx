@@ -37,9 +37,28 @@ const RegisterText = styled.div`
   }
 `;
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.color.white};
+`;
+
+const QRContainer = styled.div`
+  padding: 1.5rem;
+  border: 1px solid ${({ theme }) => theme.color.border};
+  background-color: ${({ theme }) => theme.color.white};
+  border-radius: 4px;
+  margin-bottom: 5%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.14);
+  width: fit-content;
+  height: fit-content;
+  margin: 6% auto;
+`;
+
 const buttonStyle: CSS.Properties = {
   width: '20%',
   float: 'right',
+  padding: '0px',
 };
 
 interface qrProps {
@@ -49,22 +68,24 @@ interface qrProps {
 const QRCodeComponent = ({ url }: qrProps): JSX.Element => {
   const qrcode = Buffer.from(decodeURIComponent(url), 'base64').toString('ascii');
   return (
-    <Modal>
-      <Title>Register QR Code</Title>
-      <ContentWrapper>
-        <QRWrapper>
-          <QRCODE value={qrcode} />
-        </QRWrapper>
-        <RegisterText>
-          <ContentText>1. APP을 켜주세요.</ContentText>
-          <ContentText>2. A 버튼을 눌러주세요.</ContentText>
-          <ContentText>3. 카메라 중앙에 QR Code를 위치시켜주세요.</ContentText>
-          <Link to='/'>
-            <Button text='Done' style={buttonStyle} />
-          </Link>
-        </RegisterText>
-      </ContentWrapper>
-    </Modal>
+    <Wrapper>
+      <QRContainer>
+        <Title>Register QR Code</Title>
+        <ContentWrapper>
+          <QRWrapper>
+            <QRCODE value={qrcode} />
+          </QRWrapper>
+          <RegisterText>
+            <ContentText>1. APP을 켜주세요.</ContentText>
+            <ContentText>2. 등록 버튼을 눌러주세요.</ContentText>
+            <ContentText>3. 카메라 중앙에 QR Code를 위치시켜주세요.</ContentText>
+            <Link to='/'>
+              <Button text='Done' style={buttonStyle} />
+            </Link>
+          </RegisterText>
+        </ContentWrapper>
+      </QRContainer>
+    </Wrapper>
   );
 };
 

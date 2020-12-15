@@ -37,6 +37,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 0,
       },
+      last_totp: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      login_fail_count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,

@@ -192,6 +192,43 @@ router.post(
   catchErrors(userController.findID)
 );
 
+/**
+ * @swagger
+ * /user/reSend:
+ *  post:
+ *    tags: [WEB User (/user)]
+ *    summary: 이메일 재전송
+ *    description: 이메일을 다시 전송 By id
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - name: id
+ *      in: body
+ *      description: id
+ *      type: object
+ *      properties:
+ *        id:
+ *          type: string
+ *          example: testId1234
+ *      required: true
+ *    responses:
+ *      200:
+ *        description: 전송 성공
+ *        schema:
+ *          type: object
+ *          properties:
+ *            message:
+ *              type: string
+ *              example: ok
+ *      401:
+ *        description: csrf 에러 또는 세션 에러
+ *      500:
+ *        description: 기타 에러
+ *
+ */
+
+router.post('/reSend', catchErrors(userController.reSendEmail));
+
 router.use(sessionAuthentication.sessionCheck);
 
 /**
@@ -265,5 +302,4 @@ router.use(sessionAuthentication.sessionCheck);
  */
 router.get('/', catchErrors(userController.getUser));
 router.patch('/', catchErrors(userController.updateUser));
-
 module.exports = router;

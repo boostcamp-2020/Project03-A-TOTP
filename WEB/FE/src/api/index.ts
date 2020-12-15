@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-axios.defaults.headers['X-CSRF'] = 'X-CSRF';
+import axios from './config';
 
 interface UserInfo {
   id: string;
@@ -159,5 +157,10 @@ export const delSession = async (sid: delSessionParmas): Promise<any> => {
 
 export const logoutAPI = async (): Promise<any> => {
   const { data } = await axios.get('api/auth/logout');
+  return data;
+};
+
+export const reSend = async (id: string): Promise<any> => {
+  const { data } = await axios.post('api/user/reSend', { id });
   return data;
 };

@@ -1,11 +1,17 @@
+import { MainPageLayout } from '@/layouts/MainPageLayout';
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import QRCodeComponent from '../components/QRCodeComponent/QRCodeComponent';
 
-const QRCodePage = ({ match }) => {
+interface MatchParams {
+  url: string;
+}
+
+const QRCodePage: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   return (
-    <div>
+    <MainPageLayout>
       <QRCodeComponent url={match.params.url} />
-    </div>
+    </MainPageLayout>
   );
 };
 

@@ -48,6 +48,7 @@ const userController = {
     const info = {
       isVerified: 1,
       idx,
+      loginFailCount: 0,
     };
 
     await authService.update({ info });
@@ -97,6 +98,17 @@ const userController = {
 
     await user.update(userInfo);
 
+    res.json({ message: 'ok' });
+  },
+
+  async reSendEmail(req, res, next) {
+    const { id } = req.body;
+    const { user } = await authService.getUserById({ id });
+    emailSender.SignUpAuthentication(
+      decryptWithAES256({ encryptedText: user.email }),
+      decryptWithAES256({ encryptedText: user.name }),
+      user.idx
+    );
     res.json({ message: 'ok' });
   },
 };

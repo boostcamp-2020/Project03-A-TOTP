@@ -5,6 +5,7 @@ const logService = require('@/services/web/log');
 const { comparePassword, getEncryptedPassword } = require('@utils/bcrypt');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { emailSender } = require('@/utils/emailSender');
+const DB = require('@models/sequelizeIOS');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 const { makeRandom } = require('@utils/random');
@@ -33,7 +34,7 @@ const authController = {
     if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
 
     if (process.env.NODE_ENV === 'production' && !user.is_verified)
-      return next(createError(400, '이메일 인증이 필요합니다.'));
+      return next(createError(401, '이메일 인증이 필요합니다.'));
 
     const token = JWT.sign({ id, action: ACIONS.LOGIN }, process.env.ENCRYPTIONKEY, {
       expiresIn: TEN_MINUTES,
@@ -43,8 +44,7 @@ const authController = {
   },
 
   async logInSuccess(req, res, next) {
-    const { action, id } = req.body;
-
+    const { action, id, totp } = req.body;
     if (action !== ACIONS.LOGIN) return next(createError(401, '잘못된 요청입니다'));
     const csrfToken = makeRandom();
     req.session.user = id;
@@ -54,6 +54,10 @@ const authController = {
     const params = await makeLogData({ ip: ip.substring(7), userAgent, id, sid: req.session.id });
     const [{ user }] = await Promise.all([authService.getUserById({ id }), logService.insert({ params })]);
 
+    await DB.sequelize.transaction(async () => {
+      await authService.updateOTP({ id, totp });
+      await authService.setLoginFailCount({ id });
+    });
     res.cookie('csrfToken', csrfToken, {
       maxAge: 2 * 60 * 60 * 1000,
     });
