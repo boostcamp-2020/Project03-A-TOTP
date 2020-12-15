@@ -19,12 +19,16 @@ const totp = {
   verifyDigits(key, digits, date = new Date()) {
     key = base32.decode(key);
     const sixDigits = makeSixDigits(key, date);
+    if (digits !== sixDigits) {
+      const seSixDigits = makeSixDigits(key, date, -1);
+      return digits === seSixDigits;
+    }
     return digits === sixDigits;
   },
 };
 
-const makeSixDigits = (key, date) => {
-  const timeStamp = makeTimeStamp(date);
+const makeSixDigits = (key, date, window = 0) => {
+  const timeStamp = makeTimeStamp(date, window);
   const buffer = makeBuffer(timeStamp);
   const hash = crypto.createHmac('sha1', key).update(buffer).digest('hex');
   const DBC = selectDBC(hash);
@@ -33,7 +37,7 @@ const makeSixDigits = (key, date) => {
   return sixDigits;
 };
 
-const makeTimeStamp = (date, window = 0) => {
+const makeTimeStamp = (date, window) => {
   return Math.floor(new Date(date) / 30000) + window;
 };
 
