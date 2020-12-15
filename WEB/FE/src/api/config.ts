@@ -18,9 +18,9 @@ Axios.interceptors.request.use((value: AxiosRequestConfig) => {
 Axios.interceptors.response.use(
   (response) => response,
   (error) => {
+    alert(`${error.response?.data?.message || error.message}`);
     if (error.response.status === 401) {
       storageHandler.clear();
-      alert(error.response.data.message);
       window.location.reload();
     }
     return Promise.reject(error);

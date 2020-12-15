@@ -118,14 +118,10 @@ function MyPageContainer({}: MyPageContainerProps): JSX.Element {
   }, []);
 
   useEffect(() => {
-    receiveLogs(page)
-      .then((data: any) => {
-        setLogs(data.result.rows);
-        setMaxPage(Math.ceil(data.result.count / 6));
-      })
-      .catch((err: any) => {
-        alert(`${err.response?.data?.message || err.message}`);
-      });
+    receiveLogs(page).then((data: any) => {
+      setLogs(data.result.rows);
+      setMaxPage(Math.ceil(data.result.count / 6));
+    });
   }, [page]);
 
   return (
