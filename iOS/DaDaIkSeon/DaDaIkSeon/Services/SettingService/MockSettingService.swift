@@ -77,7 +77,7 @@ class MockSettingService: SettingServiceable {
     }
     
     func updateMultiDeviceMode(
-        _ isOn: Bool, completion: @escaping (DataResultType<String>) -> Void) {
+        _ isOn: Bool, completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager
             .shared.changeMultiDevice(multiDevice: isOn) { result in
                 completion(result)
