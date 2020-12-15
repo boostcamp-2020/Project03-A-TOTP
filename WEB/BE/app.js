@@ -18,6 +18,7 @@ const sequelizeIOS = require('@models/sequelizeWEB').sequelize;
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = require('@config/swagger');
+const helmet = require('helmet');
 
 require('dotenv').config();
 
@@ -54,6 +55,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
+app.use(helmet());
+app.use(helmet.contentSecurityPolicy());
+app.use(helmet.xssFilter());
 
 app.use('/api/app', iOSRouter);
 
