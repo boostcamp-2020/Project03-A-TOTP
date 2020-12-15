@@ -1,4 +1,5 @@
 const Crypto = require('crypto');
+const { createHmac } = require('@utils/totp/hmac');
 
 const secretKey = process.env.ENCRYPTIONKEY;
 
@@ -21,8 +22,8 @@ const decryptWithAES256 = ({ encryptedText }) => {
 };
 
 const encryptWithSHA256 = (key, payload) => {
-  const result = Crypto.createHmac('sha256', key).update(payload).digest('base64');
-  return result;
+  const hmac = createHmac({ key, data: payload, algorithm: 'sha256', encoding: 'base64' });
+  return hmac;
 };
 
 module.exports = { encryptWithAES256, decryptWithAES256, encryptWithSHA256 };
