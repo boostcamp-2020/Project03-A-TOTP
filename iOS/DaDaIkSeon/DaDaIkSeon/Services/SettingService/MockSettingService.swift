@@ -14,7 +14,7 @@ class MockSettingService: SettingServiceable {
     private var backupPasswordManager = BackupPasswordManager()
     
     init() {
-        // 아래 로직을 placeholder에서 수행하도록 옮기자
+        // placeHolder는 로컬, 바꿀 때마다 현재 시간 저장
         if let data = UserDefaults.standard.value(forKey: "DDISUser") as? Data {
             if let user = try? PropertyListDecoder().decode(DDISUser.self, from: data) {
                 self.user = user
@@ -49,6 +49,7 @@ class MockSettingService: SettingServiceable {
         return user.email
     }
     
+    // userdefualt도 바꿔줘야 한다.
     func updateEmail(_ email: String, completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager.shared
             .changeEmail(email: email) { [weak self] result in
@@ -64,6 +65,7 @@ class MockSettingService: SettingServiceable {
             }
     }
     
+    // userdefualt도 바꿔줘야 한다.
     func updateBackupMode(_ udid: String,
                           backup: Bool,
                           updateView: @escaping (SettingNetworkResult) -> Void) {
@@ -88,6 +90,7 @@ class MockSettingService: SettingServiceable {
         // 나중에 토큰 가져올 때 이 비밀번호를 사용하여 복호화하게 된다.
     }
     
+    // userdefualt도 바꿔줘야 한다.
     func updateMultiDeviceMode(
         _ isOn: Bool, completion: @escaping (SettingNetworkResult) -> Void) {
         SettingNetworkManager
@@ -101,6 +104,7 @@ class MockSettingService: SettingServiceable {
         user.devices
     }
     
+    // userdefualt도 바꿔줘야 한다.
     func updateDevice(_ newDevice: Device,
                       completion: @escaping (SettingNetworkResult) -> Void) {
         guard let udid = newDevice.udid,
@@ -124,11 +128,19 @@ class MockSettingService: SettingServiceable {
     
     func deleteDevice(_ udid: String,
                       completion: @escaping (SettingNetworkResult) -> Void) {
-        
-        user.devices?.removeAll(where: {
-            $0.udid == udid
-        }) // 삭제 성공 응답을 받으면 그 때 view에 있는 디바이스 항목 업데이트
-        
+        SettingNetworkManager.shared.deleteDevice(
+            udid: udid) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .deviceDelete:
+                self.user.devices?.removeAll(where: { // 서비스에서 삭제.
+                    $0.udid == udid
+                })
+                completion(result)
+            default:
+                completion(result)
+            }
+        }
     }
     
     var pincode: String? {

@@ -50,6 +50,13 @@ extension SettingViewModel {
             if state.selectedDeviceID != currentUDID {
                 state.service.deleteDevice(state.selectedDeviceID, completion: { result in
                     switch result {
+                    case .deviceDelete:
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            self.state.devices.removeAll(where: {
+                                $0.udid == self.state.selectedDeviceID
+                            })
+                        }
                     default: break
                     }
                 })
