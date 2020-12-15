@@ -21,6 +21,7 @@ const App: React.FC<AppProps> = () => {
           <Route exact path='/changePassword' component={Pages.ChangePasswordPage} />
           <Route exact path='/why-2fa' component={Pages.Why2FAPage} />
           <Route exact path='/totp-intro' component={Pages.TOTPIntroPage} />
+          <Route exact path='/study' component={Pages.StudyPage} />
           <PrivateRoute exact path='/me' component={Pages.MyPage} />
           <Route component={Pages.NotFoundPage} />
         </Switch>
