@@ -11,7 +11,7 @@ protocol TokenServiceable {
     
     var tokenCount: Int { get }
     
-    func loadTokens() -> [Token]
+    func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void)
     
     func token(id: UUID) -> Token?
     

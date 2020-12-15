@@ -35,7 +35,6 @@ class MockSettingService: SettingServiceable {
             case .refresh(var user):
                 user.device = self.user.device
                 self.user = user
-                // device
                 UserDefaults.standard.set(
                     try? PropertyListEncoder().encode(self.user), forKey: "DDISUser")
                 updateView(result)

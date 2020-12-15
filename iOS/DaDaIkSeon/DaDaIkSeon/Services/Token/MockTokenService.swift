@@ -9,6 +9,11 @@ import Foundation
 
 final class MockTokenService: TokenServiceable {
     
+    func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void) {
+        //
+    }
+    
+    
     // MARK: Property
     
     private var tokens: [Token] = []
