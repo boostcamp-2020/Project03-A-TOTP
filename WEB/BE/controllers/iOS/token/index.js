@@ -6,12 +6,15 @@ const tokenController = {
   async addTokenList(req, res) {
     let { tokens } = req.body;
     const { user } = req;
+
     tokens = tokens.map((token) => {
-      token.user_idx = user.idx;
-      token.is_main = token.isMain;
-      delete token.isMain;
-      return token;
+      return {
+        ...token,
+        user_idx: user.idx,
+        is_main: token.isMain,
+      };
     });
+
     /** @TODO 트랜젝션 */
     await DB.sequelize.transaction(async () => {
       await tokenService.addTokens(tokens);
