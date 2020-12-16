@@ -34,7 +34,7 @@ const authController = {
     if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
 
     if (process.env.NODE_ENV === 'production' && !user.is_verified)
-      return next(createError(401, '이메일 인증이 필요합니다.'));
+      return next(createError(403, '이메일 인증이 필요합니다.'));
 
     const token = JWT.sign({ id, action: ACIONS.LOGIN }, process.env.ENCRYPTIONKEY, {
       expiresIn: TEN_MINUTES,

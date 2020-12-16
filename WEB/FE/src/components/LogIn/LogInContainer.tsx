@@ -55,7 +55,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
       .then(({ userName }: { userName: string }) => successLoginHandler(userName))
       .catch((err: any) => {
         onErrorWithOTP(err.response?.data?.message || err.message);
-        if (err.response.status === 401) {
+        if (err.response.status === 403) {
           alert(err.response?.data?.message);
           window.location.reload();
         }
