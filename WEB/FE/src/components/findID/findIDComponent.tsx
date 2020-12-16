@@ -20,12 +20,10 @@ const FindIDComponent = (): JSX.Element => {
     e.preventDefault();
     const email = `${firstEmail}@${secondEmail}`;
     executeRecaptcha('findId').then((reCaptchaToken: string) =>
-      findId({ email, name, birth, reCaptchaToken })
-        .then(() => {
-          alert(message.FINDIDEMAILSEND);
-          history.push('/login');
-        })
-        .catch((err) => alert(err || err.message)),
+      findId({ email, name, birth, reCaptchaToken }).then(() => {
+        alert(message.FINDIDEMAILSEND);
+        history.push('/login');
+      }),
     );
   };
 
