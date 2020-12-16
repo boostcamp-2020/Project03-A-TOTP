@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import styled from 'styled-components';
 import { OTPInput } from '@components/TOTPModal/OTPInput';
 import { Modal } from '@components/common/Modal';
@@ -50,6 +50,12 @@ const ButtonContainer = styled.div`
   }
 `;
 
+const Form = styled.form`
+  button {
+    visibility: hidden;
+  }
+`;
+
 const TOTPModal = ({
   isOpen,
   TOTP,
@@ -61,6 +67,10 @@ const TOTPModal = ({
   disabled,
   errorMsg,
 }: TOTPModalProps): JSX.Element => {
+  const onSubmitForm = (e: FormEvent) => {
+    e.preventDefault();
+    onSubmit();
+  };
   return (
     <>
       {isOpen ? (
@@ -70,7 +80,10 @@ const TOTPModal = ({
             표시된 OTP 6자리를 입력해 주세요
             {hasErrored && <Error>{errorMsg}</Error>}
           </Description>
-          <OTPInput otp={TOTP} onChange={onChange} hasErrored={hasErrored} isDisabled={disabled} />
+          <Form onSubmit={onSubmitForm}>
+            <OTPInput otp={TOTP} onChange={onChange} hasErrored={hasErrored} isDisabled={disabled} />
+            <button type='submit'>hudden button</button>
+          </Form>
           <ButtonContainer>
             <Button
               text='확인'
@@ -80,7 +93,7 @@ const TOTPModal = ({
             />
             <Button text='취소' onClick={onClose} type='text' disabled={disabled} />
             <br />
-            <Button text='QR코드 재등록' onClick={onClick} type='text' />
+            <Button text='QR코드 재등록' onClick={onClick} type='text' style={{ marginTop: '1rem' }} />
           </ButtonContainer>
         </Modal>
       ) : (
