@@ -18,11 +18,12 @@ final class TokenEditViewModel: ViewModel {
         if let token = token {
             defaultToken = token
         } else {
-            defaultToken = Token(id: String(),
+            defaultToken = Token(id: UUID().uuidString,
                                  key: qrCode,
                                  name: nil,
                                  color: "mint",
-                                 icon: "search")
+                                 icon: "search",
+                                 isMain: false)
         }
         state = TokenEditState(service: service,
                                qrCode: qrCode,

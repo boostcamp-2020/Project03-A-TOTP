@@ -43,7 +43,6 @@ final class BiometricIDAuth {
                                localizedReason: loginReason) { (success, evaluateError) in
             if success {
                 DispatchQueue.main.async {
-                    print("success")
                     completion(nil)
                 }
             } else {

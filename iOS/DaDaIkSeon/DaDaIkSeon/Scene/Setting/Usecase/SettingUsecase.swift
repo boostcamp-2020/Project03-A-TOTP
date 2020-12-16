@@ -90,7 +90,7 @@ extension SettingView {
         
         @Published var newDeviceName = Entry(limit: 10)
         
-        @Published var faceIDToggle: Bool = false
+        @Published var faceIDToggle: Bool = PincodeManager().loadPincode() != nil
         @Published var pinCodeSetting: Bool = false
         
         @Published var deviceAlert: Bool = false
@@ -100,7 +100,7 @@ extension SettingView {
             newPassword = Entry(limit: 15)
             newPasswordCheck = Entry(limit: 15)
             newDeviceName = Entry(limit: 10)
-            faceIDToggle = false
+            faceIDToggle = PincodeManager().loadPincode() != nil
             pinCodeSetting = false
             deviceAlert = false
         }

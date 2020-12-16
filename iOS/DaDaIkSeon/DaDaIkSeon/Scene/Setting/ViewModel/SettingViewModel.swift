@@ -41,6 +41,7 @@ class SettingViewModel: ViewModel {
         switch input {
         // error: 설정 정보를 불러오는 데 실패하였습니다. 네트워크 연결을 확인해주세요.
         case .refresh: // onAppear에서 호출
+            #if DEBUG
             state.service.refresh { result in
                 switch result {
                 case .refresh(let user):
@@ -73,7 +74,7 @@ class SettingViewModel: ViewModel {
                     break
                 }
             }
-            
+            #endif
         case .settingAuthMode(let input):
             handlerForAuthModeSetting(input)
             
