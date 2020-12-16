@@ -35,7 +35,7 @@ const StudyBox = ({ value, list, onDrop }: StudyBoxProps): JSX.Element => {
       <DropContainer styles={initialArrayData[value]} isList={value === 'list'}>
         {list.map((item: any): any => {
           return (
-            <Drag dataItem={`${value}:${item.name}`}>
+            <Drag key={item.name} dataItem={`${value}:${item.name}`}>
               <DragImg styles={initialArrayData[item.name]} src={item.svg} />
             </Drag>
           );

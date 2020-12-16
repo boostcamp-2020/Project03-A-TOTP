@@ -1,11 +1,11 @@
 import React from 'react';
 import QRCODE from 'qrcode.react';
-import { Modal } from '@components/common/Modal';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import CSS from 'csstype';
 import Button from '@components/common/Button';
+import { message } from '@utils/message';
 
 const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSize.xl};
@@ -67,6 +67,12 @@ interface qrProps {
 
 const QRCodeComponent = ({ url }: qrProps): JSX.Element => {
   const qrcode = Buffer.from(decodeURIComponent(url), 'base64').toString('ascii');
+  const history = useHistory();
+  const onClick = (e: React.MouseEvent<Element, MouseEvent>): void => {
+    e.preventDefault();
+    alert(message.AFTERQRREGISTER);
+    history.push('/');
+  };
   return (
     <Wrapper>
       <QRContainer>
@@ -79,9 +85,7 @@ const QRCodeComponent = ({ url }: qrProps): JSX.Element => {
             <ContentText>1. APP을 켜주세요.</ContentText>
             <ContentText>2. 등록 버튼을 눌러주세요.</ContentText>
             <ContentText>3. 카메라 중앙에 QR Code를 위치시켜주세요.</ContentText>
-            <Link to='/'>
-              <Button text='Done' style={buttonStyle} />
-            </Link>
+            <Button text='Done' style={buttonStyle} onClick={(e) => onClick(e)} />
           </RegisterText>
         </ContentWrapper>
       </QRContainer>
