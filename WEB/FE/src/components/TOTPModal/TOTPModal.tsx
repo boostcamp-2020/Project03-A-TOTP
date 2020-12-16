@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import styled from 'styled-components';
-import OtpInput from 'react-otp-input';
+import { OTPInput } from '@components/TOTPModal/OTPInput';
 import { Modal } from '@components/common/Modal';
 import Button from '@components/common/Button';
-import CSS from 'csstype';
-import { Link } from 'react-router-dom';
 
 interface TOTPModalProps {
   isOpen: boolean;
@@ -52,18 +50,11 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const InputStyle: CSS.Properties = {
-  width: '4rem',
-  height: '4rem',
-  margin: '0 0.3rem',
-  fontSize: '20px',
-  borderRadius: '4px',
-  border: '1px solid #ccc',
-};
-
-const ErrorStyle: CSS.Properties = {
-  border: '1px solid #ff4d4f',
-};
+const Form = styled.form`
+  button {
+    visibility: hidden;
+  }
+`;
 
 const TOTPModal = ({
   isOpen,
@@ -76,6 +67,10 @@ const TOTPModal = ({
   disabled,
   errorMsg,
 }: TOTPModalProps): JSX.Element => {
+  const onSubmitForm = (e: FormEvent) => {
+    e.preventDefault();
+    onSubmit();
+  };
   return (
     <>
       {isOpen ? (
@@ -85,17 +80,10 @@ const TOTPModal = ({
             표시된 OTP 6자리를 입력해 주세요
             {hasErrored && <Error>{errorMsg}</Error>}
           </Description>
-          <OtpInput
-            value={TOTP}
-            onChange={onChange}
-            numInputs={6}
-            inputStyle={InputStyle}
-            isInputNum
-            shouldAutoFocus
-            hasErrored={hasErrored}
-            errorStyle={ErrorStyle}
-            isDisabled={disabled}
-          />
+          <Form onSubmit={onSubmitForm}>
+            <OTPInput otp={TOTP} onChange={onChange} hasErrored={hasErrored} isDisabled={disabled} />
+            <button type='submit'>hudden button</button>
+          </Form>
           <ButtonContainer>
             <Button
               text='확인'
@@ -105,7 +93,7 @@ const TOTPModal = ({
             />
             <Button text='취소' onClick={onClose} type='text' disabled={disabled} />
             <br />
-            <Button text='QR코드 재등록' onClick={onClick} type='text' />
+            <Button text='QR코드 재등록' onClick={onClick} type='text' style={{ marginTop: '1rem' }} />
           </ButtonContainer>
         </Modal>
       ) : (
