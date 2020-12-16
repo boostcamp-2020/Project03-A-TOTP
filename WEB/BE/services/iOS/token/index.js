@@ -8,8 +8,10 @@ const tokenService = {
 
   async getTokens(params) {
     const result = await Token.findAll({
-      attributes: ['id', 'key', 'name', 'color', 'icon', 'is_Main'],
+      attributes: ['id', 'key', 'name', 'color', 'icon', ['is_main', 'isMain']],
       where: params,
+      raw: true,
+      nest: true,
     });
     return result;
   },
