@@ -51,11 +51,11 @@ const checkLoingCount = async (id, next) => {
       decryptWithAES256({ encryptedText: name }),
       idx
     );
-    next(createError(401, '5번 연속 틀리셨습니다 등록된 Email에서 다시 인증해 주세요'));
+    next(createError(403, '5번 연속 틀리셨습니다 등록된 Email에서 다시 인증해 주세요'));
     return false;
   }
   if (auth.login_fail_count >= 5) {
-    next(createError(401, '5번 연속 틀리셨습니다 등록된 Email에서 다시 인증해 주세요'));
+    next(createError(403, '5번 연속 틀리셨습니다 등록된 Email에서 다시 인증해 주세요'));
     return false;
   }
   return true;

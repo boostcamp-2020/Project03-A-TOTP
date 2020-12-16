@@ -33,7 +33,7 @@ const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
       .then((reCaptchaToken: string) => loginWithPassword({ id, password, reCaptchaToken }))
       .then(({ authToken }: { authToken: string }) => onSuccess(authToken))
       .catch((err: any) => {
-        if (err.response.status === 401) {
+        if (err.response.status === 403) {
           if (window.confirm('이메일 미인증 사용자입니다. 다시 인증 메일을 보내시겠습니까?')) {
             reSend(id).then((data) => {
               if (data.message === 'ok') {

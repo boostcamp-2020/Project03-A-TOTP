@@ -6,6 +6,7 @@ import { DefaultInput, EmailInput } from '@components/common';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { findId } from '@api/index';
 import { useHistory } from 'react-router-dom';
+import { message } from '@utils/message';
 
 const FindIDComponent = (): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -21,6 +22,7 @@ const FindIDComponent = (): JSX.Element => {
     executeRecaptcha('findId').then((reCaptchaToken: string) =>
       findId({ email, name, birth, reCaptchaToken })
         .then(() => {
+          alert(message.FINDIDEMAILSEND);
           history.push('/login');
         })
         .catch((err) => alert(err || err.message)),

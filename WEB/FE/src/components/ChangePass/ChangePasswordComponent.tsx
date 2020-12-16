@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useInput } from '@hooks/useInput';
 import { PasswordInput } from '@components/common';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, RouteComponentProps, useHistory } from 'react-router-dom';
 import { message } from '@utils/message';
 import { changePass } from '@/api';
 import { AuthForm } from '../common/AuthForm';
 
-const ChangePasswordComponent = ({ location }): JSX.Element => {
+const ChangePasswordComponent: React.FC<RouteComponentProps> = ({ location }): JSX.Element => {
   const { search } = location;
   const [password, setPassword] = useInput('');
   const [rePassword, setRePassword] = useInput('');
@@ -31,7 +31,7 @@ const ChangePasswordComponent = ({ location }): JSX.Element => {
     } else {
       changePass(userData, password)
         .then(() => {
-          console.log(message.CHANGEPASSWORDSUCCESS);
+          alert(message.CHANGEPASSWORDSUCCESS);
           history.push('/login');
         })
         .catch((err: any) => alert(err.response?.data?.mesaage || err));
