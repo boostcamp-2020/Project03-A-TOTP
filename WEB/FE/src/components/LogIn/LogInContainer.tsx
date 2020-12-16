@@ -31,7 +31,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
     setModalDisabled(false);
     setIsModalOpen(false);
   };
-  const onClickModal = () => {
+  const onReIssueQRCode = () => {
     setHasTOTPModalError(false);
     if (window.confirm('QR 재등록 Email을 전송하시겠습니까? \n이전에 사용된 OTP 정보는 삭제됩니다.')) {
       executeRecaptcha('sendSecretKeyEmail')
@@ -80,7 +80,7 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
         onChange={setTOTP}
         onSubmit={onSubmitOTP}
         onClose={onCloseModal}
-        onClick={onClickModal}
+        onReIssueQRCode={onReIssueQRCode}
         hasErrored={hasTOTPModalError}
         disabled={modalDisabled}
         errorMsg={errorMsg}
