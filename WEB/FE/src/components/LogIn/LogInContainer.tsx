@@ -27,6 +27,8 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   };
   const onCloseModal = () => {
     setTOTP('');
+    setHasTOTPModalError(false);
+    setModalDisabled(false);
     setIsModalOpen(false);
   };
   const onClickModal = () => {
