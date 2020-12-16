@@ -60,12 +60,9 @@ final class TokenNetworkManager: Requestable {
         }
     }
     
-    func create(lastUpdate: String,
-                token: Token,
+    func create(token: Token,
                 completion: @escaping() -> Void) {
-        
-        tokenEndpoint = .postOne(lastUpdate: lastUpdate,
-                                 tokens: [token])
+        tokenEndpoint = .postOne(token: token)
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess:
@@ -78,13 +75,10 @@ final class TokenNetworkManager: Requestable {
         }
     }
     
-    // id는 UUID인데 String으로 언제 바꿔주어야할까?
-    func modify(id: String,
-                token: Token,
+    func modify(token: Token,
                 completion: @escaping() -> Void) {
         
-        tokenEndpoint = .patch(id: id,
-                               token: token)
+        tokenEndpoint = .patch(token: token)
         request(tokenEndpoint) { result in
             switch result {
             case .networkSuccess:

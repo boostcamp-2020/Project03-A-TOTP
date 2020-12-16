@@ -9,9 +9,9 @@ import Foundation
 
 enum TokenEndpoint {
     case get
-    case postOne(lastUpdate: String, tokens: [Token])
+    case postOne(token: Token)
     case putAll(lastUpdate: String, tokens: [Token])
-    case patch(id: String, token: Token)
+    case patch(token: Token)
     case delete(id: String)
 }
 
@@ -23,7 +23,9 @@ extension TokenEndpoint: EndpointType {
         switch self {
         case .get, .postOne, .putAll:
             return basePath
-        case .patch(let id, _), .delete(let id):
+        case .patch(let token):
+            return basePath + "/\(token.id)"
+        case.delete(let id):
             return basePath + "/\(id)"
         }
     }
@@ -47,18 +49,38 @@ extension TokenEndpoint: EndpointType {
         switch self {
         case .get, .delete:
             return nil
-        case .postOne(let lastUpdate, let tokens),
-             .putAll(let lastUpdate, let tokens):
+        case .postOne(let token):
+            let dicArray = [token].map { convertToDictionary(token: $0) }
+            return [
+                "tokens": dicArray
+            ]
+        case .putAll(let lastUpdate, let tokens):
+            let dicArray = tokens.map { convertToDictionary(token: $0) }
             return [
                 "lastUpdate": lastUpdate,
-                "tokens": tokens
+                "tokens": dicArray
             ]
-        case .patch(let id, let token):
+        case .patch(let token):
             return  [
-                "id": id,
-                "token": token
+                "token": [
+                    "id": token.id,
+                    "key": token.key ?? "",
+                    "name": token.name ?? "",
+                    "color": token.color ?? "",
+                    "icon": token.icon ?? "",
+                    "is_Main": token.isMain ?? false
+                ]
             ]
         }
+    }
+    
+    func convertToDictionary(token: Token) -> [String: Any] {
+        return ["id": token.id,
+                "key": token.key ?? "",
+                "name": token.name ?? "",
+                "color": token.color ?? "",
+                "icon": token.icon ?? "",
+                "is_Main": token.isMain ?? false]
     }
     
 }
