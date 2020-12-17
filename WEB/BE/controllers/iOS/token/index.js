@@ -3,15 +3,18 @@ const userService = require('@services/iOS/user');
 const DB = require('@models/sequelizeIOS');
 
 const tokenController = {
-  async addTokenList(req, res, next) {
+  async addTokenList(req, res) {
     let { tokens } = req.body;
     const { user } = req;
+
     tokens = tokens.map((token) => {
-      token.user_idx = user.idx;
-      token.is_main = token.isMain;
-      delete token.isMain;
-      return token;
+      return {
+        ...token,
+        user_idx: user.idx,
+        is_main: token.isMain,
+      };
     });
+
     /** @TODO 트랜젝션 */
     await DB.sequelize.transaction(async () => {
       await tokenService.addTokens(tokens);
@@ -20,20 +23,26 @@ const tokenController = {
     res.json({ message: 'ok' });
   },
 
-  async getTokenList(req, res, next) {
+  async getTokenList(req, res) {
     const { user } = req;
-    const result = await tokenService.getTokens({ user_idx: user.idx });
-    const data = {
+    const tokens = await tokenService.getTokens({ user_idx: user.idx });
+
+    const response = {
       message: 'ok',
       data: {
         lastUpdate: user.last_update,
-        tokens: result,
+        tokens: tokens.map((token) => {
+          return {
+            ...token,
+            isMain: token.isMain === 1,
+          };
+        }),
       },
     };
-    res.json(data);
+    res.json(response);
   },
 
-  async updateToken(req, res, next) {
+  async updateToken(req, res) {
     const { id } = req.params;
     const { user } = req;
     const { token } = req.body;
@@ -48,7 +57,7 @@ const tokenController = {
     });
   },
 
-  async delToken(req, res, next) {
+  async delToken(req, res) {
     const { id } = req.params;
     const { user } = req;
     await DB.sequelize.transaction(async () => {
@@ -62,7 +71,7 @@ const tokenController = {
     });
   },
 
-  async replaceToken(req, res, next) {
+  async replaceToken(req, res) {
     const { user } = req;
     const { lastUpdate } = req.body.data;
     let { tokens } = req.body.data;
