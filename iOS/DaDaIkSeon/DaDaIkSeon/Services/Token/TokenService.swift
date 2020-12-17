@@ -19,11 +19,6 @@ final class TokenService: TokenServiceable {
     }
     
     // MARK: Init
-    func designateMain() {
-        for index in tokens.indices where tokens[index].isMain == true { return }
-        if self.tokens.count == 0 { return }
-        tokens[0].isMain = true
-    }
     
     init(_ storageManager: StorageManager) {
         self.storageManager = storageManager
@@ -39,6 +34,13 @@ final class TokenService: TokenServiceable {
     
     func tokenList() -> [Token] {
         return tokens
+    }
+    
+    /// 메인뷰 메인 토큰 지정
+    func designateMain() {
+        for index in tokens.indices where tokens[index].isMain == true { return }
+        if self.tokens.count == 0 { return }
+        tokens[0].isMain = true
     }
     
     // completion 받아와야
@@ -63,11 +65,14 @@ final class TokenService: TokenServiceable {
                         } else { // 서버가 최신
                             // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
                             if let tokens = serverData.tokens {
+                                
                                 if tokens.count == 0 {
                                     updateView(.noTokens)
                                     return
                                 }
+                                
                                 switch self.decryptTokenKeys(tokens: tokens) {
+                                
                                 case .successLoad(let decryptedResult): // 복호화 성공
                                     //TODO: 서버 시간으로 업데이트 해야함
                                     if let decryptedTokens = decryptedResult.tokens {
@@ -75,8 +80,9 @@ final class TokenService: TokenServiceable {
                                         designateMain()
                                         _ = storageManager.storeTokens(decryptedTokens)
                                         updateView(.successLoad(decryptedResult))
+                                        print("디크립트 성공")
                                     } else {
-                                        print("여기")
+                                        print("디크립트 실패")
                                     }
                                 case .failedDecryption:
                                     print("failedDecryption")
@@ -84,8 +90,8 @@ final class TokenService: TokenServiceable {
                                         ? updateView(.noTokens)
                                         : updateView(.failedDecryption(tokens))
                                 case .noBackupPassword:
-                                    print("noBackupPassword")
-                                    updateView(.noBackupPassword)
+                                    print("noBackupPassword 리프레시")
+                                    updateView(.noBackupPassword(tokens))
                                 default: break
                                 }
                                 // 복호화 - 토큰이랑 비밀 번호 주면 시도. - 성공 of 실패
@@ -113,6 +119,7 @@ final class TokenService: TokenServiceable {
         // service에 있는 토큰 update
     }
     
+    /// 토큰추가
     func add(token: Token) {
         var token = token
         if tokens.count == 0 {
@@ -123,8 +130,9 @@ final class TokenService: TokenServiceable {
         DDISUserCache.updateDate()
         if isBackUp() {
             do {
-                if let key = token.key {
-                    token.key = try TokenCryptoManager(self.getPasword()).encrypt(with: key)
+                if let key = token.key,
+                   let password = getPassword() {
+                    token.key = try TokenCryptoManager(password).encrypt(with: key)
                     TokenNetworkManager.shared.create(token: token) {
                         print("저장 성공...")
                     }
@@ -135,6 +143,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
+    /// 토큰 수정
     func update(token: Token) {
         guard let index = tokens.firstIndex(where: { $0.id == token.id }) else { return }
         tokens[index] = token
@@ -147,6 +156,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
+    /// 메인 토큰 찾아 리턴
     func mainToken() -> Token? {
         var token: Token?
         tokens.forEach {
@@ -158,6 +168,7 @@ final class TokenService: TokenServiceable {
         return token
     }
     
+    /// 메인토큰 뺀 나머지 토큰 리턴
     func excludeMainCell() -> [Token] {
         tokens.filter {
             guard let isMain = $0.isMain else { return true }
@@ -165,6 +176,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
+    /// 메인 토큰 상태 업데이트
     func updateMainToken(id: String) {
         guard let oldMainTokenIndex = tokens.firstIndex(where: {
             guard let isMain = $0.isMain else { return false }
@@ -178,6 +190,7 @@ final class TokenService: TokenServiceable {
         _ = storageManager.storeTokens(tokens)
     }
     
+    /// 토큰 삭제
     func removeTokens(_ idList: [String]) {
         idList.forEach { id in
             tokens.removeAll(where: { $0.id == id })
@@ -195,6 +208,7 @@ final class TokenService: TokenServiceable {
         }
     }
     
+    /// 토큰 위치 수정
     func updateTokenPosition(from: Int, target: Int) {
         tokens.move(fromOffsets: IndexSet(integer: from),
                     toOffset: target > from ? target + 1 : target)
@@ -209,8 +223,8 @@ extension TokenService {
         return DDISUserCache.get()?.device?.backup != nil
     }
     
-    func getPasword() -> String {
-        return BackupPasswordManager().loadPassword() ?? ""
+    func getPassword() -> String? {
+        return BackupPasswordManager().loadPassword()
     }
     
     func updateMainWithFirstToken() {
@@ -221,9 +235,7 @@ extension TokenService {
         }
     }
     
-   //
-    
-    // 시간 비교 후, 뭐가 최신인지 아는 게 이 함수의 목적
+    /// 로컬시간 최신 여부 판별해서 리턴
     func isRecentLocal(time: String) throws -> Bool {
         if let user = DDISUserCache.get() {
             guard let deviceTime = user.device?.lastUpdate?.timeFormatToDate() else {
@@ -233,18 +245,16 @@ extension TokenService {
                 throw TimeError.serverTime
             }
             
-            if deviceTime <= serverTime { // 서버가 최신
-                return false
-            } else {
-                return true
-            }
+            return deviceTime > serverTime
         } else {
             // 불러오기 실패
             return true
         }
     }
     
-    func decryptTokenKeys(tokens: [Token], password: String? = nil) -> MainNetworkResult {
+    /// 토큰배열에 들어있는 키 Decrypt하고 상태 리턴
+    func decryptTokenKeys(tokens: [Token],
+                          password: String? = nil) -> MainNetworkResult {
         
         var decryptedTokens = [Token]()
         var result: MainNetworkResult = .failedDecryption(tokens)
@@ -272,7 +282,7 @@ extension TokenService {
                         }
                     }
                 } else {
-                    result = .noBackupPassword
+                    result = .noBackupPassword([])
                     return
                 }
             }
@@ -282,7 +292,8 @@ extension TokenService {
         return result
     }
     
-    func syncToServer(lastupdateTime: String, _ updateView: @escaping (MainNetworkResult) -> Void) {
+    func syncToServer(lastupdateTime: String,
+                      _ updateView: @escaping (MainNetworkResult) -> Void) {
         // 암호화
         var encryptedTokens = [Token]()
         tokens.forEach {
@@ -298,7 +309,7 @@ extension TokenService {
                 }
             } else {
                 print("백업 비밀번호가 없다!")
-                updateView(.noBackupPassword)
+                updateView(.noBackupPassword([]))
                 // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
             }
             encryptedTokens.append(token)
