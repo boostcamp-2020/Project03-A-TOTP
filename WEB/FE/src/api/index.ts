@@ -57,7 +57,7 @@ interface loginWithOTPParams {
 }
 
 interface loginWithOTPResponse {
-  result: boolean;
+  userName: string;
 }
 
 export const loginWithOTP = async (params: loginWithOTPParams): Promise<loginWithOTPResponse> => {
