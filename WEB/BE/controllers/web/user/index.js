@@ -19,7 +19,8 @@ const userController = {
 
     userInfo = encrypUserInfo({ userInfo });
     const secretKey = totp.makeSecretKey();
-    const url = totp.makeURL({ secretKey, email: req.body.email });
+    const time = Date.now();
+    const url = encryptWithAES256({ Text: `${id} ${time + 7200000}` });
     const encryptPassword = await getEncryptedPassword(password);
 
     await DB.sequelize.transaction(async () => {
