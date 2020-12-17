@@ -21,7 +21,7 @@ struct DDISUser: Codable, Equatable {
     }
     
     // 혹시 모르니까 유저 디폴트로 저장해놓을까?
-    // 이메일이랑 
+    // 이메일이랑
     static func placeHoler() -> DDISUser {
         DDISUser(email: "jjm@dadaikseon.com",
                  devices: Device.dummy(),
@@ -31,7 +31,7 @@ struct DDISUser: Codable, Equatable {
 }
 
 struct DDISUserCache {
-  
+    
     static let key = "userCache"
     
     static func save(_ value: DDISUser) {
@@ -40,7 +40,7 @@ struct DDISUserCache {
             UserDefaults.standard.set(encoded, forKey: key)
         }
     }
-  
+    
     static func get() -> DDISUser? {
         if let objects = UserDefaults.standard.value(forKey: key) as? Data {
             let decoder = JSONDecoder()
@@ -54,9 +54,17 @@ struct DDISUserCache {
             return nil
         }
     }
-  
+    
     static func remove() {
         UserDefaults.standard.removeObject(forKey: key)
     }
     
+    static func updateDate() {
+        if var user = get() {
+            user.device?.lastUpdate = Date().dateFormatToString()
+            save(user)
+        } else {
+            print("내기기 못 찾았다.")
+        }
+    }
 }

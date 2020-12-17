@@ -25,6 +25,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         if DeviceIDManager().load() == nil {
             let deviceID = UUID().uuidString
             DeviceIDManager().store(deviceID)
+            print("처음 깔았어요")
+        } else {
+            print("처음 깔지 않았어요 이 기기의 ID는 \(DeviceIDManager().load()!)")
         }
     }
     
