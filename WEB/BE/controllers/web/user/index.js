@@ -57,11 +57,12 @@ const userController = {
 
   async findID(req, res) {
     const { email, name } = req.body;
+
     const userInfo = encrypUserInfo({ userInfo: req.body });
     const user = await userService.findAuthByUser({ userInfo });
 
     if (!user) {
-      return res.status(400).json({ msg: '없는 사용자' });
+      return res.status(400).json({ message: '없는 사용자' });
     }
 
     emailSender.sendId(email, name, user.auth.id);
