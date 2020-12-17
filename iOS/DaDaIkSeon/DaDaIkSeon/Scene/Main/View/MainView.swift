@@ -8,6 +8,38 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+class MainLinkManager: ObservableObject {
+    
+    @Published var tag: Int? = -1
+    
+    func isThere(_ target: MainLinkTable) -> Bool {
+        tag == scene(target)
+    }
+    
+    func change(_ target: MainLinkTable) {
+        tag = scene(target)
+    }
+    
+    func scene(_ target: MainLinkTable) -> Int? {
+        switch target {
+        case .main:
+            return nil
+        case .qrguide, .tokenEdit,
+             .background, .pincode, .setting:
+            return target.rawValue
+        }
+    }
+    
+    enum MainLinkTable: Int {
+        case main = -1
+        case qrguide = 0
+        case tokenEdit = 1
+        case background = 2
+        case pincode = 3
+        case setting = 4
+    }
+}
+
 struct MainView: View {
     
     // MARK: ViewModel
@@ -16,7 +48,7 @@ struct MainView: View {
     
     // MARK: Property
     
-    @EnvironmentObject var navigationFlow: NavigationFlowObject
+    @StateObject var linkManager = MainLinkManager()
     @State var hasBackupPassword = false
     @Namespace var namespace
     
@@ -38,31 +70,37 @@ struct MainView: View {
         NavigationView {
             VStack(spacing: 12) {
                 viewModel.state.isSearching ?
-                    nil : HeaderView(viewModel: viewModel)
+                    nil : HeaderView(viewModel: viewModel, linkManager: linkManager)
                     .padding(.top, 12)
                     .padding(.bottom, -6)
                 if !viewModel.state.checkBoxMode {
                     SearchBarView(viewModel: viewModel)
                 }
-                ScrollView {
-                    VStack(spacing: 12) {
-                        mainCellView.frame(height: 200)
-                            .padding(.horizontal, 12)
-                            .padding(.top, 6)
-                        gridView
-                            .padding([.horizontal, .bottom], 12)
+                ZStack {
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            mainCellView.frame(height: 200)
+                                .padding(.horizontal, 12)
+                                .padding(.top, 6)
+                            gridView
+                                .padding([.horizontal, .bottom], 12)
+                        }
                     }
+                    .navigationBarHidden(true)
+                    
+                    navigaionTable
                 }
-                .navigationBarHidden(true)
             }
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
                 viewModel.trigger(.commonInput(.refreshTokens))
+                _ = linkManager.scene(.main)
             })
             .onDisappear(perform: {
                 TOTPTimer.shared.cancel()
             })
         }
+        .navigationBarHidden(true)
         .fullScreenCover(isPresented: $hasBackupPassword, content: {
             BackupPasswordView(viewModel: AnyViewModel(
                                 BackupPasswordViewModel(
@@ -74,6 +112,36 @@ struct MainView: View {
         .onTapGesture {
             hideKeyboard()
         }
+        .onChange(of: scenePhase, perform: { newScenePhrase in
+            switch newScenePhrase {
+            case .inactive:
+                if linkManager.isThere(.main) { // main이 아닐때는 발동 안되게!
+                    DispatchQueue.main.async {
+                        linkManager.change(.background)
+                    }
+                }
+            case .active:
+                if linkManager.isThere(.background) {
+                    if nil != PincodeManager().loadPincode() {
+                        BiometricIDAuth().authenticateUser { result in
+                            if result == nil { // 생체인증 성공
+                                DispatchQueue.main.async {
+                                    linkManager.change(.main)
+                                }
+                            } else {            // 생체인증 실패
+                                DispatchQueue.main.async {
+                                    linkManager.change(.pincode)
+                                }
+                            }
+                        }
+                    } else {
+                        linkManager.change(.main)
+                    }
+                }
+            default: break
+            }
+            
+        })
     }
     
     // MARK: Views
@@ -157,19 +225,63 @@ struct MainView: View {
     }
     
     var addTokenView: some View {
-        viewModel.state.isSearching ?
-            nil : NavigationLink(
-                destination: NavigationLazyView(
-                    QRGuideView(service: viewModel.state.service)
-                ).environmentObject(navigationFlow),
-                isActive: $navigationFlow.isActive,
-                label: {
-                    TokenAddCellView()
-                }
-                
-            )
+        viewModel.state.isSearching ? nil :
+            ZStack {
+                TokenAddCellView()
+            }
+            .onTapGesture {
+                linkManager.change(.qrguide)
+            }
     }
-
+    
+    // MARK: tag
+    @State var qrCodeURL: String = ""
+    @Environment(\.scenePhase) var scenePhase
+    
+    var navigaionTable: some View {
+        Group {
+            NavigationLink(
+                "", destination: NavigationLazyView(
+                    QRGuideView(
+                        qrCodeURL: $qrCodeURL,
+                        navigationTag: $linkManager.tag)
+                ),
+                tag: linkManager.scene(.qrguide)!,
+                selection: $linkManager.tag)
+            NavigationLink(
+                "", destination:
+                    TokenEditView(
+                        linkManager: ObservedObject(wrappedValue: linkManager),
+                        service: viewModel.state.service,
+                        token: nil,
+                        qrCode: qrCodeURL,
+                        refresh: {
+                            viewModel.trigger(.commonInput(.refreshTokens))
+                        }),
+                tag: linkManager.scene(.tokenEdit)!,
+                selection: $linkManager.tag)
+            NavigationLink(
+                "", destination: BackgroundView(),
+                tag: linkManager.scene(.background)!,
+                selection: $linkManager.tag)
+            if let password = PincodeManager().loadPincode() {
+                NavigationLink(
+                    "", destination: PinCodeView(
+                        mode: .auth(password),
+                        completion: { _ in
+                            linkManager.change(.main)
+                        }),
+                    tag: linkManager.scene(.pincode)!,
+                    selection: $linkManager.tag)
+            }
+            NavigationLink(
+                "", destination:
+                    SettingView(linkManager: ObservedObject(wrappedValue: linkManager)),
+                tag: linkManager.scene(.setting)!,
+                selection: $linkManager.tag)
+        }
+    }
+    
 }
 
 struct MainView_Previews: PreviewProvider {

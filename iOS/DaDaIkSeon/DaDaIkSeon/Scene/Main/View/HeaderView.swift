@@ -12,7 +12,7 @@ struct HeaderView: View {
     // MARK: ViewModel
     
     @ObservedObject var viewModel: AnyViewModel<MainState, MainInput>
-    
+    @ObservedObject var linkManager: MainLinkManager
     // MARK: Property
     
     @State private var showingAlert: Bool = false
@@ -68,13 +68,13 @@ struct HeaderView: View {
     }
     
     var settingButton: some View {
-        NavigationLink(
-            destination: SettingView(),
-            label: {
-                Image.person.resizable()
-                    .frame(width: 25)
-            })
-            .foregroundColor(.black)
+        Button(action: {
+            linkManager.change(.setting)
+        }, label: {
+            Image.person.resizable()
+                .frame(width: 25)
+        })
+        .foregroundColor(.black)
     }
     
     // MARK: 취소 선택 버튼
@@ -105,10 +105,10 @@ struct HeaderView: View {
     
 }
 
-struct HeaderView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        HeaderView(viewModel: AnyViewModel(MainViewModel(service: TokenService(StorageManager()))))
-    }
-    
-}
+//struct HeaderView_Previews: PreviewProvider {
+//    
+//    static var previews: some View {
+//        HeaderView(viewModel: AnyViewModel(MainViewModel(service: TokenService(StorageManager()))))
+//    }
+//    
+//}

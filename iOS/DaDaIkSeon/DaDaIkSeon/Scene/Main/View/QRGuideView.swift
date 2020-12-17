@@ -12,8 +12,8 @@ import AVFoundation
 struct QRGuideView: View {
     
     // MARK: Property
-    private(set) var service: TokenServiceable
-    @State private var qrCodeURL = ""
+    @Binding var qrCodeURL: String
+    @Binding var navigationTag: Int?
     @State private var isShownScanner = false
     @State private var isShownEditView: Bool = false
     @State private var isShownCameraCheck: Bool = false
@@ -72,7 +72,6 @@ struct QRGuideView: View {
             .background(Color.darkNavy)
             .cornerRadius(15)
             
-            gotoTokenEditView
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -86,7 +85,7 @@ struct QRGuideView: View {
             })
         )
         .sheet(isPresented: $isShownScanner) {
-            QRScannerView(isShownEditView: $isShownEditView,
+            QRScannerView(navigationTag: $navigationTag,
                           isShownQrCodeCheck: $isShownQrCodeCheck,
                           qrCodeURL: $qrCodeURL)
         }
@@ -94,22 +93,12 @@ struct QRGuideView: View {
             Alert(title: Text("QR 스캔을 원하시면 '설정'을 눌러 '사진' 접근을 허용해주세요"))
         })
     }
-    
-    var gotoTokenEditView: some View {
-        NavigationLink(
-            "",
-            destination: NavigationLazyView(
-                TokenEditView(service: service,
-                              token: nil,
-                              qrCode: qrCodeURL)),
-            isActive: $isShownEditView
-        )
-    }
+
 }
 
 struct QRScannerView: View {
     
-    @Binding var isShownEditView: Bool
+    @Binding var navigationTag: Int?
     @Binding var isShownQrCodeCheck: Bool
     @Binding var qrCodeURL: String
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -122,7 +111,7 @@ struct QRScannerView: View {
                     case .success(let url):
                         if let secretKey = TOTPGenerator.extractKey(from: url) {
                             qrCodeURL = secretKey
-                            isShownEditView = true
+                            navigationTag = 1
                         } else {
                             isShownQrCodeCheck = true
                         }
@@ -181,9 +170,9 @@ extension QRGuideView {
 }
 
 // MARK: Preview
-
-struct QRGuideView_Previews: PreviewProvider {
-    static var previews: some View {
-        QRGuideView(service: TokenService(StorageManager()))
-    }
-}
+//
+//struct QRGuideView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        QRGuideView(service: TokenService(StorageManager()))
+//    }
+//}
