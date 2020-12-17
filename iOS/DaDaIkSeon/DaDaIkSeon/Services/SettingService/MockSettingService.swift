@@ -18,6 +18,7 @@ class MockSettingService: SettingServiceable {
             switch result {
             case .refresh(var serverUser):
                 guard let user = DDISUserCache.get() else { return }
+                // TODO: 서버에 있는 디바이스 중 내꺼 찾아서 받아오기
                 serverUser.device = user.device
                 DDISUserCache.save(serverUser)
                 updateView(result)

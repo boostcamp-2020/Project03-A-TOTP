@@ -17,7 +17,10 @@ class MainLinkManager: ObservableObject {
     }
     
     func change(_ target: MainLinkTable) {
-        tag = scene(target)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tag = self.scene(target)
+        }
     }
     
     func scene(_ target: MainLinkTable) -> Int? {
@@ -94,7 +97,7 @@ struct MainView: View {
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
                 viewModel.trigger(.commonInput(.refreshTokens))
-                _ = linkManager.scene(.main)
+                linkManager.change(.main)
             })
             .onDisappear(perform: {
                 TOTPTimer.shared.cancel()
@@ -126,7 +129,9 @@ struct MainView: View {
                         BiometricIDAuth().authenticateUser { result in
                             if result == nil { // 생체인증 성공
                                 DispatchQueue.main.async {
-                                    linkManager.change(.main)
+                                    withAnimation {
+                                        linkManager.change(.main)
+                                    }
                                 }
                             } else {            // 생체인증 실패
                                 DispatchQueue.main.async {
@@ -135,7 +140,9 @@ struct MainView: View {
                             }
                         }
                     } else {
-                        linkManager.change(.main)
+                        withAnimation {
+                            linkManager.change(.main)
+                        }
                     }
                 }
             default: break
@@ -264,6 +271,7 @@ struct MainView: View {
                 "", destination: BackgroundView(),
                 tag: linkManager.scene(.background)!,
                 selection: $linkManager.tag)
+                .transition(.move(edge: .bottom))
             if let password = PincodeManager().loadPincode() {
                 NavigationLink(
                     "", destination: PinCodeView(
