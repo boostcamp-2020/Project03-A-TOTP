@@ -57,8 +57,10 @@ extension TokenEndpoint: EndpointType {
         case .putAll(let lastUpdate, let tokens):
             let dicArray = tokens.map { convertToDictionary(token: $0) }
             return [
-                "lastUpdate": lastUpdate,
-                "tokens": dicArray
+                "data": [
+                    "lastUpdate": lastUpdate,
+                    "tokens": dicArray
+                ]
             ]
         case .patch(let token):
             return  [

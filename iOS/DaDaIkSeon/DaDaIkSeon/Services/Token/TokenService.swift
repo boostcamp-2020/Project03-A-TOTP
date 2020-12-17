@@ -69,6 +69,7 @@ final class TokenService: TokenServiceable {
                                 }
                                 switch self.decryptTokenKeys(tokens: tokens) {
                                 case .successLoad(let decryptedResult): // 복호화 성공
+                                    //TODO: 서버 시간으로 업데이트 해야함
                                     if let decryptedTokens = decryptedResult.tokens {
                                         self.tokens = decryptedTokens // service에 있는 tokens 업데이트
                                         designateMain()
@@ -119,7 +120,7 @@ final class TokenService: TokenServiceable {
         }
         tokens.append(token)
         _ = storageManager.storeTokens(tokens)
-        lastUpdateTime()
+        DDISUserCache.updateDate()
         if isBackUp() {
             do {
                 if let key = token.key {
@@ -138,7 +139,7 @@ final class TokenService: TokenServiceable {
         guard let index = tokens.firstIndex(where: { $0.id == token.id }) else { return }
         tokens[index] = token
         _ = storageManager.storeTokens(tokens)
-        lastUpdateTime()
+        DDISUserCache.updateDate()
         if isBackUp() {
             TokenNetworkManager.shared.modify(token: token) {
                 print("수정 성공")
@@ -184,7 +185,7 @@ final class TokenService: TokenServiceable {
         _ = storageManager.storeTokens(tokens)
         if tokens.count == 0 { return }
         updateMainWithFirstToken()
-        lastUpdateTime()
+        DDISUserCache.updateDate()
         if isBackUp() {
             for id in idList {
                 TokenNetworkManager.shared.delete(id: id) {
@@ -203,13 +204,6 @@ final class TokenService: TokenServiceable {
 }
 
 extension TokenService {
-    
-    func lastUpdateTime() {
-        if var user = DDISUserCache.get() {
-            user.device?.lastUpdate = Date().dateFormatToString()
-            DDISUserCache.save(user)
-        }
-    }
     
     func isBackUp() -> Bool {
         return DDISUserCache.get()?.device?.backup != nil

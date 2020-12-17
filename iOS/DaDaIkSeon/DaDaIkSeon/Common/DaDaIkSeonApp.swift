@@ -25,7 +25,8 @@ struct DaDaIkSeonApp: App {
         WindowGroup {
             switch root {
             case .main:
-                MainView(service: service).environmentObject(NavigationFlowObject())
+                MainView(service: service)
+                    .environmentObject(NavigationFlowObject())
             case .localAuth:
                 if let pincode = PincodeManager().loadPincode() {
                     PinCodeView(mode: .auth(pincode), completion: { _ in
@@ -44,8 +45,8 @@ struct DaDaIkSeonApp: App {
         }
         .onChange(of: scenePhase, perform: { newScenePhrase in
             switch newScenePhrase {
-            case .inactive:
-                DispatchQueue.main.async { root = .none }
+            //case .inactive:
+                //DispatchQueue.main.async { root = .none }
             case .active:
                 #if DEBUG
                 if JWTTokenStoreManager().load() == nil {
@@ -53,7 +54,9 @@ struct DaDaIkSeonApp: App {
                 } else {
                     print("현재 토큰 \(JWTTokenStoreManager().load()!)")
                     print("현재 백업 비밀번호 \(BackupPasswordManager().loadPassword())")
-                    localAuthenticate()
+                    if root == .none {
+                        localAuthenticate()
+                    }
                 }
                 #else
                 localAuthenticate()

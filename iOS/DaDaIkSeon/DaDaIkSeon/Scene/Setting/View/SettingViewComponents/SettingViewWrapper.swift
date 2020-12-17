@@ -9,14 +9,15 @@ import SwiftUI
 
 struct SettingViewWrapper<Content: View>: View {
     
-    @Environment(\.presentationMode) private var mode: Binding<PresentationMode>
-    
     private var destinationView: Content
     private var action: (() -> Void)?
+    @ObservedObject var linkManager: MainLinkManager
     
-    init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+    init(linkManager: ObservedObject<MainLinkManager>,
+         action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
         self.destinationView = content()
         self.action = action
+        _linkManager = linkManager
     }
     
     var body : some View {
@@ -29,7 +30,7 @@ struct SettingViewWrapper<Content: View>: View {
                 
                 .navigationBarItems(
                     leading: Button(action: {
-                        mode.wrappedValue.dismiss()
+                        linkManager.change(.main)
                     }, label: {
                         Text("완료").foregroundColor(.black)
                     }),

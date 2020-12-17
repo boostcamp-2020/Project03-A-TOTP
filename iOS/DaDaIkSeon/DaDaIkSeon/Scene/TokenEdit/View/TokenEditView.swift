@@ -11,22 +11,27 @@ struct TokenEditView: View {
     
     // MARK: Property
     
-    @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
-    @EnvironmentObject var navigationFlow: NavigationFlowObject
-    
+    @StateObject private var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
+    @ObservedObject var linkManager: MainLinkManager
     @ObservedObject private var entry = Entry(limit: 17)
-//    @State private var text = ""
     @State private var showingAlert = false
     @State private var segmentedMode = 0
+    var refresh: () -> Void
     
     private var segmentList = ["색상", "아이콘"]
     
-    init(service: TokenServiceable,
+    init(linkManager: ObservedObject<MainLinkManager>,
+         service: TokenServiceable,
          token: Token?,
-         qrCode: String?) {
-        viewModel = AnyViewModel(TokenEditViewModel(service: service,
-                                                    token: token,
-                                                    qrCode: qrCode))
+         qrCode: String?,
+         refresh: @escaping () -> Void
+    ) {
+        _linkManager = linkManager
+        _viewModel = StateObject(
+            wrappedValue: AnyViewModel(TokenEditViewModel(service: service,
+                                                          token: token,
+                                                          qrCode: qrCode)))
+        self.refresh = refresh
     }
     
     // MARK: Body
@@ -77,7 +82,7 @@ struct TokenEditView: View {
                     segmentedMode == 1 ? IconView(action: { name in changeIcon(name) }) : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
-
+                
                 isSmallDevice ? nil : Spacer()
                 
                 saveButton
@@ -126,8 +131,8 @@ extension TokenEditView {
         Button(action: {
             showingAlert = entry.text.isEmpty || entry.text.count > 17
             if !showingAlert {
-                dismiss()
                 addToken()
+                dismiss()
             }
         }, label: {
             HStack {
@@ -156,6 +161,7 @@ extension TokenEditView {
     func addToken() {
         viewModel.trigger(.changeName(entry.text))
         viewModel.trigger(.addToken)
+        refresh()
     }
     
     func changeColor(_ name: String) {
@@ -167,7 +173,7 @@ extension TokenEditView {
     }
     
     func dismiss() {
-        navigationFlow.isActive = false
+        linkManager.change(.main)
     }
     
 }
@@ -186,12 +192,12 @@ struct AlertModifier: ViewModifier {
             }
     }
 }
-
-struct TokenEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        let tokenService = TokenService(StorageManager())
-        TokenEditView(service: tokenService,
-                      token: nil,
-                      qrCode: nil)
-    }
-}
+//
+//struct TokenEditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let tokenService = TokenService(StorageManager())
+//        TokenEditView(service: tokenService,
+//                      token: nil,
+//                      qrCode: nil)
+//    }
+//}
