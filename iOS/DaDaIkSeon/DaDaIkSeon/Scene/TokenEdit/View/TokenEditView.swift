@@ -12,23 +12,26 @@ struct TokenEditView: View {
     // MARK: Property
     
     @StateObject private var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
-    @EnvironmentObject var navigationFlow: NavigationFlowObject
-    @Binding var navigationTag: Int?
+    @ObservedObject var linkManager: MainLinkManager
     @ObservedObject private var entry = Entry(limit: 17)
     @State private var showingAlert = false
     @State private var segmentedMode = 0
+    var refresh: () -> Void
     
     private var segmentList = ["색상", "아이콘"]
     
-    init(service: TokenServiceable,
+    init(linkManager: ObservedObject<MainLinkManager>,
+         service: TokenServiceable,
          token: Token?,
          qrCode: String?,
-         navigationTag: Binding<Int?>) {
-        _navigationTag = navigationTag
+         refresh: @escaping () -> Void
+    ) {
+        _linkManager = linkManager
         _viewModel = StateObject(
             wrappedValue: AnyViewModel(TokenEditViewModel(service: service,
                                                           token: token,
                                                           qrCode: qrCode)))
+        self.refresh = refresh
     }
     
     // MARK: Body
@@ -128,8 +131,8 @@ extension TokenEditView {
         Button(action: {
             showingAlert = entry.text.isEmpty || entry.text.count > 17
             if !showingAlert {
-                dismiss()
                 addToken()
+                dismiss()
             }
         }, label: {
             HStack {
@@ -158,6 +161,7 @@ extension TokenEditView {
     func addToken() {
         viewModel.trigger(.changeName(entry.text))
         viewModel.trigger(.addToken)
+        refresh()
     }
     
     func changeColor(_ name: String) {
@@ -169,8 +173,7 @@ extension TokenEditView {
     }
     
     func dismiss() {
-        navigationTag = nil
-        navigationFlow.isActive = false
+        linkManager.change(.main)
     }
     
 }

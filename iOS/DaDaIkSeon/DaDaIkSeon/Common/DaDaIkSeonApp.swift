@@ -25,7 +25,8 @@ struct DaDaIkSeonApp: App {
         WindowGroup {
             switch root {
             case .main:
-                MainView(service: service).environmentObject(NavigationFlowObject())
+                MainView(service: service)
+                    .environmentObject(NavigationFlowObject())
             case .localAuth:
                 if let pincode = PincodeManager().loadPincode() {
                     PinCodeView(mode: .auth(pincode), completion: { _ in

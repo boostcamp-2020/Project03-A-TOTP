@@ -45,6 +45,7 @@ class CommonHandler: Handlerable {
                             self.showMainScene()
                         case .failedDecryption(let tokens): //
                             self.state.hasBackupPassword = true
+                            self.showMainScene()
                         default:
                             self.showMainScene()
                         }
