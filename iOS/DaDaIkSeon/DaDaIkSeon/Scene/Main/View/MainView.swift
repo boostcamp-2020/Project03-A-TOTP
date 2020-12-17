@@ -63,6 +63,8 @@ struct MainView: View {
                 TOTPTimer.shared.cancel()
             })
         }
+        .navigationBarHidden(true)
+        .ignoresSafeArea(.container, edges: .all)
         .fullScreenCover(isPresented: $hasBackupPassword, content: {
             BackupPasswordView(viewModel: AnyViewModel(
                                 BackupPasswordViewModel(
@@ -74,6 +76,37 @@ struct MainView: View {
         .onTapGesture {
             hideKeyboard()
         }
+        .onChange(of: scenePhase, perform: { newScenePhrase in
+            switch newScenePhrase {
+            case .inactive:
+                navigationTag = Scenes.background.rawValue
+//                if navigationTag == nil {
+//                    DispatchQueue.main.async {
+//                        
+//                    }
+//                }
+            case .active:
+                if navigationTag == Scenes.background.rawValue {
+                    if nil != PincodeManager().loadPincode() {
+                        BiometricIDAuth().authenticateUser { result in
+                            if result == nil { // 생체인증 성공
+                                DispatchQueue.main.async {
+                                    navigationTag = nil
+                                }
+                            } else {            // 생체인증 실패
+                                DispatchQueue.main.async {
+                                    navigationTag = Scenes.pincode.rawValue
+                                }
+                            }
+                        }
+                    } else {
+                        navigationTag = nil
+                    }
+                }
+            default: break
+            }
+            
+        })
     }
     
     // MARK: Views
@@ -158,25 +191,36 @@ struct MainView: View {
     
     var addTokenView: some View {
         viewModel.state.isSearching ? nil :
-            HStack {
-                TokenAddCellView()
+            ZStack {
                 navigaionTable
+                TokenAddCellView()
             }
             .onTapGesture {
                 navigationTag = 0
             }
     }
     
+    // MARK: tag
     @State var navigationTag: Int?
     @State var qrCodeURL: String = ""
+    @Environment(\.scenePhase) var scenePhase
+    
+    enum Scenes: Int {
+        case qrguide = 0
+        case tokenEdit
+        case background
+        case pincode
+    }
     
     var navigaionTable: some View {
-        VStack {
+        Group {
             NavigationLink(
                 "", destination: NavigationLazyView(
-                    QRGuideView(qrCodeURL: $qrCodeURL, navigationTag: $navigationTag)
+                    QRGuideView(
+                        qrCodeURL: $qrCodeURL,
+                        navigationTag: $navigationTag)
                 ).environmentObject(navigationFlow),
-                tag: 0,
+                tag: Scenes.qrguide.rawValue,
                 selection: $navigationTag)
             NavigationLink(
                 "", destination:
@@ -185,8 +229,22 @@ struct MainView: View {
                                   qrCode: qrCodeURL,
                                   navigationTag: $navigationTag)
                     .environmentObject(navigationFlow),
-                tag: 1,
+                tag: Scenes.tokenEdit.rawValue,
                 selection: $navigationTag)
+            NavigationLink(
+                "", destination: BackgroundView(),
+                tag: Scenes.background.rawValue,
+                selection: $navigationTag)
+            if let password = PincodeManager().loadPincode() {
+                NavigationLink(
+                    "", destination: PinCodeView(
+                        mode: .auth(password),
+                        completion: { _ in
+                            navigationTag = nil
+                        }),
+                    tag: Scenes.pincode.rawValue,
+                    selection: $navigationTag)
+            }
         }
     }
     
