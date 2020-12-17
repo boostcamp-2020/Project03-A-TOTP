@@ -1,63 +1,36 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { DefaultInput, PasswordInput, EmailInput, PhoneInput } from '@components/common';
 import { verify } from '@utils/verify';
-import { checkIDDuplicateAPI, checkEmailDuplicateAPI, registerUserAPI } from '@api/index';
+import { registerUserAPI } from '@api/index';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useHistory } from 'react-router-dom';
 import { Buffer } from 'buffer';
-import { useInput } from '@hooks/index';
+import { useInput, usePasswordInput, useSignUpInput } from '@hooks/index';
 import { AuthForm } from '@components/common/AuthForm';
 import { message } from '@utils/message';
 
 const SignUpComponent = (): JSX.Element => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const history = useHistory();
-  const [id, setID] = useInput('');
   const [name, setName] = useInput('');
   const [birth, setBirth] = useInput('');
-  const [password, setPassword] = useInput('');
-  const [rePassword, setRePassword] = useInput('');
-  const [accord, setAccord] = useState(true);
-  const [firstEmail, setFirstEmail] = useInput('');
-  const [secondEmail, setSecondEmail] = useInput('');
-  const [emailState, setEmailState] = useState(true);
+  const { password, setPassword, rePassword, setRePassword, accord } = usePasswordInput();
   const [firstPhone, setFirstPhone] = useInput('');
   const [secondPhone, setSecondPhone] = useInput('');
   const [thirdPhone, setThirdPhone] = useInput('');
-  const [idCheck, setIDCheck] = useState('');
-  const [emailCheck, setEmailCheck] = useState('');
-
-  const checkIDDuplicateEventHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    try {
-      e.preventDefault();
-      const result = await checkIDDuplicateAPI({ id });
-      if (!result) {
-        alert(message.ALREADYID);
-        setIDCheck('-1');
-        return;
-      }
-      alert(message.POSSIBLEID);
-      setIDCheck(id);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const checkEmailDuplicateEventHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    try {
-      e.preventDefault();
-      const result = await checkEmailDuplicateAPI({ email: `${firstEmail}@${secondEmail}` });
-      if (!result) {
-        alert(message.ALREADYEMAIL);
-        setEmailCheck('-1');
-        return;
-      }
-      alert(message.POSSIBLEEMAIL);
-      setEmailCheck(`${firstEmail}@${secondEmail}`);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const {
+    idCheck,
+    emailCheck,
+    id,
+    setID,
+    firstEmail,
+    secondEmail,
+    setFirstEmail,
+    onChangeEmail,
+    emailState,
+    checkIDDuplicateEventHandler,
+    checkEmailDuplicateEventHandler,
+  } = useSignUpInput();
 
   const submitEventHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,28 +68,6 @@ const SignUpComponent = (): JSX.Element => {
     history.push(`/QRCode/${url}`);
   };
 
-  const toggleAccord = useCallback(() => {
-    if (password !== rePassword) setAccord(false);
-    else setAccord(true);
-  }, [password, rePassword]);
-
-  useEffect(() => {
-    toggleAccord();
-  }, [toggleAccord]);
-
-  useEffect(() => {
-    if (secondEmail.indexOf('.') !== -1 || secondEmail === '') setEmailState(true);
-    else setEmailState(false);
-  }, [secondEmail]);
-
-  useEffect(() => {
-    setIDCheck('-1');
-  }, [id]);
-
-  useEffect(() => {
-    setEmailCheck('-1');
-  }, [firstEmail, secondEmail]);
-
   return (
     <AuthForm title='SIGN UP' action='' onSubmit={submitEventHandler} submitButtonText='회원가입'>
       <DefaultInput value={name} type='text' placeholder='Name' onChange={setName} />
@@ -149,7 +100,7 @@ const SignUpComponent = (): JSX.Element => {
         secondValue={secondEmail}
         type='text'
         onChangeFirst={setFirstEmail}
-        onChangeSecond={setSecondEmail}
+        onChangeSecond={onChangeEmail}
         buttonEvent={checkEmailDuplicateEventHandler}
         representWarning={emailState}
       />

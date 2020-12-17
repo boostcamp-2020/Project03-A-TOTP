@@ -15,15 +15,15 @@ export const confirmEmailAPI = async (query: string): Promise<string> => {
   return data;
 };
 
-export const checkIDDuplicateAPI = async ({ id }: { id: string }): Promise<boolean> => {
+export const checkIDDuplicateAPI = async (params: string): Promise<boolean> => {
   const apiurl = `/api/auth/dup-id`;
-  const { data } = await axios.post(apiurl, { id });
+  const { data } = await axios.post(apiurl, { id: params });
   return data.result;
 };
 
-export const checkEmailDuplicateAPI = async ({ email }: { email: string }): Promise<boolean> => {
+export const checkEmailDuplicateAPI = async (params: string): Promise<boolean> => {
   const apiurl = `/api/user/dup-email`;
-  const { data } = await axios.post(apiurl, { email });
+  const { data } = await axios.post(apiurl, { email: params });
   return data.result;
 };
 
@@ -57,7 +57,7 @@ interface loginWithOTPParams {
 }
 
 interface loginWithOTPResponse {
-  result: boolean;
+  userName: string;
 }
 
 export const loginWithOTP = async (params: loginWithOTPParams): Promise<loginWithOTPResponse> => {

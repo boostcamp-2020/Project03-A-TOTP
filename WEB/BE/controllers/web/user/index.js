@@ -3,6 +3,8 @@ const userService = require('@/services/web/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
 const { emailSender } = require('@/utils/emailSender');
+const createError = require('http-errors');
+const DB = require('@models/sequelizeWEB');
 const totp = require('@utils/totp');
 
 const userController = {
@@ -19,16 +21,20 @@ const userController = {
     const secretKey = totp.makeSecretKey();
     const url = totp.makeURL({ secretKey, email: req.body.email });
     const encryptPassword = await getEncryptedPassword(password);
-    const insertResult = await userService.insert({ userInfo });
-    const result = await authService.insert({
-      idx: insertResult.dataValues.idx,
-      id,
-      password: encryptPassword,
-      isVerified: '0',
-      secretKey,
+
+    await DB.sequelize.transaction(async () => {
+      const insertResult = await userService.insert({ userInfo });
+      const result = await authService.insert({
+        idx: insertResult.dataValues.idx,
+        id,
+        password: encryptPassword,
+        isVerified: '0',
+        secretKey,
+      });
+
+      emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
+      res.json({ result, url });
     });
-    emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
-    res.json({ result, url });
   },
 
   async dupEmail(req, res) {
@@ -37,14 +43,11 @@ const userController = {
     res.json({ result });
   },
 
-  async confirmEmail(req, res) {
+  async confirmEmail(req, res, next) {
     const user = decryptWithAES256({ encryptedText: req.query.user }).split(' ');
     const time = user[1];
     const idx = user[2];
-    if (time < Date.now()) {
-      res.status(400).json({ result: false });
-      return;
-    }
+    if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
     const info = {
       isVerified: 1,
       idx,
@@ -55,15 +58,13 @@ const userController = {
     res.json({ result: true });
   },
 
-  async findID(req, res) {
+  async findID(req, res, next) {
     const { email, name } = req.body;
 
     const userInfo = encrypUserInfo({ userInfo: req.body });
     const user = await userService.findAuthByUser({ userInfo });
 
-    if (!user) {
-      return res.status(400).json({ message: '없는 사용자' });
-    }
+    if (!user) return next(createError(400, '존재하지 않는 사용자입니다.'));
 
     emailSender.sendId(email, name, user.auth.id);
     res.json(true);
