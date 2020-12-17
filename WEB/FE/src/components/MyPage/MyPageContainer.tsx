@@ -9,7 +9,6 @@ import 'react-tabs/style/react-tabs.css';
 import { AxiosError } from 'axios';
 import { PasswordModal } from '@components/PasswordModal/PasswordModal';
 import { getUser, updateUser, sendPassword, receiveLogs } from '@api/index';
-import storageHandler from '@utils/localStorage';
 import { HeadingSection } from '@components/common/Section/HeadingSection';
 
 const UNAUTHORIZED = 401;
