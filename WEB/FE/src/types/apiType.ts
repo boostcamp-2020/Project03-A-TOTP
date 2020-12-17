@@ -92,3 +92,7 @@ export interface sendSecretKeyEmailParams {
   authToken: string;
   reCaptchaToken: string;
 }
+
+export interface reSendReturn {
+  message: string;
+}
