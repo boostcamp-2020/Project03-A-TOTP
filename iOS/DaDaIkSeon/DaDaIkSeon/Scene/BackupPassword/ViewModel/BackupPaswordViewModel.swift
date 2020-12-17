@@ -32,10 +32,9 @@ class BackupPasswordViewModel: ViewModel {
                 state.enable = true
             }
         case .inputPasswordCheck(let last, let current):
-            if current.count > 0 {
+            if current.count > 5 {
                 if last == current {
                     state.enable = true
-                    state.errorMessage = .none
                 } else {
                     state.enable = false
                     state.errorMessage = .isNotSame
