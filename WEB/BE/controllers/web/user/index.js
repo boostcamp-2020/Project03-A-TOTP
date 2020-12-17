@@ -4,6 +4,7 @@ const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
 const { emailSender } = require('@/utils/emailSender');
 const createError = require('http-errors');
+const DB = require('@models/sequelizeWEB');
 const totp = require('@utils/totp');
 
 const userController = {
@@ -20,16 +21,20 @@ const userController = {
     const secretKey = totp.makeSecretKey();
     const url = totp.makeURL({ secretKey, email: req.body.email });
     const encryptPassword = await getEncryptedPassword(password);
-    const insertResult = await userService.insert({ userInfo });
-    const result = await authService.insert({
-      idx: insertResult.dataValues.idx,
-      id,
-      password: encryptPassword,
-      isVerified: '0',
-      secretKey,
+
+    await DB.sequelize.transaction(async () => {
+      const insertResult = await userService.insert({ userInfo });
+      const result = await authService.insert({
+        idx: insertResult.dataValues.idx,
+        id,
+        password: encryptPassword,
+        isVerified: '0',
+        secretKey,
+      });
+
+      emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
+      res.json({ result, url });
     });
-    emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
-    res.json({ result, url });
   },
 
   async dupEmail(req, res) {

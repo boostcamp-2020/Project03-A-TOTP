@@ -2,7 +2,7 @@ const authService = require('@/services/web/auth');
 const totp = require('@/utils/totp');
 const JWT = require('jsonwebtoken');
 const createError = require('http-errors');
-const DB = require('@models/sequelizeIOS');
+const DB = require('@models/sequelizeWEB');
 const { emailSender } = require('@utils/emailSender');
 const { decryptWithAES256 } = require('@utils/crypto');
 
@@ -40,7 +40,6 @@ const checkLoingCount = async (id, next) => {
     user: { email, name, idx },
   } = auth;
   if (auth.login_fail_count === 5) {
-    /** @TODO 트랜젝션 */
     await DB.sequelize.transaction(async () => {
       await authService.userDeactivation({ id });
       await authService.loginFail({ id });

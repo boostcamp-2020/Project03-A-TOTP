@@ -15,7 +15,6 @@ const tokenController = {
       };
     });
 
-    /** @TODO 트랜젝션 */
     await DB.sequelize.transaction(async () => {
       await tokenService.addTokens(tokens);
       await userService.updateDateTimeByNow({ idx: user.idx });
@@ -50,7 +49,6 @@ const tokenController = {
       const result = await tokenService.updateToken(token, id);
 
       if (result !== 0) {
-        /** @TODO 트랜젝션 */
         await userService.updateDateTimeByNow({ idx: user.idx });
         res.json({ message: 'ok' });
       } else res.status(400).json({ mgessage: 'There is no token' });
@@ -64,7 +62,6 @@ const tokenController = {
       const result = await tokenService.delTokenByTokenId({ id });
 
       if (result !== 0) {
-        /** @TODO 트랜젝션 */
         await userService.updateDateTimeByNow({ idx: user.idx });
         res.json({ message: 'ok' });
       } else res.status(400).json({ mgessage: 'There is no token' });
@@ -81,8 +78,6 @@ const tokenController = {
       delete token.isMain;
       return token;
     });
-
-    /** @TODO 트랜젝션 */
 
     await DB.sequelize.transaction(async (t) => {
       await tokenService.delTokenByUserId({ userIdx: user.idx }, t);
