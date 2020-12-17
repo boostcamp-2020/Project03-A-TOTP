@@ -113,6 +113,19 @@ const userController = {
     );
     res.json({ message: 'ok' });
   },
+
+  async makeQRUrl(req, res, next) {
+    const { url } = req.body;
+    const users = decryptWithAES256({ encryptedText: decodeURIComponent(url) }).split(' ');
+    const id = users[0];
+    const time = users[1];
+    if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
+
+    const { secret_key: secretKey, user } = await authService.getUserById({ id });
+    const qrUrl = totp.makeURL({ secretKey, email: user.email });
+
+    res.json({ url: qrUrl });
+  },
 };
 
 const encrypUserInfo = ({ userInfo }) => {
