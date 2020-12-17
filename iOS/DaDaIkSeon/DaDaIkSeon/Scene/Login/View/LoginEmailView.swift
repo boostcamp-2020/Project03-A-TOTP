@@ -98,7 +98,7 @@ private extension LoginEmailView {
     
     func sendButtonDidTap(_ emailText: String) {
         let device = Device(name: UIDevice.current.name,
-                            udid: UIDevice.current.identifierForVendor?.uuidString ?? "",
+                            udid: DeviceIDManager().load() ?? "",
                             modelName: UIDevice.current.model,
                             backup: true,
                             lastUpdate: "1970-01-02T00:00:00.000Z")

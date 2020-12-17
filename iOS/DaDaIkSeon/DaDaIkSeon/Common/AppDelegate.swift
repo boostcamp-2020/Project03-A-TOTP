@@ -11,6 +11,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        checkDeviceID()
         clearKeychainIfWillUnistall()
         return true
     }
@@ -18,6 +19,16 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         UserDefaults.standard.set(true,
                                   forKey: "isEmailView")
+    }
+    
+    func checkDeviceID() {
+        if DeviceIDManager().load() == nil {
+            let deviceID = UUID().uuidString
+            DeviceIDManager().store(deviceID)
+            print("처음 깔았어요")
+        } else {
+            print("처음 깔지 않았어요 이 기기의 ID는 \(DeviceIDManager().load()!)")
+        }
     }
     
     func clearKeychainIfWillUnistall() {

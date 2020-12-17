@@ -18,7 +18,7 @@ struct SettingView: View {
     @ObservedObject var linkManager: MainLinkManager
     
     init(linkManager: ObservedObject<MainLinkManager>) {
-        let udid = UIDevice.current.identifierForVendor?.uuidString
+        let udid = DeviceIDManager().load() ?? ""
         // udid 없으면 error처리, 기기정보를 읽을 수 없다고
         viewModel = AnyViewModel(SettingViewModel(udid: udid ?? ""))
         self._linkManager = linkManager
@@ -66,13 +66,3 @@ struct SettingView: View {
         }
     }
 }
-//
-//struct SettingPreview: PreviewProvider {
-//    
-//    static var previews: some View {
-//        NavigationView {
-//            SettingView(linkManager: <#ObservedObject<MainLinkManager>#>)
-//        }
-//    }
-//    
-//}

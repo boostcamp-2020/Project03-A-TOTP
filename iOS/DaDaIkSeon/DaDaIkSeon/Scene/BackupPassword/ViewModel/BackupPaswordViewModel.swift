@@ -32,10 +32,9 @@ class BackupPasswordViewModel: ViewModel {
                 state.enable = true
             }
         case .inputPasswordCheck(let last, let current):
-            if current.count > 0 {
+            if current.count > 5 {
                 if last == current {
                     state.enable = true
-                    state.errorMessage = .none
                 } else {
                     state.enable = false
                     state.errorMessage = .isNotSame
@@ -77,12 +76,13 @@ extension BackupPasswordViewModel {
                         self.setBackupPassword()
                         self.state.next = true
                     }
-                case .noBackupPassword:
+                case .noBackupPassword(let tokens):
                     print("백업 패스워드가 없어서 설정해야함.")
-                    self.state.isMultiUser = false
+                    self.state.isMultiUser = !tokens.isEmpty
+                    
                     if !isInit {
                         self.setBackupPassword()
-                        self.state.next = true
+                        self.state.next = self.decryptTokenKeys(tokens)
                     }
                 default:
                     print("비밀번호 두개 다 입력하고 아무것도 안 뜸")
@@ -108,6 +108,7 @@ extension BackupPasswordViewModel {
     
     func setBackupPassword() {
         BackupPasswordManager().storePassword(state.backupPassword)
+        print("백업패스워드 키체인 저장 \(state.backupPassword)")
     }
     
 }
