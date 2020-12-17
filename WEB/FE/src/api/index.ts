@@ -164,3 +164,8 @@ export const reSend = async (id: string): Promise<any> => {
   const { data } = await axios.post('api/user/reSend', { id });
   return data;
 };
+
+export const qrAPI = async (url: string): Promise<any> => {
+  const { data } = await axios.post('/api/user/getQr', { url });
+  return data;
+};
