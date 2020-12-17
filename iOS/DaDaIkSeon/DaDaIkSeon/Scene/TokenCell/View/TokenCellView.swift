@@ -31,6 +31,7 @@ struct TokenCellView: View {
                                token: token,
                                isMainCell: isMain,
                                refreshAction: refreshAction))
+        
         self.isMainCell = isMain
         self.isSelected = isSelected ?? false
         _checkBoxMode = checkBoxMode
@@ -52,13 +53,14 @@ struct TokenCellView: View {
                         checkBoxMode ? nil : showEditView()
                     })
                     .sheet(isPresented: $viewModel.state.isShownEditView,
-                           onDismiss: { hideEditView() },
                            content: { 
                             TokenEditView(
                                 linkManager: ObservedObject(wrappedValue: MainLinkManager()),
                                 service: viewModel.state.service,
-                                          token: viewModel.state.token,
-                                qrCode: nil, refresh: {})
+                                token: viewModel.state.token,
+                                qrCode: nil, refresh: {
+                                    viewModel.trigger(.hideEditView)
+                                })
                            })
                 Spacer()
                 
