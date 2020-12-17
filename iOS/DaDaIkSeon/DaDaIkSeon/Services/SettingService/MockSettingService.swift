@@ -17,11 +17,9 @@ class MockSettingService: SettingServiceable {
         UserNetworkManager.shared.load { (result) in
             switch result {
             case .refresh(var serverUser):
-                guard var user = DDISUserCache.get() else { return }
+                guard let user = DDISUserCache.get() else { return }
                 serverUser.device = user.device
-                user.devices = serverUser.devices
-                user = serverUser
-                DDISUserCache.save(user)
+                DDISUserCache.save(serverUser)
                 updateView(result)
             default:
                 updateView(result)
@@ -60,7 +58,9 @@ class MockSettingService: SettingServiceable {
                 case .backupToggle:
                     guard var user = DDISUserCache.get() else { return }
                     if var devices = user.devices {
-                        if let index = devices.firstIndex(where: { $0.udid ==  user.device?.udid }) {
+                        if let index = devices.firstIndex(where: {
+                            $0.udid ==  user.device?.udid
+                        }) {
                             devices[index].backup = backup
                             user.devices = devices
                         }
@@ -166,4 +166,3 @@ class MockSettingService: SettingServiceable {
         pincodeManager.storePincode(pincode)
     }
 }
-

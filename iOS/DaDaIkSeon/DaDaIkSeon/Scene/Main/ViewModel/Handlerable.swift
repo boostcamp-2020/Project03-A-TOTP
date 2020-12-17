@@ -29,11 +29,14 @@ class CommonHandler: Handlerable {
         guard let input = input else { return }
         switch input {
         case .refreshTokens:
+            
             #if DEBUG
+            
             if BackupPasswordManager().loadPassword() == nil {
                 state.hasBackupPassword = true
                 return
             }
+            
             if isBackup() { // 네트워크 - 데이터를 받아서 최신걸로 저장
                 state.service.refreshTokens { result in
                     DispatchQueue.main.async { [weak self] in
@@ -43,15 +46,15 @@ class CommonHandler: Handlerable {
                             self.showMainScene()
                         case .successLoad:
                             self.showMainScene()
-                        case .failedDecryption(let tokens): //
+                        case .failedDecryption:
                             self.state.hasBackupPassword = true
-                            self.showMainScene()
-                            break
                         default:
                             self.showMainScene()
                         }
                     }
                 }
+            } else {
+                print("백업모드 아님")
             }
             #endif
             showMainScene()
@@ -82,23 +85,14 @@ class CommonHandler: Handlerable {
         state.isSearching = false
     }
     
+    // error 처리 해야됨 throws
     func isBackup() -> Bool {
-        if let data = UserDefaults.standard.value(forKey: "DDISUser") as? Data {
-            // 있따.
-            if let user = try? PropertyListDecoder().decode(DDISUser.self, from: data) {
-                if user.device?.backup != true {
-                    // 네트워크
-                    return true
-                } else { // false
-                    return false
-                }
-            } else {
-                print("don't parsing")
-                return false
-            }
+        if let user = DDISUserCache.get() {
+            return user.device?.backup ?? false
         } else {
-            print("is not presented")
+            print("유저 정보 불러오기 실패")
             return false
         }
     }
+    
 }

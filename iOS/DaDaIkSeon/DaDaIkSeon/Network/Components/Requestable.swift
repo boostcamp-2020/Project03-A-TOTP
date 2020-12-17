@@ -40,6 +40,8 @@ extension Requestable {
                   let response = response as? HTTPURLResponse else { return }
             let responseCode = response.statusCode
             
+            print("주소 : \(url), \(request.httpMethod)")
+            print("디바이스 수정된시간 \(DDISUserCache.get()?.device?.lastUpdate)")
             print(String(data: data, encoding: .utf8))
             
             if error != nil {

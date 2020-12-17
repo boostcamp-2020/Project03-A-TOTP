@@ -53,7 +53,9 @@ final class TokenService: TokenServiceable {
         // case server - 서버 데이터로 로컬 데이터를 수정해주고, service에 있는 tokens도 변경해주고 show 하게 함
         // case error -> alert 띄우게
         
-        TokenNetworkManager.shared.load { [self] result in
+        TokenNetworkManager.shared.load {
+            
+            [self] result in
             switch result {
             case .successLoad(let serverData): // 시간 비교.
                 if let time = serverData.lastUpdate {
@@ -65,22 +67,22 @@ final class TokenService: TokenServiceable {
                         } else { // 서버가 최신
                             // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
                             if let tokens = serverData.tokens {
-                                
                                 if tokens.count == 0 {
                                     updateView(.noTokens)
                                     return
                                 }
-                                
                                 switch self.decryptTokenKeys(tokens: tokens) {
-                                
                                 case .successLoad(let decryptedResult): // 복호화 성공
                                     //TODO: 서버 시간으로 업데이트 해야함
                                     if let decryptedTokens = decryptedResult.tokens {
                                         self.tokens = decryptedTokens // service에 있는 tokens 업데이트
                                         designateMain()
-                                        _ = storageManager.storeTokens(decryptedTokens)
                                         updateView(.successLoad(decryptedResult))
                                         print("디크립트 성공")
+                                        if var user = DDISUserCache.get() {
+                                            user.device?.lastUpdate = time
+                                            DDISUserCache.save(user)
+                                        }
                                     } else {
                                         print("디크립트 실패")
                                     }
@@ -89,6 +91,7 @@ final class TokenService: TokenServiceable {
                                     tokens.isEmpty
                                         ? updateView(.noTokens)
                                         : updateView(.failedDecryption(tokens))
+                                    
                                 case .noBackupPassword:
                                     print("noBackupPassword 리프레시")
                                     updateView(.noBackupPassword(tokens))
@@ -109,6 +112,38 @@ final class TokenService: TokenServiceable {
                 } else {
                     print("시간값이 없다.")
                 }
+            default: break
+            }
+        }
+    }
+    
+    func syncToServer(lastupdateTime: String,
+                      _ updateView: @escaping (MainNetworkResult) -> Void) {
+        // 암호화
+        var encryptedTokens = [Token]()
+        tokens.forEach {
+            var token = $0
+            if let password = getPassword() {
+                if let key = token.key {
+                    do {
+                        token.key = try TokenCryptoManager(password).encrypt(with: key)
+                    } catch {
+                        updateView(.failedEncryption)
+                        print("치명적(fatal)error", error)
+                    }
+                }
+            } else {
+                print("백업 비밀번호가 없다!")
+                updateView(.noBackupPassword([]))
+            }
+            encryptedTokens.append(token)
+        }
+        
+        TokenNetworkManager.shared.syncTokens(
+            lastUpdate: lastupdateTime, tokens: encryptedTokens) { result in
+            switch result {
+            case .successLoad:
+                print("성공")
             default: break
             }
         }
@@ -241,11 +276,18 @@ extension TokenService {
             guard let deviceTime = user.device?.lastUpdate?.timeFormatToDate() else {
                 throw TimeError.localTime
             }
-            guard let serverTime = time.timeFormatToDate() else {
+            guard var serverTime = time.timeFormatToDate() else {
                 throw TimeError.serverTime
             }
             
-            return deviceTime > serverTime
+            serverTime = Calendar.current.date(byAdding: .hour, value: 9, to: serverTime)!
+            if deviceTime <= serverTime { // 서버가 최신
+                print("서버가 최신이다.. 로컬: \(deviceTime), 서버: \(serverTime)")
+                return false
+            } else {
+                print("지금 로컬이 최신이다.. 로컬: \(deviceTime), 서버: \(serverTime)")
+                return true
+            }
         } else {
             // 불러오기 실패
             return true
@@ -267,7 +309,6 @@ extension TokenService {
                     } catch {
                         result = .failedDecryption(tokens)
                         return
-                        // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
                     }
                 }
             } else {
@@ -278,7 +319,6 @@ extension TokenService {
                         } catch {
                             result = .failedDecryption(tokens)
                             return
-                            // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
                         }
                     }
                 } else {
@@ -289,43 +329,13 @@ extension TokenService {
             decryptedTokens.append(token)
             result = .successLoad(TokenNetworkType(lastUpdate: nil, tokens: decryptedTokens))
         }
+        
+        self.tokens = decryptedTokens
+        _ = storageManager.storeTokens(decryptedTokens)
         return result
     }
     
-    func syncToServer(lastupdateTime: String,
-                      _ updateView: @escaping (MainNetworkResult) -> Void) {
-        // 암호화
-        var encryptedTokens = [Token]()
-        tokens.forEach {
-            var token = $0
-            if let password = BackupPasswordManager().loadPassword() {
-                if let key = token.key {
-                    do {
-                        token.key = try TokenCryptoManager(password).encrypt(with: key)
-                    } catch {
-                        updateView(.failedEncryption)
-                        print("치명적(fatal)error", error)
-                    }
-                }
-            } else {
-                print("백업 비밀번호가 없다!")
-                updateView(.noBackupPassword([]))
-                // main queue { 만약 복호화 실패시 ->  hasBackupPassword = true }
-            }
-            encryptedTokens.append(token)
-        }
-        
-        //let device = DDISUserCache.get()
-        
-        TokenNetworkManager.shared.syncTokens(
-            lastUpdate: lastupdateTime, tokens: encryptedTokens) { result in
-            switch result {
-            case .successLoad:
-                print("성공")
-            default: break
-            }
-        }
-    }
+    
 }
 
 enum TimeError: Error {

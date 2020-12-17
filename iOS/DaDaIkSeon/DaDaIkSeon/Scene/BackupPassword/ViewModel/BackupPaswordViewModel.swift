@@ -67,9 +67,9 @@ extension BackupPasswordViewModel {
                 case .failedDecryption(let tokens):
                     print("비밀번호 틀림, 다시호출 \(tokens)")
                     self.state.isMultiUser = true
-                    if !isInit && self.decryptTokenKeys(tokens) {
+                    if !isInit {
                         self.setBackupPassword()
-                        self.state.next = true
+                        self.state.next = self.decryptTokenKeys(tokens)
                     }
                 case .noTokens:
                     print("토큰이 아무것도 없는 경우")
@@ -81,9 +81,9 @@ extension BackupPasswordViewModel {
                     print("백업 패스워드가 없어서 설정해야함.")
                     self.state.isMultiUser = !tokens.isEmpty
                     
-                    if !isInit && self.decryptTokenKeys(tokens) {
+                    if !isInit {
                         self.setBackupPassword()
-                        self.state.next = true
+                        self.state.next = self.decryptTokenKeys(tokens)
                     }
                 default:
                     print("비밀번호 두개 다 입력하고 아무것도 안 뜸")
