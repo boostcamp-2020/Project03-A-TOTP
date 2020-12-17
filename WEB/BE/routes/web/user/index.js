@@ -5,6 +5,7 @@ const userController = require('@/controllers/web/user');
 const { validator, reCAPTCHA, sessionAuthentication } = require('@middlewares');
 const { catchErrors } = require('@utils/util');
 
+router.post('/getQr', catchErrors(userController.makeQRUrl));
 /**
  * @swagger
  * tags:
@@ -301,4 +302,5 @@ router.use(sessionAuthentication.sessionCheck);
  */
 router.get('/', catchErrors(userController.getUser));
 router.patch('/', validator(['name', 'email', 'phone', 'birth']), catchErrors(userController.updateUser));
+
 module.exports = router;
