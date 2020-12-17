@@ -11,11 +11,10 @@ struct TokenEditView: View {
     
     // MARK: Property
     
-    @ObservedObject var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
+    @StateObject private var viewModel: AnyViewModel<TokenEditState, TokenEditInput>
     @EnvironmentObject var navigationFlow: NavigationFlowObject
-    
+    @Binding var navigationTag: Int?
     @ObservedObject private var entry = Entry(limit: 17)
-//    @State private var text = ""
     @State private var showingAlert = false
     @State private var segmentedMode = 0
     
@@ -23,10 +22,13 @@ struct TokenEditView: View {
     
     init(service: TokenServiceable,
          token: Token?,
-         qrCode: String?) {
-        viewModel = AnyViewModel(TokenEditViewModel(service: service,
-                                                    token: token,
-                                                    qrCode: qrCode))
+         qrCode: String?,
+         navigationTag: Binding<Int?>) {
+        _navigationTag = navigationTag
+        _viewModel = StateObject(
+            wrappedValue: AnyViewModel(TokenEditViewModel(service: service,
+                                                          token: token,
+                                                          qrCode: qrCode)))
     }
     
     // MARK: Body
@@ -77,7 +79,7 @@ struct TokenEditView: View {
                     segmentedMode == 1 ? IconView(action: { name in changeIcon(name) }) : nil
                 }
                 .padding(.horizontal, isSmallDevice ? 20 : 40)
-
+                
                 isSmallDevice ? nil : Spacer()
                 
                 saveButton
@@ -167,6 +169,7 @@ extension TokenEditView {
     }
     
     func dismiss() {
+        navigationTag = nil
         navigationFlow.isActive = false
     }
     
@@ -186,12 +189,12 @@ struct AlertModifier: ViewModifier {
             }
     }
 }
-
-struct TokenEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        let tokenService = TokenService(StorageManager())
-        TokenEditView(service: tokenService,
-                      token: nil,
-                      qrCode: nil)
-    }
-}
+//
+//struct TokenEditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let tokenService = TokenService(StorageManager())
+//        TokenEditView(service: tokenService,
+//                      token: nil,
+//                      qrCode: nil)
+//    }
+//}

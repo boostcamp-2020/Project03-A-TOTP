@@ -56,7 +56,8 @@ struct TokenCellView: View {
                            content: { 
                             TokenEditView(service: viewModel.state.service,
                                           token: viewModel.state.token,
-                                          qrCode: nil)
+                                          qrCode: nil,
+                                          navigationTag: .constant(nil))
                            })
                 Spacer()
                 

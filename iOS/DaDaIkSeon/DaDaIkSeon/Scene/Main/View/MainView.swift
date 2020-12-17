@@ -157,19 +157,39 @@ struct MainView: View {
     }
     
     var addTokenView: some View {
-        viewModel.state.isSearching ?
-            nil : NavigationLink(
-                destination: NavigationLazyView(
-                    QRGuideView(service: viewModel.state.service)
-                ).environmentObject(navigationFlow),
-                isActive: $navigationFlow.isActive,
-                label: {
-                    TokenAddCellView()
-                }
-                
-            )
+        viewModel.state.isSearching ? nil :
+            HStack {
+                TokenAddCellView()
+                navigaionTable
+            }
+            .onTapGesture {
+                navigationTag = 0
+            }
     }
-
+    
+    @State var navigationTag: Int?
+    @State var qrCodeURL: String = ""
+    
+    var navigaionTable: some View {
+        VStack {
+            NavigationLink(
+                "", destination: NavigationLazyView(
+                    QRGuideView(qrCodeURL: $qrCodeURL, navigationTag: $navigationTag)
+                ).environmentObject(navigationFlow),
+                tag: 0,
+                selection: $navigationTag)
+            NavigationLink(
+                "", destination:
+                    TokenEditView(service: viewModel.state.service,
+                                  token: nil,
+                                  qrCode: qrCodeURL,
+                                  navigationTag: $navigationTag)
+                    .environmentObject(navigationFlow),
+                tag: 1,
+                selection: $navigationTag)
+        }
+    }
+    
 }
 
 struct MainView_Previews: PreviewProvider {
