@@ -53,17 +53,16 @@ final class TokenService: TokenServiceable {
         // case server - 서버 데이터로 로컬 데이터를 수정해주고, service에 있는 tokens도 변경해주고 show 하게 함
         // case error -> alert 띄우게
         
-        TokenNetworkManager.shared.load {
-            
-            [self] result in
+        TokenNetworkManager.shared.load { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .successLoad(let serverData): // 시간 비교.
                 if let time = serverData.lastUpdate {
                     do {
                         if try self.isRecentLocal(time: time) { // 로컬이 최신
-                            designateMain()
+                            self.designateMain()
                             updateView(result) // showMain 실행
-                            syncToServer(lastupdateTime: time, updateView)
+                            self.syncToServer(lastupdateTime: time, updateView)
                         } else { // 서버가 최신
                             // 서버 데이터를 로컬에 저장 - 복호화 시도 - 성공 or 실패
                             if let tokens = serverData.tokens {
@@ -76,7 +75,7 @@ final class TokenService: TokenServiceable {
                                     //TODO: 서버 시간으로 업데이트 해야함
                                     if let decryptedTokens = decryptedResult.tokens {
                                         self.tokens = decryptedTokens // service에 있는 tokens 업데이트
-                                        designateMain()
+                                        self.designateMain()
                                         updateView(.successLoad(decryptedResult))
                                         print("디크립트 성공")
                                         if var user = DDISUserCache.get() {
@@ -101,8 +100,8 @@ final class TokenService: TokenServiceable {
                                 // 성공하면 그대로 로컬 데이터 업데이트 - success - showMain 어쩌구 실행
                                 // 실패하면 비밀 번호 설정하도록 유도 - failDecrption - (비번 다시 설정, 비번설정)
                             } else { // 토큰이 없음 -> 모두 삭제한 게 최신이라는 의미 - 데이터 없음!
-                                tokens.removeAll()
-                                _ = storageManager.deleteTokens()
+                                self.tokens.removeAll()
+                                _ = self.storageManager.deleteTokens()
                                 updateView(.noTokens)
                             }
                         }
