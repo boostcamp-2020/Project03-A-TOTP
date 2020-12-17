@@ -41,9 +41,7 @@ const LogInForm = ({ onSuccess }: LogInFormProps): JSX.Element => {
               }
             });
           }
-          return;
         }
-        alert(err.response?.data?.message || err.message);
       })
       .finally(() => setIsSubmitting(false));
   };

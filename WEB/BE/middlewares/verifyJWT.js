@@ -17,7 +17,7 @@ const verifyJWT = {
       const lastOtp = await authService.getOTPById({ id });
 
       if (String(lastOtp) === digits)
-        next(createError(400, '한번 사용된 OTP입니다 다음 OTP 정보를 이용하세요'));
+        return next(createError(488, '한번 사용된 OTP입니다 다음 OTP 정보를 이용하세요'));
 
       if (!(await checkLoingCount(id, next))) return;
 
@@ -25,7 +25,7 @@ const verifyJWT = {
       const result = totp.verifyDigits(secretKey, digits);
       if (!result) {
         await authService.loginFail({ id });
-        next(createError(400, 'TOTP 6자리가 틀렸습니다.'));
+        return next(createError(488, 'TOTP 6자리가 틀렸습니다.'));
       }
       next();
     } catch (e) {
