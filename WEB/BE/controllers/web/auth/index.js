@@ -124,13 +124,14 @@ const authController = {
     const { id } = JWT.verify(authToken, process.env.ENCRYPTIONKEY);
     const { user } = await authService.getUserById({ id });
     const secretKey = totp.makeSecretKey();
-
+    const time = Date.now();
+    const url = encryptWithAES256({ Text: `${id} ${time + 7200000}` });
     await authService.reissueSecretKey({ id, secretKey });
     await emailSender.sendSecretKey({
       id,
       email: decryptWithAES256({ encryptedText: user.email }),
       name: decryptWithAES256({ encryptedText: user.name }),
-      totpURL: totp.makeURL({ secretKey, email: user.email }),
+      totpURL: url,
     });
 
     res.json({ message: 'ok' });
