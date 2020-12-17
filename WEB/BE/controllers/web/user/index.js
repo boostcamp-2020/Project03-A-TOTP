@@ -60,6 +60,7 @@ const userController = {
 
   async findID(req, res, next) {
     const { email, name } = req.body;
+
     const userInfo = encrypUserInfo({ userInfo: req.body });
     const user = await userService.findAuthByUser({ userInfo });
 
