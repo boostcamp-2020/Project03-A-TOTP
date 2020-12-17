@@ -107,6 +107,9 @@ struct TokenEditView: View {
             .onAppear {
                 entry.text = viewModel.state.token.name ?? ""
             }
+            .onDisappear {
+                refresh()
+            }
         }
         Spacer()
     }
@@ -161,7 +164,6 @@ extension TokenEditView {
     func addToken() {
         viewModel.trigger(.changeName(entry.text))
         viewModel.trigger(.addToken)
-        refresh()
     }
     
     func changeColor(_ name: String) {
