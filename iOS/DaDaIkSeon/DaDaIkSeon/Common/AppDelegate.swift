@@ -22,22 +22,22 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     func checkDeviceID() {
-        if DeviceIDManager().load() == nil {
+        if StorageManager<String>(type: .deviceID).load() == nil {
             let deviceID = UUID().uuidString
-            DeviceIDManager().store(deviceID)
+            _ = StorageManager<String>(type: .deviceID).store(deviceID)
             print("처음 깔았어요")
         } else {
-            print("처음 깔지 않았어요 이 기기의 ID는 \(DeviceIDManager().load()!)")
+            print("처음 깔지 않았어요 이 기기의 ID는 \(StorageManager<String>(type: .deviceID).load()!)")
         }
     }
     
     func clearKeychainIfWillUnistall() {
         let freshInstall = !UserDefaults.standard.bool(forKey: "alreadyInstalled")
         if freshInstall {
-            _ = StorageManager().deleteTokens()
-            _ = PincodeManager().deletePincode()
-            _ = JWTTokenStoreManager().delete()
-            _ = BackupPasswordManager().deletePassword()
+            _ = StorageManager<[Token]>(type: .token).delete()
+            _ = StorageManager<String>(type: .pincode).delete()
+            _ = StorageManager<String>(type: .JWTToken).delete()
+            _ = StorageManager<String>(type: .backupPassword).delete()
             UserDefaults.standard.set(true, forKey: "alreadyInstalled")
         }
     }

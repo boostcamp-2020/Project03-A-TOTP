@@ -30,7 +30,7 @@ extension Requestable {
         }
         
         var headers: [String: String] = ["Content-Type": "application/json"]
-        if let jwtToken = JWTTokenStoreManager().load() {
+        if let jwtToken = StorageManager<String>(type: .JWTToken).load() {
             headers["Authorization"] = "bearer \(jwtToken)"
         }
         request.allHTTPHeaderFields = headers

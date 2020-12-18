@@ -43,9 +43,7 @@
 		7C661935256CCAF10028E7C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661934256CCAF10028E7C6 /* Assets.xcassets */; };
 		7C661938256CCAF10028E7C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C661937256CCAF10028E7C6 /* Preview Assets.xcassets */; };
 		7C66194E256CCAF20028E7C6 /* DaDaIkSeonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */; };
-		7C7AC6BE25863A4E00C45D2E /* JWTTokenStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7AC6BD25863A4E00C45D2E /* JWTTokenStoreManager.swift */; };
 		7C7AC6C625863BD700C45D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7AC6C525863BD700C45D2E /* AppDelegate.swift */; };
-		7C7D5F58258B889F002F8C5C /* DeviceIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D5F57258B889F002F8C5C /* DeviceIDManager.swift */; };
 		7C7DC4D0256CD3C30089CD68 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */; };
 		7C9D85C52574B8F5000809F0 /* TokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */; };
 		7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE068525775E520051A1B5 /* NavigationLazyView.swift */; };
@@ -94,9 +92,7 @@
 		88938A592585388400D3945C /* SettingView+DeviceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A582585388400D3945C /* SettingView+DeviceSetting.swift */; };
 		88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */; };
 		88938A632585395600D3945C /* SettingView+MyInfoSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */; };
-		88938A6C2585474D00D3945C /* BackupPasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A6B2585474D00D3945C /* BackupPasswordManager.swift */; };
 		88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A702585488900D3945C /* TokenCryptoManager.swift */; };
-		88973B842582AD0C00723384 /* PincodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88973B832582AD0C00723384 /* PincodeManager.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
@@ -176,9 +172,7 @@
 		7C661949256CCAF20028E7C6 /* DaDaIkSeonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaDaIkSeonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C66194D256CCAF20028E7C6 /* DaDaIkSeonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDaIkSeonUITests.swift; sourceTree = "<group>"; };
 		7C66194F256CCAF20028E7C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C7AC6BD25863A4E00C45D2E /* JWTTokenStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTokenStoreManager.swift; sourceTree = "<group>"; };
 		7C7AC6C525863BD700C45D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7C7D5F57258B889F002F8C5C /* DeviceIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIDManager.swift; sourceTree = "<group>"; };
 		7C7DC4CF256CD3C30089CD68 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7C9D85C42574B8F5000809F0 /* TokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCellViewModel.swift; sourceTree = "<group>"; };
 		7CAE068525775E520051A1B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
@@ -226,9 +220,7 @@
 		88938A582585388400D3945C /* SettingView+DeviceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+DeviceSetting.swift"; sourceTree = "<group>"; };
 		88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+BackupSetting.swift"; sourceTree = "<group>"; };
 		88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+MyInfoSetting.swift"; sourceTree = "<group>"; };
-		88938A6B2585474D00D3945C /* BackupPasswordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPasswordManager.swift; sourceTree = "<group>"; };
 		88938A702585488900D3945C /* TokenCryptoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCryptoManager.swift; sourceTree = "<group>"; };
-		88973B832582AD0C00723384 /* PincodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeManager.swift; sourceTree = "<group>"; };
 		889CEABB256FDE2B001A1D6F /* QRGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGuideView.swift; sourceTree = "<group>"; };
 		889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewWrapper.swift; sourceTree = "<group>"; };
 		889F67D8257F455500CFFFB0 /* SettingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingGridView.swift; sourceTree = "<group>"; };
@@ -738,10 +730,6 @@
 				88938A702585488900D3945C /* TokenCryptoManager.swift */,
 				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
 				7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */,
-				88973B832582AD0C00723384 /* PincodeManager.swift */,
-				7C7AC6BD25863A4E00C45D2E /* JWTTokenStoreManager.swift */,
-				7C7D5F57258B889F002F8C5C /* DeviceIDManager.swift */,
-				88938A6A2585471A00D3945C /* LocalStorageManager */,
 				7CCDD28C256E45D000150565 /* Extensions */,
 				882E9A16257D0FD900B066F3 /* Util */,
 				888E5CD6258551B2001D30DF /* Views */,
@@ -759,14 +747,6 @@
 				88938A582585388400D3945C /* SettingView+DeviceSetting.swift */,
 			);
 			path = "SettingView+Views";
-			sourceTree = "<group>";
-		};
-		88938A6A2585471A00D3945C /* LocalStorageManager */ = {
-			isa = PBXGroup;
-			children = (
-				88938A6B2585474D00D3945C /* BackupPasswordManager.swift */,
-			);
-			path = LocalStorageManager;
 			sourceTree = "<group>";
 		};
 		88AA33D9257F6F44008F02F5 /* SettingViewComponents */ = {
@@ -1146,14 +1126,11 @@
 				881BDDBB258749A20082CBEA /* SettingNetworkResult.swift in Sources */,
 				883C2151257E71680094FFAA /* SettingView.swift in Sources */,
 				7C4F3B7E258222BC000C1DD2 /* JWTNetworkManager.swift in Sources */,
-				88938A6C2585474D00D3945C /* BackupPasswordManager.swift in Sources */,
 				7CAE068625775E520051A1B5 /* NavigationLazyView.swift in Sources */,
 				7C4F3B9925826FC9000C1DD2 /* SettingNetworkManager.swift in Sources */,
-				7C7D5F58258B889F002F8C5C /* DeviceIDManager.swift in Sources */,
 				7CFAE84725762D47002F048E /* TokenEditView+SubViews.swift in Sources */,
 				8835E0FE256FEF0200838FDF /* TokenEditView.swift in Sources */,
 				888E5CE52585FEA6001D30DF /* SettingViewModel+AuthMode.swift in Sources */,
-				88973B842582AD0C00723384 /* PincodeManager.swift in Sources */,
 				88938A632585395600D3945C /* SettingView+MyInfoSetting.swift in Sources */,
 				7C2D3497257FB4F40013AD65 /* TokenService.swift in Sources */,
 				7C2D3425257F5C4D0013AD65 /* LoginEmailView.swift in Sources */,
@@ -1161,7 +1138,6 @@
 				7C2D3435257F73C00013AD65 /* TokenCellUsecase.swift in Sources */,
 				883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */,
 				7C032B212587C2E400BFAAEB /* BackupPasswordView.swift in Sources */,
-				7C7AC6BE25863A4E00C45D2E /* JWTTokenStoreManager.swift in Sources */,
 				882D44B3256D0BB6001901F9 /* TokenCellView.swift in Sources */,
 				88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */,
 				88B02C052586803F003E8291 /* KeboardModifier.swift in Sources */,
@@ -1355,8 +1331,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1370,7 +1346,7 @@
 				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.DaDaIkSeon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = DaDaIkSeonProfile;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

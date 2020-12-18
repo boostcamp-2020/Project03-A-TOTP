@@ -118,6 +118,6 @@ struct TextFieldModifier: ViewModifier {
 struct BackupPasswordView_Previews: PreviewProvider {
     static var previews: some View {
         BackupPasswordView(viewModel: AnyViewModel(BackupPasswordViewModel(
-                                service: TokenService(StorageManager()))))
+                                                    service: TokenService(StorageManager(type: .token)))))
     }
 }

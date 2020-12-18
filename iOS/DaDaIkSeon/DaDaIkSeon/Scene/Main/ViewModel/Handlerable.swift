@@ -32,7 +32,7 @@ class CommonHandler: Handlerable {
             
             #if DEBUG
             
-            if BackupPasswordManager().loadPassword() == nil {
+            if StorageManager<String>(type: .backupPassword).load() == nil {
                 state.hasBackupPassword = true
                 return
             }

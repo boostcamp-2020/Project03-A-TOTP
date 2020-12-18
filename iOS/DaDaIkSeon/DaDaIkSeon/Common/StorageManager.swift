@@ -8,12 +8,16 @@
 import Foundation
 import Security
 
-final class StorageManager {
-    
+final class StorageManager<T: Codable> {
+
     // MARK: Keychain
     
-    private let account = "TokenService"
+    private var account: String
     private let service = Bundle.main.bundleIdentifier
+    
+    init(type account: StorageType) {
+        self.account = account.rawValue
+    }
     
     private lazy var query: [CFString: Any]? = {
         guard let service = service else { return nil }
@@ -22,7 +26,7 @@ final class StorageManager {
                 kSecAttrAccount: account]
     }()
     
-    func storeTokens(_ tokens: [Token]) -> Bool {
+    func store(_ tokens: T) -> Bool {
         guard let data = try? JSONEncoder().encode(tokens),
               let service = service else { return false }
         
@@ -30,11 +34,11 @@ final class StorageManager {
                                       kSecAttrService: service,
                                       kSecAttrAccount: account,
                                       kSecAttrGeneric: data]
-        _ = deleteTokens()
+        _ = delete()
         return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
     }
     
-    func loadTokens() -> [Token]? {
+    func load() -> T? {
         guard let service = service else { return nil }
         let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
                                       kSecAttrService: service,
@@ -48,14 +52,22 @@ final class StorageManager {
         
         guard let existingItem = item as? [String: Any],
               let data = existingItem[kSecAttrGeneric as String] as? Data,
-              let tokens = try? JSONDecoder().decode([Token].self, from: data) else { return nil }
+              let tokens = try? JSONDecoder().decode(T.self, from: data) else { return nil }
         
         return tokens
     }
     
-    func deleteTokens() -> Bool {
+    func delete() -> Bool {
         guard let query = query else { return false }
         return SecItemDelete(query as CFDictionary) == errSecSuccess
+    }
+    
+    enum StorageType: String {
+        case token
+        case pincode
+        case JWTToken
+        case deviceID
+        case backupPassword
     }
     
 }

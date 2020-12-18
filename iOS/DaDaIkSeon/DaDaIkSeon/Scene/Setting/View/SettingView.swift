@@ -18,7 +18,7 @@ struct SettingView: View {
     @ObservedObject var linkManager: MainLinkManager
     
     init(linkManager: ObservedObject<MainLinkManager>) {
-        let udid = DeviceIDManager().load() ?? ""
+        let udid = StorageManager<String>(type: .deviceID).load() ?? ""
         // udid 없으면 error처리, 기기정보를 읽을 수 없다고
         viewModel = AnyViewModel(SettingViewModel(udid: udid ?? ""))
         self._linkManager = linkManager

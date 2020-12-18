@@ -19,7 +19,7 @@ struct DaDaIkSeonApp: App {
 //        #if DEBUG
 //        let service = MockTokenService()
 //        #else
-        let service = TokenService(StorageManager())
+        let service = TokenService(StorageManager(type: .token))
 //        #endif
         
         WindowGroup {
@@ -28,7 +28,7 @@ struct DaDaIkSeonApp: App {
                 MainView(service: service)
                     .environmentObject(NavigationFlowObject())
             case .localAuth:
-                if let pincode = PincodeManager().loadPincode() {
+                if let pincode = StorageManager<String>(type: .pincode).load() {
                     PinCodeView(mode: .auth(pincode), completion: { _ in
                         root = .main
                     })
@@ -49,11 +49,11 @@ struct DaDaIkSeonApp: App {
                 //DispatchQueue.main.async { root = .none }
             case .active:
                 #if DEBUG
-                if JWTTokenStoreManager().load() == nil {
+                if StorageManager<String>(type: .JWTToken).load() == nil {
                     DispatchQueue.main.async { root = .login }
                 } else {
-                    print("현재 토큰 \(JWTTokenStoreManager().load()!)")
-                    print("현재 백업 비밀번호 \(BackupPasswordManager().loadPassword())")
+                    print("현재 토큰 \(StorageManager<String>(type: .JWTToken).load()!)")
+                    print("현재 백업 비밀번호 \(StorageManager<String>(type: .backupPassword).load())")
                     if root == .none {
                         localAuthenticate()
                     }
@@ -73,7 +73,7 @@ extension DaDaIkSeonApp {
     func localAuthenticate() {
         switch root {
         case .none:
-            if nil != PincodeManager().loadPincode() {
+            if nil != StorageManager<String>(type: .pincode).load() {
                 BiometricIDAuth().authenticateUser { result in
                     if result == nil { // 생체인증 성공
                         DispatchQueue.main.async { root = .main }
