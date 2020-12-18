@@ -24,6 +24,7 @@ extension Color {
     static let darkNavy = Color("darkNavy")
     static let bgColor = Color("bgColor")
     static let button = Color("button")
+    static let iconButton = Color("iconButton")
 }
 
 extension LinearGradient {

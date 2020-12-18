@@ -65,7 +65,7 @@ struct TokenEditView: View {
                               text: $entry.text)
                         .padding(6)
                         .font(.system(size: 15))
-                        .background(Color(.systemGray4))
+                        .background(Color(.systemGray5))
                         .cornerRadius(10)
                         .multilineTextAlignment(TextAlignment.center)
                 }
