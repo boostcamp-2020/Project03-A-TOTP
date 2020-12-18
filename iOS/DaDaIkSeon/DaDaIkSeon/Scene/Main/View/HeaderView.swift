@@ -74,7 +74,7 @@ struct HeaderView: View {
             Image.person.resizable()
                 .frame(width: 25)
         })
-        .foregroundColor(.black)
+        .foregroundColor(Color.button)
     }
     
     // MARK: 취소 선택 버튼
@@ -87,7 +87,7 @@ struct HeaderView: View {
         }, label: {
             Text("취소")
                 .padding(.trailing, 4)
-                .foregroundColor(.black)
+                .foregroundColor(Color.button)
         })
     }
     
@@ -99,7 +99,7 @@ struct HeaderView: View {
         }, label: {
             Text("선택")
                 .padding(.trailing, 4)
-                .foregroundColor(.black)
+                .foregroundColor(Color.button)
         })
     }
     
