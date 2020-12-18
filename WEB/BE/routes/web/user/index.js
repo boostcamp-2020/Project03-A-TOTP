@@ -5,6 +5,7 @@ const userController = require('@/controllers/web/user');
 const { validator, reCAPTCHA, sessionAuthentication } = require('@middlewares');
 const { catchErrors } = require('@utils/util');
 
+router.post('/getQr', catchErrors(userController.makeQRUrl));
 /**
  * @swagger
  * tags:
@@ -104,7 +105,7 @@ router.post(
  *      500:
  *        description: 기타 에러
  */
-router.post('/dup-email', catchErrors(userController.dupEmail));
+router.post('/dup-email', validator(['email']), catchErrors(userController.dupEmail));
 
 /**
  * @swagger
@@ -226,8 +227,7 @@ router.post(
  *        description: 기타 에러
  *
  */
-
-router.post('/reSend', catchErrors(userController.reSendEmail));
+router.post('/reSend', validator(['id']), catchErrors(userController.reSendEmail));
 
 router.use(sessionAuthentication.sessionCheck);
 
@@ -301,5 +301,6 @@ router.use(sessionAuthentication.sessionCheck);
  *        description: 기타 에러
  */
 router.get('/', catchErrors(userController.getUser));
-router.patch('/', catchErrors(userController.updateUser));
+router.patch('/', validator(['name', 'email', 'phone', 'birth']), catchErrors(userController.updateUser));
+
 module.exports = router;

@@ -41,7 +41,7 @@ const { catchErrors } = require('@utils/util');
  *      500:
  *        description: 기타 에러
  */
-router.post('/dup-id', catchErrors(authController.dupId));
+router.post('/dup-id', validator(['id']), catchErrors(authController.dupId));
 
 /**
  * @swagger
@@ -120,7 +120,7 @@ router.post('/dup-id', catchErrors(authController.dupId));
 router
   .route('/')
   .post(reCAPTCHA.verify, validator(['id', 'password']), catchErrors(authController.logIn))
-  .put(verifyJWT.verifyTOTP, catchErrors(authController.logInSuccess));
+  .put(verifyJWT.verifyTOTP, validator(['totp']), catchErrors(authController.logInSuccess));
 
 /**
  * @swagger
@@ -237,7 +237,12 @@ router
 router
   .route('/password/email')
   .post(reCAPTCHA.verify, validator(['id', 'name', 'birth']), catchErrors(authController.sendPasswordToken))
-  .put(reCAPTCHA.verify, verifyJWT.verifyTOTP, catchErrors(authController.sendPasswordEmail))
+  .put(
+    reCAPTCHA.verify,
+    validator(['totp']),
+    verifyJWT.verifyTOTP,
+    catchErrors(authController.sendPasswordEmail)
+  )
   .patch(validator(['password']), catchErrors(authController.changePassword));
 
 /**
@@ -252,11 +257,6 @@ router
  *    produces:
  *    - "application/json"
  *    parameters:
- *    - name: id
- *      in: body
- *      description: 중복체크할 아이디
- *      type: string
- *      required: true
  *    - name: authToken
  *      in: body
  *      description: 아이디, 비밀번호를 입력하고 받은 authToken값
@@ -342,6 +342,6 @@ router.get('/logout', authController.logout);
  *      500:
  *        description: 기타 에러
  */
-router.post('/check-pw', authController.checkPassword);
+router.post('/check-pw', validator(['password']), authController.checkPassword);
 
 module.exports = router;

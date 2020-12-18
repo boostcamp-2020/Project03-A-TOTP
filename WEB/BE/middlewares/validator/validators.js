@@ -1,45 +1,47 @@
-const { PARAMS, REGEX } = require('@/middlewares/validator/config');
+const { PARAMS, REGEX } = require('@/middlewares/validator/constants');
 
 const NOT_FOUND = -1;
-const ZERO = 0;
 
-exports.validateId = (id) => {
-  if (
-    id.length < PARAMS.ID.MIN_LENGTH ||
-    id.length > PARAMS.ID.MAX_LENGTH ||
-    id.search(REGEX.WHITE_SPACE) !== NOT_FOUND
-  ) {
-    return false;
-  }
-  return true;
-};
+// validator 조건 함수
 
-exports.validatePW = (pw) => {
-  if (
-    pw.length < PARAMS.PASSWORD.MIN_LENGTH ||
-    pw.length > PARAMS.PASSWORD.MAX_LENGTH ||
-    pw.search(REGEX.WHITE_SPACE) !== NOT_FOUND ||
-    pw.search(REGEX.NUMBER) < ZERO ||
-    pw.search(REGEX.ENG) < ZERO ||
-    pw.search(REGEX.SPECIAL_CHAR) < ZERO
-  ) {
-    return false;
-  }
-  return true;
-};
+const longerThan = (param, len) => param.length > len;
 
-exports.validateEmail = (email) => {
-  return REGEX.EMAIL.test(email);
-};
+const shorterThan = (param, len) => param.length < len;
 
-exports.validateBirth = (birth) => {
-  return REGEX.BIRTH.test(birth);
-};
+const hasWhiteSpace = (param) => param.search(REGEX.WHITE_SPACE) !== NOT_FOUND;
 
-exports.validatePhone = (phone) => {
-  return true;
-};
+const hasNumber = (param) => param.search(REGEX.NUMBER) !== NOT_FOUND;
 
-exports.validateName = (name) => {
-  return true;
-};
+const hasAlphabet = (param) => param.search(REGEX.ENG) !== NOT_FOUND;
+
+const hasSpecialCharacter = (param) => param.search(REGEX.SPECIAL_CHAR) !== NOT_FOUND;
+
+// validator 함수
+
+exports.validateId = (id) =>
+  !(longerThan(id, PARAMS.ID.MAX_LENGTH) || shorterThan(id, PARAMS.ID.MIN_LENGTH) || hasWhiteSpace(id));
+
+exports.validatePW = (pw) =>
+  !(
+    longerThan(pw, PARAMS.PASSWORD.MAX_LENGTH) ||
+    shorterThan(pw, PARAMS.PASSWORD.MIN_LENGTH) ||
+    hasWhiteSpace(pw) ||
+    !hasNumber(pw) ||
+    !hasAlphabet(pw) ||
+    !hasSpecialCharacter(pw)
+  );
+
+exports.validateEmail = (email) => REGEX.EMAIL.test(email);
+
+exports.validateBirth = (birth) => REGEX.BIRTH.test(birth);
+
+exports.validatePhone = (phone) => REGEX.PHONE.test(phone);
+
+exports.validateName = (name) =>
+  !(
+    longerThan(name, PARAMS.NAME.MAX_LENGTH) ||
+    shorterThan(name, PARAMS.NAME.MIN_LENGTH) ||
+    hasWhiteSpace(name)
+  );
+
+exports.validateTOTP = (totp) => REGEX.TOTP.test(totp);

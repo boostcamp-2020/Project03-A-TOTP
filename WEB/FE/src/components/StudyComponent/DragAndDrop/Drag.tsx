@@ -12,11 +12,15 @@ interface DropTargetProps {
 
 const Drag = ({ children, dataItem }: DropTargetProps): JSX.Element => {
   function startDrag(e: React.DragEvent<HTMLDivElement>) {
+    e.target.style.opacity = 0;
     e.dataTransfer.setData('text/plain', dataItem);
     e.dataTransfer.effectAllowed = 'move';
   }
+  function endDrag(e: React.DragEvent<HTMLDivElement>) {
+    e.target.style.opacity = 1;
+  }
   return (
-    <Wrapper draggable onDragStart={startDrag}>
+    <Wrapper draggable onDragEnd={endDrag} onDragStart={startDrag}>
       {children}
     </Wrapper>
   );

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import QRCODE from 'qrcode.react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import CSS from 'csstype';
 import Button from '@components/common/Button';
+import { qrAPI } from '@api/index';
 import { message } from '@utils/message';
 
 const Title = styled.div`
@@ -66,7 +67,14 @@ interface qrProps {
 }
 
 const QRCodeComponent = ({ url }: qrProps): JSX.Element => {
-  const qrcode = Buffer.from(decodeURIComponent(url), 'base64').toString('ascii');
+  const [qrcode, setQrcode] = useState('');
+
+  useEffect(() => {
+    qrAPI(url).then((qrURL) => {
+      setQrcode(Buffer.from(qrURL.url).toString('ascii'));
+    });
+  }, []);
+
   const history = useHistory();
   const onClick = (e: React.MouseEvent<Element, MouseEvent>): void => {
     e.preventDefault();

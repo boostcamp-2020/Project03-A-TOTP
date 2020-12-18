@@ -67,7 +67,7 @@ const emailSender = {
   },
 
   sendSecretKey({ id, name, email, totpURL }) {
-    const qrCodeQuery = encodeURIComponent(Buffer.from(totpURL).toString('base64'));
+    const qrCodeQuery = encodeURIComponent(totpURL);
     const axiosOptions = makeOption(2400, email, name, {
       userName: name,
       URL: `https://dadaikseon.com/QRCode/${qrCodeQuery}`,
