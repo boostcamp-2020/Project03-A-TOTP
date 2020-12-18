@@ -3,9 +3,7 @@ import svgBackground from '@static/TOTPFrame.svg';
 import styled from 'styled-components';
 import { HeadingSection } from '@components/common/Section/HeadingSection';
 import { BlockSection } from '@components/common/Section/BlockSection';
-import { initialArrayData, initialStudyData } from '@utils/initialData';
-import { Drag } from './DragAndDrop/Drag';
-import { DropTarget } from './DragAndDrop/DropTarget';
+import { initialStudyData } from '@utils/initialData';
 import { MarkButton } from './MarkButton/MarkButton';
 import { StudyBox } from './StudyBox/StudyBox';
 
@@ -20,25 +18,6 @@ const BackGround = styled.div`
   height: 441px;
   background-position: center;
   position: relative;
-`;
-
-const DropContainer = styled.div<{ styles: any; isList: boolean }>`
-  position: ${(props) => (props.isList ? 'relative' : 'absolute')};
-  left: ${(props) => props.styles.left}px;
-  top: ${(props) => props.styles.top}px;
-  width: ${(props) => props.styles.width}px;
-  height: ${(props) => props.styles.height}px;
-  overflow: visible;
-  justify-content: ${(props) => (props.isList ? 'none' : 'center')};
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  border: ${(props) => (props.isList ? '2px solid black' : 'none')};
-`;
-
-const DragImg = styled.img<{ styles: any }>`
-  width: ${(props) => props.styles.width - 5}px;
-  height: ${(props) => props.styles.height - 5}px;
 `;
 
 const Title = styled.div`

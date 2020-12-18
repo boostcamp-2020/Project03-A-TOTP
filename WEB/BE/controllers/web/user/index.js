@@ -103,7 +103,7 @@ const userController = {
     res.json({ message: 'ok' });
   },
 
-  async reSendEmail(req, res, next) {
+  async reSendEmail(req, res) {
     const { id } = req.body;
     const { user } = await authService.getUserById({ id });
     emailSender.SignUpAuthentication(

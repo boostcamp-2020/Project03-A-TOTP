@@ -1,14 +1,22 @@
+import {
+  UserInfo,
+  loginWithPasswordParams,
+  loginWithPasswordResponse,
+  loginWithOTPParams,
+  loginWithOTPResponse,
+  findPasswordWithOTPParams,
+  findIdParams,
+  findPasswordParams,
+  findPasswordReturn,
+  getUserReturn,
+  updateUserParmas,
+  receiveLogsReturn,
+  delSessionParmas,
+  sendPasswordParams,
+  sendSecretKeyEmailParams,
+  reSendReturn,
+} from '../types/apiType';
 import axios from './config';
-
-interface UserInfo {
-  id: string;
-  password: string;
-  email: string;
-  birth: string;
-  name: string;
-  phone: string;
-  reCaptchaToken: string;
-}
 
 export const confirmEmailAPI = async (query: string): Promise<string> => {
   const { data } = await axios.get(`/api/user/confirm-email?user=${query}`);
@@ -33,16 +41,6 @@ export const registerUserAPI = async (params: UserInfo): Promise<string> => {
   return data.url;
 };
 
-interface loginWithPasswordParams {
-  id: string;
-  password: string;
-  reCaptchaToken: string;
-}
-
-interface loginWithPasswordResponse {
-  authToken: string;
-}
-
 export const loginWithPassword = async (
   params: loginWithPasswordParams,
 ): Promise<loginWithPasswordResponse> => {
@@ -50,117 +48,67 @@ export const loginWithPassword = async (
   return data;
 };
 
-interface loginWithOTPParams {
-  authToken: string;
-  totp: string;
-  reCaptchaToken: string;
-}
-
-interface loginWithOTPResponse {
-  userName: string;
-}
-
 export const loginWithOTP = async (params: loginWithOTPParams): Promise<loginWithOTPResponse> => {
   const { data } = await axios.put('/api/auth', params);
   return data;
 };
 
-interface findPasswordWithOTPParams {
-  authToken: string;
-  totp: string;
-  reCaptchaToken: string;
-}
-
-export const findPasswordWithOTP = async (params: findPasswordWithOTPParams): Promise<any> => {
+export const findPasswordWithOTP = async (params: findPasswordWithOTPParams): Promise<string> => {
   const { data } = await axios.put('/api/auth/password/email', params);
   return data;
 };
 
-interface findIdParams {
-  email: string;
-  name: string;
-  birth: string;
-  reCaptchaToken: string;
-}
-
-export const findId = async (params: findIdParams): Promise<any> => {
+export const findId = async (params: findIdParams): Promise<boolean> => {
   const { data } = await axios.post('/api/user/find-id', params);
   return data;
 };
 
-interface findPasswordParams {
-  id: string;
-  name: string;
-  birth: string;
-  reCaptchaToken: string;
-}
-
-export const findPassword = async (params: findPasswordParams): Promise<any> => {
+export const findPassword = async (params: findPasswordParams): Promise<findPasswordReturn> => {
   const { data } = await axios.post('/api/auth/password/email', params);
   return data;
 };
 
-export const changePass = async (query: string, password: string): Promise<any> => {
+export const changePass = async (query: string, password: string): Promise<string> => {
   const { data } = await axios.patch(`/api/auth/password/email?user=${query}`, { password });
   return data;
 };
 
-interface sendSecretKeyEmailParams {
-  authToken: string;
-  reCaptchaToken: string;
-}
-
-export const sendSecretKeyEmail = async (params: sendSecretKeyEmailParams): Promise<any> => {
+export const sendSecretKeyEmail = async (params: sendSecretKeyEmailParams): Promise<string> => {
   const { data } = await axios.put(`/api/auth/secret-key/email`, params);
   return data;
 };
 
-interface sendPasswordParams {
-  password: string;
-}
-
-// MyPage에서 비밀번호 입력하여 확인할 때 사용
-export const sendPassword = async (params: sendPasswordParams): Promise<any> => {
+export const sendPassword = async (params: sendPasswordParams): Promise<boolean> => {
   const { data } = await axios.post(`api/auth/check-pw`, params);
   return data;
 };
 
-export const getUser = async (): Promise<any> => {
+export const getUser = async (): Promise<getUserReturn> => {
   const { data } = await axios.get('api/user');
   return data;
 };
 
-interface updateUserParmas {
-  name?: string;
-  email?: string;
-  phone?: string;
-  birth?: string;
-}
-
-export const updateUser = async (params: updateUserParmas): Promise<any> => {
+export const updateUser = async (params: updateUserParmas): Promise<string> => {
   const { data } = await axios.patch('api/user', params);
   return data;
 };
 
-export const receiveLogs = async (num: number): Promise<any> => {
+export const receiveLogs = async (num: number): Promise<receiveLogsReturn[]> => {
   const { data } = await axios.get(`api/log/${num}`);
   return data;
 };
 
-interface delSessionParmas {
-  sid?: string;
-}
-export const delSession = async (sid: delSessionParmas): Promise<any> => {
+export const delSession = async (sid: delSessionParmas): Promise<boolean> => {
   const { data } = await axios.patch('api/log/session', sid);
   return data;
 };
 
-export const logoutAPI = async (): Promise<any> => {
+export const logoutAPI = async (): Promise<boolean> => {
   const { data } = await axios.get('api/auth/logout');
   return data;
 };
 
-export const reSend = async (id: string): Promise<any> => {
+export const reSend = async (id: string): Promise<reSendReturn> => {
   const { data } = await axios.post('api/user/reSend', { id });
   return data;
 };
