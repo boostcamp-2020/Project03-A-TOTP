@@ -20,6 +20,5 @@ struct BackgroundView: View {
         .background(Color.darkNavy)
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
-        .transition(.opacity)
     }
 }

@@ -13,7 +13,7 @@ struct QRGuideView: View {
     
     // MARK: Property
     @Binding var qrCodeURL: String
-    @Binding var navigationTag: Int?
+    @ObservedObject var linkManager: MainLinkManager
     @State private var isShownScanner = false
     @State private var isShownEditView: Bool = false
     @State private var isShownCameraCheck: Bool = false
@@ -85,7 +85,7 @@ struct QRGuideView: View {
             })
         )
         .sheet(isPresented: $isShownScanner) {
-            QRScannerView(navigationTag: $navigationTag,
+            QRScannerView(linkManager: linkManager,
                           isShownQrCodeCheck: $isShownQrCodeCheck,
                           qrCodeURL: $qrCodeURL)
         }
@@ -98,7 +98,7 @@ struct QRGuideView: View {
 
 struct QRScannerView: View {
     
-    @Binding var navigationTag: Int?
+    @ObservedObject var linkManager: MainLinkManager
     @Binding var isShownQrCodeCheck: Bool
     @Binding var qrCodeURL: String
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -111,7 +111,7 @@ struct QRScannerView: View {
                     case .success(let url):
                         if let secretKey = TOTPGenerator.extractKey(from: url) {
                             qrCodeURL = secretKey
-                            navigationTag = 1
+                            linkManager.change(.tokenEdit)
                         } else {
                             isShownQrCodeCheck = true
                         }

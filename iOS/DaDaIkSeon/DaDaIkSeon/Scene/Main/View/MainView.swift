@@ -10,14 +10,17 @@ import UniformTypeIdentifiers
 
 class MainLinkManager: ObservableObject {
     
-    @Published var tag: Int? = -1
+    @Published var tag: Int? = nil
     
     func isThere(_ target: MainLinkTable) -> Bool {
         tag == scene(target)
     }
     
     func change(_ target: MainLinkTable) {
-        tag = scene(target)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tag = self.scene(target)
+        }
     }
     
     func scene(_ target: MainLinkTable) -> Int? {
@@ -48,7 +51,7 @@ struct MainView: View {
     
     // MARK: Property
     
-    @StateObject var linkManager = MainLinkManager()
+    @StateObject var linkManager: MainLinkManager
     @State var hasBackupPassword = false
     @Namespace var namespace
     
@@ -61,6 +64,7 @@ struct MainView: View {
     
     init(service: TokenServiceable) {
         _viewModel = StateObject(wrappedValue: AnyViewModel(MainViewModel(service: service)))
+        _linkManager = StateObject(wrappedValue: MainLinkManager())
     }
     
     // MARK: Body
@@ -94,7 +98,6 @@ struct MainView: View {
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
                 viewModel.trigger(.commonInput(.refreshTokens))
-                _ = linkManager.scene(.main)
             })
             .onDisappear(perform: {
                 TOTPTimer.shared.cancel()
@@ -126,7 +129,9 @@ struct MainView: View {
                         BiometricIDAuth().authenticateUser { result in
                             if result == nil { // 생체인증 성공
                                 DispatchQueue.main.async {
-                                    linkManager.change(.main)
+                                    withAnimation {
+                                        linkManager.change(.main)
+                                    }
                                 }
                             } else {            // 생체인증 실패
                                 DispatchQueue.main.async {
@@ -135,7 +140,9 @@ struct MainView: View {
                             }
                         }
                     } else {
-                        linkManager.change(.main)
+                        withAnimation {
+                            linkManager.change(.main)
+                        }
                     }
                 }
             default: break
@@ -244,7 +251,7 @@ struct MainView: View {
                 "", destination: NavigationLazyView(
                     QRGuideView(
                         qrCodeURL: $qrCodeURL,
-                        navigationTag: $linkManager.tag)
+                        linkManager: linkManager)
                 ),
                 tag: linkManager.scene(.qrguide)!,
                 selection: $linkManager.tag)
@@ -264,6 +271,7 @@ struct MainView: View {
                 "", destination: BackgroundView(),
                 tag: linkManager.scene(.background)!,
                 selection: $linkManager.tag)
+                .transition(.move(edge: .bottom))
             if let password = PincodeManager().loadPincode() {
                 NavigationLink(
                     "", destination: PinCodeView(
