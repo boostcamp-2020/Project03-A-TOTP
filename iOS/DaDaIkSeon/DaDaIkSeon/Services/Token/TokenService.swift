@@ -258,7 +258,7 @@ extension TokenService {
     }
     
     func getPassword() -> String? {
-        return BackupPasswordManager().loadPassword()
+        return StorageManager<String>(type: .backupPassword).load()
     }
     
     func updateMainWithFirstToken() {
@@ -311,7 +311,7 @@ extension TokenService {
                     }
                 }
             } else {
-                if let password = BackupPasswordManager().loadPassword() {
+                if let password = getPassword() {
                     if let key = token.key {
                         do {
                             token.key = try TokenCryptoManager(password).decrypt(from: key)

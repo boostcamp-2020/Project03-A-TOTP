@@ -107,7 +107,7 @@ extension BackupPasswordViewModel {
     }
     
     func setBackupPassword() {
-        BackupPasswordManager().storePassword(state.backupPassword)
+        _ = StorageManager<String>(type: .backupPassword).store(state.backupPassword)
         print("백업패스워드 키체인 저장 \(state.backupPassword)")
     }
     

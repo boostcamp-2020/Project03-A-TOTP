@@ -37,7 +37,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
             _ = StorageManager<[Token]>(type: .token).delete()
             _ = StorageManager<String>(type: .pincode).delete()
             _ = StorageManager<String>(type: .JWTToken).delete()
-            _ = BackupPasswordManager().deletePassword()
+            _ = StorageManager<String>(type: .backupPassword).delete()
             UserDefaults.standard.set(true, forKey: "alreadyInstalled")
         }
     }

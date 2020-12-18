@@ -11,7 +11,7 @@ class MockSettingService: SettingServiceable {
     
 //    /private var user: DDISUser? =
     private var pincodeManager = StorageManager<String>(type: .pincode)
-    private var backupPasswordManager = BackupPasswordManager()
+    private var backupPasswordManager = StorageManager<String>(type: .backupPassword)
     
     func refresh(updateView: @escaping (SettingNetworkResult) -> Void) { // 뷰모델 생성자에서 실행
         UserNetworkManager.shared.load { (result) in
@@ -76,11 +76,11 @@ class MockSettingService: SettingServiceable {
     }
     
     func readBackupPassword() -> String? {
-        backupPasswordManager.loadPassword()
+        backupPasswordManager.load()
     }
     
     func updateBackupPassword(_ password: String) {
-        backupPasswordManager.storePassword(password)
+        backupPasswordManager.store(password)
         
         // 백업 패스워드는 User 구조체에 들어가지 않는다.
         // 따로 UserDefault로 읽고 쓰고 변경해야 한다.

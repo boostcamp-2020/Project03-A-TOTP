@@ -53,7 +53,7 @@ struct DaDaIkSeonApp: App {
                     DispatchQueue.main.async { root = .login }
                 } else {
                     print("현재 토큰 \(StorageManager<String>(type: .JWTToken).load()!)")
-                    print("현재 백업 비밀번호 \(BackupPasswordManager().loadPassword())")
+                    print("현재 백업 비밀번호 \(StorageManager<String>(type: .backupPassword).load())")
                     if root == .none {
                         localAuthenticate()
                     }

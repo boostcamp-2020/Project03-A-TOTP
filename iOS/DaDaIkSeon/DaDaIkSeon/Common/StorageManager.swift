@@ -67,6 +67,7 @@ final class StorageManager<T: Codable> {
         case pincode
         case JWTToken
         case deviceID
+        case backupPassword
     }
     
 }
