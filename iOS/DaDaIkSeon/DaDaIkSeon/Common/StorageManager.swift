@@ -12,11 +12,11 @@ final class StorageManager<T: Codable> {
 
     // MARK: Keychain
     
-    private var account: StorageType
+    private var account: String
     private let service = Bundle.main.bundleIdentifier
     
     init(type account: StorageType) {
-        self.account = account
+        self.account = account.rawValue
     }
     
     private lazy var query: [CFString: Any]? = {
