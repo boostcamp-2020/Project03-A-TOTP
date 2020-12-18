@@ -123,7 +123,7 @@ const userController = {
 
     const { secret_key: secretKey, user } = await authService.getUserById({ id });
     if (!secretKey) return next(createError(400, '없는 사용자 입니다.'));
-    const qrUrl = totp.makeURL({ secretKey, email: user.email });
+    const qrUrl = totp.makeURL({ secretKey, email: decryptWithAES256({ encryptedText: user.email }) });
 
     res.json({ url: qrUrl });
   },
