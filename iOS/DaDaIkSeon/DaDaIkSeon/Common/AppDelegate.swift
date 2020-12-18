@@ -36,7 +36,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         if freshInstall {
             _ = StorageManager<[Token]>(type: .token).delete()
             _ = StorageManager<String>(type: .pincode).delete()
-            _ = JWTTokenStoreManager().delete()
+            _ = StorageManager<String>(type: .JWTToken).delete()
             _ = BackupPasswordManager().deletePassword()
             UserDefaults.standard.set(true, forKey: "alreadyInstalled")
         }

@@ -49,10 +49,10 @@ struct DaDaIkSeonApp: App {
                 //DispatchQueue.main.async { root = .none }
             case .active:
                 #if DEBUG
-                if JWTTokenStoreManager().load() == nil {
+                if StorageManager<String>(type: .JWTToken).load() == nil {
                     DispatchQueue.main.async { root = .login }
                 } else {
-                    print("현재 토큰 \(JWTTokenStoreManager().load()!)")
+                    print("현재 토큰 \(StorageManager<String>(type: .JWTToken).load()!)")
                     print("현재 백업 비밀번호 \(BackupPasswordManager().loadPassword())")
                     if root == .none {
                         localAuthenticate()

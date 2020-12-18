@@ -43,7 +43,7 @@ final class LoginService: LoginServiceable {
                                              email: email,
                                              device: device) { jwtToken in
             if let jwtToken = jwtToken {
-                JWTTokenStoreManager().store(jwtToken)
+                StorageManager<String>(type: .JWTToken).store(jwtToken)
             }
             completion(jwtToken)
         }
