@@ -9,16 +9,16 @@ interface ArrayData {
 }
 
 const initialArrayData: ArrayData = {
-  timeStamp1: { left: 161, top: 65, width: 87, height: 77 },
-  secretKey1: { left: 337, top: 65, width: 87, height: 77 },
-  hmac1: { left: 163, top: 182, width: 269, height: 27 },
-  truncation1: { left: 163, top: 250, width: 269, height: 27 },
-  otp1: { left: 195, top: 318, width: 206, height: 53 },
-  timeStamp2: { left: 826, top: 65, width: 87, height: 77 },
-  secretKey2: { left: 1002, top: 65, width: 87, height: 77 },
-  hmac2: { left: 828, top: 182, width: 269, height: 27 },
-  truncation2: { left: 828, top: 250, width: 269, height: 27 },
-  otp2: { left: 860, top: 318, width: 206, height: 53 },
+  timeStamp1: { left: 213, top: 80, width: 80, height: 71 },
+  secretKey1: { left: 364, top: 80, width: 80, height: 71 },
+  hmac1: { left: 209, top: 184, width: 240, height: 69 },
+  truncation1: { left: 209, top: 286, width: 240, height: 69 },
+  otp1: { left: 234, top: 388, width: 187, height: 69 },
+  timeStamp2: { left: 805, top: 80, width: 80, height: 71 },
+  secretKey2: { left: 968, top: 80, width: 80, height: 71 },
+  hmac2: { left: 806, top: 183, width: 240, height: 69 },
+  truncation2: { left: 806, top: 286, width: 240, height: 69 },
+  otp2: { left: 833, top: 387, width: 187, height: 69 },
   list: { width: 1028, height: 180 },
 };
 

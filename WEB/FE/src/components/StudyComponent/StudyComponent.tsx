@@ -13,9 +13,9 @@ interface ListProps {
 
 const BackGround = styled.div`
   background-image: url(${svgBackground});
-  background-size: 1000px;
+  background-size: 900px;
   background-repeat: no-repeat;
-  height: 441px;
+  height: 520px;
   background-position: center;
   position: relative;
 `;

@@ -8,14 +8,14 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   id="svg879"
-   width="888.77863"
-   height="194.55617"
-   viewBox="0 0 888.77863 194.55617"
-   sodipodi:docname="pngwing.com (1).png"
+   id="svg933"
+   width="1291.176"
+   height="1462.9847"
+   viewBox="0 0 1291.176 1462.9848"
+   sodipodi:docname="OTP.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
   <metadata
-     id="metadata885">
+     id="metadata939">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -27,7 +27,14 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs883" />
+     id="defs937">
+    <rect
+       x="1140.5015"
+       y="-38.805569"
+       width="1240.4553"
+       height="324.68292"
+       id="rect919" />
+  </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -39,32 +46,77 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
-     id="namedview881"
+     id="namedview935"
      showgrid="false"
-     inkscape:zoom="0.32070963"
-     inkscape:cx="775.86549"
-     inkscape:cy="153.13623"
+     inkscape:zoom="0.24023438"
+     inkscape:cx="620.65676"
+     inkscape:cy="1105.9271"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g887"
-     showguides="false" />
+     inkscape:current-layer="g941"
+     inkscape:document-rotation="0" />
   <g
      inkscape:groupmode="layer"
      inkscape:label="Image"
-     id="g887"
-     transform="translate(-19.496654,-300.12674)">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:149.26px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.7315"
-       x="11.723228"
-       y="335.89694"
-       id="text931"
-       transform="scale(0.74133456,1.3489186)"><tspan
-         sodipodi:role="line"
-         id="tspan929"
-         x="11.723228"
-         y="335.89694"
-         style="stroke-width:3.7315">HMAC Algorithm</tspan></text>
+     id="g941"
+     transform="translate(-1472.9631,1306.6084)">
+    <g
+       id="g1115">
+      <g
+         id="g1046"
+         transform="matrix(2.3490704,0,0,2.1423957,1499.5036,-1306.6084)">
+        <g
+           id="_x33_3_padlock">
+          <g
+             id="g1027">
+            <path
+               d="m 371.618,269.673 c -11.068,0 -20.04,-8.972 -20.04,-20.04 V 142.658 c 0,-52.977 -43.1,-96.077 -96.077,-96.077 -52.977,0 -96.077,43.1 -96.077,96.077 v 106.975 c 0,11.068 -8.972,20.04 -20.04,20.04 -11.068,0 -20.04,-8.972 -20.04,-20.04 V 142.658 C 119.342,67.58 180.422,6.5 255.5,6.5 c 75.078,0 136.158,61.08 136.158,136.158 v 106.975 c 0,11.068 -8.972,20.04 -20.04,20.04 z"
+               fill="#b6c4cf"
+               id="path1025" />
+          </g>
+          <path
+             d="m 255.5,6.5 c -6.787,0 -13.458,0.506 -19.982,1.47 65.638,9.695 116.176,66.398 116.176,134.688 v 106.975 c 0,0.389 -0.036,0.769 -0.058,1.153 0.601,10.529 9.303,18.887 19.982,18.887 11.068,0 20.04,-8.972 20.04,-20.04 V 142.658 C 391.658,67.58 330.578,6.5 255.5,6.5 Z"
+             fill="#9facba"
+             id="path1029" />
+          <path
+             d="M 417.009,503.5 H 93.991 c -18.656,0 -33.78,-15.124 -33.78,-33.78 V 230.31 c 0,-18.656 15.124,-33.78 33.78,-33.78 h 323.018 c 18.656,0 33.78,15.124 33.78,33.78 v 239.41 c 0,18.656 -15.124,33.78 -33.78,33.78 z"
+             fill="#feb137"
+             id="path1031" />
+          <path
+             d="m 306.721,323.31 c 0,-28.288 -22.932,-51.221 -51.221,-51.221 -28.289,0 -51.221,22.932 -51.221,51.221 0,18.924 10.271,35.439 25.534,44.308 v 59.062 c 0,14.186 11.5,25.687 25.687,25.687 14.186,0 25.687,-11.5 25.687,-25.687 v -59.062 c 15.263,-8.869 25.534,-25.384 25.534,-44.308 z"
+             fill="#465a61"
+             id="path1033" />
+          <path
+             d="m 417.009,196.53 h -39.964 c 18.656,0 33.78,15.124 33.78,33.78 v 239.41 c 0,18.656 -15.124,33.78 -33.78,33.78 h 39.964 c 18.656,0 33.78,-15.124 33.78,-33.78 V 230.31 c 0,-18.656 -15.124,-33.78 -33.78,-33.78 z"
+             fill="#f6ab31"
+             id="path1035" />
+        </g>
+        <g
+           id="g1044">
+          <path
+             d="m 450.396,428.768 c -4.143,0 -7.5,3.357 -7.5,7.5 v 33.521 c 0,14.453 -11.759,26.212 -26.212,26.212 H 94.316 c -14.453,0 -26.212,-11.759 -26.212,-26.212 V 313.132 c 0,-4.143 -3.358,-7.5 -7.5,-7.5 -4.142,0 -7.5,3.357 -7.5,7.5 v 156.656 c 0,22.725 18.488,41.212 41.212,41.212 h 322.368 c 22.725,0 41.212,-18.487 41.212,-41.212 v -33.521 c 0,-4.142 -3.358,-7.499 -7.5,-7.499 z"
+             id="path1038" />
+          <path
+             d="m 416.684,189.647 h -17.8 V 143.383 C 398.884,64.321 334.563,0 255.5,0 176.438,0 112.116,64.321 112.116,143.384 v 46.264 h -17.8 c -22.724,0 -41.212,18.487 -41.212,41.212 v 47.272 c 0,4.143 3.358,7.5 7.5,7.5 4.142,0 7.5,-3.357 7.5,-7.5 V 230.86 c 0,-14.453 11.759,-26.212 26.212,-26.212 h 322.368 c 14.453,0 26.212,11.759 26.212,26.212 v 170.408 c 0,4.143 3.357,7.5 7.5,7.5 4.143,0 7.5,-3.357 7.5,-7.5 V 230.859 c 0,-22.724 -18.488,-41.212 -41.212,-41.212 z m -72.8,0 H 167.116 V 143.383 C 167.116,94.648 206.765,55 255.5,55 c 48.735,0 88.384,39.648 88.384,88.384 z m 15,0 V 143.383 C 358.884,86.378 312.506,40 255.5,40 198.494,40 152.116,86.378 152.116,143.384 v 46.264 h -25 V 143.384 C 127.116,72.593 184.709,15 255.5,15 c 70.791,0 128.384,57.593 128.384,128.384 v 46.264 h -25 z"
+             id="path1040" />
+          <path
+             d="m 255.5,459.969 c 18.271,0 33.135,-14.864 33.135,-33.135 v -54.82 c 15.821,-10.872 25.483,-29.013 25.483,-48.342 0,-32.321 -26.296,-58.617 -58.618,-58.617 -32.322,0 -58.618,26.296 -58.618,58.617 0,19.329 9.662,37.47 25.483,48.342 v 54.82 c 0,18.27 14.865,33.135 33.135,33.135 z M 211.883,323.672 c 0,-24.051 19.567,-43.617 43.618,-43.617 24.051,0 43.618,19.566 43.618,43.617 0,15.48 -8.334,29.939 -21.751,37.733 -2.311,1.343 -3.732,3.813 -3.732,6.485 v 58.943 c 0,10 -8.135,18.135 -18.135,18.135 -10,0 -18.135,-8.135 -18.135,-18.135 V 367.89 c 0,-2.672 -1.422,-5.143 -3.732,-6.485 -13.417,-7.794 -21.751,-22.253 -21.751,-37.733 z"
+             id="path1042" />
+        </g>
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:231.655px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:5.79137"
+         x="2100.0552"
+         y="60.665531"
+         id="text1069"
+         transform="scale(0.69391745,1.4410936)"><tspan
+           sodipodi:role="line"
+           id="tspan1067"
+           x="2100.0552"
+           y="60.665531"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:231.655px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:5.79137">HMAC Algorithm</tspan></text>
+    </g>
   </g>
 </svg>
