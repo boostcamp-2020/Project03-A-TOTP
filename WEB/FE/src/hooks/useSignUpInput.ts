@@ -39,13 +39,8 @@ const useSignUpInput = (): returnProps => {
   const checkDuplicate = (value: string, isId: boolean) => {
     return async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       const checkAPI = isId ? checkIDDuplicateAPI : checkEmailDuplicateAPI;
-      try {
-        e.preventDefault();
-        const result = await checkAPI(value);
-        viewMessage(result, isId, value);
-      } catch (err) {
-        alert(err);
-      }
+      e.preventDefault();
+      checkAPI(value).then((result) => viewMessage(result, isId, value));
     };
   };
   const checkIDDuplicateEventHandler = checkDuplicate(id, true);
