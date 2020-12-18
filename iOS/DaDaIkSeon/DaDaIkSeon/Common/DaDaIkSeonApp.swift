@@ -19,7 +19,7 @@ struct DaDaIkSeonApp: App {
 //        #if DEBUG
 //        let service = MockTokenService()
 //        #else
-        let service = TokenService(StorageManager())
+        let service = TokenService(StorageManager(type: .token))
 //        #endif
         
         WindowGroup {

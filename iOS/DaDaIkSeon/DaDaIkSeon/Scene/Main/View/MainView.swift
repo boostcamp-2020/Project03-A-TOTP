@@ -287,7 +287,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     
     static var previews: some View {
-        let service = TokenService(StorageManager())
+        let service = TokenService(StorageManager(type: .token))
         MainView(service: service)
     }
     

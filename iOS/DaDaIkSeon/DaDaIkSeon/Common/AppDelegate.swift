@@ -34,7 +34,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     func clearKeychainIfWillUnistall() {
         let freshInstall = !UserDefaults.standard.bool(forKey: "alreadyInstalled")
         if freshInstall {
-            _ = StorageManager().deleteTokens()
+            _ = StorageManager<[Token]>(type: .token).delete()
             _ = PincodeManager().deletePincode()
             _ = JWTTokenStoreManager().delete()
             _ = BackupPasswordManager().deletePassword()
