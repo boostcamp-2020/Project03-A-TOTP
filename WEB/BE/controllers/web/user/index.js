@@ -117,12 +117,12 @@ const userController = {
 
   async makeQRUrl(req, res, next) {
     const { url } = req.body;
-    const users = decryptWithAES256({ encryptedText: decodeURIComponent(url) }).split(' ');
-    const id = users[0];
-    const time = users[1];
+    if (!url) return next(createError(400, '잘못된 요청입니다.'));
+    const [id, time] = decryptWithAES256({ encryptedText: decodeURIComponent(url) }).split(' ');
     if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
 
     const { secret_key: secretKey, user } = await authService.getUserById({ id });
+    if (!secretKey) return next(createError(400, '없는 사용자 입니다.'));
     const qrUrl = totp.makeURL({ secretKey, email: user.email });
 
     res.json({ url: qrUrl });
