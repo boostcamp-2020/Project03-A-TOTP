@@ -19,7 +19,8 @@ const userController = {
 
     userInfo = encrypUserInfo({ userInfo });
     const secretKey = totp.makeSecretKey();
-    const url = totp.makeURL({ secretKey, email: req.body.email });
+    const time = Date.now();
+    const url = encryptWithAES256({ Text: `${id} ${time + 7200000}` });
     const encryptPassword = await getEncryptedPassword(password);
 
     await DB.sequelize.transaction(async () => {
@@ -112,6 +113,19 @@ const userController = {
       user.idx
     );
     res.json({ message: 'ok' });
+  },
+
+  async makeQRUrl(req, res, next) {
+    const { url } = req.body;
+    if (!url) return next(createError(400, '잘못된 요청입니다.'));
+    const [id, time] = decryptWithAES256({ encryptedText: decodeURIComponent(url) }).split(' ');
+    if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
+
+    const { secret_key: secretKey, user } = await authService.getUserById({ id });
+    if (!secretKey) return next(createError(400, '없는 사용자 입니다.'));
+    const qrUrl = totp.makeURL({ secretKey, email: user.email });
+
+    res.json({ url: qrUrl });
   },
 };
 
