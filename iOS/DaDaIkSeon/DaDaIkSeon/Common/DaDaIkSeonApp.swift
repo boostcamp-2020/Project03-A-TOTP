@@ -28,7 +28,7 @@ struct DaDaIkSeonApp: App {
                 MainView(service: service)
                     .environmentObject(NavigationFlowObject())
             case .localAuth:
-                if let pincode = PincodeManager().loadPincode() {
+                if let pincode = StorageManager<String>(type: .pincode).load() {
                     PinCodeView(mode: .auth(pincode), completion: { _ in
                         root = .main
                     })
@@ -73,7 +73,7 @@ extension DaDaIkSeonApp {
     func localAuthenticate() {
         switch root {
         case .none:
-            if nil != PincodeManager().loadPincode() {
+            if nil != StorageManager<String>(type: .pincode).load() {
                 BiometricIDAuth().authenticateUser { result in
                     if result == nil { // 생체인증 성공
                         DispatchQueue.main.async { root = .main }

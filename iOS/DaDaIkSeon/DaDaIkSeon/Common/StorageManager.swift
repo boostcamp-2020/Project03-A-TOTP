@@ -64,6 +64,9 @@ final class StorageManager<T: Codable> {
     
     enum StorageType: String {
         case token
+        case pincode
+        case JWTToken
+        case deviceID
     }
     
 }

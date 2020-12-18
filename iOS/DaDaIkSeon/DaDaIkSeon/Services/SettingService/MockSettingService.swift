@@ -10,7 +10,7 @@ import Foundation
 class MockSettingService: SettingServiceable {
     
 //    /private var user: DDISUser? =
-    private var pincodeManager = PincodeManager()
+    private var pincodeManager = StorageManager<String>(type: .pincode)
     private var backupPasswordManager = BackupPasswordManager()
     
     func refresh(updateView: @escaping (SettingNetworkResult) -> Void) { // 뷰모델 생성자에서 실행
@@ -155,14 +155,14 @@ class MockSettingService: SettingServiceable {
     }
     
     var pincode: String? {
-        pincodeManager.loadPincode()
+        pincodeManager.load()
     }
     
     func deletePincode() {
-        pincodeManager.deletePincode()
+        _ = pincodeManager.delete()
     }
     
     func createPincde(_ pincode: String) {
-        pincodeManager.storePincode(pincode)
+        _ = pincodeManager.store(pincode)
     }
 }

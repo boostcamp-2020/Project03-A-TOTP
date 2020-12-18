@@ -122,7 +122,7 @@ struct MainView: View {
                 }
             case .active:
                 if linkManager.isThere(.background) {
-                    if nil != PincodeManager().loadPincode() {
+                    if nil != StorageManager<String>(type: .pincode).load() {
                         BiometricIDAuth().authenticateUser { result in
                             if result == nil { // 생체인증 성공
                                 DispatchQueue.main.async {
@@ -264,7 +264,7 @@ struct MainView: View {
                 "", destination: BackgroundView(),
                 tag: linkManager.scene(.background)!,
                 selection: $linkManager.tag)
-            if let password = PincodeManager().loadPincode() {
+            if let password = StorageManager<String>(type: .pincode).load() {
                 NavigationLink(
                     "", destination: PinCodeView(
                         mode: .auth(password),
