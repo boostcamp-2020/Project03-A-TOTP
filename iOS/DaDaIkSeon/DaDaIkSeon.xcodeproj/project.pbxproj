@@ -76,6 +76,7 @@
 		883C214A257E70D90094FFAA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883C2149257E70D90094FFAA /* SettingViewModel.swift */; };
 		883C2151257E71680094FFAA /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883C2150257E71680094FFAA /* SettingView.swift */; };
 		883C2162257E76CE0094FFAA /* SettingUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883C2161257E76CE0094FFAA /* SettingUsecase.swift */; };
+		88578F74258D172800FAC971 /* MainViewLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88578F73258D172800FAC971 /* MainViewLinkManager.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
 		88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
 		88697B7625729B5F008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
@@ -205,6 +206,7 @@
 		883C2149257E70D90094FFAA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		883C2150257E71680094FFAA /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		883C2161257E76CE0094FFAA /* SettingUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUsecase.swift; sourceTree = "<group>"; };
+		88578F73258D172800FAC971 /* MainViewLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewLinkManager.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
 		88697B6E257298BD008DA21B /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
 		8885FD42257F2B5D0013D794 /* DDISUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISUser.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				889CEABB256FDE2B001A1D6F /* QRGuideView.swift */,
 				88C9E6A725775CF30021EE4A /* ZeroTokenView.swift */,
 				882E9A2B257D113000B066F3 /* TokenDropDelegate.swift */,
+				88578F73258D172800FAC971 /* MainViewLinkManager.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */,
 				8885FD48257F2E7D0013D794 /* Device.swift in Sources */,
 				8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */,
+				88578F74258D172800FAC971 /* MainViewLinkManager.swift in Sources */,
 				7C7AC6C625863BD700C45D2E /* AppDelegate.swift in Sources */,
 				888E5CEF25860453001D30DF /* SettingViewModel+MultiDevice.swift in Sources */,
 				881BDDBB258749A20082CBEA /* SettingNetworkResult.swift in Sources */,
@@ -1331,8 +1335,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DaDaIkSeon/Preview Content\"";
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1346,7 +1350,7 @@
 				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.DaDaIkSeon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = DaDaIkSeonProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

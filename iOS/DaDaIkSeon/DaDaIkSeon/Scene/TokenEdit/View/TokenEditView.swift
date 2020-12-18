@@ -107,10 +107,6 @@ struct TokenEditView: View {
             .onAppear {
                 entry.text = viewModel.state.token.name ?? ""
             }
-            .onDisappear {
-//                refresh()
-                print(linkManager.$tag)
-            }
         }
         Spacer()
     }
