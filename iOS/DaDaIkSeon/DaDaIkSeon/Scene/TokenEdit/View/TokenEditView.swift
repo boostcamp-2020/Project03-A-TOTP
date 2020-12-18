@@ -108,7 +108,8 @@ struct TokenEditView: View {
                 entry.text = viewModel.state.token.name ?? ""
             }
             .onDisappear {
-                refresh()
+//                refresh()
+                print(linkManager.$tag)
             }
         }
         Spacer()
@@ -176,6 +177,7 @@ extension TokenEditView {
     
     func dismiss() {
         linkManager.change(.main)
+        refresh()
     }
     
 }

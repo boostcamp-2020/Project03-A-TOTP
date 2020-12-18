@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 class MainLinkManager: ObservableObject {
     
-    @Published var tag: Int? = -1
+    @Published var tag: Int? = nil
     
     func isThere(_ target: MainLinkTable) -> Bool {
         tag == scene(target)
@@ -51,7 +51,7 @@ struct MainView: View {
     
     // MARK: Property
     
-    @StateObject var linkManager = MainLinkManager()
+    @StateObject var linkManager: MainLinkManager
     @State var hasBackupPassword = false
     @Namespace var namespace
     
@@ -64,6 +64,7 @@ struct MainView: View {
     
     init(service: TokenServiceable) {
         _viewModel = StateObject(wrappedValue: AnyViewModel(MainViewModel(service: service)))
+        _linkManager = StateObject(wrappedValue: MainLinkManager())
     }
     
     // MARK: Body
@@ -97,7 +98,6 @@ struct MainView: View {
             .onAppear(perform: {
                 TOTPTimer.shared.startAll()
                 viewModel.trigger(.commonInput(.refreshTokens))
-                linkManager.change(.main)
             })
             .onDisappear(perform: {
                 TOTPTimer.shared.cancel()
@@ -251,7 +251,7 @@ struct MainView: View {
                 "", destination: NavigationLazyView(
                     QRGuideView(
                         qrCodeURL: $qrCodeURL,
-                        navigationTag: $linkManager.tag)
+                        linkManager: linkManager)
                 ),
                 tag: linkManager.scene(.qrguide)!,
                 selection: $linkManager.tag)
