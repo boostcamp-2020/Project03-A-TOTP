@@ -63,7 +63,7 @@ const SignUpComponent = (): JSX.Element => {
       phone,
       reCaptchaToken,
     });
-    const url = encodeURIComponent(Buffer.from(result).toString('base64'));
+    const url = encodeURIComponent(result);
     alert(message.SIGNUPSUCCESS);
     history.push(`/QRCode/${url}`);
   };
