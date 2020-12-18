@@ -16,11 +16,11 @@ const Drag = ({ children, dataItem }: DropTargetProps): JSX.Element => {
     e.dataTransfer.setData('text/plain', dataItem);
     e.dataTransfer.effectAllowed = 'move';
   }
-  function overDrag(e: React.DragEvent<HTMLDivElement>) {
+  function endDrag(e: React.DragEvent<HTMLDivElement>) {
     e.target.style.opacity = 1;
   }
   return (
-    <Wrapper draggable onDragEnd={overDrag} onDragStart={startDrag}>
+    <Wrapper draggable onDragEnd={endDrag} onDragStart={startDrag}>
       {children}
     </Wrapper>
   );
