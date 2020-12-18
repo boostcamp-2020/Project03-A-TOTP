@@ -10,7 +10,7 @@ interface TOTPModalProps {
   onChange: (otp: string) => any | React.Dispatch<React.SetStateAction<string>> | undefined;
   onSubmit: () => any;
   onClose: () => void;
-  onClick: () => void;
+  onReIssueQRCode: () => void;
   hasErrored?: boolean;
   disabled?: boolean;
   errorMsg?: string | undefined;
@@ -62,7 +62,7 @@ const TOTPModal = ({
   onChange,
   onSubmit,
   onClose,
-  onClick,
+  onReIssueQRCode,
   hasErrored,
   disabled,
   errorMsg,
@@ -93,7 +93,12 @@ const TOTPModal = ({
             />
             <Button text='취소' onClick={onClose} type='text' disabled={disabled} />
             <br />
-            <Button text='QR코드 재등록' onClick={onClick} type='text' style={{ marginTop: '1rem' }} />
+            <Button
+              text='QR코드 재등록'
+              onClick={onReIssueQRCode}
+              type='text'
+              style={{ marginTop: '1rem' }}
+            />
           </ButtonContainer>
         </Modal>
       ) : (

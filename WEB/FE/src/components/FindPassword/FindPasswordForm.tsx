@@ -24,7 +24,6 @@ const FindPasswordForm = ({ onSuccess }: FindPasswordFormProps): JSX.Element => 
     executeRecaptcha('findPassword')
       .then((reCaptchaToken: string) => findPassword({ id, name, birth, reCaptchaToken }))
       .then(({ authToken }: { authToken: string }) => onSuccess(authToken))
-      .catch((err: any) => alert(err.response?.data?.message || err.message))
       .finally(() => setIsSubmitting(false));
   };
 

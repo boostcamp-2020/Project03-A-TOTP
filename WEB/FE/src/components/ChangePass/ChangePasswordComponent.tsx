@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useInput } from '@hooks/useInput';
+import React from 'react';
 import { PasswordInput } from '@components/common';
 import { Redirect, RouteComponentProps, useHistory } from 'react-router-dom';
 import { message } from '@utils/message';
 import { changePass } from '@/api';
+import { usePasswordInput } from '@/hooks';
 import { AuthForm } from '../common/AuthForm';
 
 const ChangePasswordComponent: React.FC<RouteComponentProps> = ({ location }): JSX.Element => {
   const { search } = location;
-  const [password, setPassword] = useInput('');
-  const [rePassword, setRePassword] = useInput('');
-  const [accord, setAccord] = useState(true);
+  const { password, rePassword, setPassword, setRePassword, accord } = usePasswordInput();
   const history = useHistory();
 
-  useEffect(() => {
-    if (password !== rePassword) setAccord(false);
-    else setAccord(true);
-  }, [password, rePassword]);
   if (!search) {
     return <Redirect to='/' />;
   }

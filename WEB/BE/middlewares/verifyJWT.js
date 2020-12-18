@@ -2,7 +2,7 @@ const authService = require('@/services/web/auth');
 const totp = require('@/utils/totp');
 const JWT = require('jsonwebtoken');
 const createError = require('http-errors');
-const DB = require('@models/sequelizeIOS');
+const DB = require('@models/sequelizeWEB');
 const { emailSender } = require('@utils/emailSender');
 const { decryptWithAES256 } = require('@utils/crypto');
 
@@ -17,7 +17,7 @@ const verifyJWT = {
       const lastOtp = await authService.getOTPById({ id });
 
       if (String(lastOtp) === digits)
-        next(createError(400, '한번 사용된 OTP입니다 다음 OTP 정보를 이용하세요'));
+        return next(createError(488, '한번 사용된 OTP입니다 다음 OTP 정보를 이용하세요'));
 
       if (!(await checkLoingCount(id, next))) return;
 
@@ -25,7 +25,7 @@ const verifyJWT = {
       const result = totp.verifyDigits(secretKey, digits);
       if (!result) {
         await authService.loginFail({ id });
-        next(createError(400, 'TOTP 6자리가 틀렸습니다.'));
+        return next(createError(488, 'TOTP 6자리가 틀렸습니다.'));
       }
       next();
     } catch (e) {
@@ -40,7 +40,6 @@ const checkLoingCount = async (id, next) => {
     user: { email, name, idx },
   } = auth;
   if (auth.login_fail_count === 5) {
-    /** @TODO 트랜젝션 */
     await DB.sequelize.transaction(async () => {
       await authService.userDeactivation({ id });
       await authService.loginFail({ id });

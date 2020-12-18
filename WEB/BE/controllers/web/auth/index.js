@@ -5,7 +5,7 @@ const logService = require('@/services/web/log');
 const { comparePassword, getEncryptedPassword } = require('@utils/bcrypt');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { emailSender } = require('@/utils/emailSender');
-const DB = require('@models/sequelizeIOS');
+const DB = require('@models/sequelizeWEB');
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
 const { makeRandom } = require('@utils/random');
@@ -95,8 +95,6 @@ const authController = {
 
     if (action !== ACIONS.FIND_PW) return next(createError(401, '잘못된 요청입니다'));
 
-    /** @TOTO 이메일 전송 */
-    // 토큰이 있다는건 아이디가 있다는 것을 전제하고 구현
     const user = await authService.getUserById({ id });
     const userInfo = {
       email: decryptWithAES256({ encryptedText: user.user.email }),
@@ -108,17 +106,14 @@ const authController = {
     res.send('ok');
   },
 
-  async changePassword(req, res) {
+  async changePassword(req, res, next) {
     const { password } = req.body;
     let { user } = req.query;
     user = decodeURIComponent(user);
     const userdata = decryptWithAES256({ encryptedText: user }).split(' ');
     const id = userdata[0];
     const time = userdata[1];
-    if (time < Date.now()) {
-      res.status(400).json({ message: '요청이 만료되었습니다.' });
-      return;
-    }
+    if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
     const encryptPassword = await getEncryptedPassword(password);
     await authService.updatePassword(encryptPassword, id);
     res.json({ message: '변경 완료' });
@@ -129,13 +124,14 @@ const authController = {
     const { id } = JWT.verify(authToken, process.env.ENCRYPTIONKEY);
     const { user } = await authService.getUserById({ id });
     const secretKey = totp.makeSecretKey();
-
+    const time = Date.now();
+    const url = encryptWithAES256({ Text: `${id} ${time + 7200000}` });
     await authService.reissueSecretKey({ id, secretKey });
     await emailSender.sendSecretKey({
       id,
       email: decryptWithAES256({ encryptedText: user.email }),
       name: decryptWithAES256({ encryptedText: user.name }),
-      totpURL: totp.makeURL({ secretKey, email: user.email }),
+      totpURL: url,
     });
 
     res.json({ message: 'ok' });
@@ -146,11 +142,11 @@ const authController = {
     const id = req.session.user;
     const user = await authService.getAuthById({ id });
 
-    if (!user) return next(createError(400, '존재하지 않는 유저입니다.'));
+    if (!user) return next(createError(401, '존재하지 않는 유저입니다.'));
 
     const isValidPassword = await comparePassword(password, user.password);
 
-    if (!isValidPassword) return next(createError(400, '비밀번호가 일치하지 않습니다.'));
+    if (!isValidPassword) return next(createError(488, '비밀번호가 일치하지 않습니다.'));
 
     res.json({ result: true });
   },

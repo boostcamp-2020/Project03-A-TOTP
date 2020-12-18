@@ -3,6 +3,8 @@ const userService = require('@/services/web/user');
 const { encryptWithAES256, decryptWithAES256 } = require('@utils/crypto');
 const { getEncryptedPassword } = require('@utils/bcrypt');
 const { emailSender } = require('@/utils/emailSender');
+const createError = require('http-errors');
+const DB = require('@models/sequelizeWEB');
 const totp = require('@utils/totp');
 
 const userController = {
@@ -17,18 +19,23 @@ const userController = {
 
     userInfo = encrypUserInfo({ userInfo });
     const secretKey = totp.makeSecretKey();
-    const url = totp.makeURL({ secretKey, email: req.body.email });
+    const time = Date.now();
+    const url = encryptWithAES256({ Text: `${id} ${time + 7200000}` });
     const encryptPassword = await getEncryptedPassword(password);
-    const insertResult = await userService.insert({ userInfo });
-    const result = await authService.insert({
-      idx: insertResult.dataValues.idx,
-      id,
-      password: encryptPassword,
-      isVerified: '0',
-      secretKey,
+
+    await DB.sequelize.transaction(async () => {
+      const insertResult = await userService.insert({ userInfo });
+      const result = await authService.insert({
+        idx: insertResult.dataValues.idx,
+        id,
+        password: encryptPassword,
+        isVerified: '0',
+        secretKey,
+      });
+
+      emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
+      res.json({ result, url });
     });
-    emailSender.SignUpAuthentication(req.body.email, req.body.name, insertResult.dataValues.idx);
-    res.json({ result, url });
   },
 
   async dupEmail(req, res) {
@@ -37,14 +44,11 @@ const userController = {
     res.json({ result });
   },
 
-  async confirmEmail(req, res) {
+  async confirmEmail(req, res, next) {
     const user = decryptWithAES256({ encryptedText: req.query.user }).split(' ');
     const time = user[1];
     const idx = user[2];
-    if (time < Date.now()) {
-      res.status(400).json({ result: false });
-      return;
-    }
+    if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
     const info = {
       isVerified: 1,
       idx,
@@ -55,14 +59,13 @@ const userController = {
     res.json({ result: true });
   },
 
-  async findID(req, res) {
+  async findID(req, res, next) {
     const { email, name } = req.body;
+
     const userInfo = encrypUserInfo({ userInfo: req.body });
     const user = await userService.findAuthByUser({ userInfo });
 
-    if (!user) {
-      return res.status(400).json({ msg: '없는 사용자' });
-    }
+    if (!user) return next(createError(400, '존재하지 않는 사용자입니다.'));
 
     emailSender.sendId(email, name, user.auth.id);
     res.json(true);
@@ -101,7 +104,7 @@ const userController = {
     res.json({ message: 'ok' });
   },
 
-  async reSendEmail(req, res, next) {
+  async reSendEmail(req, res) {
     const { id } = req.body;
     const { user } = await authService.getUserById({ id });
     emailSender.SignUpAuthentication(
@@ -110,6 +113,19 @@ const userController = {
       user.idx
     );
     res.json({ message: 'ok' });
+  },
+
+  async makeQRUrl(req, res, next) {
+    const { url } = req.body;
+    if (!url) return next(createError(400, '잘못된 요청입니다.'));
+    const [id, time] = decryptWithAES256({ encryptedText: decodeURIComponent(url) }).split(' ');
+    if (time < Date.now()) return next(createError(400, '요청이 만료되었습니다.'));
+
+    const { secret_key: secretKey, user } = await authService.getUserById({ id });
+    if (!secretKey) return next(createError(400, '없는 사용자 입니다.'));
+    const qrUrl = totp.makeURL({ secretKey, email: user.email });
+
+    res.json({ url: qrUrl });
   },
 };
 

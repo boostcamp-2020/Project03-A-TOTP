@@ -1,55 +1,45 @@
 import React, { useState } from 'react';
 import { FindPasswordForm } from '@/components/FindPassword/FindPasswordForm';
 import { TOTPModal } from '@components/TOTPModal/TOTPModal';
-import { findPasswordWithOTP } from '@api/index';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { findPasswordWithOTP, sendSecretKeyEmail } from '@api/index';
 import { useHistory } from 'react-router-dom';
-import { message } from '../../utils/message';
-
-const TOTP_LEN = 6;
+import { useTOTPModal } from '@hooks/useTOTPModal';
+import { message } from '@utils/message';
 
 interface FindPasswordContainerProps {}
 
 const FindPasswordContainer = ({}: FindPasswordContainerProps): JSX.Element => {
   const history = useHistory();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { executeRecaptcha } = useGoogleReCaptcha();
-  const [TOTP, setTOTP] = useState('');
   const [authToken, setAuthToken] = useState('');
-  const [hasTOTPModalError, setHasTOTPModalError] = useState(false);
-  const [modalDisabled, setModalDisabled] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const onSuccessAuthToken = (authToken: string) => {
     setAuthToken(authToken);
-    setIsModalOpen(true);
-  };
-  const onCloseModal = () => {
-    setTOTP('');
-    setIsModalOpen(false);
-  };
-  const onErrorWithOTP = (errMsg: string) => {
-    setHasTOTPModalError(true);
-    setErrorMsg(errMsg);
-  };
-  const onSubmitOTP = () => {
-    setHasTOTPModalError(false);
-    if (TOTP.length < TOTP_LEN) {
-      onErrorWithOTP('전부 입력해 주세요~');
-      return;
-    }
-    setModalDisabled(true);
-    executeRecaptcha('findPasswordWithOTP')
-      .then((reCaptchaToken: string) => findPasswordWithOTP({ authToken, totp: TOTP, reCaptchaToken }))
-      .then(() => findPasswordSuccess())
-      .catch((err: any) => onErrorWithOTP(err.response?.data?.message || err.message))
-      .finally(() => setModalDisabled(false));
+    openModal();
   };
 
   const findPasswordSuccess = () => {
     alert(message.FINDPASSWORDSUCCESS);
     history.replace('/');
   };
+
+  const submitHandler = (reCaptchaToken: string) =>
+    findPasswordWithOTP({ authToken, totp: TOTP, reCaptchaToken }).then(() => findPasswordSuccess());
+
+  const reIssueHandler = (reCaptchaToken: string) =>
+    sendSecretKeyEmail({ authToken, reCaptchaToken }).then(() => alert(message.EMAILSECRETKEYSUCCESS));
+
+  const {
+    isModalOpen,
+    openModal,
+    closeModal,
+    TOTP,
+    setTOTP,
+    hasTOTPModalError,
+    modalDisabled,
+    errorMsg,
+    onReIssueQRCode,
+    onSubmitOTP,
+  } = useTOTPModal({ reIssueHandler, submitHandler });
 
   return (
     <>
@@ -59,10 +49,11 @@ const FindPasswordContainer = ({}: FindPasswordContainerProps): JSX.Element => {
         TOTP={TOTP}
         onChange={setTOTP}
         onSubmit={onSubmitOTP}
-        onClose={onCloseModal}
+        onClose={closeModal}
         hasErrored={hasTOTPModalError}
         disabled={modalDisabled}
         errorMsg={errorMsg}
+        onReIssueQRCode={onReIssueQRCode}
       />
     </>
   );
