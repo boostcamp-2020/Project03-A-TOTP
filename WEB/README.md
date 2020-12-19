@@ -4,24 +4,12 @@
 
 TOTP를 이용한 인증 및 세션관리 웹 서비스 '다다익선'입니다.
 
-**구성원**
+<br>
+
+## 📌 프로젝트 구성원
 
 | [J008 강진구](https://github.com/xortm854) | [J068 문석암](https://github.com/mon823) | [J135 이도경](https://github.com/dogyeong) |
 |-----|----|-----|
-
-<br>
-
-## 📌 기술 스택
-
-| FE | BE | Infra & etc |
-|:----:|:-----:|:---------------:|
-|<img src="https://user-images.githubusercontent.com/40662323/102689054-9fb86700-423e-11eb-95dd-ccae4ca9a4e7.png" width="130" /><img src="https://user-images.githubusercontent.com/40662323/102689035-86171f80-423e-11eb-900f-ba1401d47a02.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689070-bf4f8f80-423e-11eb-831d-e57b0a022867.png" width="300" />|<img src="https://user-images.githubusercontent.com/40662323/102689088-dbebc780-423e-11eb-936f-0cb710b12446.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689138-37b65080-423f-11eb-8c76-c003e07542d7.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689193-88c64480-423f-11eb-9fff-4cc0a6b2f216.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102690083-4e13da80-4246-11eb-924f-7353d1eb795c.png" width="250" />|<img src="https://user-images.githubusercontent.com/40662323/102689118-0b9acf80-423f-11eb-86c2-677b3e27fa39.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689231-cb881c80-423f-11eb-907c-01eaacb6afc9.png" width="250"/>|
-
-<br>
-
-## 📌 프로젝트 아키텍쳐
-
-![undefined](https://user-images.githubusercontent.com/40662323/102689973-954d9b80-4245-11eb-8d6d-d881dc4ae677.png)
 
 <br>
 
@@ -39,6 +27,20 @@ TOTP를 이용한 인증 및 세션관리 웹 서비스 '다다익선'입니다.
 - 접속 기록 관리(세션 관리)
   - 접속 기록 조회
   - 로그인 상태 만료기능(다른 디바이스의 세션 만료)
+
+<br>
+
+## 📌 기술 스택
+
+| FE | BE | Infra & etc |
+|:----:|:-----:|:---------------:|
+|<img src="https://user-images.githubusercontent.com/40662323/102689054-9fb86700-423e-11eb-95dd-ccae4ca9a4e7.png" width="130" /><img src="https://user-images.githubusercontent.com/40662323/102689035-86171f80-423e-11eb-900f-ba1401d47a02.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689070-bf4f8f80-423e-11eb-831d-e57b0a022867.png" width="300" />|<img src="https://user-images.githubusercontent.com/40662323/102689088-dbebc780-423e-11eb-936f-0cb710b12446.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689138-37b65080-423f-11eb-8c76-c003e07542d7.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689193-88c64480-423f-11eb-9fff-4cc0a6b2f216.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102690083-4e13da80-4246-11eb-924f-7353d1eb795c.png" width="250" />|<img src="https://user-images.githubusercontent.com/40662323/102689118-0b9acf80-423f-11eb-86c2-677b3e27fa39.png" width="250" /><img src="https://user-images.githubusercontent.com/40662323/102689231-cb881c80-423f-11eb-907c-01eaacb6afc9.png" width="250"/>|
+
+<br>
+
+## 📌 아키텍쳐
+
+![diagram](https://user-images.githubusercontent.com/40662323/102689973-954d9b80-4245-11eb-8d6d-d881dc4ae677.png)
     
 <br>
 
