@@ -118,9 +118,11 @@ struct MainView: View {
         .onChange(of: scenePhase, perform: { newScenePhrase in
             switch newScenePhrase {
             case .inactive:
-                if linkManager.isThere(.main) { // main이 아닐때는 발동 안되게!
-                    DispatchQueue.main.async {
-                        linkManager.change(.background)
+                if StorageManager<String>(type: .pincode).load() != nil {
+                    if linkManager.isThere(.main) { // main이 아닐때는 발동 안되게!
+                        DispatchQueue.main.async {
+                            linkManager.change(.background)
+                        }
                     }
                 }
             case .active:
