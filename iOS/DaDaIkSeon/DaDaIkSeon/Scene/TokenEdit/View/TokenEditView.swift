@@ -92,6 +92,7 @@ struct TokenEditView: View {
                                     ?? LinearGradient.mint)
                     .cornerRadius(15)
             }
+            .background(Color(.systemBackground))
             .navigationBarHidden(false)
             .navigationBarTitle("토큰 추가", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
