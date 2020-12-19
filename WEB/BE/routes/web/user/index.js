@@ -302,5 +302,10 @@ router.use(sessionAuthentication.sessionCheck);
  */
 router.get('/', catchErrors(userController.getUser));
 router.patch('/', validator(['name', 'email', 'phone', 'birth']), catchErrors(userController.updateUser));
+router.post(
+  '/update',
+  validator(['name', 'email', 'phone', 'birth']),
+  catchErrors(userController.updateUser)
+);
 
 module.exports = router;
