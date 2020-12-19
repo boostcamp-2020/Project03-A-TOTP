@@ -94,8 +94,8 @@ struct TokenCellView: View {
             }
             
         }
-        .animation(nil)
-        .animation(.default)
+//        .animation(nil)
+//        .animation(.default)
 //        .rotationEffect(.degrees(rotaionDegree(checkBoxMode: checkBoxMode)))
 //        .animation(checkBoxMode ?
 //                    Animation.easeInOut(duration: Double().randomDgree())

@@ -172,6 +172,7 @@ struct MainView: View {
                                             viewModel.trigger(.commonInput(.refreshTokens))
                                         }
                     )
+                    .animation(nil)
                     .matchedGeometryEffect(id: viewModel.state.mainToken.id, in: namespace)
                     .onTapGesture {
                         if viewModel.state.checkBoxMode {
@@ -196,6 +197,7 @@ struct MainView: View {
                                 viewModel.trigger(.commonInput(.refreshTokens))
                               }
                 )
+                .animation(.default)
                 .onTapGesture {
                     if viewModel.state.checkBoxMode {
                         viewModel.trigger(.checkBoxInput(.selectCell(token.id)))
