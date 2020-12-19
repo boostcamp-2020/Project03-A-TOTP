@@ -35,7 +35,6 @@ final class CellHandler: CommonHandler {
         state.service.updateMainToken(id: id)
         if state.isSearching {
             endSearch()
-            showMainScene()
             return
         }
     }
