@@ -40,7 +40,9 @@ struct HeaderView: View {
                     .padding(.leading, 4)
                 
                 Spacer()
-                selectButton
+                if !viewModel.state.zeroTokenState {
+                    selectButton
+                }
             }
         }
         .padding([.leading, .trailing], 16)
@@ -53,6 +55,7 @@ struct HeaderView: View {
             showingAlert = true
         }, label: {
             Text(count == 0 ? "" : "\(count)개 삭제")
+                .foregroundColor(Color.button)
         })
         .alert(isPresented: $showingAlert) {
             Alert(
