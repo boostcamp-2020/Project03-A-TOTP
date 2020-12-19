@@ -24,7 +24,8 @@ final class TokenCellViewModel: ViewModel {
     // MARK: init
     
     init(service: TokenServiceable,
-         token: Token, isMainCell: Bool,
+         token: Token,
+         isMainCell: Bool,
          refreshAction: (() -> Void)? = nil) {
         
         self.isMainCell = isMainCell
