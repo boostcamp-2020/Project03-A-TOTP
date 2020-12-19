@@ -28,12 +28,16 @@ final class TokenCellViewModel: ViewModel {
          isMainCell: Bool,
          refreshAction: (() -> Void)? = nil) {
         
+        let timeAmount = Date()
+            .timeIntervalSince1970
+            .truncatingRemainder(dividingBy: totalTime) + timerInterval
+        
         self.isMainCell = isMainCell
         state = TokenCellState(service: service,
                                token: token,
-                               password: TOTPGenerator.generate(from: token.key ?? "") ?? "000000",
-                               leftTime: "1",
-                               timeAmount: 0.0,
+                               password: TOTPGenerator.generate(from: token.key ?? "") ?? "",
+                               leftTime: "",
+                               timeAmount: timeAmount,
                                isShownEditView: false)
         TOTPTimer.shared.start(tokenID: token.id,
                                subscriber: initTimer(key: token.key ?? ""))
@@ -83,7 +87,7 @@ extension TokenCellViewModel {
             if isMainCell { leftTime = "\(30 - seconds)" }
             if seconds == 0 {
                 password
-                    = TOTPGenerator.generate(from: key) ?? "000000"
+                    = TOTPGenerator.generate(from: key) ?? ""
                 resetTimeAmount()
             }
             lastSecond = seconds
