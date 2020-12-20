@@ -63,7 +63,7 @@
 
 
 |![main-Max](https://user-images.githubusercontent.com/26567846/102722501-d5477800-4344-11eb-98a6-d44f908e22fe.png)|![edit-Max](https://user-images.githubusercontent.com/26567846/102722500-d4164b00-4344-11eb-8f06-4bab5e6eb9ff.png)|![qr-Max](https://user-images.githubusercontent.com/26567846/102722504-d678a500-4344-11eb-9695-5a8e3d73fad0.png)|![pincode-Max](https://user-images.githubusercontent.com/26567846/102722502-d5e00e80-4344-11eb-8caa-18a473d396f5.png)|![darkmode-Max](https://user-images.githubusercontent.com/26567846/102722496-ceb90080-4344-11eb-848b-774f48395f84.png)|
-|:-----:|:-----:|:-----:|:-----:|:-----:|
+|-----|-----|-----|-----|-----|
 
 
 ## 📌 기능 목록
@@ -84,7 +84,7 @@
 ### 기능 시연
 |<img src="https://user-images.githubusercontent.com/26567846/102722928-ec3b9980-4347-11eb-9dba-c0d40b3f0cd6.gif" width=30%>|<img src="https://user-images.githubusercontent.com/26567846/102722932-f1004d80-4347-11eb-935b-dad986a68410.gif" width=30%>|<img src="https://user-images.githubusercontent.com/26567846/102723300-286ff980-434a-11eb-80ce-3eec7ab2613e.gif" width=30%>|
 |![메인셀로](https://user-images.githubusercontent.com/26567846/102722934-f198e400-4347-11eb-8f19-dcb1b693db38.gif)|![검색](https://user-images.githubusercontent.com/26567846/102722936-f2ca1100-4347-11eb-8aa2-3d64f70334de.gif)|![삭제](https://user-images.githubusercontent.com/26567846/102722938-f2ca1100-4347-11eb-8b44-e11e5388a9e4.gif)|
-|:-----:|:-----:|:-----:|:-----:|:-----:|
+|:-----:|:-----:|:-----:|
 
 
 
