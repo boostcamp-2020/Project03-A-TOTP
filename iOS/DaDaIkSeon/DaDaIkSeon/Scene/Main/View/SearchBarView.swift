@@ -62,7 +62,7 @@ private extension SearchBarView {
             hideKeyboard()
         }, label: {
             Text("취소")
-                .foregroundColor(.black)
+                .foregroundColor(.button)
         })
         .padding(.trailing, 10)
         .transition(.move(edge: .trailing))

@@ -65,8 +65,7 @@ struct TokenEditView: View {
                               text: $entry.text)
                         .padding(6)
                         .font(.system(size: 15))
-                        .foregroundColor(.black)
-                        .background(Color(.systemGray6))
+                        .background(Color(.systemGray5))
                         .cornerRadius(10)
                         .multilineTextAlignment(TextAlignment.center)
                 }
@@ -93,14 +92,14 @@ struct TokenEditView: View {
                                     ?? LinearGradient.mint)
                     .cornerRadius(15)
             }
+            .background(Color(.systemBackground))
             .navigationBarHidden(false)
             .navigationBarTitle("토큰 추가", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: cancelButton,
-                trailing: saveButton.foregroundColor(.black)
+                trailing: saveButton.foregroundColor(.button)
             )
-            .background(Color.white)
             .onTapGesture {
                 hideKeyboard()
             }
@@ -108,7 +107,7 @@ struct TokenEditView: View {
                 entry.text = viewModel.state.token.name ?? ""
             }
             .onDisappear {
-//                refresh()
+                refresh()
                 print(linkManager.$tag)
             }
         }
@@ -152,7 +151,7 @@ extension TokenEditView {
         Button(action: {
             dismiss()
         }, label: {
-            Text("취소").foregroundColor(.black)
+            Text("취소").foregroundColor(.button)
         })
     }
     
