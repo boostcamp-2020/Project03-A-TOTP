@@ -29,6 +29,30 @@ https://dadaikseon.com/
 - 접속 기록 관리(세션 관리)
   - 접속 기록 조회
   - 로그인 상태 만료기능(다른 디바이스의 세션 만료)
+- 학습기능
+  - 2FA,TOTP 학습 페이지
+  - 학습 퀴즈 페이지
+
+<br>
+
+## 기능 구현 보기
+<회원가입> 　　　　　　　　　　　　　　　　　　　　　　　<로그인 & 로그아웃>  
+<img src="https://user-images.githubusercontent.com/41230031/102709735-50cb0a00-42f0-11eb-9e62-b8b786b36e15.gif" width="350px" height="250px"/>
+　　　　　　<img src="https://user-images.githubusercontent.com/41230031/102709979-6b05e780-42f2-11eb-9ee2-db0cdb2a8fb4.gif" width="350px" height="250px" />  
+<br>
+
+<아이디찾기>　　　　　　　　　　　　　　　　　　　　　　<비밀번호찾기>  
+<img src="https://user-images.githubusercontent.com/41230031/102710367-1fa10880-42f5-11eb-87c1-76bd1fdbb19a.gif" width="350px" height="250px" />
+　　　　　　<img src="https://user-images.githubusercontent.com/41230031/102710368-216acc00-42f5-11eb-9c2b-51cd75cccc11.gif" width="350px" height="250px" />
+<br>
+
+<내정보변경>　　　　　　　　　　　　　　　　　　　　　　<접속기록 조회 & 로그인 상태 만료기능(다른 디바이스의 세션 만료)>  
+<img src="https://user-images.githubusercontent.com/41230031/102710376-262f8000-42f5-11eb-9f39-6449d3a842bd.gif" width="350px" height="250px" />
+　　　　　　<img src="https://user-images.githubusercontent.com/41230031/102710639-0600c080-42f7-11eb-8ed9-d26a63d54343.gif" width="350px" height="250px" />  
+<br>
+
+<학습페이지 & 학습 퀴즈>  
+<img src="https://user-images.githubusercontent.com/41230031/102710854-ac999100-42f8-11eb-8283-106f23ecb204.gif" width="350px" height="250px" />  
 
 <br>
 
