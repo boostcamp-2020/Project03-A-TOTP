@@ -51,7 +51,10 @@ function TOTPIntroContainer({}: TOTPIntroContainerProps): JSX.Element {
           <b>일회용이기</b> 때문에 노출되어도 재사용이 불가능하며 알고리즘을 통해 생성되므로 외부 서버 없이
           비밀번호를 생성 가능합니다.
           <br />
-          따라서 가장 흔하게 우리가 접할 수 있는 곳은 주로 은행 등의 중요 자산을 보관하는 곳이고 그만큼
+          그 중에 TOTP (Time base One-Time Password)를 쉽게 접할 수 있다. 즉 시간을 기반으로 하는
+          비밀번호이다.
+          <br />
+          가장 흔하게 우리가 TOTP를 접할 수 있는 곳은 주로 은행 등의 중요 자산을 보관하는 곳이고 그만큼
           안정성에 있어서 높은 효율을 보여줍니다.
           <ImageContainer>
             <img src={dice} alt='랜덤 숫자' style={{ borderRadius: '10px' }} />
