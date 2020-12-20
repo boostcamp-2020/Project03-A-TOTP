@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftOTP
 
 final class TOTPGenerator {
     
@@ -25,16 +24,14 @@ final class TOTPGenerator {
             return nil
         }
         
-        guard let totp = TOTP(
-                secret: keyData,
+        guard let totp = DDISTOTP(
+                key: keyData,
                 digits: 6,
-                timeInterval: 30,
-                algorithm: .sha1) else {
+                timeInterval: 30) else {
             return nil
         }
-        guard let password = totp.generate(
-                secondsPast1970: Int(Date().timeIntervalSince1970))
-        else {
+        
+        guard let password = totp.generateTOTP() else {
             return nil
         }
         return password
