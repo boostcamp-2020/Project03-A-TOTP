@@ -56,8 +56,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(dev ? cors() : cors(corsOptions));
 app.use(helmet());
-app.use(helmet.contentSecurityPolicy());
-app.use(helmet.xssFilter());
 
 app.use('/api/app', iOSRouter);
 
