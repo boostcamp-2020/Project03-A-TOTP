@@ -8,9 +8,11 @@ interface ParagraphProps {
 }
 
 const Wrapper = styled.p`
-  line-height: 1.6;
   word-break: keep-all;
   margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  line-height: 200%;
+  font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 function Paragraph({ children, style }: ParagraphProps): JSX.Element {
