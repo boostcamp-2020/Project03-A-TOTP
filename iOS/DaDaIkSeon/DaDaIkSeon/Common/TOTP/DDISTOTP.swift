@@ -15,10 +15,10 @@ struct DDISTOTP {
     public let timeInterval: Int
     
     init?(key: Data, digits: Int, timeInterval: Int) {
-        guard validateDigits(digit: digits) else { return nil }
         self.key = key
         self.digits = digits
         self.timeInterval = timeInterval
+        guard self.validateDigits(digit: digits) else { return nil }
     }
     
     func generateTOTP() -> String? {
@@ -36,7 +36,7 @@ struct DDISTOTP {
         Array<UInt8>(data)
     }
 
-    func timeToData() -> Array<UInt8>? {
+    func timeToData() -> [UInt8]? {
         // Time 전처리
         let secondsPast1970 = Int(Date().timeIntervalSince1970)
         guard validateTime(time: secondsPast1970) else { return nil }
@@ -86,7 +86,7 @@ struct DDISTOTP {
         return result
     }
     
-    private func validateDigits(digit: Int) -> Bool{
+    private func validateDigits(digit: Int) -> Bool {
         let validDigits = 6...8
         return validDigits.contains(digit)
     }

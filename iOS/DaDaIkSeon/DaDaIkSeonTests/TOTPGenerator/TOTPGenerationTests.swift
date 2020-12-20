@@ -68,6 +68,25 @@ class TOTPGenerationTests: XCTestCase {
         }
     }
     
+    func test_TOTP라이브러리와DDISTOTP가같아야한다() {
+        testURLs.forEach {
+            guard let keyData = keyData(from: $0) else {
+                XCTFail("키 데이터 생성 실패")
+                return
+            }
+            let ddis = DDISTOTP(key: keyData,
+                                digits: 6,
+                                timeInterval: 30)
+            let totp = TOTP(secret: keyData,
+                            digits: 6,
+                            timeInterval: 30,
+                            algorithm: .sha1)
+            print(totp?.generate(time: Date()), ddis?.generateTOTP())
+            XCTAssertEqual(totp?.generate(time: Date()), ddis?.generateTOTP())
+        }
+    }
+    
+    
     func test_base64디코딩과_base32디코딩의_결과가_달라야한다() {
         testURLs.forEach {
             guard let data64
