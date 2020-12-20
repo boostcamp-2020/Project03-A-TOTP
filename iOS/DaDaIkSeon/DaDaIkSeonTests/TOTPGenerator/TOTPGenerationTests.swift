@@ -54,6 +54,39 @@ class TOTPGenerationTests: XCTestCase {
         }
     }
     
+    func test_키값으로부터_DDISTOTP객체가_생성되어야한다() {
+        testURLs.forEach {
+            guard let keyData = keyData(from: $0) else {
+                XCTFail("키 데이터 생성 실패")
+                return
+            }
+            XCTAssertNotNil(
+                DDISTOTP(key: keyData,
+                         digits: 6,
+                         timeInterval: 30)
+            )
+        }
+    }
+    
+    func test_TOTP라이브러리와DDISTOTP가같아야한다() {
+        testURLs.forEach {
+            guard let keyData = keyData(from: $0) else {
+                XCTFail("키 데이터 생성 실패")
+                return
+            }
+            let ddis = DDISTOTP(key: keyData,
+                                digits: 6,
+                                timeInterval: 30)
+            let totp = TOTP(secret: keyData,
+                            digits: 6,
+                            timeInterval: 30,
+                            algorithm: .sha1)
+            print(totp?.generate(time: Date()), ddis?.generateTOTP())
+            XCTAssertEqual(totp?.generate(time: Date()), ddis?.generateTOTP())
+        }
+    }
+    
+    
     func test_base64디코딩과_base32디코딩의_결과가_달라야한다() {
         testURLs.forEach {
             guard let data64
@@ -83,6 +116,19 @@ class TOTPGenerationTests: XCTestCase {
         }
     }
     
+    func test_우리가만든base32디코더와라이브러리디코더비교해서같아야한다() throws {
+        try testURLs.forEach {
+            guard let keyString = extractKey($0) else {
+                XCTFail("키 값 생성 실패")
+                return
+            }
+            //XCTAssertNotNil(base32DecodeToData(keyString))
+            XCTAssertEqual(
+                base32DecodeToData(keyString),
+               try TOTPGenerator.decode32baseStringToData(base32String: keyString))
+        }
+    }
+     
 }
 
 // MARK: function
