@@ -21,7 +21,7 @@ struct SettingRow<Item: View>: View {
     
     var body: some View {
         ZStack {
-            Rectangle().fill(Color.bgColor)
+            Rectangle().fill(Color.white)
             VStack {
                 HStack {
                     Text("\(title)")

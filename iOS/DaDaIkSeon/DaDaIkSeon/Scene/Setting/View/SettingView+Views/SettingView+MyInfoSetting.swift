@@ -46,8 +46,7 @@ extension SettingView {
             
             SettingRow(title: "보안 강화하기",
                        isLast: viewModel.state.authEditMode ? false:true) {
-                Image.chevronRight
-                    .rotationEffect(.degrees(viewModel.state.authEditMode ? 90.0 : 0.0))
+                viewModel.state.authEditMode ? Image.chevronDown : Image.chevronRight
             }
             .onTapGesture {
                 withAnimation {

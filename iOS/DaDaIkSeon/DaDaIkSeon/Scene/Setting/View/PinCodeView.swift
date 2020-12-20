@@ -142,7 +142,7 @@ struct NumberPad: View {
                 }
             }
         }
-        .foregroundColor(Color(.label))
+        .foregroundColor(.black)
     }
 }
 

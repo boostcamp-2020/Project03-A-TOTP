@@ -71,7 +71,7 @@ struct QRGuideView: View {
             })
             .background(Color.darkNavy)
             .cornerRadius(15)
-            Spacer()
+            
         }
         .padding(.horizontal, 40)
         .navigationBarHidden(false)
@@ -81,8 +81,7 @@ struct QRGuideView: View {
             leading: Button(action: {
                 mode.wrappedValue.dismiss()
             }, label: {
-                Text("취소")
-                    .foregroundColor(Color.button)
+                Text("취소").foregroundColor(.black)
             })
         )
         .sheet(isPresented: $isShownScanner) {

@@ -40,9 +40,7 @@ struct HeaderView: View {
                     .padding(.leading, 4)
                 
                 Spacer()
-                if !viewModel.state.zeroTokenState {
-                    selectButton
-                }
+                selectButton
             }
         }
         .padding([.leading, .trailing], 16)
@@ -55,7 +53,6 @@ struct HeaderView: View {
             showingAlert = true
         }, label: {
             Text(count == 0 ? "" : "\(count)개 삭제")
-                .foregroundColor(Color.button)
         })
         .alert(isPresented: $showingAlert) {
             Alert(
@@ -77,7 +74,7 @@ struct HeaderView: View {
             Image.person.resizable()
                 .frame(width: 25)
         })
-        .foregroundColor(Color.button)
+        .foregroundColor(.black)
     }
     
     // MARK: 취소 선택 버튼
@@ -90,7 +87,7 @@ struct HeaderView: View {
         }, label: {
             Text("취소")
                 .padding(.trailing, 4)
-                .foregroundColor(Color.button)
+                .foregroundColor(.black)
         })
     }
     
@@ -102,7 +99,7 @@ struct HeaderView: View {
         }, label: {
             Text("선택")
                 .padding(.trailing, 4)
-                .foregroundColor(Color.button)
+                .foregroundColor(.black)
         })
     }
     

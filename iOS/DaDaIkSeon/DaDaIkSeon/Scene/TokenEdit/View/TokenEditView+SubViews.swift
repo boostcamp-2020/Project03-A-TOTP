@@ -12,10 +12,10 @@ struct IconView: View {
     var action: (String) -> Void
     
     var columns = [GridItem(.flexible()),
-                   GridItem(.flexible()),
-                   GridItem(.flexible()),
-                   GridItem(.flexible()),
-                   GridItem(.flexible())]
+                           GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible())]
     
     var icons: [String] = [
         "search", "message", "game",
@@ -43,10 +43,10 @@ struct IconView: View {
                                minHeight: 20,
                                maxHeight: 25)
                         .padding(5)
-                        .foregroundColor(.shadow)
+                        .foregroundColor(Color.shadow)
                 }
                 .padding(3)
-                .colorMultiply(pressedIndex == index ? .button : .iconButton)
+                .colorMultiply(pressedIndex == index ? Color.black : Color.shadow)
             }
 
         }
