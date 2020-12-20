@@ -79,7 +79,7 @@
 		88578F74258D172800FAC971 /* MainViewLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88578F73258D172800FAC971 /* MainViewLinkManager.swift */; };
 		88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B5D25729682008DA21B /* TOTPGenerationTests.swift */; };
 		88697B6F257298BD008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
-		88697B7625729B5F008DA21B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
+		88830918258F644000F3877E /* DDISTOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88830917258F644000F3877E /* DDISTOTP.swift */; };
 		8885FD43257F2B5D0013D794 /* DDISUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD42257F2B5D0013D794 /* DDISUser.swift */; };
 		8885FD48257F2E7D0013D794 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD47257F2E7D0013D794 /* Device.swift */; };
 		8885FD56257F36120013D794 /* MockSettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8885FD55257F36120013D794 /* MockSettingService.swift */; };
@@ -94,6 +94,9 @@
 		88938A5E2585392A00D3945C /* SettingView+BackupSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A5D2585392A00D3945C /* SettingView+BackupSetting.swift */; };
 		88938A632585395600D3945C /* SettingView+MyInfoSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A622585395600D3945C /* SettingView+MyInfoSetting.swift */; };
 		88938A712585488900D3945C /* TokenCryptoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88938A702585488900D3945C /* TokenCryptoManager.swift */; };
+		889AE309258F6815008FD01B /* DDISTOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88830917258F644000F3877E /* DDISTOTP.swift */; };
+		889AE30D258F6817008FD01B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
+		889AE311258F6819008FD01B /* TOTPTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DAA8432572880A003E6A62 /* TOTPTimer.swift */; };
 		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
@@ -209,6 +212,7 @@
 		88578F73258D172800FAC971 /* MainViewLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewLinkManager.swift; sourceTree = "<group>"; };
 		88697B5D25729682008DA21B /* TOTPGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerationTests.swift; sourceTree = "<group>"; };
 		88697B6E257298BD008DA21B /* TOTPGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPGenerator.swift; sourceTree = "<group>"; };
+		88830917258F644000F3877E /* DDISTOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISTOTP.swift; sourceTree = "<group>"; };
 		8885FD42257F2B5D0013D794 /* DDISUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDISUser.swift; sourceTree = "<group>"; };
 		8885FD47257F2E7D0013D794 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8885FD55257F36120013D794 /* MockSettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSettingService.swift; sourceTree = "<group>"; };
@@ -714,6 +718,16 @@
 			path = Usecase;
 			sourceTree = "<group>";
 		};
+		88830910258F642000F3877E /* TOTP */ = {
+			isa = PBXGroup;
+			children = (
+				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
+				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
+				88830917258F644000F3877E /* DDISTOTP.swift */,
+			);
+			path = TOTP;
+			sourceTree = "<group>";
+		};
 		888E5CD6258551B2001D30DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,11 +739,10 @@
 		88937017256CFB6500337E2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				88830910258F642000F3877E /* TOTP */,
 				7C661930256CCAED0028E7C6 /* DaDaIkSeonApp.swift */,
 				7C7AC6C525863BD700C45D2E /* AppDelegate.swift */,
 				7CF48DD72572B775001E3639 /* ViewModel.swift */,
-				88DAA8432572880A003E6A62 /* TOTPTimer.swift */,
-				88697B6E257298BD008DA21B /* TOTPGenerator.swift */,
 				88938A702585488900D3945C /* TokenCryptoManager.swift */,
 				7CB524C0257BA2EF00302CAC /* StorageManager.swift */,
 				7C1DC3A62581F301008D9550 /* BiometricIDAuthManager.swift */,
@@ -1114,6 +1127,7 @@
 				8810D2B72588757400D79D6D /* MainNetworkResult.swift in Sources */,
 				888E5CE02585FE8B001D30DF /* SettingViewModel+Email.swift in Sources */,
 				7CF48DD82572B775001E3639 /* ViewModel.swift in Sources */,
+				88830918258F644000F3877E /* DDISTOTP.swift in Sources */,
 				882E9A53257D2F1000B066F3 /* CheckBoxHandler.swift in Sources */,
 				7CB524C1257BA2EF00302CAC /* StorageManager.swift in Sources */,
 				7CCDD2A2256E99F400150565 /* HeaderView.swift in Sources */,
@@ -1156,9 +1170,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				889AE30D258F6817008FD01B /* TOTPGenerator.swift in Sources */,
+				889AE309258F6815008FD01B /* DDISTOTP.swift in Sources */,
 				88697B5E25729682008DA21B /* TOTPGenerationTests.swift in Sources */,
-				88697B7625729B5F008DA21B /* TOTPGenerator.swift in Sources */,
 				8826F686257BF5FC00A16244 /* DDISTOTPGeneratorTests.swift in Sources */,
+				889AE311258F6819008FD01B /* TOTPTimer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -130,13 +130,14 @@ extension DDISTOTPGenerationTests {
         return paddingStringSize
     }
     
-    func decode32baseStringToData(url: String) throws -> Data { // o으로 채워진 빈 버퍼 어떻게 만들지 ?
+    func decode32baseStringToData(url: String) throws -> Data {
         
         var base32String = try extractKey(from: url)
         
         base32String = upper(string: base32String)
         
-        var targetArray = try stringTo5bitBinaryStringArray(base32String: base32String) // 5byte 단위로 나눠떨어짐.
+        var targetArray
+            = try stringTo5bitBinaryStringArray(base32String: base32String)
         
         var target = targetArray.joined()
         
