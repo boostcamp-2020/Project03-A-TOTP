@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class MockTokenService {
+final class MockTokenService: TokenServiceable {
+    func decryptTokenKeys(tokens: [Token], password: String?) -> MainNetworkResult {
+        return .failedEncryption
+    }
+    
     
     func refreshTokens(updateView: @escaping (MainNetworkResult) -> Void) {
         //

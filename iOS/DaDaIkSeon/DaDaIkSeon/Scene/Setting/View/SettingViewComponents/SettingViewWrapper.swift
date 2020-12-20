@@ -32,7 +32,7 @@ struct SettingViewWrapper<Content: View>: View {
                     leading: Button(action: {
                         linkManager.change(.main)
                     }, label: {
-                        Text("완료").foregroundColor(.black)
+                        Text("완료").foregroundColor(.button)
                     }),
                     trailing: Button(action: {
                     }, label: {

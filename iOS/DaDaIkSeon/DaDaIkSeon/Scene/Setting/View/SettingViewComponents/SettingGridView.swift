@@ -50,7 +50,7 @@ struct SettingGridView<Rows: View>: View {
     }
     
     var backGround: some View {
-        Rectangle().fill(titleColor)
+        Rectangle().fill(Color.bgColor)
             .cornerRadius(15)
     }
 }

@@ -20,7 +20,7 @@ struct SettingToggleView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 50)
                 .fill( isOn ? Color.green
-                        :Color(UIColor.systemGray5)
+                        :Color(UIColor.systemGray3)
                 )
                 .frame(width: 50, height: 30)
             Circle().fill(Color.white)
