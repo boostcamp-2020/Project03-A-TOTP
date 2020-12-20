@@ -97,7 +97,7 @@
 		889AE309258F6815008FD01B /* DDISTOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88830917258F644000F3877E /* DDISTOTP.swift */; };
 		889AE30D258F6817008FD01B /* TOTPGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88697B6E257298BD008DA21B /* TOTPGenerator.swift */; };
 		889AE311258F6819008FD01B /* TOTPTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DAA8432572880A003E6A62 /* TOTPTimer.swift */; };
-		889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* CodeScanner */; };
+		889CEAB7256FD336001A1D6F /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 889CEAB6256FD336001A1D6F /* SwiftPackageProductDependency */; };
 		889CEABC256FDE2C001A1D6F /* QRGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889CEABB256FDE2B001A1D6F /* QRGuideView.swift */; };
 		889F67D4257F408300CFFFB0 /* SettingViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D3257F408300CFFFB0 /* SettingViewWrapper.swift */; };
 		889F67D9257F455500CFFFB0 /* SettingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F67D8257F455500CFFFB0 /* SettingGridView.swift */; };
@@ -255,7 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				889CEAB7256FD336001A1D6F /* CodeScanner in Frameworks */,
+				889CEAB7256FD336001A1D6F /* BuildFile in Frameworks */,
 				8FB143B0B01FA7993CFEAC9C /* Pods_DaDaIkSeon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -821,7 +821,6 @@
 				7C66192A256CCAED0028E7C6 /* Frameworks */,
 				7C66192B256CCAED0028E7C6 /* Resources */,
 				7C7DC4DA256CD47B0089CD68 /* ShellScript */,
-				1FF3AB2F8B59E4824D475AE1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -829,7 +828,7 @@
 			);
 			name = DaDaIkSeon;
 			packageProductDependencies = (
-				889CEAB6256FD336001A1D6F /* CodeScanner */,
+				889CEAB6256FD336001A1D6F /* SwiftPackageProductDependency */,
 			);
 			productName = DaDaIkSeon;
 			productReference = 7C66192D256CCAED0028E7C6 /* DaDaIkSeon.app */;
@@ -862,7 +861,6 @@
 				7C661945256CCAF20028E7C6 /* Sources */,
 				7C661946256CCAF20028E7C6 /* Frameworks */,
 				7C661947256CCAF20028E7C6 /* Resources */,
-				FDF7D914DA5224B4E73FC658 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -906,7 +904,7 @@
 			);
 			mainGroup = 7C661924256CCAED0028E7C6;
 			packageReferences = (
-				889CEAB5256FD336001A1D6F /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				889CEAB5256FD336001A1D6F /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 7C66192E256CCAED0028E7C6 /* Products */;
 			projectDirPath = "";
@@ -947,23 +945,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1FF3AB2F8B59E4824D475AE1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DaDaIkSeon/Pods-DaDaIkSeon-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5F61C169C8A7711A65570044 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1045,23 +1026,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FDF7D914DA5224B4E73FC658 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DaDaIkSeon-DaDaIkSeonUITests/Pods-DaDaIkSeon-DaDaIkSeonUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1498,7 +1462,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		889CEAB5256FD336001A1D6F /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+		889CEAB5256FD336001A1D6F /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
@@ -1509,9 +1473,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		889CEAB6256FD336001A1D6F /* CodeScanner */ = {
+		889CEAB6256FD336001A1D6F /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 889CEAB5256FD336001A1D6F /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			package = 889CEAB5256FD336001A1D6F /* RemoteSwiftPackageReference */;
 			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
