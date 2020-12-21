@@ -20,4 +20,3 @@ assignees: 'jjm159, eojine'
 ## :lock: 관련 이슈(닫을 이슈)
 
 - close #issueNumber
-
