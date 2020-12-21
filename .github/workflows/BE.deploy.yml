@@ -1,0 +1,74 @@
+name: BE Deployment
+
+on:
+  push:
+    branches:
+      - release-BE
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Npm Install
+        working-directory: ./WEB/BE
+        run: npm install
+
+      - name: Make envfile
+        working-directory: ./WEB/BE
+        run: |
+          touch .env
+          echo NODE_ENV = production >> .env
+          echo DBUSER = ${{ secrets.ENV_DBUSER }} >> .env
+          echo DBPASS = ${{ secrets.ENV_DBPASS }} >> .env
+          echo DBHOST = localhost >> .env
+          echo DBDATABASEWEB = ${{ secrets.ENV_DBDATABASEWEB }} >> .env
+          echo DBDATABASEiOS = ${{ secrets.ENV_DBDATABASEiOS }} >> .env
+          echo SALTROUNDS = ${{ secrets.ENV_SALTROUNDS }} >> .env
+          echo ENCRYPTIONKEY = ${{ secrets.ENV_ENCRYPTIONKEY }} >> .env
+          echo SECRETKEYNAME = ${{ secrets.ENV_SECRETKEYNAME }} >> .env
+          echo SECRETKEYALGORITHM = ${{ secrets.ENV_SECRETKEYALGORITHM }} >> .env
+          echo SECRETKEYLABEL = ${{ secrets.ENV_SECRETKEYLABEL }} >> .env
+          echo RECAPTCHAKEY = ${{ secrets.ENV_RECAPTCHAKEY }} >> .env
+          echo EMAILURL = ${{ secrets.ENV_EMAILURL }} >> .env
+          echo EMAILACCESSKEY = ${{ secrets.ENV_EMAILACCESSKEY }} >> .env
+          echo EMAILSECRETKEY = ${{ secrets.ENV_EMAILSECRETKEY }} >> .env
+          echo SESSIONKEY = ${{ secrets.ENV_SESSIONKEY }} >> .env
+          cat .env
+
+      - name: Deploy to Express Server
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete-after
+          path: WEB/BE/
+          remote_path: ~/TOTP/
+          remote_host: ${{ secrets.BE_HOST }}
+          remote_user: ${{ secrets.BE_USERNAME }}
+          remote_key: ${{ secrets.BE_KEY }}
+          remote_port: ${{ secrets.BE_PORT }}
+
+      - name: Restart Forever
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.BE_HOST }}
+          username: ${{ secrets.BE_USERNAME }}
+          key: ${{ secrets.BE_KEY }}
+          port: ${{ secrets.BE_PORT }}
+          script: forever restartall
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: 'DDIS Bot'
