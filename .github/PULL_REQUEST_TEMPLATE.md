@@ -1,3 +1,11 @@
+---
+name: iOS PR
+about: iOS PR 템플릿
+title: '[iOS] '
+labels: iOS
+assignees: 'jjm159, eojine'
+---
+
 ## :white_check_mark: 작업 내용
 
 - Todo1
