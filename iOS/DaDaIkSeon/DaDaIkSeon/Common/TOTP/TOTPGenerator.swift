@@ -9,13 +9,6 @@ import Foundation
 
 final class TOTPGenerator {
     
-    static var table: [String: UInt8] = [
-        "A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6, "H": 7,
-        "I": 8, "J": 9, "K": 10, "L": 11, "M": 12, "N": 13, "O": 14, "P": 15,
-        "Q": 16, "R": 17, "S": 18, "T": 19, "U": 20, "V": 21, "W": 22, "X": 23,
-        "Y": 24, "Z": 25, "2": 26, "3": 27, "4": 28, "5": 29, "6": 30, "7": 31
-    ]
-    
     static func generate(from key: String) -> String? {
         var keyData: Data
         do {
@@ -48,72 +41,93 @@ final class TOTPGenerator {
         return nil
     }
     
+    static var table: [String: UInt8] = [
+        "A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6, "H": 7,
+        "I": 8, "J": 9, "K": 10, "L": 11, "M": 12, "N": 13, "O": 14, "P": 15,
+        "Q": 16, "R": 17, "S": 18, "T": 19, "U": 20, "V": 21, "W": 22, "X": 23,
+        "Y": 24, "Z": 25, "2": 26, "3": 27, "4": 28, "5": 29, "6": 30, "7": 31,
+        "=": 0 // 이거 없으면 패딩있는 base32 스트링이 인풋으로 들어왔을 때 에러
+    ]
+    
     static func decode32baseStringToData(base32String: String) throws -> Data {
-        var base32String = base32String
-        base32String = upper(string: base32String)
         
-        var targetArray
-            = try stringTo5bitBinaryStringArray(base32String: base32String)
+        let base32String = base32String.uppercased()
         
-        var target = targetArray.joined()
-        
-        let paddingSize = try getPaddingStringSize(from: base32String) // test
-        
-        (0..<paddingSize).forEach { _ in
-            target.removeLast()
-        }
-        print("target", target)
-        
-        var resultArray = Array<UInt8>()
-        try (0..<target.count / 8).forEach { _ in
-            let lastIndex = target.index(target.startIndex, offsetBy: 8)
-            let subString = String(target[target.startIndex..<lastIndex])
-            target.removeSubrange(target.startIndex..<lastIndex)
-            guard let resultInteger = UInt8(subString, radix: 2) else {
-                throw TOTPGeneratorError.stringToUInt8Error
-            }
-            resultArray.append(resultInteger)
-        }
-        
-        return Data(resultArray)
-    }
-    
-    static func upper(string: String) -> String {
-        string.uppercased()
-    }
-    
-    static func stringTo5bitBinaryStringArray(base32String: String) throws -> [String] {
-        return try base32String.map {
-            guard let number = table[String($0)] else {
+        var decoded5bitDataArray: [UInt8] = try base32String.map {
+            if let uIntValue = table[String($0)] {
+                return uIntValue
+            } else {
                 throw TOTPGeneratorError.outOf32TableError
             }
-            let binaryString = String(number, radix: 2)
-            var prefixedZeros = String(repeatElement("0", count: (8 - binaryString.count))) + binaryString
-            let lastIndex = prefixedZeros.index(prefixedZeros.startIndex, offsetBy: 3)
-            prefixedZeros.removeSubrange(prefixedZeros.startIndex..<lastIndex)
-            return prefixedZeros
+        }
+        
+        // 5bit array 이어붙이기
+        var decoded8bitDataArray = concatenate(from: decoded5bitDataArray)
+        
+        // 패딩 개수 만큼 제거
+        let lastGroupRange = base32String.index(base32String.endIndex, offsetBy: -8)...
+        let lastGroupString = base32String[lastGroupRange]
+        let paddingSize = calculatePaddingSize(from: String(lastGroupString))
+        
+        let removeRange = decoded8bitDataArray.index(decoded8bitDataArray.endIndex, offsetBy: -paddingSize)
+        decoded8bitDataArray.removeSubrange(removeRange...)
+        
+        return Data(decoded8bitDataArray)
+    }
+    
+    //static func lastGroup
+    
+    private static func calculatePaddingSize(from string: String) -> Int {
+        let count = string.filter { $0 == "=" }.count
+        switch count {
+        case 1: return 1
+        case 3: return 2
+        case 4: return 3
+        case 6: return 4
+        default: return 0
         }
     }
     
-    static func paddingSize(string: String) -> Int {
-        string.filter { $0 == "=" }.count
+    private static func concatenate(from array: [UInt8]) -> [UInt8] {
+        var resultArray = [UInt8]()
+        
+        (0..<array.count / 8).forEach { groupSize in
+            let groupIndex = groupSize * 8
+            resultArray.append(contentsOf: [
+                firstByte(first: array[groupIndex + 0], second: array[groupIndex + 1]),
+                secondByte(second: array[groupIndex + 1], third: array[groupIndex + 2], fourth: array[groupIndex + 3]),
+                thirdByte(fourth: array[groupIndex + 3], fifth: array[groupIndex + 4]),
+                fourthByte(fifth: array[groupIndex + 4], sixth: array[groupIndex + 5], seventh: array[groupIndex + 6]),
+                fifthByte(seventh: array[groupIndex + 6], eighth: array[groupIndex + 7])
+            ])
+        }
+        
+        return resultArray
     }
     
-    static func getPaddingStringSize(from base32String: String) throws -> Int {
-        
-        var paddingStringSize = 0
-        
-        if base32String.hasSuffix("=") {
-            let number = paddingSize(string: base32String) // 패딩 그룹 string만 넘겨주는 걸로 바꾸기
-            switch number {
-            case 1: paddingStringSize = 8
-            case 3: paddingStringSize = 16
-            case 4: paddingStringSize = 24
-            case 6: paddingStringSize = 32
-            default: throw TOTPGeneratorError.bufferSizeError
-            }
-        }
-        return paddingStringSize
+    // 첫글자 전부(0b00011111) + 두번째글짜의 앞 3비트(0b11111100)
+    private static func firstByte(first: UInt8, second: UInt8) -> UInt8 {
+        (first & 0b00011111) << 3 + (second & 0b00011100) >> 2
+    }
+
+    // 두번째 글자의 뒤 2비트(0b00011111) + 세번째 글자 전부(5개 비트)+ 네번째 글자의 맨 앞 1비트
+    private static func secondByte(second: UInt8, third: UInt8, fourth: UInt8) -> UInt8 {
+        ((second & 0b00000011) << 6) + (third << 1) + (fourth & 0b00010000) >> 4
+    }
+
+    // 네번째 글자의 4비트 + 다섯번째글자의 앞 4비트
+    private static func thirdByte(fourth: UInt8, fifth: UInt8) -> UInt8  {
+        (fourth & 0b00001111) << 4 + ((fifth & 0b00011110) >> 1)
+    }
+
+    // 다섯번째 글자의 1비트 + 여섯번째 글자 + 일곱번째 글자의 앞 2비트
+    private static func fourthByte(fifth: UInt8, sixth: UInt8, seventh: UInt8) -> UInt8 {
+        ((fifth & 0b00000001) << 7) + (sixth << 2) + ((seventh & 0b00011000) >> 3)
+    }
+
+    // 일곱번째 글자의 3비트 + 여덟번째 글자의 5비트
+    private static func fifthByte(seventh: UInt8, eighth: UInt8) -> UInt8 {
+        (seventh & 0b00000111) << 5 + eighth & 0b00011111
     }
     
     enum TOTPGeneratorError: Error {
