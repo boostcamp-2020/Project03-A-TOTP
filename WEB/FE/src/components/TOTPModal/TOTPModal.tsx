@@ -82,7 +82,7 @@ const TOTPModal = ({
           </Description>
           <Form onSubmit={onSubmitForm}>
             <OTPInput otp={TOTP} onChange={onChange} hasErrored={hasErrored} isDisabled={disabled} />
-            <button type='submit'>hudden button</button>
+            <button type='submit'>hidden button</button>
           </Form>
           <ButtonContainer>
             <Button

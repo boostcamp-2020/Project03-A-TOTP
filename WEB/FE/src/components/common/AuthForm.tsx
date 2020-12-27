@@ -30,23 +30,18 @@ interface AuthFormProps {
   disabled?: boolean;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({
-  children,
-  title,
-  action,
-  onSubmit,
-  submitButtonText,
-  disabled = false,
-}) => {
-  return (
-    <Form action={action} method='POST' onSubmit={onSubmit}>
-      <Title>{title}</Title>
-      {children}
-      <ButtonContainer>
-        <Button htmlType='submit' text={submitButtonText} block disabled={disabled} />
-      </ButtonContainer>
-    </Form>
-  );
-};
+const AuthForm: React.FC<AuthFormProps> = React.memo(
+  ({ children, title, action, onSubmit, submitButtonText, disabled = false }) => {
+    return (
+      <Form action={action} method='POST' onSubmit={onSubmit}>
+        <Title>{title}</Title>
+        {children}
+        <ButtonContainer>
+          <Button htmlType='submit' text={submitButtonText} block disabled={disabled} />
+        </ButtonContainer>
+      </Form>
+    );
+  },
+);
 
 export { AuthForm };

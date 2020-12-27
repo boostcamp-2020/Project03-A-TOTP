@@ -18,7 +18,7 @@ interface Props {
   buttonEvent?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>;
 }
 
-const DefaultInput = ({
+const DefaultInputComp = ({
   value,
   type,
   showExplanation,
@@ -36,9 +36,11 @@ const DefaultInput = ({
   );
 };
 
-DefaultInput.defaultProps = {
+DefaultInputComp.defaultProps = {
   buttonEvent: undefined,
   showExplanation: false,
 };
+
+const DefaultInput = React.memo(DefaultInputComp);
 
 export default DefaultInput;

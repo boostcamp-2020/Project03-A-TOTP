@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { LogInForm } from '@components/LogIn/LogInForm';
 import { TOTPModal } from '@components/TOTPModal/TOTPModal';
 import { loginWithOTP, sendSecretKeyEmail } from '@api/index';
@@ -13,16 +13,16 @@ const LogInContainer = ({}: LogInContainerProps): JSX.Element => {
   const history = useHistory();
   const [authToken, setAuthToken] = useState('');
 
-  const onSuccessLogInWithPassword = (authToken: string) => {
+  const onSuccessLogInWithPassword = useCallback((authToken: string) => {
     setAuthToken(authToken);
     openModal();
-  };
+  }, []);
 
-  const successLoginHandler = ({ userName }: { userName: string }) => {
+  const successLoginHandler = useCallback(({ userName }: { userName: string }) => {
     alert(message.SIGNINSUCCESS);
     storageHandler.set(userName);
     history.replace('/');
-  };
+  }, []);
 
   const reIssueHandler = (reCaptchaToken: string) =>
     sendSecretKeyEmail({ authToken, reCaptchaToken }).then(() => alert(message.EMAILSECRETKEYSUCCESS));

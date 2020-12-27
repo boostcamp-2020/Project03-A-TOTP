@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { message } from '@utils/message';
 
@@ -33,20 +33,20 @@ const useTOTPModal = ({ reIssueHandler, submitHandler }: useTOTPModalProps): use
 
   const openModal = () => setIsModalOpen(true);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setTOTP('');
     setHasTOTPModalError(false);
     setModalDisabled(false);
     setIsModalOpen(false);
     setErrorMsg('');
-  };
+  }, []);
 
-  const handleError = (errMsg: string) => {
+  const handleError = useCallback((errMsg: string) => {
     setHasTOTPModalError(true);
     setErrorMsg(errMsg);
-  };
+  }, []);
 
-  const onReIssueQRCode = () => {
+  const onReIssueQRCode = useCallback(() => {
     setHasTOTPModalError(false);
     setModalDisabled(true);
     if (window.confirm('QR 재등록 Email을 전송하시겠습니까? \n이전에 사용된 OTP 정보는 삭제됩니다.')) {
@@ -55,9 +55,9 @@ const useTOTPModal = ({ reIssueHandler, submitHandler }: useTOTPModalProps): use
         .catch((err: any) => handleError(err.response?.data?.message || err.message))
         .finally(() => setModalDisabled(false));
     }
-  };
+  }, [reIssueHandler]);
 
-  const onSubmitOTP = () => {
+  const onSubmitOTP = useCallback(() => {
     setHasTOTPModalError(false);
     if (TOTP.length < TOTP_LEN) {
       handleError('전부 입력해 주세요~');
@@ -74,7 +74,7 @@ const useTOTPModal = ({ reIssueHandler, submitHandler }: useTOTPModalProps): use
         handleError(err.response?.data?.message || err.message);
         setModalDisabled(false);
       });
-  };
+  }, [TOTP, submitHandler]);
 
   return {
     isModalOpen,

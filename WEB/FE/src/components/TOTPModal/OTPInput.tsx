@@ -26,7 +26,7 @@ const ErrorStyle: CSS.Properties = {
   border: '1px solid #ff4d4f',
 };
 
-function OTPInput({ otp, onChange, hasErrored, isDisabled }: OTPInputProps): JSX.Element {
+function OtpInput({ otp, onChange, hasErrored, isDisabled }: OTPInputProps): JSX.Element {
   return (
     <ReactOtpInput
       value={otp}
@@ -43,9 +43,11 @@ function OTPInput({ otp, onChange, hasErrored, isDisabled }: OTPInputProps): JSX
   );
 }
 
-OTPInput.defaultProps = {
+OtpInput.defaultProps = {
   hasErrored: false,
   isDisabled: false,
 };
+
+const OTPInput = React.memo(OtpInput);
 
 export { OTPInput };
